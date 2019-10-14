@@ -5,8 +5,8 @@
 class Company
 {
 public:
-	company();
-	~company();
+	Company();
+	~Company();
 
 
 

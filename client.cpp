@@ -1,6 +1,6 @@
 #include "client.h"
 
-Client::client(string name, unsigned int id, unsigned int nif, vector<service*> services): name(name), nif(nif), services(services) {
+Client::Client(string name, unsigned int id, unsigned int nif, vector<Service*> services): name(name), nif(nif), services(services) {
 	//if (!verifyName(const string & name))
 	//	throw exception;
 
@@ -11,18 +11,18 @@ Client::client(string name, unsigned int id, unsigned int nif, vector<service*> 
 
 
 
-~client();
+~Client();
 
 //get methods
 string getName() const;
 unsigned getNif() const;
-void getServicesVector(vector<service*>* services) const;
+void getServicesVector(vector<Service*>* services) const;
 
 //set methods
 void setName(string name);
 void setNif(unsigned nif);
 
 //add methods
-void addService(service* service);
+void addService(Service* service);
 
 

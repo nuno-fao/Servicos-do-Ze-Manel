@@ -3,8 +3,8 @@
 class Truck
 {
 public:
-	truck();
-	~truck();
+	Truck();
+	~Truck();
 
 private:
 

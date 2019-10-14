@@ -3,8 +3,8 @@
 class Service
 {
 public:
-	service();
-	~service();
+	Service();
+	~Service();
 
 private:
 
