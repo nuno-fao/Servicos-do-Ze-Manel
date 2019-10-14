@@ -27,13 +27,13 @@
     <ClCompile Include="service.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Servicos_do_Ze_Manel.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="truck.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="misc.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Servicos-do-Ze-Manel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
