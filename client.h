@@ -5,7 +5,7 @@
 #include "service.h"
 using namespace std;
 
-class client
+class Client
 {
 public:
 	client();

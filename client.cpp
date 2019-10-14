@@ -1,11 +1,12 @@
 #include "client.h"
 
-Client::client() {};
-Client::client(string name, unsigned int id, unsigned int nif) {
-	name = 
-	
-	id = last_id + 1;
-	last_id = id;
+Client::client(string name, unsigned int id, unsigned int nif, vector<service*> services): name(name), nif(nif), services(services) {
+	//if (!verifyName(const string & name))
+	//	throw exception;
+
+
+	this->id = last_ id + 1;
+	last_id++;
 }
 
 
@@ -23,3 +24,5 @@ void setNif(unsigned nif);
 
 //add methods
 void addService(service* service);
+
+

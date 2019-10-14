@@ -1,6 +1,6 @@
 #pragma once
 
-class truck
+class Truck
 {
 public:
 	truck();
