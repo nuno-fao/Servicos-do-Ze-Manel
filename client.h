@@ -14,14 +14,19 @@ public:
 	//get methods
 	string getName() const;
 	unsigned getNif() const;
-	void getServicesVector(vector<Service*>* services) const;
+	void getServicesVector(vector<Service*> *services) const;
 
 	//set methods
 	void setName(string name);
 	void setNif(unsigned nif);
 	
 	//add methods
-	void addService(Service* service);
+	void addService(Service *service);
+
+
+	ostream& operator<<(ostream& out, const Client& client) const; 
+
+	bool operator== (const Client& client1, const Client& client2) const;
 
 private:
 	string name;
