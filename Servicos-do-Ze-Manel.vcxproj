@@ -103,7 +103,7 @@
     <ClCompile Include="date.cpp" />
     <ClCompile Include="misc.cpp" />
     <ClCompile Include="service.cpp" />
-    <ClCompile Include="Servicos_do_Ze_Manel.cpp" />
+    <ClCompile Include="Servicos-do-Ze-Manel.cpp" />
     <ClCompile Include="truck.cpp" />
   </ItemGroup>
   <ItemGroup>
