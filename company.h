@@ -2,7 +2,7 @@
 #include <client.h>
 #include
 
-class company
+class Company
 {
 public:
 	company();

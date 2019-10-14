@@ -5,7 +5,7 @@
 #include "service.h"
 using namespace std;
 
-class client
+class Client
 {
 public:
 	client();
@@ -25,7 +25,8 @@ public:
 
 private:
 	string name;
-	unsigned nif;
+	const unsigned int id;
+	unsigned int nif;
 	vector<service*> services;
-	static int last_id;
+	static int last_id = 0;
 };
