@@ -33,19 +33,19 @@ void Service::setOrigin(string origin){
     this->origin=origin;
 }
 void Service::setDestination(string destination){
-
+    this->destination=destination;
 }
 void Service::setTime(double time){
-
+    this->time=time;
 }
 void Service::setDistance(unsigned distance){
-
+    this->distance=distance;
 }
 void Service::setType(enum type type){
-
+    this->type=type;
 }
 void Service::setState(enum state state){
-
+    this->state=state;
 }
 
 void Service::addTruck(Truck *truck){
