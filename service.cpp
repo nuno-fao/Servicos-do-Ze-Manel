@@ -1,54 +1,54 @@
 #include "service.h"
 
-service::service(string origin,string destination,double time,unsigned distance,enum type type, enum state state)
+Service::Service(string origin,string destination,double time,unsigned distance,enum type type, enum state state)
     : origin(origin),destination(destination), time(time), distance(distance),type(type), state(state)
 {
     id=lastId++;
 }
 
-string service::getOrigin() const{
+string Service::getOrigin() const{
     return origin;
 }
-string service::getDestination() const{
+string Service::getDestination() const{
     return destination;
 }
-double service::getTime() const{
+double Service::getTime() const{
     return time;
 }
-unsigned service::getDistance() const{
+unsigned Service::getDistance() const{
     return distance;
 }
-type service::getType() const{
+type Service::getType() const{
     return type;
 }
-unsigned int service::getId() const{
+unsigned int Service::getId() const{
     return id;
 }
-state service::getState(){
+state Service::getState(){
     return state;
 }
 
 //set methods
-void service::setOrigin(string origin){
+void Service::setOrigin(string origin){
     this->origin=origin;
 }
-void service::setDestination(string destination){
+void Service::setDestination(string destination){
 
 }
-void service::setTime(double time){
+void Service::setTime(double time){
 
 }
-void service::setDistance(unsigned distance){
+void Service::setDistance(unsigned distance){
 
 }
-void service::setType(enum type type){
+void Service::setType(enum type type){
 
 }
-void service::setState(enum state state){
+void Service::setState(enum state state){
 
 }
 
-void service::addTruck(truck *truck){
+void Service::addTruck(Truck *truck){
 
 }
 #include "service.h"
