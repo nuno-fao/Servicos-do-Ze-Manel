@@ -1,17 +1,22 @@
 #include "client.h"
 
-Client::Client(string name, unsigned int id, unsigned int nif, vector<Service*> services): name(name), nif(nif), services(services) {
+
+unsigned int Client::lastId=0;
+
+Client::Client(string name, unsigned int nif, vector<Service *> &services): name(name),id(lastId), nif(nif),  services(services) {
 	//if (!verifyName(const string & name))
 	//	throw exception;
 
 
-	this->id = last_ id + 1;
-	last_id++;
+    //this->id = last_id + 1;
+    lastId++;
 }
 
 
 
-~Client();
+Client::~Client(){
+
+}
 
 //get methods
 string Client::getName() const { return name; }
@@ -19,11 +24,15 @@ unsigned Client::getNif() const { return nif; }
 //void getServicesVector(vector<Service*> *services) const;
 
 //set methods
-void setName(string name) : name(name) {}
-void setNif(unsigned nif): nif(nif) {}
+void Client::setName(string name){
+    this->name=name;
+}
+void Client::setNif(unsigned nif){
+    this->nif=nif;
+}
 
 //add methods
-void addService(Service *service){
+void Client::addService(Service *service){
 	services.push_back(service);
 }
 
@@ -122,7 +131,7 @@ void addService(Service *service){
 //	cout << "*********************************" << endl;
 //}
 
-
+/*
 ostream& operator<<(ostream& out, const Client& client) {
 	out << "*********************************" << endl;
 	out << "Name:" << client.name << endl;
@@ -140,4 +149,5 @@ ostream& operator<<(ostream& out, const Client& client) {
 bool Client::operator==(const Client& client1, const Client& client2) {
 	return client1.getName() == client2.getName() && client1.getnif() == client2.getnif() && client1.getServicesVector() == client2.getServicesVector();
 }
+*/
 

@@ -4,6 +4,10 @@
 #include "service.h"
 using namespace std;
 
+class Service;
+class Client;
+class Truck;
+
 class Truck
 {
 protected:
@@ -13,7 +17,7 @@ protected:
 	vector<Service*> assignedServices;
 public:
 	Truck();
-	~Truck();
+    ~Truck(){}
 
 };
 
@@ -33,7 +37,7 @@ class HazardousMat : public Truck
 {
 public:
 	HazardousMat();
-	HazardousMat();
+    ~HazardousMat();
 
 private:
 	float pricePerKG;

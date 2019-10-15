@@ -1,10 +1,18 @@
 #include "service.h"
 
-Service::Service(string origin, string destination, double time, unsigned distance, enum type type, enum state state, Date date, Client client)
-    : origin(origin),destination(destination), time(time), distance(distance),type(type), state(state)
+
+unsigned int Service::lastId=0;
+
+Service::Service(string origin, string destination, double time, unsigned distance, enum type type, enum state state, Date date, Client *client)
+    : origin(origin),destination(destination), time(time), distance(distance),ser_type(type), ser_state(state)
 {
     id=lastId++;
     setDate(date);
+    setClient(client);
+
+}
+
+Service::~Service(){
 
 }
 
@@ -21,13 +29,13 @@ unsigned Service::getDistance() const{
     return distance;
 }
 type Service::getType() const{
-    return type;
+    return ser_type;
 }
 unsigned int Service::getId() const{
     return id;
 }
 state Service::getState(){
-    return state;
+    return ser_state;
 }
 Date Service::getDate(){
     return initialDate;
@@ -51,16 +59,16 @@ void Service::setDistance(unsigned distance){
     this->distance=distance;
 }
 void Service::setType(enum type type){
-    this->type=type;
+    this->ser_type=type;
 }
 void Service::setState(enum state state){
-    this->state=state;
+    this->ser_state=state;
 }
 void Service::setDate(Date date){
     initialDate=Date(date);
 }
 void Service::setClient(Client *client){
-    *client=Client(*client);
+    this->client=client;
 }
 
 void Service::addTruck(Truck *truck){

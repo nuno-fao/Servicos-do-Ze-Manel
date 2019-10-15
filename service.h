@@ -8,8 +8,12 @@
 
 using namespace std;
 
+class Service;
+class Client;
+class Truck;
+
 enum type {
-    red, green, blue
+    ordinary,hazardous,animal,lowTemperature
 };
 
 enum state {
@@ -19,9 +23,8 @@ enum state {
 class Service
 {
 public:
-    Service(string origin, string destination, double time, unsigned distance, type type, state state, Date date,Client client);
+    Service(string origin, string destination, double time, unsigned distance, type type, state state, Date date,Client *client);
     ~Service();
-    static unsigned int lastId;
 
     //get methods
     string getOrigin() const;
@@ -51,15 +54,14 @@ private:
     string destination;
     double time;
     unsigned distance;
-    type type;
+    type ser_type;
     unsigned int id;
     vector<Truck*> trucks;
     //static unsigned int lastId;
-    state state;
+    state ser_state;
     Date initialDate;
     Client *client;
+    static unsigned int lastId;
 
 
 };
-
-unsigned int Service::lastId=0;

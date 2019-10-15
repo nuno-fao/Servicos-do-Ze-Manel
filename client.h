@@ -5,11 +5,15 @@
 #include "service.h"
 using namespace std;
 
+class Service;
+class Client;
+class Truck;
+
 class Client
 {
 public:
-	Client();
-	~Client();
+    Client(string name, unsigned int nif, vector<Service *> &services);
+    ~Client();
 
 	//get methods
 	string getName() const;
@@ -24,14 +28,16 @@ public:
 	void addService(Service *service);
 
 
-	ostream& operator<<(ostream& out, const Client& client) const; 
+    //ostream& operator<<(ostream& out, const Client& client) const;
 
-	bool operator== (const Client& client1, const Client& client2) const;
+    //bool operator == (const Client& client1, const Client& client2) const;
 
 private:
 	string name;
-	const unsigned int id;
+    unsigned int id;
 	unsigned int nif;
 	vector<Service*> services;
-	static int last_id = 0;
+    static unsigned int lastId;
+
 };
+
