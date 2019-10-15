@@ -13,16 +13,14 @@ This function receives a name and returns true if it is valid
 */
 
 bool verifyName(const string &name) {
-	bool valid = true;
 
 	for (unsigned int i = 0; i < name.size(); i++){	
-		if (!(stoi(name[i]).isdigit())) {
-			valid = false;
-			break;
+        if (!isdigit(name.at(i))) {
+            return  false;
 		}
 	}
 
-	return valid;
+    return true;
 }
 
 

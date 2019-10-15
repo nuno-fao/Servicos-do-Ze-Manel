@@ -1,9 +1,11 @@
 #include "service.h"
 
-Service::Service(string origin,string destination,double time,unsigned distance,enum type type, enum state state)
+Service::Service(string origin, string destination, double time, unsigned distance, enum type type, enum state state, Date date, Client client)
     : origin(origin),destination(destination), time(time), distance(distance),type(type), state(state)
 {
     id=lastId++;
+    setDate(date);
+
 }
 
 string Service::getOrigin() const{
@@ -27,6 +29,13 @@ unsigned int Service::getId() const{
 state Service::getState(){
     return state;
 }
+Date Service::getDate(){
+    return initialDate;
+}
+
+Client *Service::getClient(){
+    return client;
+}
 
 //set methods
 void Service::setOrigin(string origin){
@@ -47,8 +56,13 @@ void Service::setType(enum type type){
 void Service::setState(enum state state){
     this->state=state;
 }
+void Service::setDate(Date date){
+    initialDate=Date(date);
+}
+void Service::setClient(Client *client){
+    *client=Client(*client);
+}
 
 void Service::addTruck(Truck *truck){
-
+    this->trucks.push_back(truck);
 }
-#include "service.h"
