@@ -35,6 +35,5 @@ int main()
     for(auto x:cv1){
         cout<<x->getTime()<<endl;
     }
-
 	return 0;
 }
