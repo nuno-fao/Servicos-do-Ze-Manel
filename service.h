@@ -13,7 +13,7 @@ class Client;
 class Truck;
 
 enum type {
-    ordinary,hazardous,animal,lowTemperature
+    ordinary=0,hazardous=1,animal=2,lowTemperature=3
 };
 
 enum state {
@@ -52,6 +52,7 @@ public:
 
     //file methods
     static void saveToFile(vector<Service*>*services);
+    static void loadFromFile(vector<Service *> *services);
 
 private:
     string origin;

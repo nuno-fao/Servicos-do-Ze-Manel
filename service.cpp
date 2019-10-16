@@ -1,6 +1,6 @@
 #include "service.h"
 #include <fstream>
-
+#include "misc.h"
 
 unsigned int Service::lastId=0;
 
@@ -84,18 +84,90 @@ void Service::saveToFile(vector<Service*>*services){
     ofstream servicesFile;
     servicesFile.open ("services.txt");
     for(auto x:*services){
-         servicesFile << x->getOrigin()<<endl;
-         servicesFile << x->getDestination()<<endl;
-         servicesFile << to_string(x->getTime())<<endl;
-         servicesFile << to_string(x->getDistance())<<endl;
-         servicesFile << to_string(x->getType())<<endl;
-         servicesFile << to_string(x->getId())<<endl;
-         for(auto i: *x->getTrucks()){
-             //servicesFile << i->getId() <<";";
-         }
-         servicesFile << endl << to_string(x->getState())<<endl;
-         servicesFile << x->getDate().getDate() <<endl;
-         servicesFile << x->getClient()->getNif() << endl;
-         servicesFile << ":::::::::::"<<endl;
+        servicesFile << x->getOrigin()<<endl;
+        servicesFile << x->getDestination()<<endl;
+        servicesFile << to_string(x->getTime())<<endl;
+        servicesFile << to_string(x->getDistance())<<endl;
+        servicesFile << to_string(x->getType())<<endl;
+        servicesFile << to_string(x->getId())<<endl;
+        for(auto i: *x->getTrucks()){
+            //servicesFile << i->getId() <<";";
+        }
+        servicesFile << endl << to_string(x->getState())<<endl;
+        servicesFile << x->getDate().getDate() <<endl;
+        servicesFile << x->getClient()->getNif() << endl;
+        servicesFile << ":::::::::::"<<endl;
     }
+}
+
+type intToEnum(int a){
+    switch (a) {
+    case 0: return ordinary;
+    case 1: return hazardous;
+    case 2: return animal;
+    case 3: return lowTemperature;
+    default: return ordinary;
+    }
+}
+state intToState(int a){
+    switch (a) {
+    case 0: return on_queue;
+    case 1: return onTransit;
+    case 2: return finished;
+    default: return finished;
+    }
+}
+
+Client *findClient(int nif){
+    vector<Service *> t;
+    Client *temp=new Client("ola",nif,t);
+    return temp;
+}
+
+void Service::loadFromFile(vector<Service*> *services){
+    ifstream servicesFile;
+    servicesFile.open("services.txt");
+    string tempOrigin;
+    string tempDestination;
+    double tempTime;
+    double tempDistance;
+    type tempType;
+    string vector;
+    state tempState;
+    string tempDate;
+    string tempNif;
+    string tempGeneral;
+
+    while(getline(servicesFile,tempOrigin)){
+        getline(servicesFile,tempDestination);
+
+        getline(servicesFile,tempGeneral);
+        tempTime=stod(tempGeneral);
+
+        getline(servicesFile,tempGeneral);
+        tempDistance=stoi(tempGeneral);
+
+        getline(servicesFile,tempGeneral);
+        tempType=intToEnum(stoi(tempGeneral));
+
+        getline(servicesFile,tempGeneral);
+
+        getline(servicesFile,vector);
+
+        getline(servicesFile,tempGeneral);
+        tempState=intToState(stoi(tempGeneral));
+
+        getline(servicesFile,tempDate);
+
+        getline(servicesFile,tempNif);
+
+        Service *temp= new Service(tempOrigin,tempDestination,tempTime,tempDistance,tempType,tempState,Date(tempDate),findClient(22200));
+        services->push_back(temp);
+        getline(servicesFile,tempGeneral);
+    }
+
+
+
+
+
 }

@@ -18,7 +18,7 @@ vector<string> vectorString(string stringToVectorize, string separador) {
 	vector<string> ret;
 	size_t startPos = 0, endPos = 0;
 	while (endPos < stringToVectorize.length()) {
-		endPos = stringToVectorize.find(stringToVectorize, startPos);
+        endPos = stringToVectorize.find(separador, startPos);
 		if (endPos == stringToVectorize.npos) {
 			ret.push_back(stringToVectorize.substr(startPos));
 			break;
