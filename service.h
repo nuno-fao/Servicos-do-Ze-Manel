@@ -36,6 +36,7 @@ public:
     state getState();
     Date getDate();
     Client *getClient();
+    vector<Truck*> *getTrucks();
 
     //set methods
     void setOrigin(string origin);
@@ -48,6 +49,9 @@ public:
     void setClient(Client *client);
 
     void addTruck(Truck *truck);
+
+    //file methods
+    static void saveToFile(vector<Service*>*services);
 
 private:
     string origin;

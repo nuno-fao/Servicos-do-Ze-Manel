@@ -1,4 +1,5 @@
 #include "service.h"
+#include <fstream>
 
 
 unsigned int Service::lastId=0;
@@ -45,6 +46,10 @@ Client *Service::getClient(){
     return client;
 }
 
+vector<Truck*> *Service::getTrucks(){
+    return &trucks;
+}
+
 //set methods
 void Service::setOrigin(string origin){
     this->origin=origin;
@@ -73,4 +78,24 @@ void Service::setClient(Client *client){
 
 void Service::addTruck(Truck *truck){
     this->trucks.push_back(truck);
+}
+
+void Service::saveToFile(vector<Service*>*services){
+    ofstream servicesFile;
+    servicesFile.open ("services.txt");
+    for(auto x:*services){
+         servicesFile << x->getOrigin()<<endl;
+         servicesFile << x->getDestination()<<endl;
+         servicesFile << to_string(x->getTime())<<endl;
+         servicesFile << to_string(x->getDistance())<<endl;
+         servicesFile << to_string(x->getType())<<endl;
+         servicesFile << to_string(x->getId())<<endl;
+         for(auto i: *x->getTrucks()){
+             //servicesFile << i->getId() <<";";
+         }
+         servicesFile << endl << to_string(x->getState())<<endl;
+         servicesFile << x->getDate().getDate() <<endl;
+         servicesFile << x->getClient()->getNif() << endl;
+         servicesFile << ":::::::::::"<<endl;
+    }
 }
