@@ -4,12 +4,13 @@
 
 unsigned int Service::lastId=0;
 
-Service::Service(string origin, string destination, double time, unsigned distance, enum type type, enum state state, Date date, Client *client)
-    : origin(origin),destination(destination), time(time), distance(distance),ser_type(type), ser_state(state)
+Service::Service(string origin, string destination, double time, unsigned distance, enum type type, enum state state, Date date, Client *client,float quantity)
+    : origin(origin),destination(destination), time(time), distance(distance), quantity(quantity), ser_type(type), ser_state(state)
 {
     id=lastId++;
     setDate(date);
     setClient(client);
+    calcPrice();
 
 }
 
@@ -35,19 +36,23 @@ type Service::getType() const{
 unsigned int Service::getId() const{
     return id;
 }
-state Service::getState(){
+state Service::getState() const{
     return ser_state;
 }
-Date Service::getDate(){
+Date Service::getDate() const{
     return initialDate;
 }
 
-Client *Service::getClient(){
+Client *Service::getClient() const{
     return client;
 }
 
 vector<Truck*> *Service::getTrucks(){
     return &trucks;
+}
+
+float Service::getTotalPrice() const{
+    return total_price;
 }
 
 //set methods
@@ -80,6 +85,14 @@ void Service::addTruck(Truck *truck){
     this->trucks.push_back(truck);
 }
 
+void Service::calcPrice(){
+    if(trucks.size()){
+        total_price=quantity*trucks.at(0)->getprice();
+    }
+    else
+        total_price=0;
+}
+
 void Service::saveToFile(vector<Service*>*services){
     ofstream servicesFile;
     servicesFile.open ("services.txt");
@@ -109,6 +122,7 @@ type intToEnum(int a){
     default: return ordinary;
     }
 }
+
 state intToState(int a){
     switch (a) {
     case 0: return on_queue;
@@ -161,7 +175,7 @@ void Service::loadFromFile(vector<Service*> *services){
 
         getline(servicesFile,tempNif);
 
-        Service *temp= new Service(tempOrigin,tempDestination,tempTime,tempDistance,tempType,tempState,Date(tempDate),findClient(22200));
+        Service *temp= new Service(tempOrigin,tempDestination,tempTime,unsigned(tempDistance),tempType,tempState,Date(tempDate),findClient(22200),8989);
         services->push_back(temp);
         getline(servicesFile,tempGeneral);
     }
@@ -171,3 +185,5 @@ void Service::loadFromFile(vector<Service*> *services){
 
 
 }
+
+

@@ -23,7 +23,7 @@ enum state {
 class Service
 {
 public:
-    Service(string origin, string destination, double time, unsigned distance, type type, state state, Date date,Client *client);
+    Service(string origin, string destination, double time, unsigned distance, type type, state state, Date date,Client *client,float quantity);
     ~Service();
 
     //get methods
@@ -33,10 +33,12 @@ public:
     unsigned getDistance() const;
     type getType() const;
     unsigned int getId() const;
-    state getState();
-    Date getDate();
-    Client *getClient();
+    state getState() const;
+    Date getDate() const;
+    Client *getClient() const;
     vector<Truck*> *getTrucks();
+    float getTotalPrice() const;
+    float getQuantity() const;
 
     //set methods
     void setOrigin(string origin);
@@ -47,8 +49,10 @@ public:
     void setState(state state);
     void setDate(Date date);
     void setClient(Client *client);
+    void setQuantity(float quantity);
 
     void addTruck(Truck *truck);
+    void calcPrice();
 
     //file methods
     static void saveToFile(vector<Service*>*services);
@@ -59,6 +63,7 @@ private:
     string destination;
     double time;
     unsigned distance;
+    float quantity;
     type ser_type;
     unsigned int id;
     vector<Truck*> trucks;

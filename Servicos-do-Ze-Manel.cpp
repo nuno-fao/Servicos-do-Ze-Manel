@@ -32,8 +32,8 @@ int main()
 {
     vector<Service*> cv1;
     Service::loadFromFile(&cv1);
-    for(auto x:cv1){
-        cout<<x->getTime()<<endl;
-    }
+    //for(auto x:cv1){
+        //cout<<x->getTime()<<endl;
+    //}
 	return 0;
 }

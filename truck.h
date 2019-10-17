@@ -43,7 +43,7 @@ public:
 	~Congelation();
 
 	short gettemp();
-	float getprice();
+    float getprice();
 	unsigned short getcapacity();
 
 	void setprice(float newval);
@@ -61,13 +61,12 @@ public:
 	HazardousMat();
     ~HazardousMat();
 
-	float getprice();
+    float getprice(Hazard type);
 
 	void setprice(float newval);
 
 private:
-	static float pricePerKG;
-	Hazard type;
+    static float pricePerKG;
 };
 
 class Animal : public Truck
