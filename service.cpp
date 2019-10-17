@@ -104,7 +104,7 @@ void Service::saveToFile(vector<Service*>*services){
         servicesFile << to_string(x->getType())<<endl;
         servicesFile << to_string(x->getId())<<endl;
         for(auto i: *x->getTrucks()){
-            //servicesFile << i->getId() <<";";
+            servicesFile << i->getlicense() <<";";
         }
         servicesFile << endl << to_string(x->getState())<<endl;
         servicesFile << x->getDate().getDate() <<endl;
@@ -134,7 +134,7 @@ state intToState(int a){
 
 Client *findClient(int nif){
     vector<Service *> t;
-    Client *temp=new Client("ola",nif,t);
+    Client *temp=new Client("ola",unsigned(nif),t);
     return temp;
 }
 

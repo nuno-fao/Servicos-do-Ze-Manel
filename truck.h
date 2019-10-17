@@ -22,7 +22,7 @@ protected:
 
 public:
     Truck(string license);
-    virtual ~Truck(){}
+    virtual ~Truck()=0;
 	//get methods
 	virtual float getprice() = 0;
 	unsigned short getcapacity();
@@ -61,7 +61,9 @@ public:
 	HazardousMat();
     ~HazardousMat();
 
+
     float getprice(Hazard type);
+    //using Truck::getprice;
 
 	void setprice(float newval);
 

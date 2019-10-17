@@ -42,10 +42,10 @@ int main()
     //for(auto x:cv1){
         //cout<<x->getTime()<<endl;
     //}
-    time_t before=time(0);
+    time_t before=time(nullptr);
     char* dt = ctime(&before);
     sort(cv1.begin(),cv1.end(),cmp);
-    time_t now=time(0);
+    time_t now=time(nullptr);
     char* dn = ctime(&now);
     cout<<dn<<endl<<dt<<endl<<dn-dt<<endl;
     cout<<cv1.size();

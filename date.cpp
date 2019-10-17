@@ -4,17 +4,17 @@ Date::Date() {
 
 	time_t t = time(nullptr);
 	struct tm* now = localtime(&t);
-	day = (now->tm_mday);
-	month = (now->tm_mon + 1);
-	year = (now->tm_year + 1900);
+    day = ushort((now->tm_mday));
+    month = ushort(now->tm_mon + 1);
+    year = ushort(now->tm_year + 1900);
 }
 
 Date::Date(string date) {
 	vector<string> dateVector;
 	dateVector = vectorString(date, "/");
-	year = (stoi(dateVector.at(0)));
-	month = (stoi(dateVector.at(1)));
-	day = (stoi(dateVector.at(2)));
+    year = unsigned(stoi(dateVector.at(0)));
+    month = ushort(stoi(dateVector.at(1)));
+    day = ushort(stoi(dateVector.at(2)));
 }
 
 
