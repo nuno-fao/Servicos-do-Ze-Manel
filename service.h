@@ -66,6 +66,7 @@ private:
     state ser_state;
     Date initialDate;
     Client *client;
+    float total_price;
     static unsigned int lastId;
 
 

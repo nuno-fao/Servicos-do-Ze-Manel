@@ -21,8 +21,8 @@ protected:
 	unsigned short capacity; //in KG
 
 public:
-	Truck(string license);
-    ~Truck(){}
+    Truck(string license);
+    virtual ~Truck(){}
 	//get methods
 	virtual float getprice() = 0;
 	unsigned short getcapacity();
