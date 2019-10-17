@@ -15,9 +15,9 @@ class Truck
 {
 protected:
 	string license; //format XX-YY-ZZ
-	bool availabe;
-	bool registered;
-	vector<Service*> assignedServices;
+	bool availabe;	//is the truck available right now?
+	bool registered;	//is the truck registered to a service in the future?
+	vector<Service*> assignedServices;	//pretty self-explanatory I'd say
 	unsigned short capacity; //in KG
 
 public:
@@ -41,9 +41,11 @@ class Congelation : public Truck
 public:
 	Congelation();
 	~Congelation();
+
 	short gettemp();
 	float getprice();
 	unsigned short getcapacity();
+
 	void setprice(float newval);
 
 
@@ -58,7 +60,9 @@ class HazardousMat : public Truck
 public:
 	HazardousMat();
     ~HazardousMat();
+
 	float getprice();
+
 	void setprice(float newval);
 
 private:
