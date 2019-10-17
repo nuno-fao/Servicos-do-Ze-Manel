@@ -4,6 +4,8 @@
 #include <iostream>
 #include <string>
 #include <cctype>
+#include <algorithm>
+#include <ctime>
 
 #include "client.h"
 #include "truck.h"
@@ -27,7 +29,12 @@ bool verifyName(const string &name) {
     return true;
 }
 
-
+bool cmp(const Service *a, const Service *b){
+    if(a->getDate()<b->getDate())
+        return true;
+    else
+        return false;
+}
 int main()
 {
     vector<Service*> cv1;
@@ -35,5 +42,12 @@ int main()
     //for(auto x:cv1){
         //cout<<x->getTime()<<endl;
     //}
+    time_t before=time(0);
+    char* dt = ctime(&before);
+    sort(cv1.begin(),cv1.end(),cmp);
+    time_t now=time(0);
+    char* dn = ctime(&now);
+    cout<<dn<<endl<<dt<<endl<<dn-dt<<endl;
+    cout<<cv1.size();
 	return 0;
 }
