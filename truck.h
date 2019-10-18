@@ -9,8 +9,6 @@ class Service;
 class Client;
 class Truck;
 
-enum Hazard {explosives, gases, flammableliq, flammablesolid, oxidizer, poisons, radioactive, corrosives, other}; //categories for the diferent dangers
-
 class Truck
 {
 protected:
@@ -23,49 +21,49 @@ protected:
 
 public:
     Truck(string license);
-    virtual ~Truck()=0;
+	virtual ~Truck() = 0;
 	//get methods
-	virtual float getprice() = 0;
-	unsigned short getcapacity();
-	bool getavailable();
-	string getlicense();
-	bool getregistered();
+	virtual float getprice(Service* service) const = 0;
+	unsigned short getcapacity() const;
+	bool getavailable() const;
+	string getlicense() const;
+	bool getregistered() const;
+	unsigned short get_cargo() const;
 	//set methods
 	virtual void setprice(float newval) = 0;
 	void setregistered(bool foo);
 	void setavailable(bool foo);
+	//load and save to file
+	
 	//other
 	void add_service(Service* service); //adds to the vector the service which the truck is assigned to
+	void remove_service(unsigned int id); //removes an assigned service when it is finished, searches by id
 	void start_transport(unsigned short cargo); //sets the needed variables so the truck is in transport
 };
 
 class Congelation : public Truck
 {
 public:
-	Congelation();
-	~Congelation();
+	Congelation(string license);
+	~Congelation() {}
 
-	short gettemp();
-    float getprice();
-	unsigned short getcapacity();
-
+	float getprice(Service* service) const;
 	void setprice(float newval);
 
 
 private:
 	//static unordered_map<Hazard, int> table;
 	static float pricePerKG;
-	short temp;  //in Celsius
 };
 
 class HazardousMat : public Truck
 {
 public:
-	HazardousMat();
-    ~HazardousMat();
+	HazardousMat(string license);
+	~HazardousMat(){}
 
 
-    float getprice(Hazard type);
+    float getprice(Service* service)const;
     //using Truck::getprice;
 
 	void setprice(float newval);
@@ -77,9 +75,10 @@ private:
 class Animal : public Truck
 {
 public:
-	Animal();
-	~Animal();
-	float getprice();
+	Animal(string license);
+	~Animal(){}
+
+	float getprice(Service* service)const;
 	void setprice(float newval);
 
 private:
@@ -89,9 +88,10 @@ private:
 class Normal : public Truck
 {
 public:
-	Normal();
-	~Normal();
-	float getprice();
+	Normal(string license);
+	~Normal(){}
+
+	float getprice(Service* service)const;
 	void setprice(float newval);
 
 private:
