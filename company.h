@@ -11,21 +11,17 @@ using namespace std;
 class Company
 {
 public:
-	Company();
-	~Company();
-
+    Company();
+    vector<Service*> *getVectorServicesFinished();
+    vector<Service*> *getVectorServicesOnTransit();
+    vector<Service*> *getVectorServicesOnQueue();
 
 
 private:
 	int generalRevenue; // lucro geral
 	int dangerousRevenue; //lucro caminhao perigoso
 	int freezeRevenue; //
-    vector<Service*> servicesOrigin,servicesDestination,servicesId,servicesInitialDate;
-    size_t SOOn_queue,SOOnTransit,SOFinished;
-    size_t SDOn_queue,SDOnTransit,SDFinished;
-    size_t SIOn_queue,SIOnTransit,SIFinished;
-    size_t SIDOn_queue,SIDOnTransit,SIDFinished;
-
+    vector<Service*> services_finished,services_on_transit,services_on_queue;
     vector<Client*> clients;
     vector<Truck*> trucks;
 

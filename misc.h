@@ -11,3 +11,4 @@ void clearScreen();
 vector<string> vectorString(string stringToVectorize, string separator);
 void clearBuffer(void);
 bool strIsNumber(string str);
+bool strIsChar(string str);

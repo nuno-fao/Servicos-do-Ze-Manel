@@ -1,12 +1,14 @@
 #include "service.h"
 #include <fstream>
 #include "misc.h"
+#include <stdio.h>
 
 unsigned int Service::lastId=0;
 
 Service::Service(string origin, string destination, double time, unsigned distance, enum type type, enum state state, Date date, Client *client,float quantity)
     : origin(origin),destination(destination), time(time), distance(distance), quantity(quantity), ser_type(type), ser_state(state)
 {
+
     id=lastId++;
     setDate(date);
     setClient(client);
@@ -91,10 +93,42 @@ void Service::calcPrice(){
         total_price+=i->getprice(this);
 }
 
-void Service::saveToFile(vector<Service*>*services){
+void Service::saveToFile(vector<Service*>*services_finished,vector<Service*>*services_on_transit,vector<Service*>*services_on_queue){
     ofstream servicesFile;
     servicesFile.open ("services.txt");
-    for(auto x:*services){
+    for(auto x:*services_finished){
+        servicesFile << x->getOrigin()<<endl;
+        servicesFile << x->getDestination()<<endl;
+        servicesFile << (x->getTime())<<endl;
+        servicesFile << (x->getDistance())<<endl;
+        servicesFile << (x->getType())<<endl;
+        servicesFile << (x->getId())<<endl;
+        for(auto i: *x->getTrucks()){
+            servicesFile << i->getlicense() <<";";
+        }
+        servicesFile << endl << (x->getState())<<endl;
+        servicesFile << x->getDate().getDate() <<endl;
+        servicesFile << x->getClient()->getNif() << endl;
+        servicesFile << x->getTotalPrice() <<endl;
+        servicesFile << ":::::::::::"<<endl;
+    }
+    for(auto x:*services_on_queue){
+        servicesFile << x->getOrigin()<<endl;
+        servicesFile << x->getDestination()<<endl;
+        servicesFile << (x->getTime())<<endl;
+        servicesFile << (x->getDistance())<<endl;
+        servicesFile << (x->getType())<<endl;
+        servicesFile << (x->getId())<<endl;
+        for(auto i: *x->getTrucks()){
+            servicesFile << i->getlicense() <<";";
+        }
+        servicesFile << endl << (x->getState())<<endl;
+        servicesFile << x->getDate().getDate() <<endl;
+        servicesFile << x->getClient()->getNif() << endl;
+        servicesFile << x->getTotalPrice() <<endl;
+        servicesFile << ":::::::::::"<<endl;
+    }
+    for(auto x:*services_on_transit){
         servicesFile << x->getOrigin()<<endl;
         servicesFile << x->getDestination()<<endl;
         servicesFile << (x->getTime())<<endl;
@@ -125,7 +159,7 @@ type intToEnum(int a){
 state intToState(int a){
     switch (a) {
     case 0: return on_queue;
-    case 1: return onTransit;
+    case 1: return on_transit;
     case 2: return finished;
     default: return finished;
     }
@@ -137,7 +171,7 @@ Client *findClient(int nif){
     return temp;
 }
 
-void Service::loadFromFile(vector<Service*> *services){
+void Service::loadFromFile(vector<Service*> *services_finished,vector<Service*> *services_on_transit,vector<Service*> *services_on_queue){
     ifstream servicesFile;
     servicesFile.open("services.txt");
     string tempOrigin;
@@ -180,7 +214,17 @@ void Service::loadFromFile(vector<Service*> *services){
             temp= new HazardousService(tempOrigin,tempDestination,tempTime,unsigned(tempDistance),tempType,tempState,Date(tempDate),findClient(22200),8989,corrosives);
         else
             temp= new Service(tempOrigin,tempDestination,tempTime,unsigned(tempDistance),tempType,tempState,Date(tempDate),findClient(22200),8989);
-        services->push_back(temp);
+        switch (tempState) {
+        case on_transit:
+            services_on_transit->push_back(temp);
+            break;
+        case on_queue:
+            services_on_queue->push_back(temp);
+            break;
+        case finished:
+            services_finished->push_back(temp);
+            break;
+        }
         getline(servicesFile,tempGeneral);
     }
 
@@ -209,5 +253,60 @@ TemperatureService::TemperatureService(string origin_s, string destination_s, do
     calcPrice();
 
 
+}
+
+void Service::addService(vector<Service *> *services){
+    string tempOrigin,tempDestination;
+    unsigned short tempType = 0;
+    bool variable_error=true;
+    while (variable_error) {
+        cout<<"Enter the Origin"<<endl;
+        getline(cin,tempOrigin);
+        clearScreen();
+        if(strIsChar(tempOrigin))
+            variable_error=false;
+        else{
+            variable_error=true;
+            cout<<"ORigin Input not Aceptable, please try again"<<endl;
+        }
+
+    }
+    variable_error=true;
+    while (variable_error) {
+        cout<<"Enter the Destination"<<endl;
+        getline(cin,tempDestination);
+        clearScreen();
+        if(strIsChar(tempDestination))
+            variable_error=false;
+        else{
+            variable_error=true;
+            cout<<"Destination Input not Aceptable, please try again"<<endl;
+        }
+
+    }
+    variable_error=true;
+    while (variable_error) {
+        cout<<"Please choose a type of service:"<<endl;
+        cout<<endl;
+        cout<<"[0] Ordinary"<<endl;
+        cout<<"[1] Hazardous"<<endl;
+        cout<<"[2] Animal"<<endl;
+        cout<<"[3] Low Temperature"<<endl;
+        if(cin>>tempType && tempType<4){
+            clearScreen();
+            variable_error=false;
+        }
+        else{
+            clearScreen();
+            variable_error=true;
+            cout<<"Invalid Type number, please Try Again"<<endl;
+            clearBuffer();
+
+        }
+    }
+    clearBuffer();
+    cout<<tempOrigin<<endl;
+    cout<<tempDestination<<endl;
+    cout<<tempType<<endl;
 }
 

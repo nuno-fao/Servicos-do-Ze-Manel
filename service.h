@@ -22,7 +22,7 @@ enum type {
 };
 
 enum state {
-    on_queue,onTransit,finished
+    on_queue,on_transit,finished
 };
 
 class Service
@@ -61,8 +61,8 @@ public:
     void calcPrice();
 
     //file methods
-    static void saveToFile(vector<Service*>*services);
-    static void loadFromFile(vector<Service *> *services);
+    static void saveToFile(vector<Service*>*services_finished, vector<Service *> *services_on_transit, vector<Service *> *services_on_queue);
+    static void loadFromFile(vector<Service *> *services_finished, vector<Service *> *services_on_transit, vector<Service *> *services_on_queue);
     static void addService(vector<Service *> *services);
     static void editService(vector<Service *> *services);
     static void removeService(vector<Service *> *services);

@@ -54,3 +54,15 @@ bool strIsNumber(string str) {
 	}
 	return true;
 }
+
+bool strIsChar(string str) {
+    if (str.size() == 0) {
+        return false;
+    }
+    for (unsigned i = 0; i < str.length(); i++) {
+        if (!((str.at(i)<='z' && str.at(i)>='a') || (str.at(i)<='Z' && str.at(i)>='A')) && (!(str.at(i)!='.') && !(str.at(i)!=' '))) {
+            return false;
+        }
+    }
+    return true;
+}
