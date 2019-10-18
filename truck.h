@@ -35,7 +35,7 @@ public:
 	void setregistered(bool foo);
 	void setavailable(bool foo);
 	//other
-	void add_service(Service service); //adds to the vector the service which the truck is assigned to
+	void add_service(Service* service); //adds to the vector the service which the truck is assigned to
 	void start_transport(unsigned short cargo); //sets the needed variables so the truck is in transport
 };
 
