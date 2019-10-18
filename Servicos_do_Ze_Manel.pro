@@ -23,5 +23,8 @@ SOURCES = \
 INCLUDEPATH = \
     $$PWD/.
 
+DISTFILES = \
+    $$PWD/services.txt
+
 #DEFINES = 
 

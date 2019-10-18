@@ -16,11 +16,13 @@ private:
 	unsigned year;
 	unsigned short month;
 	unsigned short day;
+    unsigned short hour;
+    unsigned short minute;
 
 public:
 	Date();
 	~Date();
-	Date(unsigned year, unsigned short month, unsigned short day);
+    Date(unsigned year, unsigned short month, unsigned short day,unsigned short hour,unsigned short minute);
 	Date(string date); // date must be in format "yyyy/mm/dd"
 
 // GET methods
@@ -28,6 +30,8 @@ public:
 	unsigned int getYear() const;
 	unsigned short getMonth() const;
 	unsigned short getDay() const;
+    unsigned short getHour() const;
+    unsigned short getMinute() const;
 	string getDate() const; // returns the date in format "yyyy/mm/dd"
 
 // SET methods
@@ -36,6 +40,7 @@ public:
 	void setMonth(unsigned short month);
 	void setDay(unsigned short day);
 	void setDate(unsigned year, unsigned short month, unsigned short day);
+
 
 	//other methods
 

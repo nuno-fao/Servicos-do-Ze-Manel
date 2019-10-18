@@ -63,6 +63,9 @@ public:
     //file methods
     static void saveToFile(vector<Service*>*services);
     static void loadFromFile(vector<Service *> *services);
+    static void addService(vector<Service *> *services);
+    static void editService(vector<Service *> *services);
+    static void removeService(vector<Service *> *services);
 
 protected:
     string origin;

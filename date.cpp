@@ -18,7 +18,7 @@ Date::Date(string date) {
 }
 
 
-Date::Date(unsigned year, unsigned short month, unsigned short day) : year(year), month(month), day(day) {
+Date::Date(unsigned year, unsigned short month, unsigned short day, unsigned short hour, unsigned short minute) : year(year), month(month), day(day) ,hour(hour),minute(minute){
 
 }
 Date::~Date() {
@@ -42,6 +42,15 @@ unsigned short Date::getMonth() const {
 unsigned Date::getYear() const {
 
 	return year;
+}
+
+unsigned short Date::getHour() const{
+
+    return hour;
+}
+unsigned short Date::getMinute() const{
+
+    return minute;
 }
 
 string Date::getDate() const {
