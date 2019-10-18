@@ -21,7 +21,7 @@ protected:
 
 public:
     Truck(string license);
-    virtual ~Truck()=0;
+    virtual ~Truck();
 	//get methods
 	virtual float getprice(Service* service) const = 0;
 	unsigned short getcapacity() const;
