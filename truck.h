@@ -9,8 +9,6 @@ class Service;
 class Client;
 class Truck;
 
-enum Hazard {explosives, gases, flammableliq, flammablesolid, oxidizer, poisons, radioactive, corrosives, other}; //categories for the diferent dangers
-
 class Truck
 {
 protected:
@@ -25,17 +23,19 @@ public:
     Truck(string license);
     virtual ~Truck()=0;
 	//get methods
-	virtual float getprice() = 0;
+	virtual float getprice(Service* service) = 0;
 	unsigned short getcapacity();
 	bool getavailable();
 	string getlicense();
 	bool getregistered();
+	unsigned short get_cargo();
 	//set methods
 	virtual void setprice(float newval) = 0;
 	void setregistered(bool foo);
 	void setavailable(bool foo);
 	//other
 	void add_service(Service* service); //adds to the vector the service which the truck is assigned to
+	void remove_service(unsigned int id); //removes an assigned service when it is finished, searches by id
 	void start_transport(unsigned short cargo); //sets the needed variables so the truck is in transport
 };
 
@@ -46,7 +46,7 @@ public:
 	~Congelation();
 
 	short gettemp();
-    float getprice();
+    float getprice(Service* service);
 	unsigned short getcapacity();
 
 	void setprice(float newval);
@@ -65,7 +65,7 @@ public:
     ~HazardousMat();
 
 
-    float getprice(Hazard type);
+    float getprice(Service* service);
     //using Truck::getprice;
 
 	void setprice(float newval);
@@ -79,7 +79,7 @@ class Animal : public Truck
 public:
 	Animal();
 	~Animal();
-	float getprice();
+	float getprice(Service* service);
 	void setprice(float newval);
 
 private:
@@ -91,7 +91,7 @@ class Normal : public Truck
 public:
 	Normal();
 	~Normal();
-	float getprice();
+	float getprice(Service* service);
 	void setprice(float newval);
 
 private:

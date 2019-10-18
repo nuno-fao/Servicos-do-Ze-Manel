@@ -28,12 +28,8 @@ string Truck::getlicense() {
 	return license;
 }
 
-void Truck::setavailable(bool foo) {
-	availabe = foo;
-}
-
-void Truck::setregistered(bool foo) {
-	registered = foo;
+unsigned short Truck::get_cargo() {
+	return cargo;
 }
 
 float HazardousMat::getprice(Service *service) {
@@ -53,3 +49,29 @@ float Normal::getprice(Service *service) {
 }
 
 
+void Truck::setavailable(bool foo) {
+	availabe = foo;
+}
+
+void Truck::setregistered(bool foo) {
+	registered = foo;
+}
+
+void Truck::add_service(Service* service) {
+	assignedServices.push_back(service);
+}
+
+void Truck::remove_service(unsigned int id) {
+	short index = -1;
+	for (auto it:assignedServices) {
+		index++;
+		if (it->getId() == id) {
+			assignedServices.erase(assignedServices.begin()+index);
+		}
+	}
+}
+
+void Truck::start_transport(unsigned short cargo) {
+	availabe = false;
+	this->cargo = cargo;
+}
