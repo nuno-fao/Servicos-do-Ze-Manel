@@ -11,6 +11,11 @@ using namespace std;
 class Service;
 class Client;
 class Truck;
+class TemperatureService;
+class HazardousService;
+
+enum Hazard_enum {explosives, gases, flammableliq, flammablesolid, oxidizer, poisons, radioactive, corrosives, other}; //categories for the diferent dangers
+enum Temperature_enum{_100,_200,_300,_400};
 
 enum type {
     ordinary=0,hazardous=1,animal=2,lowTemperature=3
@@ -39,6 +44,7 @@ public:
     vector<Truck*> *getTrucks();
     float getTotalPrice() const;
     float getQuantity() const;
+    float getMultiplier(){return  1;}
 
     //set methods
     void setOrigin(string origin);
@@ -58,7 +64,7 @@ public:
     static void saveToFile(vector<Service*>*services);
     static void loadFromFile(vector<Service *> *services);
 
-private:
+protected:
     string origin;
     string destination;
     double time;
@@ -76,4 +82,18 @@ private:
 
 
 
+};
+
+class HazardousService: public Service
+{
+public:
+    HazardousService(string origin, string destination, double time, unsigned distance, type type, state state, Date date,Client *client,float quantity,Hazard_enum hazard);
+    Hazard_enum type;
+};
+
+class TemperatureService: public Service
+{
+public:
+    TemperatureService(string origin, string destination, double time, unsigned distance, type type, state state, Date date,Client *client,float quantity,Temperature_enum hazard);
+    Temperature_enum type;
 };
