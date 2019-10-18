@@ -76,7 +76,6 @@ protected:
     type ser_type;
     unsigned int id;
     vector<Truck*> trucks;
-    //static unsigned int lastId;
     state ser_state;
     Date initialDate;
     Client *client;

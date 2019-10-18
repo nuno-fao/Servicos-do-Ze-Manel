@@ -12,16 +12,20 @@ Truck::Truck(string license) {
 	registered = false;
 }
 
-Congelation::Congelation(string license) : Truck(license) {
+Truck::~Truck(){
 
 }
-HazardousMat::HazardousMat(string license) : Truck(license) {
+
+Congelation::Congelation(string license_c) : Truck(license_c) {
 
 }
-Animal::Animal(string license) : Truck(license) {
+HazardousMat::HazardousMat(string license_h) : Truck(license_h) {
 
 }
-Normal::Normal(string license) : Truck(license) {
+Animal::Animal(string license_a) : Truck(license_a) {
+
+}
+Normal::Normal(string license_n) : Truck(license_n) {
 
 }
 

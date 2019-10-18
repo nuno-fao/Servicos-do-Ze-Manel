@@ -97,16 +97,17 @@ void Service::saveToFile(vector<Service*>*services){
     for(auto x:*services){
         servicesFile << x->getOrigin()<<endl;
         servicesFile << x->getDestination()<<endl;
-        servicesFile << to_string(x->getTime())<<endl;
-        servicesFile << to_string(x->getDistance())<<endl;
-        servicesFile << to_string(x->getType())<<endl;
-        servicesFile << to_string(x->getId())<<endl;
+        servicesFile << (x->getTime())<<endl;
+        servicesFile << (x->getDistance())<<endl;
+        servicesFile << (x->getType())<<endl;
+        servicesFile << (x->getId())<<endl;
         for(auto i: *x->getTrucks()){
             servicesFile << i->getlicense() <<";";
         }
-        servicesFile << endl << to_string(x->getState())<<endl;
+        servicesFile << endl << (x->getState())<<endl;
         servicesFile << x->getDate().getDate() <<endl;
         servicesFile << x->getClient()->getNif() << endl;
+        servicesFile << x->getTotalPrice() <<endl;
         servicesFile << ":::::::::::"<<endl;
     }
 }

@@ -21,7 +21,7 @@ protected:
 
 public:
     Truck(string license);
-	virtual ~Truck() = 0;
+    virtual ~Truck()=0;
 	//get methods
 	virtual float getprice(Service* service) const = 0;
 	unsigned short getcapacity() const;
@@ -44,7 +44,7 @@ public:
 class Congelation : public Truck
 {
 public:
-	Congelation(string license);
+    Congelation(string license_c);
 	~Congelation() {}
 
 	float getprice(Service* service) const;
@@ -59,7 +59,7 @@ private:
 class HazardousMat : public Truck
 {
 public:
-	HazardousMat(string license);
+    HazardousMat(string license_h);
 	~HazardousMat(){}
 
 
@@ -75,8 +75,8 @@ private:
 class Animal : public Truck
 {
 public:
-	Animal(string license);
-	~Animal(){}
+    Animal(string license_a);
+    ~Animal(){}
 
 	float getprice(Service* service)const;
 	void setprice(float newval);
@@ -88,8 +88,8 @@ private:
 class Normal : public Truck
 {
 public:
-	Normal(string license);
-	~Normal(){}
+    Normal(string license_n);
+    ~Normal(){}
 
 	float getprice(Service* service)const;
 	void setprice(float newval);

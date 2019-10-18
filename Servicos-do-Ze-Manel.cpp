@@ -49,7 +49,5 @@ int main()
     char* dn = ctime(&now);
     cout<<dn<<endl<<dt<<endl<<dn-dt<<endl;
     cout<<cv1.size()<<endl;
-    cv1.at(0)->calcPrice();
-    cout<<cv1.at(0)->getTotalPrice()<<endl;
 	return 0;
 }
