@@ -21,14 +21,14 @@ protected:
 
 public:
     Truck(string license);
-    virtual ~Truck()=0;
+	~Truck() {};
 	//get methods
-	virtual float getprice(Service* service) = 0;
-	unsigned short getcapacity();
-	bool getavailable();
-	string getlicense();
-	bool getregistered();
-	unsigned short get_cargo();
+	virtual float getprice(Service* service) const = 0;
+	unsigned short getcapacity() const;
+	bool getavailable() const;
+	string getlicense() const;
+	bool getregistered() const;
+	unsigned short get_cargo() const;
 	//set methods
 	virtual void setprice(float newval) = 0;
 	void setregistered(bool foo);
@@ -42,30 +42,24 @@ public:
 class Congelation : public Truck
 {
 public:
-	Congelation();
-	~Congelation();
+	Congelation(string license);
 
-	short gettemp();
-    float getprice(Service* service);
-	unsigned short getcapacity();
-
+	float getprice(Service* service) const;
 	void setprice(float newval);
 
 
 private:
 	//static unordered_map<Hazard, int> table;
 	static float pricePerKG;
-	short temp;  //in Celsius
 };
 
 class HazardousMat : public Truck
 {
 public:
-	HazardousMat();
-    ~HazardousMat();
+	HazardousMat(string license);
 
 
-    float getprice(Service* service);
+    float getprice(Service* service)const;
     //using Truck::getprice;
 
 	void setprice(float newval);
@@ -77,9 +71,8 @@ private:
 class Animal : public Truck
 {
 public:
-	Animal();
-	~Animal();
-	float getprice(Service* service);
+	Animal(string license);
+	float getprice(Service* service)const;
 	void setprice(float newval);
 
 private:
@@ -89,9 +82,8 @@ private:
 class Normal : public Truck
 {
 public:
-	Normal();
-	~Normal();
-	float getprice(Service* service);
+	Normal(string license);
+	float getprice(Service* service)const;
 	void setprice(float newval);
 
 private:
