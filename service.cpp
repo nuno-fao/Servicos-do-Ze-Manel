@@ -86,11 +86,9 @@ void Service::addTruck(Truck *truck){
 }
 
 void Service::calcPrice(){
-    if(trucks.size()){
-        total_price=quantity*trucks.at(0)->getprice();
-    }
-    else
-        total_price=0;
+    total_price=0;
+    for(auto i:trucks)
+        total_price+=i->getprice(this);
 }
 
 void Service::saveToFile(vector<Service*>*services){
@@ -174,8 +172,13 @@ void Service::loadFromFile(vector<Service*> *services){
         getline(servicesFile,tempDate);
 
         getline(servicesFile,tempNif);
-
-        Service *temp= new Service(tempOrigin,tempDestination,tempTime,unsigned(tempDistance),tempType,tempState,Date(tempDate),findClient(22200),8989);
+        Service *temp;
+        if(tempType==3)
+            temp= new TemperatureService(tempOrigin,tempDestination,tempTime,unsigned(tempDistance),tempType,tempState,Date(tempDate),findClient(22200),8989,_200);
+        if(tempType==1)
+            temp= new HazardousService(tempOrigin,tempDestination,tempTime,unsigned(tempDistance),tempType,tempState,Date(tempDate),findClient(22200),8989,corrosives);
+        else
+            temp= new Service(tempOrigin,tempDestination,tempTime,unsigned(tempDistance),tempType,tempState,Date(tempDate),findClient(22200),8989);
         services->push_back(temp);
         getline(servicesFile,tempGeneral);
     }
@@ -186,4 +189,24 @@ void Service::loadFromFile(vector<Service*> *services){
 
 }
 
+HazardousService::HazardousService(string origin_h, string destination_h, double time_h, unsigned distance_h, enum type type_h, enum state state_h, Date date_h, Client *client_h,float quantity_h,Hazard_enum type)
+    : Service(origin_h,destination_h,time_h,distance_h,type_h,state_h,date_h,client_h,quantity_h),type(type)
+{
+    id=lastId++;
+    setDate(date_h);
+    setClient(client_h);
+    calcPrice();
+
+}
+
+TemperatureService::TemperatureService(string origin_s, string destination_s, double time_s, unsigned distance_s, enum type type_s, enum state state_s, Date date_s, Client *client_s,float quantity_s,Temperature_enum type)
+    : Service(origin_s,destination_s,time_s,distance_s,type_s,state_s,date_s,client_s,quantity_s) ,type(type)
+{
+    id=lastId++;
+    setDate(date_s);
+    setClient(client_s);
+    calcPrice();
+
+
+}
 
