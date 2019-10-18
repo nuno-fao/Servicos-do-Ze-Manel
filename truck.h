@@ -21,7 +21,7 @@ protected:
 
 public:
     Truck(string license);
-	~Truck() {};
+	virtual ~Truck() = 0;
 	//get methods
 	virtual float getprice(Service* service) const = 0;
 	unsigned short getcapacity() const;
@@ -33,6 +33,8 @@ public:
 	virtual void setprice(float newval) = 0;
 	void setregistered(bool foo);
 	void setavailable(bool foo);
+	//load and save to file
+	
 	//other
 	void add_service(Service* service); //adds to the vector the service which the truck is assigned to
 	void remove_service(unsigned int id); //removes an assigned service when it is finished, searches by id
@@ -43,6 +45,7 @@ class Congelation : public Truck
 {
 public:
 	Congelation(string license);
+	~Congelation() {}
 
 	float getprice(Service* service) const;
 	void setprice(float newval);
@@ -57,6 +60,7 @@ class HazardousMat : public Truck
 {
 public:
 	HazardousMat(string license);
+	~HazardousMat(){}
 
 
     float getprice(Service* service)const;
@@ -72,6 +76,8 @@ class Animal : public Truck
 {
 public:
 	Animal(string license);
+	~Animal(){}
+
 	float getprice(Service* service)const;
 	void setprice(float newval);
 
@@ -83,6 +89,8 @@ class Normal : public Truck
 {
 public:
 	Normal(string license);
+	~Normal(){}
+
 	float getprice(Service* service)const;
 	void setprice(float newval);
 
