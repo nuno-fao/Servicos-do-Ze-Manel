@@ -19,6 +19,7 @@ protected:
 	bool registered;	//is the truck registered to a service in the future?
 	vector<Service*> assignedServices;	//pretty self-explanatory I'd say
 	unsigned short capacity; //in KG
+	unsigned short cargo; //if in transit this holds the weight it transports
 
 public:
     Truck(string license);
@@ -33,7 +34,9 @@ public:
 	virtual void setprice(float newval) = 0;
 	void setregistered(bool foo);
 	void setavailable(bool foo);
-
+	//other
+	void add_service(Service service); //adds to the vector the service which the truck is assigned to
+	void start_transport(unsigned short cargo); //sets the needed variables so the truck is in transport
 };
 
 class Congelation : public Truck
