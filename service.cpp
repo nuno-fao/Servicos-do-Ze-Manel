@@ -294,6 +294,7 @@ void Service::addService(vector<Service *> *services){
         cout<<"[3] Low Temperature"<<endl;
         if(cin>>tempType && tempType<4){
             clearScreen();
+            clearBuffer();
             variable_error=false;
         }
         else{
@@ -304,7 +305,10 @@ void Service::addService(vector<Service *> *services){
 
         }
     }
-    clearBuffer();
+
+
+
+
     cout<<tempOrigin<<endl;
     cout<<tempDestination<<endl;
     cout<<tempType<<endl;
