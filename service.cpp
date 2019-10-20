@@ -257,8 +257,10 @@ TemperatureService::TemperatureService(string origin_s, string destination_s, do
 
 void Service::addService(vector<Service *> *services){
     string tempOrigin,tempDestination;
-    unsigned short tempType = 0;
+    unsigned short tempType = 0,month=1,day=1,hour=0,minute=0;
+    unsigned year=0;
     bool variable_error=true;
+
     while (variable_error) {
         cout<<"Enter the Origin"<<endl;
         getline(cin,tempOrigin);
@@ -303,6 +305,71 @@ void Service::addService(vector<Service *> *services){
             cout<<"Invalid Type number, please Try Again"<<endl;
             clearBuffer();
 
+        }
+    }
+
+    variable_error=true;
+    while (variable_error) {
+        try {
+            cout<<"Enter the Year"<<endl;
+            if(cin>>year){
+                clearScreen();
+                variable_error=false;
+                Date(year,month,day,1,1);
+            }
+            else{
+                clearBuffer();
+                variable_error=true;
+                clearScreen();
+                cout<<"Year Input not Aceptable, please try again"<<endl;
+            }
+        } catch (DateInvalid i) {
+            clearScreen();
+            cout<<i.error<<endl;
+        }
+    }
+
+    clearBuffer();
+    variable_error=true;
+    while (variable_error) {
+        try {
+            cout<<"Enter the month"<<endl;
+            if(cin>>month){
+                clearScreen();
+                Date(year,month,day,1,1);
+                variable_error=false;
+            }
+            else{
+                clearBuffer();
+                variable_error=true;
+                clearScreen();
+                cout<<"Month Input not Aceptable, please try again"<<endl;
+            }
+        } catch (DateInvalid i) {
+            clearScreen();
+            cout<<i.error<<endl;
+        }
+    }
+
+    clearBuffer();
+    variable_error=true;
+    while (variable_error) {
+        try {
+            cout<<"Enter the day"<<endl;
+            if(cin>>day){
+                clearScreen();
+                Date(year,month,day,1,1);
+                variable_error=false;
+            }
+            else{
+                clearBuffer();
+                variable_error=true;
+                clearScreen();
+                cout<<"day Input not Aceptable, please try again"<<endl;
+            }
+        } catch (DateInvalid i) {
+            clearScreen();
+            cout<<i.error<<endl;
         }
     }
 

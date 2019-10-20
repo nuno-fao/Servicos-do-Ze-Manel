@@ -60,7 +60,7 @@ bool strIsChar(string str) {
         return false;
     }
     for (unsigned i = 0; i < str.length(); i++) {
-        if (!((str.at(i)<='z' && str.at(i)>='a') || (str.at(i)<='Z' && str.at(i)>='A')) && (!(str.at(i)!='.') && !(str.at(i)!=' '))) {
+        if (!((str.at(i)<='z' && str.at(i)>='a') || (str.at(i)<='Z' && str.at(i)>='A')) && ((str.at(i)!='.') && (str.at(i)!=' '))) {
             return false;
         }
     }

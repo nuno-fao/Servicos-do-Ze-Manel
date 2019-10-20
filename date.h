@@ -10,6 +10,17 @@
 
 using namespace std;
 
+class DateInvalid{
+public:
+    DateInvalid(string error,unsigned year,unsigned short month,unsigned short day,unsigned short hour,unsigned short minute):error(error),year(year), month(month), day(day) ,hour(hour),minute(minute){}
+    string error;
+    unsigned year;
+    unsigned short month;
+    unsigned short day;
+    unsigned short hour;
+    unsigned short minute;
+};
+
 class Date {
 private:
 	unsigned total_days(unsigned year, unsigned short month);

@@ -21,7 +21,7 @@ Date::Date(string date) {
 
 
 Date::Date(unsigned year, unsigned short month, unsigned short day, unsigned short hour, unsigned short minute) : year(year), month(month), day(day) ,hour(hour),minute(minute){
-
+    isValid();
 }
 Date::~Date() {
 
@@ -92,7 +92,7 @@ void Date::setDate(unsigned year, unsigned short month, unsigned short day) {
 unsigned Date::total_days(unsigned year, unsigned short month) {
 
 	if (month == 2) {
-		return (year % 400 == 0 || year % 100 != 0) && (year % 4 == 0) ? 28 : 29;
+        return (year % 400 == 0 || year % 100 != 0) && (year % 4 == 0) ? 29 : 28;
 	}
 	else if (month == 4 || month == 6 || month == 9 || month == 11) {
 		return 30;
@@ -105,11 +105,15 @@ unsigned Date::total_days(unsigned year, unsigned short month) {
 //check if instance date is valid
 bool Date::isValid() {
 
-	if (month > 0 && month <= 12) {
-		if (day > 0 && day <= total_days(year, month)) {
+    if (month > 0 && month <= 12) {
+        if (day > 0 && day <= total_days(year, month)) {
 			return true;
 		}
+        else
+            throw DateInvalid("Invalid Day: "+to_string(day),year,month,day,hour,minute);
 	}
+    else
+        throw DateInvalid("Invalid Month: "+to_string(month),year,month,day,hour,minute);
 	return false;
 }
 
@@ -231,3 +235,4 @@ bool operator != (Date const& date1, Date const& data2) {
 	}
 	return true;
 }
+
