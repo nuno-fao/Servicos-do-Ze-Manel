@@ -114,7 +114,6 @@ bool Date::isValid() {
 	}
     else
         throw DateInvalid("Invalid Month: "+to_string(month),year,month,day,hour,minute);
-	return false;
 }
 
 
