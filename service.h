@@ -31,7 +31,6 @@ enum state {
 class Service
 {
 public:
-    Service(string origin, string destination, double time, unsigned distance, type type, state state, Date date,Client *client,float quantity);
     ~Service();
 
     //get methods
@@ -48,6 +47,7 @@ public:
     float getTotalPrice() const;
     float getQuantity() const;
     float getMultiplier(){return  1;}
+    string getMaterial() const;
 
     //set methods
     void setOrigin(string origin);
@@ -59,6 +59,7 @@ public:
     void setDate(Date date);
     void setClient(Client *client);
     void setQuantity(float quantity);
+    void setMaterial(string material);
 
     void addTruck(Truck *truck);
     void calcPrice();
@@ -69,11 +70,14 @@ public:
     static Service *addService(vector<Service *> *services, Client *client=nullptr);
     static void editService(vector<Service *> *services);
     static void removeService(vector<Service *> *services);
-    friend ostream& operator<<(ostream& os, Service &dt);
+    friend ostream& operator<<(ostream& os, Service *a);
 
 protected:
+    Service(string material,string origin, string destination, double time, unsigned distance, type type, state state, Date date,Client *client,float quantity);
+    Service(string material, string origin, string destination, double time, unsigned distance, type type, state state, Date date, Client *client, float quantity, float total_price);
     string origin;
     string destination;
+    string material;
     double time;
     unsigned distance;
     float quantity;
@@ -93,13 +97,15 @@ protected:
 class HazardousService: public Service
 {
 public:
-    HazardousService(string origin, string destination, double time, unsigned distance, type type, state state, Date date,Client *client,float quantity,Hazard_enum hazard);
+    HazardousService(string material,string origin, string destination, double time, unsigned distance, type type, state state, Date date,Client *client,float quantity,Hazard_enum hazard);
+    HazardousService(string material,string origin, string destination, double time, unsigned distance, type type, state state, Date date,Client *client,float quantity,Hazard_enum hazard,float total_price);
     Hazard_enum type;
 };
 
 class TemperatureService: public Service
 {
 public:
-    TemperatureService(string origin, string destination, double time, unsigned distance, type type, state state, Date date,Client *client,float quantity,Temperature_enum hazard);
+    TemperatureService(string material,string origin, string destination, double time, unsigned distance, type type, state state, Date date,Client *client,float quantity,Temperature_enum hazard);
+    TemperatureService(string material,string origin, string destination, double time, unsigned distance, type type, state state, Date date,Client *client,float quantity,Temperature_enum hazard,float total_price);
     Temperature_enum type;
 };

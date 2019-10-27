@@ -12,6 +12,7 @@ class Company
 {
 public:
     Company();
+    ~Company();
     vector<Service*> *getVectorServicesFinished();
     vector<Service*> *getVectorServicesOnTransit();
     vector<Service*> *getVectorServicesOnQueue();

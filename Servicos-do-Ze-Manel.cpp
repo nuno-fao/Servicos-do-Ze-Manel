@@ -40,10 +40,36 @@ bool cmp(const Service *a, const Service *b){
 int main()
 {
     Company Ze_Manel;
-    Client ac("Miguel Pinto",121263630);
-    Service as(*Service::addService(Ze_Manel.getVectorServicesOnQueue(),&ac));
-    Ze_Manel.getVectorServicesOnQueue()->push_back(&as);
-    for(auto i=Ze_Manel.getVectorServicesOnQueue()->begin();i!=Ze_Manel.getVectorServicesOnQueue()->end();i++)
-        cout<<**i<<endl;
+    unsigned opt=1;
+    string temp;
+    while (opt!=0) {
+        cout<<"[1] see services"<<endl;
+        cout<<"[2] add service"<<endl;
+        if(cin>>opt && opt<=2)
+            switch (opt) {
+            case 1:
+                clearBuffer();
+                clearScreen();
+                for(auto i=Ze_Manel.getVectorServicesOnQueue()->begin();i!=Ze_Manel.getVectorServicesOnQueue()->end();i++)
+                    cout<<*i;
+                if(!Ze_Manel.getVectorServicesOnQueue()->size())
+                    cout<<"There are no info to show"<<endl;
+                getline(cin,temp);
+                clearScreen();
+                break;
+            case 2:
+                clearScreen();
+                clearBuffer();
+                Client *a =new Client("Margarida Cruz",121212121);
+                Service::addService(Ze_Manel.getVectorServicesOnQueue(),a);
+                break;
+
+            }
+        else{
+            clearBuffer();
+            clearScreen();
+            cout<<"Non valid option, please try again"<<endl;
+        }
+    }
     return 0;
 }

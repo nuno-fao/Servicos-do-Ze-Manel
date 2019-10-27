@@ -17,6 +17,8 @@ Date::Date(string date) {
     year = date_u_short(stoi(dateVector.at(0)));
     month = date_u_short(stoi(dateVector.at(1)));
     day = date_u_short(stoi(dateVector.at(2)));
+    hour = date_u_short(stoi(dateVector.at(3)));
+    minute = date_u_short(stoi(dateVector.at(4)));
 }
 
 
@@ -57,9 +59,12 @@ unsigned short Date::getMinute() const{
 
 string Date::getDate() const {
 
-	return to_string(year) + "/" + to_string(month) + "/" + to_string(day);
+    return to_string(year) + "/" + to_string(month) + "/" + to_string(day)+"/"+to_string(hour)+"/"+to_string(minute);
 }
 
+string Date::getDateWHour() const{
+    return to_string(year) + "/" + to_string(month) + "/" + to_string(day)+",  "+to_string(hour)+":"+to_string(minute);
+}
 /*********************************
  * SET Methods
  ********************************/

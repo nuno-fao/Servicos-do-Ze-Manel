@@ -44,7 +44,8 @@ public:
 	unsigned short getDay() const;
     unsigned short getHour() const;
     unsigned short getMinute() const;
-	string getDate() const; // returns the date in format "yyyy/mm/dd"
+    string getDate() const; // returns the date in format "yyyy/mm/dd/hh/mm"
+    string getDateWHour() const;
 
 // SET methods
 
