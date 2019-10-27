@@ -12,7 +12,7 @@ class Truck;
 class Client
 {
 public:
-    Client(string name, unsigned int nif, vector<Service *> &services);
+    Client(string name, unsigned int nif, vector<Service *> *services=nullptr);
     ~Client();
 
 	//get methods

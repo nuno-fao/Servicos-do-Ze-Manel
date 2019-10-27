@@ -25,7 +25,6 @@ public:
 
 class Date {
 private:
-	unsigned total_days(unsigned year, unsigned short month);
 	unsigned year;
 	unsigned short month;
 	unsigned short day;
@@ -68,3 +67,4 @@ bool operator > (Date const& date1, Date const& data2);
 bool operator >= (Date const& date1, Date const& data2);
 bool operator <= (Date const& date1, Date const& data2);
 bool operator == (Date const& date1, Date const& data2);
+unsigned total_days(unsigned year, unsigned short month);

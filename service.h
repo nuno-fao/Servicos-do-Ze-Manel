@@ -66,9 +66,10 @@ public:
     //file methods
     static void saveToFile(vector<Service*>*services_finished, vector<Service *> *services_on_transit, vector<Service *> *services_on_queue);
     static void loadFromFile(vector<Service *> *services_finished, vector<Service *> *services_on_transit, vector<Service *> *services_on_queue);
-    static void addService(vector<Service *> *services);
+    static Service *addService(vector<Service *> *services, Client *client=nullptr);
     static void editService(vector<Service *> *services);
     static void removeService(vector<Service *> *services);
+    friend ostream& operator<<(ostream& os, Service &dt);
 
 protected:
     string origin;

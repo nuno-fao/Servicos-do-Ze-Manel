@@ -89,7 +89,7 @@ void Date::setDate(unsigned year, unsigned short month, unsigned short day) {
  ********************************/
 
  //function to calculate total amount of days of a given month
-unsigned Date::total_days(unsigned year, unsigned short month) {
+unsigned total_days(unsigned year, unsigned short month) {
 
 	if (month == 2) {
         return (year % 400 == 0 || year % 100 != 0) && (year % 4 == 0) ? 29 : 28;

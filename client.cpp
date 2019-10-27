@@ -3,7 +3,9 @@
 
 unsigned int Client::lastId=0;
 
-Client::Client(string name, unsigned int nif, vector<Service *> &services): name(name),id(lastId), nif(nif),  services(services) {
+Client::Client(string name, unsigned int nif, vector<Service *> *services): name(name),id(lastId), nif(nif){
+    if(services==nullptr)
+        services=new vector<Service*>;
 	//if (!verifyName(const string & name))
 	//	throw exception;
 

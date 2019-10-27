@@ -74,17 +74,25 @@ bool strIsChar(string str) {
 
 }
 
-unsigned chooseOptionNumber(unsigned minimum, unsigned maximum, string Message, unsigned maxPerPage){
+unsigned chooseOptionNumber(unsigned minimum, unsigned maximum, string Message, unsigned maxPerPage,vector<string> *more_options){
     clearScreen();
+    size_t vector_size=0;
+    if(more_options!=nullptr)
+        vector_size=more_options->size();
     unsigned option;
     unsigned i=0;
+    unsigned adder=0;
     while (true) {
         cout<<Message<<endl;
         unsigned last_i=i;
         stringstream out;
+
+        //prints the number of number specified in maxPerPage
         for(;i+minimum<maximum && unsigned(abs(signed(i-last_i)))<maxPerPage;i++){
             out<<"["+to_string(unsigned(abs(signed(i-last_i)))%maxPerPage)+"] "+to_string(i+minimum)<<endl;
         }
+
+        //verifica se chegou ao fim da sequencia, se sim imprime a opção go next page
         if(i+minimum<maximum){
             out<<"["+to_string((unsigned(abs(signed(i-last_i)))-1)%maxPerPage+1)+"] Go Next Page"<<endl;
             if(signed(i-maxPerPage)>=0)
@@ -92,10 +100,18 @@ unsigned chooseOptionNumber(unsigned minimum, unsigned maximum, string Message, 
         }
         else
             out<<"["+to_string((unsigned(abs(signed(i-last_i)))-1)%maxPerPage+2)+"] Go Last Page"<<endl;
+
+        //verifica se exite mais opcoes a imprimir e imprime-as
+        if(more_options!=nullptr)
+            for(auto it:*more_options){
+                out<<"["+to_string((unsigned(abs(signed(i-last_i)))-1)%maxPerPage+2+(++adder))+"] "+it<<endl;
+            }
+
+        adder=0;
         cout<<out.str();
         bool error=true;
         while (error) {
-            if(cin>>option && signed(option-1)<=signed(unsigned(abs(signed(i-last_i))))){
+            if(cin>>option && signed(option-1-vector_size)<=signed(unsigned(abs(signed(i-last_i))))){
                 if(option<unsigned(abs(signed(i-last_i)))){
                     return option+minimum+i-unsigned(abs(signed(i-last_i)));
                 }
@@ -105,6 +121,8 @@ unsigned chooseOptionNumber(unsigned minimum, unsigned maximum, string Message, 
                     i=0;
                 else if(option==unsigned(abs(signed(i-last_i))))
                     i=min(maximum-maxPerPage+1,i+minimum)-minimum;
+                else if(option>(unsigned(abs(signed(i-last_i)))+1))
+                    return maximum;
                 error=false;
                 clearScreen();
             }

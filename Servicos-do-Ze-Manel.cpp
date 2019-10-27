@@ -40,6 +40,10 @@ bool cmp(const Service *a, const Service *b){
 int main()
 {
     Company Ze_Manel;
-    Service::addService(Ze_Manel.getVectorServicesOnQueue());
+    Client ac("Miguel Pinto",121263630);
+    Service as(*Service::addService(Ze_Manel.getVectorServicesOnQueue(),&ac));
+    Ze_Manel.getVectorServicesOnQueue()->push_back(&as);
+    for(auto i=Ze_Manel.getVectorServicesOnQueue()->begin();i!=Ze_Manel.getVectorServicesOnQueue()->end();i++)
+        cout<<**i<<endl;
     return 0;
 }
