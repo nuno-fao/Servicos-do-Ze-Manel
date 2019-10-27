@@ -1,10 +1,10 @@
 #include "date.h"
 
+
 Date::Date() {
 
 	time_t t = time(nullptr);
-	struct tm* now = localtime(&t);
-    typedef unsigned short date_u_short;
+    struct tm* now = localtime(&t);
     day = date_u_short((now->tm_mday));
     month = date_u_short(now->tm_mon + 1);
     year = date_u_short(now->tm_year + 1900);

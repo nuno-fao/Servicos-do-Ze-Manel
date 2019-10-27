@@ -314,9 +314,9 @@ void Service::addService(vector<Service *> *services){
 
     while (variable_error) {
         try {
-            unsigned x=chooseOptionNumber(unsigned(now->tm_year+1900),2100,"Enter the year",10);
-            cout<<x<<endl;
-            cin>>x;
+            year=chooseOptionNumber(unsigned(now->tm_year+1900),2100,"Enter the year",10);
+            cout<<year<<endl;
+            variable_error=false;
 
         } catch (DateInvalid i) {
             clearScreen();
@@ -328,23 +328,17 @@ void Service::addService(vector<Service *> *services){
     variable_error=true;
     while (variable_error) {
         try {
-            cout<<"Enter the month"<<endl;
-            if(cin>>month){
-                clearScreen();
-                Date(year,month,day,1,1);
-                variable_error=false;
-            }
-            else{
+            if(unsigned(now->tm_year+1900)==year)
+                 month=date_u_short(chooseOptionNumber(unsigned(now->tm_mon+1),13,"Enter the month",12));
+            else
+                month=date_u_short(chooseOptionNumber(1,13,"Enter the month",12));
+            cout<<month<<endl;
+            variable_error=false;
 
-                variable_error=true;
-                clearScreen();
-                cout<<"Month Input not Aceptable, please try again"<<endl;
-            }
         } catch (DateInvalid i) {
             clearScreen();
             cout<<i.error<<endl;
         }
-        clearBuffer();
     }
     
 

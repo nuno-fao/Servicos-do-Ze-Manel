@@ -10,6 +10,8 @@
 
 using namespace std;
 
+typedef unsigned short date_u_short;
+
 class DateInvalid{
 public:
     DateInvalid(string error,unsigned year,unsigned short month,unsigned short day,unsigned short hour,unsigned short minute):error(error),year(year), month(month), day(day) ,hour(hour),minute(minute){}
