@@ -1,9 +1,12 @@
 #pragma once
 #include <string>
 #include <vector>
+#include <ctime>
+#include <fstream>
 
 #include "truck.h"
 #include "date.h"
+#include "misc.h"
 #include "client.h"
 
 using namespace std;
