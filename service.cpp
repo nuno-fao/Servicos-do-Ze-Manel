@@ -152,7 +152,7 @@ Client *findClient(int nif){
 // check if nif size==9!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 void Service::loadFromFile(vector<Service*> *services_finished,vector<Service*> *services_on_transit,vector<Service*> *services_on_queue){
     ifstream servicesFile;
-    servicesFile.open("services.txt");
+    servicesFile.open("services.dat",ios :: binary);
     string tempOrigin;
     string tempDestination;
     double tempTime;
@@ -198,6 +198,8 @@ void Service::loadFromFile(vector<Service*> *services_finished,vector<Service*> 
         Service *temp;
         Date *tempD=new Date(tempDate);
         try {
+            if(tempNif.size()!=9)
+                throw NotAClient(unsigned(stoi(tempNif)),"Not a valid NIF");
             Client *tempC = findClient(stoi(tempNif));
             if(tempType==3)
                 temp= new TemperatureService(tempMaterial, tempOrigin,tempDestination,tempTime,unsigned(tempDistance),tempType,tempState,tempD,tempC,tempQuantity,_200,tempPrice);
@@ -242,6 +244,10 @@ void Service::loadFromFile(vector<Service*> *services_finished,vector<Service*> 
                 break;
             }
         }
+        catch(...){
+            cout<<"Not a valid Nif "+tempNif<<endl;
+        }
+
         getline(servicesFile,tempGeneral);
     }
     
@@ -252,7 +258,7 @@ void Service::loadFromFile(vector<Service*> *services_finished,vector<Service*> 
 }
 void Service::saveToFile(vector<Service*>*services_finished,vector<Service*>*services_on_transit,vector<Service*>*services_on_queue){
     ofstream servicesFile;
-    servicesFile.open ("services.txt");
+    servicesFile.open ("services.dat",ios :: binary);
     for(auto x:*services_finished){
         servicesFile << x->getMaterial()<<endl;
         servicesFile << x->getOrigin()<<endl;
