@@ -37,9 +37,12 @@ bool cmp(const Service *a, const Service *b){
     else
         return false;
 }
+
 int main()
 {
-    Company Ze_Manel;
+
+    Company Ze_Manel=Company::getCompany();
+    Service::loadFromFile(Ze_Manel.getVectorServicesFinished(),Ze_Manel.getVectorServicesOnTransit(),Ze_Manel.getVectorServicesOnQueue());
     unsigned opt=1;
     string temp;
     while (opt!=0) {

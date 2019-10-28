@@ -135,3 +135,22 @@ unsigned chooseOptionNumber(unsigned minimum, unsigned maximum, string Message, 
         }
     }
 }
+
+
+int binaryCustomfind(vector<Client*> *vetor, unsigned val){
+
+    size_t inf = 0;     // limite inferior (o primeiro índice de vetor em C é zero          )
+    size_t sup = vetor->size()-1; // limite superior (termina em um número a menos. 0 a 9 são 10 números)
+    size_t meio;
+    while ((inf <= sup) && vetor->size()>0)
+    {
+        meio = (inf + sup)/2;
+        if (val == vetor->at(meio)->getNif())
+            return int(meio);
+        if (val < vetor->at(meio)->getNif())
+            sup = meio-1;
+        else
+            inf = meio+1;
+    }
+    return -1;   // não encontrado
+}
