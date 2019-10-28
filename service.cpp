@@ -152,7 +152,7 @@ Client *findClient(int nif){
 // check if nif size==9!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 void Service::loadFromFile(vector<Service*> *services_finished,vector<Service*> *services_on_transit,vector<Service*> *services_on_queue){
     ifstream servicesFile;
-    servicesFile.open("services.dat",ios :: binary);
+    servicesFile.open("services.dat");
     string tempOrigin;
     string tempDestination;
     double tempTime;
@@ -258,7 +258,7 @@ void Service::loadFromFile(vector<Service*> *services_finished,vector<Service*> 
 }
 void Service::saveToFile(vector<Service*>*services_finished,vector<Service*>*services_on_transit,vector<Service*>*services_on_queue){
     ofstream servicesFile;
-    servicesFile.open ("services.dat",ios :: binary);
+    servicesFile.open ("services.dat");
     for(auto x:*services_finished){
         servicesFile << x->getMaterial()<<endl;
         servicesFile << x->getOrigin()<<endl;
