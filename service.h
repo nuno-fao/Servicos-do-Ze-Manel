@@ -72,7 +72,7 @@ public:
     static void loadFromFile(vector<Service *> *services_finished, vector<Service *> *services_on_transit, vector<Service *> *services_on_queue);
     static Service *addService(vector<Service *> *services, Client *client=nullptr);
     static void editService(vector<Service *> *services);
-    static void removeService(vector<Service *> *services);
+    static bool removeService(vector<Service *> *services,unsigned id);
     friend ostream& operator<<(ostream& os, Service *a);
 
 protected:

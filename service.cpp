@@ -24,7 +24,7 @@ Service::Service(string material, string origin, string destination, double time
 }
 
 Service::~Service(){
-    
+    initialDate->~Date();
 }
 
 string Service::getOrigin() const{
@@ -361,10 +361,20 @@ Service *Service::addService(vector<Service *> *services,Client *client){
     time_t rawtime;struct tm *now;std::time( &rawtime );now = localtime( &rawtime );
 
     //set material
-    cout<<"What is the material to transport"<<endl;
-    getline(cin,tempMaterial);
+    while (variable_error) {
+        cout<<"What is the material to transport"<<endl;
+        getline(cin,tempMaterial);
+        if(tempMaterial.size())
+            variable_error=false;
+        else{
+            clearScreen();
+            cout<<"Material name not acceptable, please try again."<<endl;
+        }
+
+    }
 
     // set origin
+    variable_error=true;
     clearScreen();
     while (variable_error) {
         cout<<"Enter the Origin"<<endl;
@@ -727,13 +737,14 @@ Hour:
         temp_service=new Service(tempMaterial, tempOrigin,tempDestination,0,0,intToType(tempType),on_queue,temp_date,client,temp_quantity);
     }
     services->push_back(temp_service);
+    Company::getCompany().services_on_queue_changed=true;
     return temp_service;
 }
 
 
 ostream& operator <<(ostream& os,Service *a){
     os<<"__________________________________________________"<<endl;
-    os<<"Transporting "+a->getMaterial()<<endl;
+    os<<"Transporting "+a->getMaterial()+"("<<a->getId()<<")"<<endl;
     os<<endl;
     os<<"Client: "+a->getClient()->getName()<<endl;
     os<<endl;
@@ -756,3 +767,15 @@ ostream& operator <<(ostream& os,Service *a){
     os<<endl;
     return os;
 }
+
+bool Service::removeService(vector<Service *> *services, unsigned id){
+    for(auto i=services->begin();i!=services->end();i++){
+        if((*i)->getId()==id){
+            (*i)->~Service();
+            services->erase(i);
+            return  true;
+        }
+    }
+    return false;
+}
+

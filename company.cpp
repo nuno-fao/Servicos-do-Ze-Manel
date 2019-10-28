@@ -13,7 +13,8 @@ Company &Company::getCompany(){
 Company::Company(){}
 
 Company::~Company(){
-    Service::saveToFile(&services_finished,&services_on_transit,&services_on_queue);
+    if(services_on_queue_changed)
+        Service::saveToFile(&services_finished,&services_on_transit,&services_on_queue);
 }
 
 vector<Service*> *Company::getVectorServicesFinished(){

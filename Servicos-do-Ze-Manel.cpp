@@ -48,7 +48,9 @@ int main()
     while (opt!=0) {
         cout<<"[1] see services"<<endl;
         cout<<"[2] add service"<<endl;
-        if(cin>>opt && opt<=2)
+        cout<<"[3] remove service"<<endl;
+        Client *a=nullptr;
+        if(cin>>opt && opt<=3)
             switch (opt) {
             case 1:
                 clearBuffer();
@@ -63,8 +65,29 @@ int main()
             case 2:
                 clearScreen();
                 clearBuffer();
-                Client *a =new Client("Margarida Cruz",121212121);
+                a =new Client("Margarida Cruz",121212121);
                 Service::addService(Ze_Manel.getVectorServicesOnQueue(),a);
+                break;
+
+            case 3:
+                clearScreen();
+                clearBuffer();
+                for(auto i:*Ze_Manel.getVectorServicesOnQueue()){
+                    cout<<i->getMaterial()<<", id: "<<i->getId()<<endl;
+                }
+                if(Ze_Manel.getVectorServicesOnQueue()->size()){
+                    cout<<endl;
+                    cout<<"Which Service you want to remove ( write service's id ):"<<endl;
+                    unsigned id;
+                    cin>>id;
+                    Service::removeService(Ze_Manel.getVectorServicesOnQueue(),id);
+                    clearScreen();
+                }
+                else
+                    cout<<"There are no services that can be removed"<<endl;
+                    string temp;
+                    getline(cin,temp);
+                    clearScreen();
                 break;
 
             }
@@ -73,6 +96,7 @@ int main()
             clearScreen();
             cout<<"Non valid option, please try again"<<endl;
         }
+        opt=1;
     }
     return 0;
 }
