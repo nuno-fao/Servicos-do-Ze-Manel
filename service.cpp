@@ -379,6 +379,170 @@ Service *Service::addService(vector<Service *> *services,Client *client){
         clearBuffer();
     }
     
+    //set yy/mm/dd
+
+    variable_error=true;
+    string tempString;
+    vector<string> tempVector;
+    while (variable_error) {
+        try {
+            cout<<"Enter the date(yy mm dd)"<<endl;
+            if(getline(cin,tempString)){
+                clearScreen();
+                tempVector = vectorString(tempString," ");
+                if(tempVector.size()>=3)
+                    Date(date_u_short(stoi(tempVector.at(0))),date_u_short(stoi(tempVector.at(1))),date_u_short(stoi(tempVector.at(2))),1,1);
+                variable_error=false;
+            }
+            else{
+                clearBuffer();
+                variable_error=true;
+                clearScreen();
+                cout<<"minute Input not Aceptable, please try again"<<endl;
+            }
+        } catch (DateInvalid i) {
+            clearScreen();
+            cout<<i.error<<endl;
+        }
+    }
+
+    variable_error=true;
+    vector<string> tempVector_h;
+    while (variable_error) {
+        try {
+            cout<<"Enter the hours(hh mm)"<<endl;
+            if(getline(cin,tempString)){
+                clearScreen();
+                tempVector_h = vectorString(tempString," ");
+                if(tempVector_h.size()>=2)
+                    Date(date_u_short(stoi(tempVector.at(0))),date_u_short(stoi(tempVector.at(1))),date_u_short(stoi(tempVector.at(2))),date_u_short(stoi(tempVector_h.at(0))),date_u_short(stoi(tempVector_h.at(1))));
+                variable_error=false;
+            }
+            else{
+                clearBuffer();
+                variable_error=true;
+                clearScreen();
+                cout<<"minute Input not Aceptable, please try again"<<endl;
+            }
+        } catch (DateInvalid i) {
+            clearScreen();
+            cout<<i.error<<endl;
+        }
+    }
+
+    /*
+    variable_error=true;
+    while (variable_error) {
+        try {
+            cout<<"Enter the Year"<<endl;
+            if(cin>>year){
+                clearScreen();
+                variable_error=false;
+                Date(year,month,day,1,1);
+            }
+            else{
+                clearBuffer();
+                variable_error=true;
+                clearScreen();
+                cout<<"Year Input not Aceptable, please try again"<<endl;
+            }
+        } catch (DateInvalid i) {
+            clearScreen();
+            cout<<i.error<<endl;
+        }
+    }
+
+    clearBuffer();
+    variable_error=true;
+    while (variable_error) {
+        try {
+            cout<<"Enter the month"<<endl;
+            if(cin>>month){
+                clearScreen();
+                Date(year,month,day,1,1);
+                variable_error=false;
+            }
+            else{
+                clearBuffer();
+                variable_error=true;
+                clearScreen();
+                cout<<"Month Input not Aceptable, please try again"<<endl;
+            }
+        } catch (DateInvalid i) {
+            clearScreen();
+            cout<<i.error<<endl;
+        }
+    }
+
+    clearBuffer();
+    variable_error=true;
+    while (variable_error) {
+        try {
+            cout<<"Enter the day"<<endl;
+            if(cin>>day){
+                clearScreen();
+                Date(year,month,day,1,1);
+                variable_error=false;
+            }
+            else{
+                clearBuffer();
+                variable_error=true;
+                clearScreen();
+                cout<<"day Input not Aceptable, please try again"<<endl;
+            }
+        } catch (DateInvalid i) {
+            clearScreen();
+            cout<<i.error<<endl;
+        }
+    }
+
+    //set hour
+    clearBuffer();
+    variable_error=true;
+    while (variable_error) {
+        try {
+            cout<<"Enter the hour an minutes (hh:mm)"<<endl;
+            if(cin>>hour){
+                clearScreen();
+                Date(year,month,day,hour,1);
+                variable_error=false;
+            }
+            else{
+                clearBuffer();
+                variable_error=true;
+                clearScreen();
+                cout<<"hour Input not Aceptable, please try again"<<endl;
+            }
+        } catch (DateInvalid i) {
+            clearScreen();
+            cout<<i.error<<endl;
+        }
+    }
+
+    //set min
+    clearBuffer();
+    variable_error=true;
+    while (variable_error) {
+        try {
+            cout<<"Enter the minute"<<endl;
+            if(cin>>minute){
+                clearScreen();
+                Date(year,month,day,hour,minute);
+                variable_error=false;
+            }
+            else{
+                clearBuffer();
+                variable_error=true;
+                clearScreen();
+                cout<<"minute Input not Aceptable, please try again"<<endl;
+            }
+        } catch (DateInvalid i) {
+            clearScreen();
+            cout<<i.error<<endl;
+        }
+    }
+    */
+    /*
     // set year
 Year:
     variable_error=true;
@@ -493,8 +657,8 @@ Hour:
             clearScreen();
             cout<<i.error<<endl;
         }
-    }
-    Date temp_date(year,month,day,hour,minute);
+    }*/
+    Date temp_date(date_u_short(stoi(tempVector.at(0))),date_u_short(stoi(tempVector.at(1))),date_u_short(stoi(tempVector.at(2))),date_u_short(stoi(tempVector_h.at(0))),date_u_short(stoi(tempVector_h.at(1))));
     clearScreen();
     //set quantity
     variable_error=true;

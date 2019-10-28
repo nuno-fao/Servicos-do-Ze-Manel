@@ -3,7 +3,7 @@
 
 Date::Date() {
 
-	time_t t = time(nullptr);
+    time_t t = time(nullptr);
     struct tm* now = localtime(&t);
     day = date_u_short((now->tm_mday));
     month = date_u_short(now->tm_mon + 1);
@@ -12,8 +12,8 @@ Date::Date() {
 
 Date::Date(string date) {
     typedef unsigned short date_u_short;
-	vector<string> dateVector;
-	dateVector = vectorString(date, "/");
+    vector<string> dateVector;
+    dateVector = vectorString(date, "/");
     year = date_u_short(stoi(dateVector.at(0)));
     month = date_u_short(stoi(dateVector.at(1)));
     day = date_u_short(stoi(dateVector.at(2)));
@@ -34,18 +34,18 @@ Date::~Date() {
  ********************************/
 unsigned short Date::getDay() const {
 
-	return day;
+    return day;
 }
 
 
 unsigned short Date::getMonth() const {
 
-	return month;
+    return month;
 }
 
 unsigned Date::getYear() const {
 
-	return year;
+    return year;
 }
 
 unsigned short Date::getHour() const{
@@ -71,40 +71,40 @@ string Date::getDateWHour() const{
 
 void Date::setDay(unsigned short day) {
 
-	this->day = day;
+    this->day = day;
 }
 
 void Date::setMonth(unsigned short month) {
 
-	this->month = month;
+    this->month = month;
 }
 
 void Date::setYear(unsigned year) {
 
-	this->year = year;
+    this->year = year;
 }
 
 void Date::setDate(unsigned year, unsigned short month, unsigned short day) {
 
-	this->year = year; this->month = month; this->day = day;
+    this->year = year; this->month = month; this->day = day;
 }
 
 /*********************************
  * Other methods
  ********************************/
 
- //function to calculate total amount of days of a given month
+//function to calculate total amount of days of a given month
 unsigned total_days(unsigned year, unsigned short month) {
 
-	if (month == 2) {
+    if (month == 2) {
         return (year % 400 == 0 || year % 100 != 0) && (year % 4 == 0) ? 29 : 28;
-	}
-	else if (month == 4 || month == 6 || month == 9 || month == 11) {
-		return 30;
-	}
-	else {
-		return 31;
-	}
+    }
+    else if (month == 4 || month == 6 || month == 9 || month == 11) {
+        return 30;
+    }
+    else {
+        return 31;
+    }
 }
 
 //check if instance date is valid
@@ -112,11 +112,18 @@ bool Date::isValid() {
 
     if (month > 0 && month <= 12) {
         if (day > 0 && day <= total_days(year, month)) {
-			return true;
-		}
+            if(hour>0 && hour<=23){
+                if(minute>0 && minute<=59)
+                    return true;
+                else
+                    throw DateInvalid("Invalid minutes: "+to_string(minute),year,month,day,hour,minute);
+            }
+            else
+                throw DateInvalid("Invalid Hour: "+to_string(hour),year,month,day,hour,minute);
+        }
         else
             throw DateInvalid("Invalid Day: "+to_string(day),year,month,day,hour,minute);
-	}
+    }
     else
         throw DateInvalid("Invalid Month: "+to_string(month),year,month,day,hour,minute);
 }
@@ -126,117 +133,117 @@ bool Date::isValid() {
  * Show Date
  ********************************/
 
- //prints date year/month/day
+//prints date year/month/day
 void Date::show() const {
-	cout << to_string(year) + "/" + to_string(month) + "/" + to_string(day) << endl;
+    cout << to_string(year) + "/" + to_string(month) + "/" + to_string(day) << endl;
 }
 
 bool operator < (Date const& date1, Date const& data2) {
 
-	if (date1.getYear() == data2.getYear()) {
-		if (date1.getMonth() == data2.getMonth()) {
-			if (date1.getDay() < data2.getDay()) {
-				return true;
-			}
-			else {
-				return false;
-			}
-		}
-		else if (date1.getMonth() < data2.getMonth()) {
-			return true;
-		}
-		else {
-			return false;
-		}
-	}
-	else if (date1.getYear() < data2.getYear()) {
-		return true;
-	}
-	return false;
+    if (date1.getYear() == data2.getYear()) {
+        if (date1.getMonth() == data2.getMonth()) {
+            if (date1.getDay() < data2.getDay()) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+        else if (date1.getMonth() < data2.getMonth()) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+    else if (date1.getYear() < data2.getYear()) {
+        return true;
+    }
+    return false;
 }
 
 bool operator > (Date const& date1, Date const& data2) {
 
-	if (date1.getYear() == data2.getYear()) {
-		if (date1.getMonth() == data2.getMonth()) {
-			if (date1.getDay() > data2.getDay()) {
-				return true;
-			}
-			else {
-				return false;
-			}
-		}
-		else if (date1.getMonth() > data2.getMonth()) {
-			return true;
-		}
-		else {
-			return false;
-		}
-	}
-	else if (date1.getYear() > data2.getYear()) {
-		return true;
-	}
-	return false;
+    if (date1.getYear() == data2.getYear()) {
+        if (date1.getMonth() == data2.getMonth()) {
+            if (date1.getDay() > data2.getDay()) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+        else if (date1.getMonth() > data2.getMonth()) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+    else if (date1.getYear() > data2.getYear()) {
+        return true;
+    }
+    return false;
 }
 bool operator >= (Date const& date1, Date const& data2) {
 
-	if (date1.getYear() == data2.getYear()) {
-		if (date1.getMonth() == data2.getMonth()) {
-			if (date1.getDay() < data2.getDay()) {
-				return false;
-			}
-			else {
-				return true;
-			}
-		}
-		else if (date1.getMonth() < data2.getMonth()) {
-			return false;
-		}
-		else {
-			return true;
-		}
-	}
-	else if (date1.getYear() < data2.getYear()) {
-		return false;
-	}
-	return true;
+    if (date1.getYear() == data2.getYear()) {
+        if (date1.getMonth() == data2.getMonth()) {
+            if (date1.getDay() < data2.getDay()) {
+                return false;
+            }
+            else {
+                return true;
+            }
+        }
+        else if (date1.getMonth() < data2.getMonth()) {
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+    else if (date1.getYear() < data2.getYear()) {
+        return false;
+    }
+    return true;
 }
 bool operator <= (Date const& date1, Date const& data2) {
-	if (date1.getYear() == data2.getYear()) {
-		if (date1.getMonth() == data2.getMonth()) {
-			if (date1.getDay() > data2.getDay()) {
-				return false;
-			}
-		}
-		else if (date1.getMonth() > data2.getMonth()) {
-			return false;
-		}
-	}
-	else if (date1.getYear() > data2.getYear()) {
-		return false;
-	}
-	return true;
+    if (date1.getYear() == data2.getYear()) {
+        if (date1.getMonth() == data2.getMonth()) {
+            if (date1.getDay() > data2.getDay()) {
+                return false;
+            }
+        }
+        else if (date1.getMonth() > data2.getMonth()) {
+            return false;
+        }
+    }
+    else if (date1.getYear() > data2.getYear()) {
+        return false;
+    }
+    return true;
 }
 bool operator == (Date const& date1, Date const& data2) {
 
-	if (date1.getYear() == data2.getYear()) {
-		if (date1.getMonth() == data2.getMonth()) {
-			if (date1.getDay() == data2.getDay()) {
-				return true;
-			}
-		}
-	}
-	return false;
+    if (date1.getYear() == data2.getYear()) {
+        if (date1.getMonth() == data2.getMonth()) {
+            if (date1.getDay() == data2.getDay()) {
+                return true;
+            }
+        }
+    }
+    return false;
 }
 bool operator != (Date const& date1, Date const& data2) {
 
-	if (date1.getYear() == data2.getYear()) {
-		if (date1.getMonth() == data2.getMonth()) {
-			if (date1.getDay() == data2.getDay()) {
-				return false;
-			}
-		}
-	}
-	return true;
+    if (date1.getYear() == data2.getYear()) {
+        if (date1.getMonth() == data2.getMonth()) {
+            if (date1.getDay() == data2.getDay()) {
+                return false;
+            }
+        }
+    }
+    return true;
 }
 
