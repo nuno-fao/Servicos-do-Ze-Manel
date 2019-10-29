@@ -3,6 +3,9 @@
 #include <vector>
 
 #include "service.h"
+#include "misc.h"
+
+
 using namespace std;
 
 class Service;
@@ -13,6 +16,9 @@ class Client
 public:
     Client(string name, unsigned int nif, vector<Service *> *services=nullptr);
     ~Client();
+
+	void loadClients(const string &clientsNameFile, vector<Client> &clientsVector); // Reads the clients file and stores the result in a vector
+	void removeClient(vector<Client>& clientsVector);
 
     //get methods
     string getName() const;
@@ -47,4 +53,7 @@ public:
     NotAClient(unsigned nif_n,string erro):Client(),erro(erro){
         this->nif=nif_n;
     }
+	unsigned int getNif() const {
+		return nif;
+	}
 };

@@ -1,23 +1,21 @@
 #include "client.h"
 
+// Destrutor
+
 
 unsigned int Client::lastId=0;
 
-Client::Client(string name, unsigned int nif, vector<Service *> *services): name(name),id(lastId), nif(nif){
+Client::Client(string name, unsigned int nif, vector<Service*> *services): name(name), id(lastId), nif(nif){
     if(services==nullptr)
         services=new vector<Service*>;
-	//if (!verifyName(const string & name))
-	//	throw exception;
-
-
-    //this->id = last_id + 1;
-    lastId++;
 }
 
 
-
 Client::~Client(){
-
+	for (size_t i = 0; i < services.size(); i++)
+	{
+		services.at(i)->~Service();
+	}
 }
 
 //get methods
@@ -34,66 +32,52 @@ void Client::setNif(unsigned nif){
     this->nif=nif;
 }
 
-//add methods
+//add methods	
 void Client::addService(Service *service){
 	services.push_back(service);
 }
 
 
-//Reads the clients file and stores the result in a vector
-//void Client::readClients(string clientsNameFile, vector<Client>& clientsVector) {
-//
-//	string clientsText;
-//	ifstream clientsFile;
-//	Client client;
-//
-//	int i = 0;
-//	clientsFile.open(clientsNameFile);
-//	if (clientsFile.fail())
-//	{
-//		cout << "Error opening " << clientsNameFile;
-//	}
-//	else
-//	{
-//		while (getline(clientsFile, clientsText))
-//		{
-//			vector<int> temporary;
-//			switch (i)
-//			{
-//			case 0:
-//				client.setName(clientsText);
-//				break;
-//			case 1:
-//				client.setNif(stoi(clientsText));
-//				break;
-//			case 2:
-//				client.setFamilySize(stoi(clientsText));
-//				break;
-//			case 3:
-//				client.setAddress(Address::addressTextConverter(clientsText));
-//				break;
-//			case 4:
-//				temporary = separateCharacterInt(clientsText, ';');
-//				client.setTravelPackIds(temporary);
-//				break;
-//			case 5:
-//				client.setTotalPurchased(stoi(clientsText));
-//				break;
-//			case 6:
-//				i = -1;
-//				clientsVector.push_back(client);
-//				break;
-//			default:
-//				break;
-//			}
-//			i++;
-//		}
-//	}
-//	clientsVector.push_back(client);
-//	clientsFile.close();
-//}
+void Client::loadClients(const string &clientsNameFile, vector<Client> &clientsVector) {
 
-//Removes client from the vector
+	string clientsText;
+	ifstream clientsFile;
+	Client client;
+
+	int i = 0;
+	clientsFile.open(clientsNameFile);
+	if (clientsFile.fail())
+	{
+		// throw exception
+	}
+
+	else
+	{
+		while (getline(clientsFile, clientsText))
+		{
+			vector<int> temporary;
+			switch (i)
+			{
+			case 0:
+				client.setName(clientsText);
+				break;
+			case 1:
+				client.setNif(stoi(clientsText));
+				break;
+			case 2:
+				// Add service id 
+			default:
+				break;
+			}
+			i++;
+		}
+	}
+
+	clientsVector.push_back(client);
+	clientsFile.close();
+}
+
+// Removes client from the vector
 //void Client::removeClient(vector<Client>& clientsVector) {
 //	Client client;
 //

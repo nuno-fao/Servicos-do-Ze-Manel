@@ -154,3 +154,5 @@ int binaryCustomfind(vector<Client*> *vetor, unsigned val){
     }
     return -1;   // não encontrado
 }
+
+
