@@ -21,10 +21,15 @@ SOURCES = \
    $$PWD/truck.cpp
 
 INCLUDEPATH = \
-    $$PWD/.
+    $$PWD/. \
+    $$PWD/files/. \
 
 DISTFILES = \
-    $$PWD/services.txt
+    $$PWD/files/on_transit_services.txt \
+    $$PWD/files/on_queue_services.txt \
+    $$PWD/files/finished_services.txt \
+    $$PWD/files/trucks.txt \
+    $$PWD/files/clients.txt \
 
 #DEFINES = 
 
