@@ -3,6 +3,7 @@
 #include <vector>
 #include <unordered_map>
 #include "service.h"
+#include "company.h"
 using namespace std;
 
 class Service;
@@ -23,7 +24,7 @@ protected:
 
 public:
     Truck(string license, bool available,bool registered,unsigned short capacity, unsigned short cargo);
-    virtual ~Truck();
+    virtual ~Truck(){}
 	//get methods
 	virtual float getprice(Service* service) const = 0;
 	unsigned short getcapacity() const;
@@ -101,5 +102,5 @@ private:
 
 class FailedToOpenTrucks {
 public:
-	FailedToOpenTrucks() {};
+    FailedToOpenTrucks() {}
 };

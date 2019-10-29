@@ -43,16 +43,16 @@ Company *Company::company = nullptr;
 int main()
 {
     Company *Ze_Manel = nullptr;
-    Ze_Manel->getCompany();
+    Ze_Manel=Company::getCompany();
     Truck::loadFromFile(Ze_Manel->getVectorTrucks());
     Service::loadFromFile(Ze_Manel->getVectorServicesFinished(),Ze_Manel->getVectorServicesOnTransit(),Ze_Manel->getVectorServicesOnQueue());
     unsigned opt=1;
     string temp;
+    //cout<<Ze_Manel->getVectorTrucks()->at(0)->getlicense()<<endl;
     while (opt!=0) {
         cout<<"[1] See services"<<endl;
         cout<<"[2] Add service"<<endl;
         cout<<"[3] Remove service"<<endl;
-        cout<<Ze_Manel->services_on_queue_changed<<endl;
         if(cin>>opt && opt<=3)
             switch (opt) {
             case 0:

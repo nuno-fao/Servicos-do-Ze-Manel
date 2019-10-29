@@ -6,6 +6,10 @@
 #include "service.h"
 #include "truck.h"
 
+
+class Truck;
+class Service;
+class Client;
 using namespace std;
 
 class Company
