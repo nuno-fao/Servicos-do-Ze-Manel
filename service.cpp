@@ -798,8 +798,10 @@ void Service::editService(vector<Service *> *services){
 
                     getline(cin,temp);
                     clearScreen();
-                    if(strIsChar(temp))
+                    if(strIsChar(temp)){
                         variable_error=false;
+                        setOrigin(temp);
+                    }
                     else{
                         variable_error=true;
                         cout<<"ORigin Input not acceptable, please try again"<<endl;
