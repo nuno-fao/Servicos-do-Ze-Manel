@@ -14,7 +14,7 @@ class Truck;
 class Client
 {
 public:
-    Client(string name, unsigned int nif, vector<Service *> *services=nullptr);
+    Client(string name, unsigned int nif, vector<Service*> *services = nullptr);
     ~Client();
 
 	void loadClients(const string &clientsNameFile, vector<Client> &clientsVector); // Reads the clients file and stores the result in a vector
@@ -23,7 +23,7 @@ public:
     //get methods
     string getName() const;
     unsigned getNif() const;
-    void getServicesVector(vector<Service*> *services) const;
+    vector<Service*> getServicesVector() const;
 
     //set methods
     void setName(string name);

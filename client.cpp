@@ -22,7 +22,8 @@ Client::~Client(){
 string Client::getName() const { return name; }
 
 unsigned Client::getNif() const { return nif; }
-//void getServicesVector(vector<Service*> *services) const;
+
+vector<Service*> Client::getServicesVector() const { return services; }
 
 //set methods
 void Client::setName(string name){
