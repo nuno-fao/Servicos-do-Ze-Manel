@@ -76,7 +76,7 @@ public:
 
 protected:
     Service(string material,string origin, string destination, double time, unsigned distance, type type, state state, Date *date,Client *client,float quantity);
-    Service(string material, string origin, string destination, double time, unsigned distance, type type, state state, Date *date, Client *client, float quantity, float total_price);
+    Service(string material, string origin, string destination, double time, unsigned distance, type type, state state, Date *date, Client *client, float quantity, float total_price,unsigned id);
     string origin;
     string destination;
     string material;
@@ -100,7 +100,7 @@ class HazardousService: public Service
 {
 public:
     HazardousService(string material,string origin, string destination, double time, unsigned distance, type type, state state, Date *date,Client *client,float quantity,Hazard_enum hazard);
-    HazardousService(string material,string origin, string destination, double time, unsigned distance, type type, state state, Date *date,Client *client,float quantity,Hazard_enum hazard,float total_price);
+    HazardousService(string material,string origin, string destination, double time, unsigned distance, type type, state state, Date *date,Client *client,float quantity,Hazard_enum hazard,float total_price,unsigned id);
     Hazard_enum type;
 };
 
@@ -108,6 +108,6 @@ class TemperatureService: public Service
 {
 public:
     TemperatureService(string material,string origin, string destination, double time, unsigned distance, type type, state state, Date *date,Client *client,float quantity,Temperature_enum hazard);
-    TemperatureService(string material,string origin, string destination, double time, unsigned distance, type type, state state, Date *date,Client *client,float quantity,Temperature_enum hazard,float total_price);
+    TemperatureService(string material, string origin, string destination, double time, unsigned distance, type type, state state, Date *date, Client *client, float quantity, Temperature_enum hazard, float total_price, unsigned id_s);
     Temperature_enum type;
 };

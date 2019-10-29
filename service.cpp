@@ -13,11 +13,10 @@ Service::Service(string material, string origin, string destination, double time
     
 }
 
-Service::Service(string material, string origin, string destination, double time, unsigned distance, enum type type, enum state state, Date *date, Client *client, float quantity,float total_price)
-    : origin(origin),destination(destination),material(material), time(time), distance(distance), quantity(quantity), ser_type(type), ser_state(state),total_price(total_price)
+Service::Service(string material, string origin, string destination, double time, unsigned distance, enum type type, enum state state, Date *date, Client *client, float quantity, float total_price, unsigned id)
+    : origin(origin),destination(destination),material(material), time(time), distance(distance), quantity(quantity),  ser_type(type),id(id), ser_state(state),total_price(total_price)
 {
-
-    id=lastId++;
+    lastId++;
     setDate(date);
     setClient(client);
 
@@ -167,9 +166,12 @@ void Service::loadFromFile(vector<Service*> *services_finished,vector<Service*> 
     string tempGeneral;
     float tempQuantity;
     float tempPrice;
+    unsigned tempId;
 
     while(getline(servicesFile,tempMaterial)){
 
+        getline(servicesFile,tempGeneral);
+        tempId=unsigned(stoi(tempGeneral));
         getline(servicesFile,tempOrigin);
         getline(servicesFile,tempDestination);
         
@@ -203,11 +205,11 @@ void Service::loadFromFile(vector<Service*> *services_finished,vector<Service*> 
                 throw NotAClient(unsigned(stoi(tempNif)),"Not a valid NIF");
             Client *tempC = findClient(stoi(tempNif));
             if(tempType==3)
-                temp= new TemperatureService(tempMaterial, tempOrigin,tempDestination,tempTime,unsigned(tempDistance),tempType,tempState,tempD,tempC,tempQuantity,Temperature_enum::_200,tempPrice);
+                temp= new TemperatureService(tempMaterial, tempOrigin,tempDestination,tempTime,unsigned(tempDistance),tempType,tempState,tempD,tempC,tempQuantity,Temperature_enum::_200,tempPrice,tempId);
             if(tempType==1)
-                temp= new HazardousService(tempMaterial, tempOrigin,tempDestination,tempTime,unsigned(tempDistance),tempType,tempState,tempD,tempC,tempQuantity,Hazard_enum::corrosives,tempPrice);
+                temp= new HazardousService(tempMaterial, tempOrigin,tempDestination,tempTime,unsigned(tempDistance),tempType,tempState,tempD,tempC,tempQuantity,Hazard_enum::corrosives,tempPrice,tempId);
             else
-                temp= new Service(tempMaterial,tempOrigin,tempDestination,tempTime,unsigned(tempDistance),tempType,tempState,tempD,tempC,tempQuantity,tempPrice);
+                temp= new Service(tempMaterial,tempOrigin,tempDestination,tempTime,unsigned(tempDistance),tempType,tempState,tempD,tempC,tempQuantity,tempPrice,tempId);
 
             switch (tempState) {
             case on_transit:
@@ -227,11 +229,11 @@ void Service::loadFromFile(vector<Service*> *services_finished,vector<Service*> 
             Client *tempC= new NotAClient(e);
             //getline(cin,temp_error);
             if(tempType==3)
-                temp= new TemperatureService(tempMaterial, tempOrigin,tempDestination,tempTime,unsigned(tempDistance),tempType,tempState,tempD,tempC,tempQuantity,Temperature_enum::_200,tempPrice);
+                temp= new TemperatureService(tempMaterial, tempOrigin,tempDestination,tempTime,unsigned(tempDistance),tempType,tempState,tempD,tempC,tempQuantity,Temperature_enum::_200,tempPrice,tempId);
             if(tempType==1)
-                temp= new HazardousService(tempMaterial, tempOrigin,tempDestination,tempTime,unsigned(tempDistance),tempType,tempState,tempD,tempC,tempQuantity,Hazard_enum::corrosives,tempPrice);
+                temp= new HazardousService(tempMaterial, tempOrigin,tempDestination,tempTime,unsigned(tempDistance),tempType,tempState,tempD,tempC,tempQuantity,Hazard_enum::corrosives,tempPrice,tempId);
             else
-                temp= new Service(tempMaterial,tempOrigin,tempDestination,tempTime,unsigned(tempDistance),tempType,tempState,tempD,tempC,tempQuantity,tempPrice);
+                temp= new Service(tempMaterial,tempOrigin,tempDestination,tempTime,unsigned(tempDistance),tempType,tempState,tempD,tempC,tempQuantity,tempPrice,tempId);
 
             switch (tempState) {
             case on_transit:
@@ -262,6 +264,7 @@ void Service::saveToFile(vector<Service*> *services_finished,vector<Service*>*se
     servicesFile.open("./files/on_queue_services.txt");
     for(auto x:*services_finished){
         servicesFile << x->getMaterial()<<endl;
+        servicesFile << x->getId()<<endl;
         servicesFile << x->getOrigin()<<endl;
         servicesFile << x->getDestination()<<endl;
         servicesFile << (x->getTime())<<endl;
@@ -281,6 +284,7 @@ void Service::saveToFile(vector<Service*> *services_finished,vector<Service*>*se
     }
     for(auto x:*services_on_queue){
         servicesFile << x->getMaterial()<<endl;
+        servicesFile << x->getId()<<endl;
         servicesFile << x->getOrigin()<<endl;
         servicesFile << x->getDestination()<<endl;
         servicesFile << (x->getTime())<<endl;
@@ -300,6 +304,7 @@ void Service::saveToFile(vector<Service*> *services_finished,vector<Service*>*se
     }
     for(auto x:*services_on_transit){
         servicesFile << x->getMaterial()<<endl;
+        servicesFile << x->getId()<<endl;
         servicesFile << x->getOrigin()<<endl;
         servicesFile << x->getDestination()<<endl;
         servicesFile << (x->getTime())<<endl;
@@ -321,23 +326,20 @@ void Service::saveToFile(vector<Service*> *services_finished,vector<Service*>*se
 
 HazardousService::HazardousService(string material_h, string origin_h, string destination_h, double time_h, unsigned distance_h, enum type type_h, enum state state_h, Date *date_h, Client *client_h,float quantity_h,Hazard_enum type): Service(material_h,origin_h,destination_h,time_h,distance_h,type_h,state_h,date_h,client_h,quantity_h),type(type)
 {
-    id=lastId++;
     setDate(date_h);
     setClient(client_h);
     calcPrice();
     
 }
-HazardousService::HazardousService(string material_h, string origin_h, string destination_h, double time_h, unsigned distance_h, enum type type_h, enum state state_h, Date *date_h, Client *client_h,float quantity_h,Hazard_enum type,float total_price_h): Service(material_h,origin_h,destination_h,time_h,distance_h,type_h,state_h,date_h,client_h,quantity_h,total_price_h),type(type)
+HazardousService::HazardousService(string material_h, string origin_h, string destination_h, double time_h, unsigned distance_h, enum type type_h, enum state state_h, Date *date_h, Client *client_h,float quantity_h,Hazard_enum type,float total_price_h,unsigned id_h): Service(material_h,origin_h,destination_h,time_h,distance_h,type_h,state_h,date_h,client_h,quantity_h,total_price_h,id_h),type(type)
 {
-    id=lastId++;
     setDate(date_h);
     setClient(client_h);
 
 }
 
-TemperatureService::TemperatureService(string material_s, string origin_s, string destination_s, double time_s, unsigned distance_s, enum type type_s, enum state state_s, Date *date_s, Client *client_s, float quantity_s, Temperature_enum type, float total_price_s): Service(material_s,origin_s,destination_s,time_s,distance_s,type_s,state_s,date_s,client_s,quantity_s,total_price_s) ,type(type)
+TemperatureService::TemperatureService(string material_s, string origin_s, string destination_s, double time_s, unsigned distance_s, enum type type_s, enum state state_s, Date *date_s, Client *client_s, float quantity_s, Temperature_enum type, float total_price_s,unsigned id_s): Service(material_s,origin_s,destination_s,time_s,distance_s,type_s,state_s,date_s,client_s,quantity_s,total_price_s,id_s) ,type(type)
 {
-    id=lastId++;
     setDate(date_s);
     setClient(client_s);
 
@@ -345,7 +347,6 @@ TemperatureService::TemperatureService(string material_s, string origin_s, strin
 
 TemperatureService::TemperatureService(string material_s, string origin_s, string destination_s, double time_s, unsigned distance_s, enum type type_s, enum state state_s, Date *date_s, Client *client_s,float quantity_s,Temperature_enum type): Service(material_s,origin_s,destination_s,time_s,distance_s,type_s,state_s,date_s,client_s,quantity_s) ,type(type)
 {
-    id=lastId++;
     setDate(date_s);
     setClient(client_s);
     calcPrice();
