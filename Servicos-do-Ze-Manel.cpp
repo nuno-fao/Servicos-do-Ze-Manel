@@ -20,7 +20,7 @@ using namespace std;
 This function receives a name and returns true if it is valid
 */
 
-bool verifyName(const string &name) {
+bool verifyName(const string &name) { // TIRAR ISTO E POR NO MISC?
 
     for (unsigned int i = 0; i < name.size(); i++){
         if (!isdigit(name.at(i))) {

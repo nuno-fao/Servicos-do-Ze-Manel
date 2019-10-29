@@ -256,7 +256,7 @@ void Service::loadFromFile(vector<Service*> *services_finished,vector<Service*> 
     
     
 }
-void Service::saveToFile(vector<Service*>*services_finished,vector<Service*>*services_on_transit,vector<Service*>*services_on_queue){
+void Service::saveToFile(vector<Service*> *services_finished,vector<Service*>*services_on_transit,vector<Service*>*services_on_queue){
     ofstream servicesFile;
     servicesFile.open("./files/on_queue_services.txt");
     for(auto x:*services_finished){

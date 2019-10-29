@@ -8,6 +8,7 @@ unsigned int Client::lastId=0;
 Client::Client(string name, unsigned int nif, vector<Service*> *services): name(name), id(lastId), nif(nif){
     if(services==nullptr)
         services=new vector<Service*>;
+	lastId++;
 }
 
 
@@ -38,26 +39,39 @@ void Client::addService(Service *service){
 	services.push_back(service);
 }
 
+void Client::addClient(vector<Client>& clientsVector) {
+	
+	for (vector<Client>::iterator it = clientsVector.begin(); it != clientsVector.end(); it++) {
+		if (it->nif == this->nif) {
+			throw ClientInVector(nif, "Client is already exists in the database");
+		}
+	}
+	
+	clientsVector.push_back(*this);
+}
 
-void Client::loadClients(const string &clientsNameFile, vector<Client> &clientsVector) {
+
+// OTHER METHODS
+
+
+void Client::loadClients(const string &clientsNameFile, vector<Client> &clientsVector){
 
 	string clientsText;
 	ifstream clientsFile;
 	Client client;
 
 	int i = 0;
+
 	clientsFile.open(clientsNameFile);
 	if (clientsFile.fail())
 	{
-		CantOpenClientFile cocf("Could not open associated clients.txt file");
-		throw cocf;
+		throw CantOpenClientFile("Could not open associated clients.txt file");
 	}
 
 	else
 	{
 		while (getline(clientsFile, clientsText))
 		{
-			vector<int> temporary;
 			switch (i)
 			{
 			case 0:
@@ -68,7 +82,6 @@ void Client::loadClients(const string &clientsNameFile, vector<Client> &clientsV
 				break;
 			case 2:
 				// Add service id 
-				// Verificar que o NIF não é o mesmo
 			default:
 				break;
 			}
@@ -81,31 +94,33 @@ void Client::loadClients(const string &clientsNameFile, vector<Client> &clientsV
 }
 
 // Removes client from the vector
-//void Client::removeClient(vector<Client>& clientsVector) {
-//	Client client;
-//
-//	int last_pos = clientsVector.size() - 1;
-//	for (int i = 0; i < clientsVector.size(); i++)
-//	{
-//		client = clientsVector[i];
-//		if (*this == client) {
-//			clientsVector[i] = clientsVector[last_pos];
-//			clientsVector.pop_back();
-//			break;
-//		}
-//	}
-//}
+void Client::removeClient(vector<Client>& clientsVector) {
+	Client client;
+
+	int last_pos = clientsVector.size() - 1;
+	for (int i = 0; i < clientsVector.size(); i++)
+	{
+		client = clientsVector[i];
+		if (*this == client) {
+			clientsVector[i] = clientsVector[last_pos];
+			clientsVector.pop_back();
+			break;
+		}
+	}
+}
+
 
 // Returns true if number has 9 digits and is a valid int
-//bool Client::checknif() const
-//{
-//	bool valid = true;
-//
-//	if (nif < 100000000 || nif > 999999999) // The number has to be 9 digits long    
-//		valid = false;
-//
-//	return valid;
-//}
+bool Client::checknif() const
+{
+	if (nif < 100000000 || nif > 999999999) // The number has to be 9 digits long    
+		return false;
+	return true;
+}
+
+
+// OPERATOR OVERLOADING
+
 
  // Returns true if clients are the same
 bool Client::operator==(const Client& client1) const {
