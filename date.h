@@ -10,17 +10,31 @@
 
 using namespace std;
 
+typedef unsigned short date_u_short;
+
+class DateInvalid{
+public:
+    DateInvalid(string error,unsigned year,unsigned short month,unsigned short day,unsigned short hour,unsigned short minute):error(error),year(year), month(month), day(day) ,hour(hour),minute(minute){}
+    string error;
+    unsigned year;
+    unsigned short month;
+    unsigned short day;
+    unsigned short hour;
+    unsigned short minute;
+};
+
 class Date {
 private:
-	unsigned total_days(unsigned year, unsigned short month);
 	unsigned year;
 	unsigned short month;
 	unsigned short day;
+    unsigned short hour;
+    unsigned short minute;
 
 public:
 	Date();
 	~Date();
-	Date(unsigned year, unsigned short month, unsigned short day);
+    Date(unsigned year, unsigned short month, unsigned short day,unsigned short hour,unsigned short minute);
 	Date(string date); // date must be in format "yyyy/mm/dd"
 
 // GET methods
@@ -28,7 +42,10 @@ public:
 	unsigned int getYear() const;
 	unsigned short getMonth() const;
 	unsigned short getDay() const;
-	string getDate() const; // returns the date in format "yyyy/mm/dd"
+    unsigned short getHour() const;
+    unsigned short getMinute() const;
+    string getDate() const; // returns the date in format "yyyy/mm/dd/hh/mm"
+    string getDateWHour() const;
 
 // SET methods
 
@@ -36,6 +53,7 @@ public:
 	void setMonth(unsigned short month);
 	void setDay(unsigned short day);
 	void setDate(unsigned year, unsigned short month, unsigned short day);
+
 
 	//other methods
 
@@ -50,3 +68,4 @@ bool operator > (Date const& date1, Date const& data2);
 bool operator >= (Date const& date1, Date const& data2);
 bool operator <= (Date const& date1, Date const& data2);
 bool operator == (Date const& date1, Date const& data2);
+unsigned total_days(unsigned year, unsigned short month);
