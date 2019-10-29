@@ -20,7 +20,7 @@ public:
 	void loadClients(const string &clientsNameFile, vector<Client> &clientsVector); // Reads the clients file and stores the result in a vector
 	void removeClient(vector<Client>& clientsVector);
 
-	bool Client::checknif() const;
+    bool checknif() const;
 
     //get methods
     string getName() const;

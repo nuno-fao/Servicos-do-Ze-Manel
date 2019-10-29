@@ -7,6 +7,8 @@ using namespace std;
 
 class Service;
 class Client;
+enum class Temperature_enum;
+enum class Hazard_enum;
 
 class Truck
 {
