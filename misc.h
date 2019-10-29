@@ -19,3 +19,5 @@ bool strIsChar(string str);
 unsigned chooseOptionNumber(unsigned minimum, unsigned maximum, string Message, unsigned maxPerPage=0,vector<string> *more_options=nullptr);
 
 int binaryCustomfind(vector<Client*> *vetor, unsigned val);
+
+

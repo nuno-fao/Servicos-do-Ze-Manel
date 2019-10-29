@@ -1,30 +1,29 @@
 #include "client.h"
 
+// Destrutor
+
 
 unsigned int Client::lastId=0;
 
-Client::Client(string name, unsigned int nif, vector<Service *> *services): name(name),id(lastId), nif(nif){
+Client::Client(string name, unsigned int nif, vector<Service*> *services): name(name), id(lastId), nif(nif){
     if(services==nullptr)
         services=new vector<Service*>;
-	//if (!verifyName(const string & name))
-	//	throw exception;
-
-
-    //this->id = last_id + 1;
-    lastId++;
 }
 
 
-
 Client::~Client(){
-
+	for (size_t i = 0; i < services.size(); i++)
+	{
+		services.at(i)->~Service();
+	}
 }
 
 //get methods
 string Client::getName() const { return name; }
 
 unsigned Client::getNif() const { return nif; }
-//void getServicesVector(vector<Service*> *services) const;
+
+vector<Service*> Client::getServicesVector() const { return services; }
 
 //set methods
 void Client::setName(string name){
@@ -34,66 +33,54 @@ void Client::setNif(unsigned nif){
     this->nif=nif;
 }
 
-//add methods
+//add methods	
 void Client::addService(Service *service){
 	services.push_back(service);
 }
 
 
-//Reads the clients file and stores the result in a vector
-//void Client::readClients(string clientsNameFile, vector<Client>& clientsVector) {
-//
-//	string clientsText;
-//	ifstream clientsFile;
-//	Client client;
-//
-//	int i = 0;
-//	clientsFile.open(clientsNameFile);
-//	if (clientsFile.fail())
-//	{
-//		cout << "Error opening " << clientsNameFile;
-//	}
-//	else
-//	{
-//		while (getline(clientsFile, clientsText))
-//		{
-//			vector<int> temporary;
-//			switch (i)
-//			{
-//			case 0:
-//				client.setName(clientsText);
-//				break;
-//			case 1:
-//				client.setNif(stoi(clientsText));
-//				break;
-//			case 2:
-//				client.setFamilySize(stoi(clientsText));
-//				break;
-//			case 3:
-//				client.setAddress(Address::addressTextConverter(clientsText));
-//				break;
-//			case 4:
-//				temporary = separateCharacterInt(clientsText, ';');
-//				client.setTravelPackIds(temporary);
-//				break;
-//			case 5:
-//				client.setTotalPurchased(stoi(clientsText));
-//				break;
-//			case 6:
-//				i = -1;
-//				clientsVector.push_back(client);
-//				break;
-//			default:
-//				break;
-//			}
-//			i++;
-//		}
-//	}
-//	clientsVector.push_back(client);
-//	clientsFile.close();
-//}
+void Client::loadClients(const string &clientsNameFile, vector<Client> &clientsVector) {
 
-//Removes client from the vector
+	string clientsText;
+	ifstream clientsFile;
+	Client client;
+
+	int i = 0;
+	clientsFile.open(clientsNameFile);
+	if (clientsFile.fail())
+	{
+		CantOpenClientFile cocf("Could not open associated clients.txt file");
+		throw cocf;
+	}
+
+	else
+	{
+		while (getline(clientsFile, clientsText))
+		{
+			vector<int> temporary;
+			switch (i)
+			{
+			case 0:
+				client.setName(clientsText);
+				break;
+			case 1:
+				client.setNif(stoi(clientsText));
+				break;
+			case 2:
+				// Add service id 
+				// Verificar que o NIF não é o mesmo
+			default:
+				break;
+			}
+			i++;
+		}
+	}
+
+	clientsVector.push_back(client);
+	clientsFile.close();
+}
+
+// Removes client from the vector
 //void Client::removeClient(vector<Client>& clientsVector) {
 //	Client client;
 //
@@ -120,37 +107,18 @@ void Client::addService(Service *service){
 //	return valid;
 //}
 
-//Prints client to the screen
-//void Client::showClient() const
-//{
-//	cout << "*********************************" << endl;
-//	cout << "Name:" << name << endl;
-//	cout << "NIF: " << nif << endl;
-//	cout << "Family Size: " << familySize << endl;
-//	cout << "Address: " << endl;
-//	address.showAddress();
-//	cout << "TravelPacks: " << travelPacksToString(travelPackIds) << endl;
-//	cout << "Total Value: " << totalPurchased << endl;
-//	cout << "*********************************" << endl;
-//}
+ // Returns true if clients are the same
+bool Client::operator==(const Client& client1) const {
+	return nif == client1.nif;
+}
 
-/*
+// Prints clients
 ostream& operator<<(ostream& out, const Client& client) {
 	out << "*********************************" << endl;
 	out << "Name:" << client.name << endl;
 	out << "NIF: " << client.nif << endl;
-	//auto it = services.begin();
-	//for (it; it != services.end(); it++)
-	//{
-	//	out << 
-	//}
+	// Print services
+	out << "*********************************" << endl;
+
 	return out;
 }
-
-
-// Returns true if clients are the same
-bool Client::operator==(const Client& client1, const Client& client2) {
-	return client1.getName() == client2.getName() && client1.getnif() == client2.getnif() && client1.getServicesVector() == client2.getServicesVector();
-}
-*/
-
