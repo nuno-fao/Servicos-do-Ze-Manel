@@ -34,10 +34,8 @@ public:
 
 private:
 	string name;
-    unsigned int id;
 	unsigned int nif;
 	vector<Service*> services;
     static unsigned int lastId;
-
 };
 

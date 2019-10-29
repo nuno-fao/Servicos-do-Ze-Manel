@@ -1,15 +1,11 @@
 #include "client.h"
 
 
-unsigned int Client::lastId=0;
-
-Client::Client(string name, unsigned int nif, vector<Service *> &services): name(name),id(lastId), nif(nif),  services(services) {
+Client::Client(string name, unsigned int nif, vector<Service *> &services): name(name), nif(nif),  services(services) {
 	//if (!verifyName(const string & name))
 	//	throw exception;
 
 
-    //this->id = last_id + 1;
-    lastId++;
 }
 
 
@@ -22,6 +18,7 @@ Client::~Client(){
 string Client::getName() const { return name; }
 unsigned Client::getNif() const { return nif; }
 //void getServicesVector(vector<Service*> *services) const;
+
 
 //set methods
 void Client::setName(string name){
