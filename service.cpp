@@ -152,7 +152,7 @@ Client *findClient(int nif){
 // check if nif size==9!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 void Service::loadFromFile(vector<Service*> *services_finished,vector<Service*> *services_on_transit,vector<Service*> *services_on_queue){
     ifstream servicesFile;
-    servicesFile.open("on_queue_services.txt");
+    servicesFile.open("./files/on_queue_services.txt");
     string tempOrigin;
     string tempDestination;
     double tempTime;
@@ -258,7 +258,7 @@ void Service::loadFromFile(vector<Service*> *services_finished,vector<Service*> 
 }
 void Service::saveToFile(vector<Service*>*services_finished,vector<Service*>*services_on_transit,vector<Service*>*services_on_queue){
     ofstream servicesFile;
-    servicesFile.open("on_queue_services.txt");
+    servicesFile.open("./files/on_queue_services.txt");
     for(auto x:*services_finished){
         servicesFile << x->getMaterial()<<endl;
         servicesFile << x->getOrigin()<<endl;
@@ -341,6 +341,7 @@ TemperatureService::TemperatureService(string material_s, string origin_s, strin
     setClient(client_s);
 
 }
+
 TemperatureService::TemperatureService(string material_s, string origin_s, string destination_s, double time_s, unsigned distance_s, enum type type_s, enum state state_s, Date *date_s, Client *client_s,float quantity_s,Temperature_enum type): Service(material_s,origin_s,destination_s,time_s,distance_s,type_s,state_s,date_s,client_s,quantity_s) ,type(type)
 {
     id=lastId++;
@@ -778,4 +779,71 @@ bool Service::removeService(vector<Service *> *services, unsigned id){
     }
     return false;
 }
+
+void Service::editService(vector<Service *> *services){
+    if(ser_state==on_queue){
+        unsigned opt=1;
+        while (opt!=0) {
+            cout<<"[1] edit Origin"<<endl;
+            cout<<"[2] edit destination"<<endl;
+            cout<<"[3] edit Quantity"<<endl;
+            bool variable_error=true;
+            string temp;
+            switch (opt) {
+            case 1: {
+                variable_error=true;
+                clearScreen();
+                while (variable_error) {
+                    cout<<"Enter the Origin"<<endl;
+
+                    getline(cin,temp);
+                    clearScreen();
+                    if(strIsChar(temp))
+                        variable_error=false;
+                    else{
+                        variable_error=true;
+                        cout<<"ORigin Input not acceptable, please try again"<<endl;
+                    }
+
+                }
+            }
+            case 2:{
+                //set destination
+                variable_error=true;
+                while (variable_error) {
+                    cout<<"Enter the Destination"<<endl;
+                    getline(cin,temp);
+                    clearScreen();
+                    if(strIsChar(temp)){
+                        variable_error=false;
+                        setDestination(temp);
+                    }
+                    else{
+                        variable_error=true;
+                        cout<<"Destination Input not acceptable, please try again"<<endl;
+                    }
+
+                }
+            }
+            case 3:{
+                variable_error=true;
+                float temp_quantity=0;
+                while (variable_error) {
+                    cout<<"Enter the quantity to transport"<<endl;
+                    if(cin>>temp_quantity){
+                        clearScreen();
+                        variable_error=false;
+                        setQuantity(temp_quantity);
+                    }
+                    else
+                    {
+                        clearScreen();
+                        cout<<"Quantity not acceptable, please try again"<<endl;
+                    }
+                }
+            }
+
+            }
+        }
+    }
 

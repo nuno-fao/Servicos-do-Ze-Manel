@@ -42,7 +42,6 @@ bool cmp(const Service *a, const Service *b){
 Company *Company::company = nullptr;
 int main()
 {
-
     Company *Ze_Manel = nullptr;
     Ze_Manel->getCompany();
     Service::loadFromFile(Ze_Manel->getVectorServicesFinished(),Ze_Manel->getVectorServicesOnTransit(),Ze_Manel->getVectorServicesOnQueue());
@@ -100,7 +99,6 @@ int main()
             }
             default:
                 opt=1;
-
             }
         else{
             clearBuffer();
