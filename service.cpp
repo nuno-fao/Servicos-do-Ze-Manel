@@ -202,9 +202,9 @@ void Service::loadFromFile(vector<Service*> *services_finished,vector<Service*> 
                 throw NotAClient(unsigned(stoi(tempNif)),"Not a valid NIF");
             Client *tempC = findClient(stoi(tempNif));
             if(tempType==3)
-                temp= new TemperatureService(tempMaterial, tempOrigin,tempDestination,tempTime,unsigned(tempDistance),tempType,tempState,tempD,tempC,tempQuantity,_200,tempPrice);
+                temp= new TemperatureService(tempMaterial, tempOrigin,tempDestination,tempTime,unsigned(tempDistance),tempType,tempState,tempD,tempC,tempQuantity,Temperature_enum::_200,tempPrice);
             if(tempType==1)
-                temp= new HazardousService(tempMaterial, tempOrigin,tempDestination,tempTime,unsigned(tempDistance),tempType,tempState,tempD,tempC,tempQuantity,corrosives,tempPrice);
+                temp= new HazardousService(tempMaterial, tempOrigin,tempDestination,tempTime,unsigned(tempDistance),tempType,tempState,tempD,tempC,tempQuantity,Hazard_enum::corrosives,tempPrice);
             else
                 temp= new Service(tempMaterial,tempOrigin,tempDestination,tempTime,unsigned(tempDistance),tempType,tempState,tempD,tempC,tempQuantity,tempPrice);
 
@@ -226,9 +226,9 @@ void Service::loadFromFile(vector<Service*> *services_finished,vector<Service*> 
             Client *tempC= new NotAClient(e);
             //getline(cin,temp_error);
             if(tempType==3)
-                temp= new TemperatureService(tempMaterial, tempOrigin,tempDestination,tempTime,unsigned(tempDistance),tempType,tempState,tempD,tempC,tempQuantity,_200,tempPrice);
+                temp= new TemperatureService(tempMaterial, tempOrigin,tempDestination,tempTime,unsigned(tempDistance),tempType,tempState,tempD,tempC,tempQuantity,Temperature_enum::_200,tempPrice);
             if(tempType==1)
-                temp= new HazardousService(tempMaterial, tempOrigin,tempDestination,tempTime,unsigned(tempDistance),tempType,tempState,tempD,tempC,tempQuantity,corrosives,tempPrice);
+                temp= new HazardousService(tempMaterial, tempOrigin,tempDestination,tempTime,unsigned(tempDistance),tempType,tempState,tempD,tempC,tempQuantity,Hazard_enum::corrosives,tempPrice);
             else
                 temp= new Service(tempMaterial,tempOrigin,tempDestination,tempTime,unsigned(tempDistance),tempType,tempState,tempD,tempC,tempQuantity,tempPrice);
 
@@ -729,10 +729,10 @@ Hour:
     Service *temp_service;
     switch (tempType) {
     case hazardous:
-        temp_service=new  HazardousService(tempMaterial,tempOrigin,tempDestination,0,0,intToType(tempType),on_queue,temp_date,client,temp_quantity,explosives);
+        temp_service=new  HazardousService(tempMaterial,tempOrigin,tempDestination,0,0,intToType(tempType),on_queue,temp_date,client,temp_quantity,Hazard_enum::explosives);
         break;
     case lowTemperature:
-        temp_service=new TemperatureService(tempMaterial, tempOrigin,tempDestination,0,0,intToType(tempType),on_queue,temp_date,client,temp_quantity,_200);
+        temp_service=new TemperatureService(tempMaterial, tempOrigin,tempDestination,0,0,intToType(tempType),on_queue,temp_date,client,temp_quantity,Temperature_enum::_200);
         break;
     default:
         temp_service=new Service(tempMaterial, tempOrigin,tempDestination,0,0,intToType(tempType),on_queue,temp_date,client,temp_quantity);
@@ -849,3 +849,4 @@ void Service::editService(vector<Service *> *services){
         }
     }
 
+}
