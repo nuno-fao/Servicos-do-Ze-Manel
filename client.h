@@ -33,9 +33,9 @@ public:
     void addService(Service *service);
 
 
-    //ostream& operator<<(ostream& out, const Client& client) const;
+    friend ostream& operator<<(ostream& out, const Client& client);
 
-    //bool operator == (const Client& client1, const Client& client2) const;
+    bool operator== (const Client& client1) const;
 
 protected:
     Client(){};

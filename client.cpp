@@ -67,6 +67,7 @@ void Client::loadClients(const string &clientsNameFile, vector<Client> &clientsV
 				break;
 			case 2:
 				// Add service id 
+				// Verificar que o NIF não é o mesmo
 			default:
 				break;
 			}
@@ -105,37 +106,18 @@ void Client::loadClients(const string &clientsNameFile, vector<Client> &clientsV
 //	return valid;
 //}
 
-//Prints client to the screen
-//void Client::showClient() const
-//{
-//	cout << "*********************************" << endl;
-//	cout << "Name:" << name << endl;
-//	cout << "NIF: " << nif << endl;
-//	cout << "Family Size: " << familySize << endl;
-//	cout << "Address: " << endl;
-//	address.showAddress();
-//	cout << "TravelPacks: " << travelPacksToString(travelPackIds) << endl;
-//	cout << "Total Value: " << totalPurchased << endl;
-//	cout << "*********************************" << endl;
-//}
+ // Returns true if clients are the same
+bool Client::operator==(const Client& client1) const {
+	return nif == client1.nif;
+}
 
-/*
+// Prints clients
 ostream& operator<<(ostream& out, const Client& client) {
 	out << "*********************************" << endl;
 	out << "Name:" << client.name << endl;
 	out << "NIF: " << client.nif << endl;
-	//auto it = services.begin();
-	//for (it; it != services.end(); it++)
-	//{
-	//	out << 
-	//}
+	// Print services
+	out << "*********************************" << endl;
+
 	return out;
 }
-
-
-// Returns true if clients are the same
-bool Client::operator==(const Client& client1, const Client& client2) {
-	return client1.getName() == client2.getName() && client1.getnif() == client2.getnif() && client1.getServicesVector() == client2.getServicesVector();
-}
-*/
-
