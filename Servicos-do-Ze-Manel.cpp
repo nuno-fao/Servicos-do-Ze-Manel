@@ -63,7 +63,7 @@ int main()
                 for(auto i=Ze_Manel->getVectorServicesOnQueue()->begin();i!=Ze_Manel->getVectorServicesOnQueue()->end();i++)
                     cout<<*i;
                 if(!Ze_Manel->getVectorServicesOnQueue()->size())
-                    cout<<"There are no info to show"<<endl;
+                    cout<<"There is no info to show"<<endl;
                 getline(cin,temp);
                 clearScreen();
                 break;
@@ -117,11 +117,14 @@ int main()
     return 0;
 }
 
+
+
 // ----------------------- //
 
 // Options for Client Management in the User Interface
 
 //Prints the menu and asks the user what option to choose
+/*
 void runClientsMenu(vector<Client>& clientsVector) {
 	int option;
 
@@ -141,16 +144,14 @@ void runClientsMenu(vector<Client>& clientsVector) {
 
 	while (cin.fail() || option < 0 || option > 8)
 	{
-		cout << "Invalid option, please insert the option again: ";
-		cin.clear();
-		cin.ignore(10000, '\n');
+        cout << "Invalid option, please insert the option again: ";
+        clearBuffer();
 		cin >> option;
 	}
 
-	cin.clear();
-	cin.ignore(10000, '\n');
+    clearBuffer();
 
-	if (option == 0) { /*Correr Menu inicial*/ }
+    if (option == 0) { //Correr Menu inicial }
 	if (option == 1) { createClientOption(clientsVector); }
 	if (option == 2) { modifyClientOption(clientsVector); }
 	if (option == 3) { removeClientOption(clientsVector); }
@@ -223,7 +224,7 @@ Client askForClientsInformation(vector<Client> clientsVector) {
 	getline(cin, addressText);
 
 	while (!Address::validAddressText(addressText) || addressText == "////")
-	{
+    {
 		cout << "Invalid address, please insert again: ";
 		getline(cin, addressText);
 	}
@@ -246,4 +247,4 @@ void createClientOption(vector<Client>& clientsVector) {
 	client.addClient(clientsVector);
 	cout << endl << endl << "Client created successfully!";
 	menuSeparator();
-}
+}*/

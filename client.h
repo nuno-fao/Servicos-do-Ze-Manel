@@ -39,7 +39,8 @@ public:
 
     bool operator== (const Client& client1) const;
 protected:
-    Client(){};
+    //tive q comentar para testar!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!11
+    //Client(){};
     string name;
     unsigned int id;
     unsigned int nif;
