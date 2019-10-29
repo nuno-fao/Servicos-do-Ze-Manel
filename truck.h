@@ -27,7 +27,7 @@ public:
 	bool getavailable() const;
 	string getlicense() const;
 	bool getregistered() const;
-	unsigned short get_cargo() const;
+	unsigned short getcargo() const;
 	//set methods
 	virtual void setprice(float newval) = 0;
 	void setregistered(bool foo);
