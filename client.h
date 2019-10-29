@@ -19,8 +19,9 @@ public:
 
 	void loadClients(const string &clientsNameFile, vector<Client> &clientsVector); // Reads the clients file and stores the result in a vector
 	void removeClient(vector<Client>& clientsVector);
+	
 
-	bool Client::checknif() const;
+	bool Client::checknif() const; 	// Returns true if number has 9 digits and is a valid int
 
     //get methods
     string getName() const;
@@ -39,7 +40,6 @@ public:
     friend ostream& operator<<(ostream& out, const Client& client);
 
     bool operator== (const Client& client1) const;
-
 protected:
     Client(){};
     string name;

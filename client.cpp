@@ -34,7 +34,7 @@ void Client::setNif(unsigned nif){
     this->nif=nif;
 }
 
-//add methods	
+//other methods	
 void Client::addService(Service *service){
 	services.push_back(service);
 }
@@ -50,8 +50,21 @@ void Client::addClient(vector<Client>& clientsVector) {
 	clientsVector.push_back(*this);
 }
 
+// Removes client from the vector
+void Client::removeClient(vector<Client>& clientsVector) {
+	Client client;
 
-// OTHER METHODS
+	int last_pos = clientsVector.size() - 1;
+	for (int i = 0; i < clientsVector.size(); i++)
+	{
+		client = clientsVector[i];
+		if (*this == client) {
+			clientsVector[i] = clientsVector[last_pos];
+			clientsVector.pop_back();
+			break;
+		}
+	}
+}
 
 
 void Client::loadClients(const string &clientsNameFile, vector<Client> &clientsVector){
@@ -93,24 +106,7 @@ void Client::loadClients(const string &clientsNameFile, vector<Client> &clientsV
 	clientsFile.close();
 }
 
-// Removes client from the vector
-void Client::removeClient(vector<Client>& clientsVector) {
-	Client client;
 
-	int last_pos = clientsVector.size() - 1;
-	for (int i = 0; i < clientsVector.size(); i++)
-	{
-		client = clientsVector[i];
-		if (*this == client) {
-			clientsVector[i] = clientsVector[last_pos];
-			clientsVector.pop_back();
-			break;
-		}
-	}
-}
-
-
-// Returns true if number has 9 digits and is a valid int
 bool Client::checknif() const
 {
 	if (nif < 100000000 || nif > 999999999) // The number has to be 9 digits long    
@@ -121,13 +117,10 @@ bool Client::checknif() const
 
 // OPERATOR OVERLOADING
 
-
- // Returns true if clients are the same
 bool Client::operator==(const Client& client1) const {
 	return nif == client1.nif;
 }
 
-// Prints clients
 ostream& operator<<(ostream& out, const Client& client) {
 	out << "*********************************" << endl;
 	out << "Name:" << client.name << endl;
