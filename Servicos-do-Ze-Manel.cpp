@@ -44,6 +44,7 @@ int main()
 {
     Company *Ze_Manel = nullptr;
     Ze_Manel->getCompany();
+    Truck::loadFromFile(Ze_Manel->getVectorTrucks());
     Service::loadFromFile(Ze_Manel->getVectorServicesFinished(),Ze_Manel->getVectorServicesOnTransit(),Ze_Manel->getVectorServicesOnQueue());
     unsigned opt=1;
     string temp;
@@ -97,6 +98,10 @@ int main()
                     clearScreen();
                 break;
             }
+            case 4:{
+
+            }
+
             default:
                 opt=1;
             }

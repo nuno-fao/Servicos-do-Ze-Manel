@@ -20,6 +20,7 @@ public:
     vector<Service*> *getVectorServicesOnTransit();
     vector<Service*> *getVectorServicesOnQueue();
     vector<Client*> *getVectorClients();
+    vector<Truck*> *getVectorTrucks();
 
 
 private:

@@ -29,3 +29,6 @@ vector<Service*> *Company::getVectorServicesOnQueue(){
 vector<Client*> *Company::getVectorClients(){
     return &clients;
 }
+vector<Truck*> *Company::getVectorTrucks(){
+    return &trucks;
+}
