@@ -47,7 +47,7 @@ string Truck::getlicense() const {
 	return license;
 }
 
-unsigned short Truck::get_cargo() const {
+unsigned short Truck::getcargo() const {
 	return cargo;
 }
 
@@ -170,5 +170,46 @@ void Truck::loadFromFile(vector<Truck*>* trucks) {
 		}
 
 	}
+	truckfile.close();
 
+}
+
+void Truck::saveToFile(vector<Truck*>* trucks) {
+	ofstream truckfile;
+	truckfile.open("files//trucks.txt");
+	if (!truckfile.is_open()) { throw FailedToOpenTrucks(); }
+	truckfile << HazardousMat::hazardMul[explosives] << "; ";
+	truckfile << HazardousMat::hazardMul[gases] << "; ";
+	truckfile << HazardousMat::hazardMul[flammableliq] << "; ";
+	truckfile << HazardousMat::hazardMul[flammablesolid] << "; ";
+	truckfile << HazardousMat::hazardMul[oxidizer] << "; ";
+	truckfile << HazardousMat::hazardMul[poisons] << "; ";
+	truckfile << HazardousMat::hazardMul[radioactive] << "; ";
+	truckfile << HazardousMat::hazardMul[corrosives] << "; ";
+	truckfile << HazardousMat::hazardMul[other] << endl;
+	truckfile << Congelation::tempMul[_100] << "; ";
+	truckfile << Congelation::tempMul[_200] << "; ";
+	truckfile << Congelation::tempMul[_300] << "; ";
+	truckfile << Congelation::tempMul[_400] << endl;
+	for (auto it : *trucks) {
+		truckfile << "::::::::::::::::::::::::::::" << endl;
+		truckfile << it->getlicense() << endl;
+		truckfile << it->getavailable() << endl;
+		truckfile << it->getregistered() << endl;
+		truckfile << it->getcapacity() << endl;
+		truckfile << it->getcargo() << endl;
+		if (typeid(*it) == typeid(HazardousMat)) {
+			truckfile << 'H' << endl;
+		}
+		else if (typeid(*it) == typeid(Animal)) {
+			truckfile << 'A' << endl;
+		}
+		else if (typeid(*it) == typeid(Congelation)) {
+			truckfile << 'C' << endl;
+		}
+		else if (typeid(*it) == typeid(Normal)) {
+			truckfile << 'N' << endl;
+		}
+	}
+	truckfile.close();
 }
