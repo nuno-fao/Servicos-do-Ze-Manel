@@ -156,3 +156,9 @@ int binaryCustomfind(vector<Client*> *vetor, unsigned val){
 }
 
 
+bool checkNif(int nif) {
+
+	if (nif < 100000000 || nif > 999999999) // The number has to be 9 digits long    
+			return false;
+		return true;
+	}

@@ -14,15 +14,13 @@ class Truck;
 class Client
 {
 public:
-    Client(string name, unsigned int nif, vector<Service*> *services = nullptr);
+	Client();
+	Client(string name, unsigned int nif, vector<Service*> *services = nullptr);
     ~Client();
 
 	void loadClients(const string &clientsNameFile, vector<Client> &clientsVector); // Reads the clients file and stores the result in a vector
 	void removeClient(vector<Client>& clientsVector);
 	
-
-	bool Client::checknif() const; 	// Returns true if number has 9 digits and is a valid int
-
     //get methods
     string getName() const;
     unsigned getNif() const;

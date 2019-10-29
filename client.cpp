@@ -5,6 +5,8 @@
 
 unsigned int Client::lastId=0;
 
+Client::Client() {}
+
 Client::Client(string name, unsigned int nif, vector<Service*> *services): name(name), id(lastId), nif(nif){
     if(services==nullptr)
         services=new vector<Service*>;
@@ -104,14 +106,6 @@ void Client::loadClients(const string &clientsNameFile, vector<Client> &clientsV
 
 	clientsVector.push_back(client);
 	clientsFile.close();
-}
-
-
-bool Client::checknif() const
-{
-	if (nif < 100000000 || nif > 999999999) // The number has to be 9 digits long    
-		return false;
-	return true;
 }
 
 

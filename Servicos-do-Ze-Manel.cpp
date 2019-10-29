@@ -166,6 +166,7 @@ void runClientsMenu(vector<Client>& clientsVector) {
 //Asks for client information and returns a client
 Client askForClientsInformation(vector<Client> clientsVector) {
 	Client client;
+	
 	string name;
 	int zeroIfNotInFile = 0;
 	int nif;
@@ -180,7 +181,7 @@ Client askForClientsInformation(vector<Client> clientsVector) {
 
 	cout << "NIF: ";
 	cin >> nif;
-	validNif(nif);
+	checkNif(nif);
 	cin.clear();
 	cin.ignore(10000, '\n');
 
