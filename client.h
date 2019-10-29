@@ -18,7 +18,7 @@ public:
     ~Client();
 
 	void loadClients(const string &clientsNameFile, vector<Client> &clientsVector); // Reads the clients file and stores the result in a vector
-	void removeClient(vector<Client>& clientsVector);
+	//void removeClient(vector<Client>& clientsVector);
 
     //get methods
     string getName() const;
@@ -50,10 +50,16 @@ protected:
 class NotAClient:public Client{
 public:
     string erro;
-    NotAClient(unsigned nif_n,string erro):Client(),erro(erro){
+    NotAClient(unsigned nif_n, string erro): Client(), erro(erro){
         this->nif=nif_n;
     }
 	unsigned int getNif() const {
 		return nif;
 	}
+};
+
+class CantOpenClientFile: public Client {
+public:
+	string erro;
+	CantOpenClientFile(string erro): Client(), erro(erro) {}
 };

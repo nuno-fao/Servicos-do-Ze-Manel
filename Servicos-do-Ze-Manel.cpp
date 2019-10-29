@@ -49,9 +49,9 @@ int main()
     unsigned opt=1;
     string temp;
     while (opt!=0) {
-        cout<<"[1] see services"<<endl;
-        cout<<"[2] add service"<<endl;
-        cout<<"[3] remove service"<<endl;
+        cout<<"[1] See services"<<endl;
+        cout<<"[2] Add service"<<endl;
+        cout<<"[3] Remove service"<<endl;
         cout<<Ze_Manel->services_on_queue_changed<<endl;
         if(cin>>opt && opt<=3)
             switch (opt) {
@@ -109,5 +109,7 @@ int main()
         }
     }
     delete Ze_Manel;
+
+
     return 0;
 }

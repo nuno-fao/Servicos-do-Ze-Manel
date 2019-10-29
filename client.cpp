@@ -48,7 +48,8 @@ void Client::loadClients(const string &clientsNameFile, vector<Client> &clientsV
 	clientsFile.open(clientsNameFile);
 	if (clientsFile.fail())
 	{
-		// throw exception
+		CantOpenClientFile cocf("Could not open associated clients.txt file");
+		throw cocf;
 	}
 
 	else
