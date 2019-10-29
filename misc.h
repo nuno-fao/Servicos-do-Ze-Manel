@@ -20,4 +20,5 @@ unsigned chooseOptionNumber(unsigned minimum, unsigned maximum, string Message, 
 
 int binaryCustomfind(vector<Client*> *vetor, unsigned val);
 
-
+// Verifies a client's NIF
+bool checkNif(int nif);
