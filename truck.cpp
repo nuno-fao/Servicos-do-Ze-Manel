@@ -122,22 +122,22 @@ void Truck::loadFromFile(vector<Truck*>* trucks) {
 	//load hazard multipliers for hazardous cargo trucks
 	getline(truckfile, aux);
 	auxVec = vectorString(aux, separator);
-	HazardousMat::hazardMul[explosives] = stoi(auxVec[0]);
-	HazardousMat::hazardMul[gases] = stoi(auxVec[1]);
-	HazardousMat::hazardMul[flammableliq] = stoi(auxVec[2]);
-	HazardousMat::hazardMul[flammablesolid] = stoi(auxVec[3]);
-	HazardousMat::hazardMul[oxidizer] = stoi(auxVec[4]);
-	HazardousMat::hazardMul[poisons] = stoi(auxVec[5]);
-	HazardousMat::hazardMul[radioactive] = stoi(auxVec[6]);
-	HazardousMat::hazardMul[corrosives] = stoi(auxVec[7]);
-	HazardousMat::hazardMul[other] = stoi(auxVec[8]);
+	HazardousMat::hazardMul[Hazard_enum::explosives] = stoi(auxVec[0]);
+	HazardousMat::hazardMul[Hazard_enum::gases] = stoi(auxVec[1]);
+	HazardousMat::hazardMul[Hazard_enum::flammableliq] = stoi(auxVec[2]);
+	HazardousMat::hazardMul[Hazard_enum::flammablesolid] = stoi(auxVec[3]);
+	HazardousMat::hazardMul[Hazard_enum::oxidizer] = stoi(auxVec[4]);
+	HazardousMat::hazardMul[Hazard_enum::poisons] = stoi(auxVec[5]);
+	HazardousMat::hazardMul[Hazard_enum::radioactive] = stoi(auxVec[6]);
+	HazardousMat::hazardMul[Hazard_enum::corrosives] = stoi(auxVec[7]);
+	HazardousMat::hazardMul[Hazard_enum::other] = stoi(auxVec[8]);
 	//load temperature multipliers for congelation trucks
 	getline(truckfile, aux);
 	auxVec = vectorString(aux, separator);
-	Congelation::tempMul[_100] = stoi(auxVec[0]);
-	Congelation::tempMul[_200] = stoi(auxVec[1]);
-	Congelation::tempMul[_300] = stoi(auxVec[2]);
-	Congelation::tempMul[_400] = stoi(auxVec[3]);
+	Congelation::tempMul[Temperature_enum::_100] = stoi(auxVec[0]);
+	Congelation::tempMul[Temperature_enum::_200] = stoi(auxVec[1]);
+	Congelation::tempMul[Temperature_enum::_300] = stoi(auxVec[2]);
+	Congelation::tempMul[Temperature_enum::_400] = stoi(auxVec[3]);
 	while (getline(truckfile, aux)) {	//reads all trucks
 		getline(truckfile, lic);
 		getline(truckfile, aux);
@@ -150,21 +150,22 @@ void Truck::loadFromFile(vector<Truck*>* trucks) {
 		carg = stoi(aux);
 		getline(truckfile, aux);
 		type = aux[0];
+		Truck* temp;
 		switch (type) {
 			case 'A':
-				Truck* temp = new Animal(lic,avai,regist,cap,carg);
+				temp = new Animal(lic,avai,regist,cap,carg);
 				trucks->push_back(temp);
 				break;
 			case 'C':
-				Truck * temp = new Congelation(lic, avai, regist, cap, carg);
+				temp = new Congelation(lic, avai, regist, cap, carg);
 				trucks->push_back(temp);
 				break;
 			case 'H':
-				Truck * temp = new HazardousMat(lic, avai, regist, cap, carg);
+				temp = new HazardousMat(lic, avai, regist, cap, carg);
 				trucks->push_back(temp);
 				break;
 			case 'N':
-				Truck * temp = new HazardousMat(lic, avai, regist, cap, carg);
+				temp = new HazardousMat(lic, avai, regist, cap, carg);
 				trucks->push_back(temp);
 				break;
 		}
@@ -178,19 +179,19 @@ void Truck::saveToFile(vector<Truck*>* trucks) {
 	ofstream truckfile;
 	truckfile.open("files//trucks.txt");
 	if (!truckfile.is_open()) { throw FailedToOpenTrucks(); }
-	truckfile << HazardousMat::hazardMul[explosives] << "; ";
-	truckfile << HazardousMat::hazardMul[gases] << "; ";
-	truckfile << HazardousMat::hazardMul[flammableliq] << "; ";
-	truckfile << HazardousMat::hazardMul[flammablesolid] << "; ";
-	truckfile << HazardousMat::hazardMul[oxidizer] << "; ";
-	truckfile << HazardousMat::hazardMul[poisons] << "; ";
-	truckfile << HazardousMat::hazardMul[radioactive] << "; ";
-	truckfile << HazardousMat::hazardMul[corrosives] << "; ";
-	truckfile << HazardousMat::hazardMul[other] << endl;
-	truckfile << Congelation::tempMul[_100] << "; ";
-	truckfile << Congelation::tempMul[_200] << "; ";
-	truckfile << Congelation::tempMul[_300] << "; ";
-	truckfile << Congelation::tempMul[_400] << endl;
+	truckfile << HazardousMat::hazardMul[Hazard_enum::explosives] << "; ";
+	truckfile << HazardousMat::hazardMul[Hazard_enum::gases] << "; ";
+	truckfile << HazardousMat::hazardMul[Hazard_enum::flammableliq] << "; ";
+	truckfile << HazardousMat::hazardMul[Hazard_enum::flammablesolid] << "; ";
+	truckfile << HazardousMat::hazardMul[Hazard_enum::oxidizer] << "; ";
+	truckfile << HazardousMat::hazardMul[Hazard_enum::poisons] << "; ";
+	truckfile << HazardousMat::hazardMul[Hazard_enum::radioactive] << "; ";
+	truckfile << HazardousMat::hazardMul[Hazard_enum::corrosives] << "; ";
+	truckfile << HazardousMat::hazardMul[Hazard_enum::other] << endl;
+	truckfile << Congelation::tempMul[Temperature_enum::_100] << "; ";
+	truckfile << Congelation::tempMul[Temperature_enum::_200] << "; ";
+	truckfile << Congelation::tempMul[Temperature_enum::_300] << "; ";
+	truckfile << Congelation::tempMul[Temperature_enum::_400] << endl;
 	for (auto it : *trucks) {
 		truckfile << "::::::::::::::::::::::::::::" << endl;
 		truckfile << it->getlicense() << endl;
