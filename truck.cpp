@@ -1,6 +1,7 @@
 #include "truck.h"
 
-
+unordered_map<Hazard_enum, float> HazardousMat::hazardMul;
+unordered_map<Temperature_enum, float> Congelation::tempMul;
 float HazardousMat::pricePerKG;
 float Congelation::pricePerKG;
 float Normal::pricePerKG;

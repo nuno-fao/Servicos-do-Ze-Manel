@@ -850,3 +850,6 @@ void Service::editService(vector<Service *> *services){
     }
 
 }
+void Service::setQuantity(float quantity){
+    this->quantity=quantity;
+}
