@@ -42,6 +42,8 @@ bool cmp(const Service *a, const Service *b){
 Company *Company::company = nullptr;
 int main()
 {
+    clearScreen();
+    //cout<<endl;
     Company *Ze_Manel = nullptr;
     Ze_Manel=Company::getCompany();
     Truck::loadFromFile(Ze_Manel->getVectorTrucks());
@@ -53,7 +55,8 @@ int main()
         cout<<"[1] See services"<<endl;
         cout<<"[2] Add service"<<endl;
         cout<<"[3] Remove service"<<endl;
-        if(cin>>opt && opt<=3)
+        cout<<"[4] Edit service"<<endl;
+        if(cin>>opt && opt<=4)
             switch (opt) {
             case 0:
                 break;
@@ -85,20 +88,71 @@ int main()
                 }
                 if(Ze_Manel->getVectorServicesOnQueue()->size()){
                     cout<<endl;
-                    cout<<"Which Service you want to remove ( write service's id ):"<<endl;
                     unsigned id;
-                    cin>>id;
+                    bool var_error=true;
+                    while (var_error) {
+                        cout<<"Which Service you want to remove ( write service's id ):"<<endl;
+                        if(cin>>id){
+                            var_error=false;
+                        }
+                        else {
+                            cout<<"Id not acceptable"<<endl;
+                        }
+                    }
                     Service::removeService(Ze_Manel->getVectorServicesOnQueue(),id);
                     clearScreen();
                 }
                 else
                     cout<<"There are no services that can be removed"<<endl;
-                    string temp;
-                    getline(cin,temp);
-                    clearScreen();
+                string temp;
+                getline(cin,temp);
+                clearScreen();
                 break;
             }
             case 4:{
+                clearScreen();
+                clearBuffer();
+                stringstream out;
+                for(auto i:*Ze_Manel->getVectorServicesOnQueue()){
+                    out<<i->getMaterial()<<", id: "<<i->getId()<<endl;
+                }
+                cout<<out.str();
+                if(Ze_Manel->getVectorServicesOnQueue()->size()){
+                    cout<<endl;
+                    unsigned id = 0;
+                    bool var_error=true;
+                    while (var_error) {
+                        cout<<"Which Service you want to edit ( write service's id ):"<<endl;
+                        if(cin>>id){
+                            var_error=false;
+                        }
+                        else {
+                            clearScreen();
+                            clearBuffer();
+                            cout<<out.str();
+                            cout<<"Id not acceptable"<<endl;
+                        }
+                    }
+                    clearBuffer();
+                    //pesquisa binaria!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                    bool h_found=false;
+                    for(auto i:*Ze_Manel->getVectorServicesOnQueue()){
+                        if(id==i->getId()){
+                            i->editService();
+                            h_found=true;
+                            break;
+                        }
+                    }
+                    clearScreen();
+                    if(!h_found)
+                        cout<<"Couldn't find Service"<<endl;
+                }
+                else
+                    cout<<"There are no services that can be removed"<<endl;
+                string temp;
+                getline(cin,temp);
+                clearScreen();
+                break;
 
             }
 
@@ -126,125 +180,125 @@ int main()
 //Prints the menu and asks the user what option to choose
 /*
 void runClientsMenu(vector<Client>& clientsVector) {
-	int option;
+    int option;
 
-	cout << "Welcome to the Clients Menu! Please choose what you want to do: ";
-	cout << endl << endl;
-	cout << "0. Go back" << endl;
-	cout << "1. Create a new client." << endl;
-	cout << "2. Change a client information." << endl;
-	cout << "3. Remove a client" << endl;
-	cout << "4. See information from all clients. " << endl;
-	cout << "5. See information from a specific client. " << endl;
-	cout << "6. See all packs bought by a specific client. " << endl;
-	cout << "7. See all packs bought by all clients. " << endl;
-	cout << "8. Buy a touristic pack for a client" << endl << endl;
-	cout << "Insert the number correspondent to your option: ";
-	cin >> option;
+    cout << "Welcome to the Clients Menu! Please choose what you want to do: ";
+    cout << endl << endl;
+    cout << "0. Go back" << endl;
+    cout << "1. Create a new client." << endl;
+    cout << "2. Change a client information." << endl;
+    cout << "3. Remove a client" << endl;
+    cout << "4. See information from all clients. " << endl;
+    cout << "5. See information from a specific client. " << endl;
+    cout << "6. See all packs bought by a specific client. " << endl;
+    cout << "7. See all packs bought by all clients. " << endl;
+    cout << "8. Buy a touristic pack for a client" << endl << endl;
+    cout << "Insert the number correspondent to your option: ";
+    cin >> option;
 
-	while (cin.fail() || option < 0 || option > 8)
-	{
+    while (cin.fail() || option < 0 || option > 8)
+    {
         cout << "Invalid option, please insert the option again: ";
         clearBuffer();
-		cin >> option;
-	}
+        cin >> option;
+    }
 
     clearBuffer();
 
     if (option == 0) { //Correr Menu inicial }
-	if (option == 1) { createClientOption(clientsVector); }
-	if (option == 2) { modifyClientOption(clientsVector); }
-	if (option == 3) { removeClientOption(clientsVector); }
-	if (option == 4) { showAllClients(clientsVector); }
-	if (option == 5) { showClientOption(clientsVector); }
-	if (option == 6) { showPacksClient(clientsVector, travelPacksVector); }
-	if (option == 7) { showPacksAllClient(clientsVector, travelPacksVector); }
-	if (option == 8) { buyTravelPack(clientsVector, travelPacksVector); }
+    if (option == 1) { createClientOption(clientsVector); }
+    if (option == 2) { modifyClientOption(clientsVector); }
+    if (option == 3) { removeClientOption(clientsVector); }
+    if (option == 4) { showAllClients(clientsVector); }
+    if (option == 5) { showClientOption(clientsVector); }
+    if (option == 6) { showPacksClient(clientsVector, travelPacksVector); }
+    if (option == 7) { showPacksAllClient(clientsVector, travelPacksVector); }
+    if (option == 8) { buyTravelPack(clientsVector, travelPacksVector); }
 
-	// Correr menu inicial de novo (quando acaba a operacao escolhida)
+    // Correr menu inicial de novo (quando acaba a operacao escolhida)
 }
 
 //Asks for client information and returns a client
 Client askForClientsInformation(vector<Client> clientsVector) {
-	Client client;
-	
-	string name;
-	int zeroIfNotInFile = 0;
-	int nif;
-	int familyNumber;
-	bool inDatabase = false;
-	string addressText;
-	vector<int> touristicPacksBought;
-	touristicPacksBought.push_back(0);
+    Client client;
 
-	cout << "Name: ";
-	getline(cin, name);
+    string name;
+    int zeroIfNotInFile = 0;
+    int nif;
+    int familyNumber;
+    bool inDatabase = false;
+    string addressText;
+    vector<int> touristicPacksBought;
+    touristicPacksBought.push_back(0);
 
-	cout << "NIF: ";
-	cin >> nif;
-	checkNif(nif);
-	cin.clear();
-	cin.ignore(10000, '\n');
+    cout << "Name: ";
+    getline(cin, name);
 
-	for (int i = 0; i < clientsVector.size(); i++) {
-		if (clientsVector[i].getnif() == nif) {
-			inDatabase = true;
-			break;
-		}
-	}
+    cout << "NIF: ";
+    cin >> nif;
+    checkNif(nif);
+    cin.clear();
+    cin.ignore(10000, '\n');
 
-	while (inDatabase)
-	{
-		cout << "NIF is already in the database, please insert again: ";
-		cin >> nif;
-		validNif(nif);
-		cin.clear();
-		cin.ignore(10000, '\n');
-		for (int i = 0; i < clientsVector.size(); i++)
-		{
-			zeroIfNotInFile = 0;
-			if (clientsVector[i].getnif() == nif) {
-				zeroIfNotInFile += 1;
-				break;
-			}
-		}
-		if (zeroIfNotInFile == 0)
-			inDatabase = false;
-	}
+    for (int i = 0; i < clientsVector.size(); i++) {
+        if (clientsVector[i].getnif() == nif) {
+            inDatabase = true;
+            break;
+        }
+    }
 
-
-
-	cout << "Number of people in the family: ";
-	cin >> familyNumber;
-	validCin(familyNumber);
-	cin.clear();
-	cin.ignore(10000, '\n');
-
-	cout << "Address (Street / Door Number / Floor Number / Postal Code / Locality): ";
-	getline(cin, addressText);
-
-	while (!Address::validAddressText(addressText) || addressText == "////")
+    while (inDatabase)
     {
-		cout << "Invalid address, please insert again: ";
-		getline(cin, addressText);
-	}
+        cout << "NIF is already in the database, please insert again: ";
+        cin >> nif;
+        validNif(nif);
+        cin.clear();
+        cin.ignore(10000, '\n');
+        for (int i = 0; i < clientsVector.size(); i++)
+        {
+            zeroIfNotInFile = 0;
+            if (clientsVector[i].getnif() == nif) {
+                zeroIfNotInFile += 1;
+                break;
+            }
+        }
+        if (zeroIfNotInFile == 0)
+            inDatabase = false;
+    }
 
 
-	client.setName(name);
-	client.setNif(nif);
-	client.setFamilySize(familyNumber);
-	client.setAddress(Address::addressTextConverter(addressText));
-	client.setTravelPackIds(touristicPacksBought);
-	return client;
+
+    cout << "Number of people in the family: ";
+    cin >> familyNumber;
+    validCin(familyNumber);
+    cin.clear();
+    cin.ignore(10000, '\n');
+
+    cout << "Address (Street / Door Number / Floor Number / Postal Code / Locality): ";
+    getline(cin, addressText);
+
+    while (!Address::validAddressText(addressText) || addressText == "////")
+    {
+        cout << "Invalid address, please insert again: ";
+        getline(cin, addressText);
+    }
+
+
+    client.setName(name);
+    client.setNif(nif);
+    client.setFamilySize(familyNumber);
+    client.setAddress(Address::addressTextConverter(addressText));
+    client.setTravelPackIds(touristicPacksBought);
+    return client;
 }
 
 
 //Asks the user for data and adds a new client to clientsvector
 void createClientOption(vector<Client>& clientsVector) {
-	Client client;
-	cout << "Please insert the data of your new client" << endl << endl;
-	client = askForClientsInformation(clientsVector);
-	client.addClient(clientsVector);
-	cout << endl << endl << "Client created successfully!";
-	menuSeparator();
+    Client client;
+    cout << "Please insert the data of your new client" << endl << endl;
+    client = askForClientsInformation(clientsVector);
+    client.addClient(clientsVector);
+    cout << endl << endl << "Client created successfully!";
+    menuSeparator();
 }*/

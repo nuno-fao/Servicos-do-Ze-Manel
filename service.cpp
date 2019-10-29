@@ -781,72 +781,96 @@ bool Service::removeService(vector<Service *> *services, unsigned id){
     return false;
 }
 
-void Service::editService(vector<Service *> *services){
+void Service::editService(){
     if(ser_state==on_queue){
         unsigned opt=1;
+        clearScreen();
         while (opt!=0) {
-            cout<<"[1] edit Origin"<<endl;
-            cout<<"[2] edit destination"<<endl;
-            cout<<"[3] edit Quantity"<<endl;
             bool variable_error=true;
-            string temp;
-            switch (opt) {
-            case 1: {
-                variable_error=true;
-                clearScreen();
-                while (variable_error) {
-                    cout<<"Enter the Origin"<<endl;
-
-                    getline(cin,temp);
+            while (variable_error) {
+                cout<<this;
+                cout<<"[1] edit Origin"<<endl;
+                cout<<"[2] edit destination"<<endl;
+                cout<<"[3] edit Quantity"<<endl;
+                if(cin>>opt && opt<=3){
                     clearScreen();
-                    if(strIsChar(temp)){
-                        variable_error=false;
-                        setOrigin(temp);
-                    }
-                    else{
+                    variable_error=false;
+                    string temp;
+                    switch (opt) {
+                    case 1: {
                         variable_error=true;
-                        cout<<"ORigin Input not acceptable, please try again"<<endl;
-                    }
+                        clearScreen();
+                        while (variable_error) {
+                            cout<<"Enter the Origin"<<endl;
+                            clearBuffer();
+                            getline(cin,temp);
+                            clearScreen();
+                            if(strIsChar(temp)){
+                                variable_error=false;
+                                setOrigin(temp);
+                                Company::getCompany()->services_on_queue_changed=true;
+                            }
+                            else{
+                                variable_error=true;
+                                clearBuffer();
+                                cout<<"ORigin Input not acceptable, please try again"<<endl;
+                            }
 
+                        }
+                        break;
+                    }
+                    case 2:{
+                        //set destination
+                        variable_error=true;
+                        while (variable_error) {
+                            cout<<"Enter the Destination"<<endl;
+                            clearBuffer();
+                            getline(cin,temp);
+                            clearScreen();
+                            if(strIsChar(temp)){
+                                variable_error=false;
+                                setDestination(temp);
+                                Company::getCompany()->services_on_queue_changed=true;
+                            }
+                            else{
+                                variable_error=true;
+                                cout<<"Destination Input not acceptable, please try again"<<endl;
+                            }
+
+                        }
+                        break;
+                    }
+                    case 3:{
+                        variable_error=true;
+                        float temp_quantity=0;
+                        while (variable_error) {
+                            cout<<"Enter the quantity to transport"<<endl;
+                            if(cin>>temp_quantity){
+                                clearScreen();
+                                variable_error=false;
+                                setQuantity(temp_quantity);
+                                Company::getCompany()->services_on_queue_changed=true;
+                            }
+                            else
+                            {
+                                clearScreen();
+                                cout<<"Quantity not acceptable, please try again"<<endl;
+                            }
+                        }
+                        clearBuffer();
+                        break;
+                    }
+                    }
                 }
-            }
-            case 2:{
-                //set destination
-                variable_error=true;
-                while (variable_error) {
-                    cout<<"Enter the Destination"<<endl;
-                    getline(cin,temp);
+                else{
                     clearScreen();
-                    if(strIsChar(temp)){
-                        variable_error=false;
-                        setDestination(temp);
-                    }
-                    else{
-                        variable_error=true;
-                        cout<<"Destination Input not acceptable, please try again"<<endl;
-                    }
-
-                }
-            }
-            case 3:{
-                variable_error=true;
-                float temp_quantity=0;
-                while (variable_error) {
-                    cout<<"Enter the quantity to transport"<<endl;
-                    if(cin>>temp_quantity){
-                        clearScreen();
-                        variable_error=false;
-                        setQuantity(temp_quantity);
-                    }
-                    else
-                    {
-                        clearScreen();
-                        cout<<"Quantity not acceptable, please try again"<<endl;
-                    }
+                    clearBuffer();
+                    opt=1;
+                    variable_error=true;
+                    cout<<"Invalid Type number, please Try Again"<<endl;
                 }
             }
 
-            }
         }
     }
 
