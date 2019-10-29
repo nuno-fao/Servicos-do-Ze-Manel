@@ -7,6 +7,9 @@ using namespace std;
 
 class Service;
 class Client;
+enum class Temperature_enum;
+enum class Hazard_enum;
+
 
 class Truck
 {
@@ -49,7 +52,7 @@ public:
 
 	float getprice(Service* service) const;
 	void setprice(float newval);
-	static unordered_map<Temperature_enum, int> tempMul;
+    static unordered_map<Temperature_enum, float> tempMul;
 
 
 private:
