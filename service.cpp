@@ -141,11 +141,11 @@ string stateToString(state a){
 }
 // atualizar!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 Client *findClient(int nif){
-    int index=binaryCustomfind(Company::getCompany().getVectorClients(),unsigned(nif));
+    int index=binaryCustomfind(Company::getCompany()->getVectorClients(),unsigned(nif));
     if(index<0)
         throw NotAClient(unsigned(nif),"Couldn't find the Client");
     else
-        return Company::getCompany().getVectorClients()->at(size_t(index));
+        return Company::getCompany()->getVectorClients()->at(size_t(index));
 }
 
 //adicionar hazardous type ou temp range!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -737,7 +737,7 @@ Hour:
         temp_service=new Service(tempMaterial, tempOrigin,tempDestination,0,0,intToType(tempType),on_queue,temp_date,client,temp_quantity);
     }
     services->push_back(temp_service);
-    Company::getCompany().services_on_queue_changed=true;
+    Company::getCompany()->services_on_queue_changed=true;
     return temp_service;
 }
 

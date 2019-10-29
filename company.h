@@ -11,7 +11,7 @@ using namespace std;
 class Company
 {
 public:
-    static Company &getCompany();
+    static Company *getCompany();
     ~Company();
     bool services_finished_changed=false,services_on_transit_changed=false,services_on_queue_changed=false;
     bool clients_changed=false;
