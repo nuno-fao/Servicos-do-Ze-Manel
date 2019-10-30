@@ -38,6 +38,9 @@ bool cmp(const Service *a, const Service *b){
         return false;
 }
 
+bool cmp_truck(Truck *a,Truck *b){
+    return a->getlicense()<b->getlicense();
+}
 
 Company *Company::company = nullptr;
 int main()
@@ -46,7 +49,9 @@ int main()
     Company *Ze_Manel = nullptr;
     Ze_Manel=Company::getCompany();
     Truck::loadFromFile(Ze_Manel->getVectorTrucks());
+    sort(((*Ze_Manel).getVectorTrucks())->begin(),((*Ze_Manel).getVectorTrucks())->end(),cmp_truck);
     Service::loadFromFile(Ze_Manel->getVectorServicesFinished(),Ze_Manel->getVectorServicesOnTransit(),Ze_Manel->getVectorServicesOnQueue());
+    //vector<Truck*> a(*Ze_Manel->getVectorTrucks());
     unsigned opt=1;
     string temp;
     while (opt!=0) {
@@ -189,6 +194,7 @@ int main()
                 opt=1;
             }
         else{
+            opt=1;
             clearBuffer();
             clearScreen();
             cout<<"Not a valid option, please try again"<<endl;

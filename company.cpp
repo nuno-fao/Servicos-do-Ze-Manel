@@ -47,3 +47,30 @@ Truck *Company::getTruck(string license){
     }
     throw TruckDoNotExist("Couldn't find the Truck",license);
 }
+
+Truck *Company::binarySearch(vector<Truck*> vect, string license)
+{
+    size_t l=0;
+    string t;
+    size_t r=vect.size()-1;
+    while (l <= r) {
+        size_t m = l + (r - l) / 2;
+        t=vect.at(m)->getlicense();
+        // Check if x is present at mid
+        if (vect[m]->getlicense() == license)
+            return vect.at(m);
+
+        // If x greater, ignore left half
+        if (vect[m]->getlicense() < license)
+            l = m + 1;
+
+        // If x is smaller, ignore right half
+        else
+            r = m - 1;
+    }
+
+
+    // We reach here when element is not
+    // present in array
+    throw TruckDoNotExist("Couldn't find the Truck",license);
+}

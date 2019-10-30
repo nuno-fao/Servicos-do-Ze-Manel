@@ -7,6 +7,14 @@ float Congelation::pricePerKG;
 float Normal::pricePerKG;
 float Animal::pricePerKG;
 
+Truck::~Truck(){
+
+};
+
+float Truck::getprice(Service* service) const{
+    return service->getMultiplier()*0;
+}
+
 Truck::Truck(string license, bool available, bool registered, unsigned short capacity, unsigned short cargo) {
     this->license=license;
     this->availabe = available;
@@ -135,7 +143,7 @@ void Truck::loadFromFile(vector<Truck*>* trucks) {
     Congelation::tempMul[Temperature_enum::_200] = stoi(auxVec[1]);
     Congelation::tempMul[Temperature_enum::_300] = stoi(auxVec[2]);
     Congelation::tempMul[Temperature_enum::_400] = stoi(auxVec[3]);
-    while (getline(truckfile, aux)) {	//reads all trucks
+    while (getline(truckfile, aux)) {
         getline(truckfile, lic);
         getline(truckfile, aux);
         aux == "1" ? avai = true : avai = false;
@@ -144,7 +152,7 @@ void Truck::loadFromFile(vector<Truck*>* trucks) {
         getline(truckfile, aux);
         cap = stoi(aux);
         getline(truckfile, aux);
-        carg = stoi(aux);
+        carg = date_u_short(stoi(aux));
         getline(truckfile, aux);
         type = aux[0];
         switch (type) {

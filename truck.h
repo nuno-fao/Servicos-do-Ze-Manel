@@ -24,18 +24,18 @@ protected:
 
 public:
     Truck(string license, bool available,bool registered,unsigned short capacity, unsigned short cargo);
-    virtual ~Truck(){}
+    virtual ~Truck();
 	//get methods
-	virtual float getprice(Service* service) const = 0;
-	unsigned short getcapacity() const;
-	bool getavailable() const;
-	string getlicense() const;
-	bool getregistered() const;
-	unsigned short getcargo() const;
+    virtual float getprice(Service* service) const;
+    unsigned short getcapacity() const;
+    bool getavailable() const;
+    string getlicense() const;
+    bool getregistered() const;
+    unsigned short getcargo() const;
 	//set methods
-	virtual void setprice(float newval) = 0;
-	void setregistered(bool foo);
-	void setavailable(bool foo);
+    virtual void setprice(float newval){availabe=(bool(newval) && availabe);}
+    void setregistered(bool foo);
+    void setavailable(bool foo);
 	//load and save to file
 	static void loadFromFile(vector<Truck*> *trucks);
 	static void saveToFile(vector<Truck*> *trucks);

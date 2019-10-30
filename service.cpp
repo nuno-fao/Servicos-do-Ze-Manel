@@ -215,7 +215,7 @@ void Service::loadFromFile(vector<Service*> *services_finished,vector<Service*> 
 
             for(auto i:tempVectorTruckS){
                 try{
-                    temp->addTruck(Company::getCompany()->getTruck(i));
+                    temp->addTruck(Company::getCompany()->binarySearch(*Company::getCompany()->getVectorTrucks(),i));
                 }
                 catch(TruckDoNotExist e){
                     cout<<e.erro+" "<<e.license<<endl;
@@ -249,7 +249,8 @@ void Service::loadFromFile(vector<Service*> *services_finished,vector<Service*> 
 
             for(auto i:tempVectorTruckS){
                 try{
-                    temp->addTruck(Company::getCompany()->getTruck(i));
+                    temp->addTruck(Company::getCompany()->binarySearch(*Company::getCompany()->getVectorTrucks(),i));
+                    //temp->addTruck(Company::getCompany()->binarySearch(*Company::getCompany()->getVectorTrucks(),i));
                 }
                 catch(TruckDoNotExist e){
                     cout<<e.erro+" "<<e.license<<endl;
@@ -325,7 +326,7 @@ void Service::loadFromFile(vector<Service*> *services_finished,vector<Service*> 
 
             for(auto i:tempVectorTruckS){
                 try{
-                    temp->addTruck(Company::getCompany()->getTruck(i));
+                    temp->addTruck(Company::getCompany()->binarySearch(*Company::getCompany()->getVectorTrucks(),i));
                 }
                 catch(TruckDoNotExist e){
                     cout<<e.erro+" "<<e.license<<endl;
@@ -358,7 +359,7 @@ void Service::loadFromFile(vector<Service*> *services_finished,vector<Service*> 
 
             for(auto i:tempVectorTruckS){
                 try{
-                    temp->addTruck(Company::getCompany()->getTruck(i));
+                    temp->addTruck(Company::getCompany()->binarySearch(*Company::getCompany()->getVectorTrucks(),i));
                 }
                 catch(TruckDoNotExist e){
                     cout<<e.erro+" "<<e.license<<endl;
@@ -432,7 +433,7 @@ void Service::loadFromFile(vector<Service*> *services_finished,vector<Service*> 
 
             for(auto i:tempVectorTruckS){
                 try{
-                    temp->addTruck(Company::getCompany()->getTruck(i));
+                    temp->addTruck(Company::getCompany()->binarySearch(*Company::getCompany()->getVectorTrucks(),i));
                 }
                 catch(TruckDoNotExist e){
                     cout<<e.erro+" "<<e.license<<endl;
@@ -465,7 +466,7 @@ void Service::loadFromFile(vector<Service*> *services_finished,vector<Service*> 
 
             for(auto i:tempVectorTruckS){
                 try{
-                    temp->addTruck(Company::getCompany()->getTruck(i));
+                    temp->addTruck(Company::getCompany()->binarySearch(*Company::getCompany()->getVectorTrucks(),i));
                 }
                 catch(TruckDoNotExist e){
                     cout<<e.erro+" "<<e.license<<endl;
@@ -1055,7 +1056,7 @@ ostream& operator <<(ostream& os,Service *a){
     for(auto i:a->trucks){
         os<<i->getlicense()<<" ";
     }
-    os<<endl<<endl;;
+    os<<endl<<endl;
     os<<"Quantity: "<<setprecision(prec_q)<<fixed<<x<<endl;
     float y=a->getTotalPrice();
     os<<"Price : "<<setprecision(prec_p)<<fixed<<y<<endl;

@@ -27,6 +27,7 @@ public:
     vector<Truck*> *getVectorTrucks();
     Client *getClient(unsigned nif);
     Truck *getTruck(string license);
+    Truck *binarySearch(vector<Truck*> vect, string license);
 
 
 private:
