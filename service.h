@@ -112,3 +112,9 @@ public:
     TemperatureService(string material, string origin, string destination, double time, unsigned distance, type type, state state, Date *date, Client *client, float quantity, Temperature_enum hazard, float total_price, unsigned id_s);
     Temperature_enum type;
 };
+
+class ServiceDoNotExist{
+public:
+    string erro;
+    ServiceDoNotExist(string erro):erro(erro){}
+};

@@ -772,11 +772,13 @@ Hour:
     printClassVector(&print);
 
     string t;
-    cout<<"Are u sure you want to Add Service?"<<endl;
-    cin>>t;
-    if(t!="y"){
-        clearScreen();
-        throw exception();
+    while(t!="y" && t!="n"){
+        cin>>t;
+        cout<<"Are u sure you want to Add Service?"<<endl;
+        if(t!="y"){
+            clearScreen();
+            throw exception();
+        }
     }
 
     clearBuffer();
@@ -831,7 +833,7 @@ bool Service::removeService(vector<Service *> *services, unsigned id){
             return  true;
         }
     }
-    return false;
+    throw ServiceDoNotExist("Couldn't find Service");
 }
 
 void Service::editService(){

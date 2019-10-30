@@ -176,6 +176,7 @@ void checkIfOut(string &temp){
             clearScreen();
             throw exception();
         }
+        clearScreen();
     }
 }
 

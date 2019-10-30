@@ -79,7 +79,7 @@ int main()
                 } catch (exception e) {
 
                 }
-
+                clearScreen();
                 break;
             }
 
@@ -107,10 +107,18 @@ int main()
                             cout<<"Id not acceptable"<<endl;
                         }
                     }
-                    if(id!="q")
+                    if(id=="!q"){
+                        clearScreen();
                         break;
-                    Service::removeService(Ze_Manel->getVectorServicesOnQueue(),unsigned(stoi(id)));
-                    clearScreen();
+                    }
+                    try{
+                        Service::removeService(Ze_Manel->getVectorServicesOnQueue(),unsigned(stoi(id)));
+                        clearScreen();
+                    }
+                    catch(ServiceDoNotExist e){
+                        cout<<e.erro<<endl;
+                        clearBuffer();
+                    }
                 }
                 else
                     cout<<"There are no services that can be removed"<<endl;
