@@ -214,7 +214,12 @@ void Service::loadFromFile(vector<Service*> *services_finished,vector<Service*> 
                 temp= new Service(tempMaterial,tempOrigin,tempDestination,tempTime,unsigned(tempDistance),tempType,tempState,tempD,temp_client,tempQuantity,tempPrice,tempId);
 
             for(auto i:tempVectorTruckS){
-                temp->addTruck(Company::getCompany()->getTruck(i));
+                try{
+                    temp->addTruck(Company::getCompany()->getTruck(i));
+                }
+                catch(TruckDoNotExist e){
+                    cout<<e.erro+" "<<e.license<<endl;
+                }
             }
 
             switch (tempState) {
@@ -241,9 +246,17 @@ void Service::loadFromFile(vector<Service*> *services_finished,vector<Service*> 
             else
                 temp= new Service(tempMaterial,tempOrigin,tempDestination,tempTime,unsigned(tempDistance),tempType,tempState,tempD,tempC,tempQuantity,tempPrice,tempId);
 
+
             for(auto i:tempVectorTruckS){
-                temp->addTruck(Company::getCompany()->getTruck(i));
+                try{
+                    temp->addTruck(Company::getCompany()->getTruck(i));
+                }
+                catch(TruckDoNotExist e){
+                    cout<<e.erro+" "<<e.license<<endl;
+                }
             }
+
+
 
             switch (tempState) {
             case on_transit:
@@ -311,7 +324,12 @@ void Service::loadFromFile(vector<Service*> *services_finished,vector<Service*> 
                 temp= new Service(tempMaterial,tempOrigin,tempDestination,tempTime,unsigned(tempDistance),tempType,tempState,tempD,temp_client,tempQuantity,tempPrice,tempId);
 
             for(auto i:tempVectorTruckS){
-                temp->addTruck(Company::getCompany()->getTruck(i));
+                try{
+                    temp->addTruck(Company::getCompany()->getTruck(i));
+                }
+                catch(TruckDoNotExist e){
+                    cout<<e.erro+" "<<e.license<<endl;
+                }
             }
 
             switch (tempState) {
@@ -339,7 +357,12 @@ void Service::loadFromFile(vector<Service*> *services_finished,vector<Service*> 
                 temp= new Service(tempMaterial,tempOrigin,tempDestination,tempTime,unsigned(tempDistance),tempType,tempState,tempD,tempC,tempQuantity,tempPrice,tempId);
 
             for(auto i:tempVectorTruckS){
-                temp->addTruck(Company::getCompany()->getTruck(i));
+                try{
+                    temp->addTruck(Company::getCompany()->getTruck(i));
+                }
+                catch(TruckDoNotExist e){
+                    cout<<e.erro+" "<<e.license<<endl;
+                }
             }
 
             switch (tempState) {
@@ -408,8 +431,14 @@ void Service::loadFromFile(vector<Service*> *services_finished,vector<Service*> 
                 temp= new Service(tempMaterial,tempOrigin,tempDestination,tempTime,unsigned(tempDistance),tempType,tempState,tempD,temp_client,tempQuantity,tempPrice,tempId);
 
             for(auto i:tempVectorTruckS){
-                temp->addTruck(Company::getCompany()->getTruck(i));
+                try{
+                    temp->addTruck(Company::getCompany()->getTruck(i));
+                }
+                catch(TruckDoNotExist e){
+                    cout<<e.erro+" "<<e.license<<endl;
+                }
             }
+
             switch (tempState) {
             case on_transit:
                 services_on_transit->push_back(temp);
@@ -435,8 +464,14 @@ void Service::loadFromFile(vector<Service*> *services_finished,vector<Service*> 
                 temp= new Service(tempMaterial,tempOrigin,tempDestination,tempTime,unsigned(tempDistance),tempType,tempState,tempD,tempC,tempQuantity,tempPrice,tempId);
 
             for(auto i:tempVectorTruckS){
-                temp->addTruck(Company::getCompany()->getTruck(i));
+                try{
+                    temp->addTruck(Company::getCompany()->getTruck(i));
+                }
+                catch(TruckDoNotExist e){
+                    cout<<e.erro+" "<<e.license<<endl;
+                }
             }
+
             switch (tempState) {
             case on_transit:
                 services_on_transit->push_back(temp);
@@ -1016,6 +1051,11 @@ ostream& operator <<(ostream& os,Service *a){
     if((a->getQuantity()-int(a->getQuantity())>0))
         prec_q=2;
     float x=a->getQuantity();
+    os<<endl<<"Trucks: ";
+    for(auto i:a->trucks){
+        os<<i->getlicense()<<" ";
+    }
+    os<<endl<<endl;;
     os<<"Quantity: "<<setprecision(prec_q)<<fixed<<x<<endl;
     float y=a->getTotalPrice();
     os<<"Price : "<<setprecision(prec_p)<<fixed<<y<<endl;

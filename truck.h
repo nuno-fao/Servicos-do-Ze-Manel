@@ -111,3 +111,10 @@ public:
     string license;
     TruckDoNotExist(string erro,string license):erro(erro),license(license){}
 };
+
+class NotATruck{
+public:
+    string erro;
+    string license;
+    NotATruck(string erro,string license):erro(erro),license(license){}
+};

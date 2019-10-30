@@ -45,5 +45,5 @@ Truck *Company::getTruck(string license){
         if(i->getlicense()==license)
             return i;
     }
-    throw TruckDoNotExist("Couldn't find the client",license);
+    throw TruckDoNotExist("Couldn't find the Truck",license);
 }
