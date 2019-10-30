@@ -344,7 +344,6 @@ TemperatureService::TemperatureService(string material_s, string origin_s, strin
     setClient(client_s);
 
 }
-
 TemperatureService::TemperatureService(string material_s, string origin_s, string destination_s, double time_s, unsigned distance_s, enum type type_s, enum state state_s, Date *date_s, Client *client_s,float quantity_s,Temperature_enum type): Service(material_s,origin_s,destination_s,time_s,distance_s,type_s,state_s,date_s,client_s,quantity_s) ,type(type)
 {
     setDate(date_s);
@@ -357,9 +356,10 @@ TemperatureService::TemperatureService(string material_s, string origin_s, strin
 //adicionar hazardous type ou temp range!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 Service *Service::addService(vector<Service *> *services,Client *client){
     string tempOrigin,tempDestination,tempMaterial;
-    unsigned short tempType = 0,month=1,day=1,hour=0,minute=0;
-    float temp_quantity=0;
-    unsigned year=0;
+    string tempType ,month,day,hour,minute;
+    string temp_quantity;
+    string year;
+    vector<string> print;
     bool variable_error=true;
     time_t rawtime;struct tm *now;std::time( &rawtime );now = localtime( &rawtime );
 
@@ -367,22 +367,25 @@ Service *Service::addService(vector<Service *> *services,Client *client){
     while (variable_error) {
         cout<<"What is the material to transport"<<endl;
         getline(cin,tempMaterial);
+        checkIfOut(tempMaterial);
         if(tempMaterial.size())
             variable_error=false;
         else{
             clearScreen();
             cout<<"Material name not acceptable, please try again."<<endl;
         }
-
     }
 
+    print.push_back(tempMaterial);
     // set origin
     variable_error=true;
     clearScreen();
     while (variable_error) {
+        printClassVector(&print);
         cout<<"Enter the Origin"<<endl;
 
         getline(cin,tempOrigin);
+        checkIfOut(tempOrigin);
         clearScreen();
         if(strIsChar(tempOrigin))
             variable_error=false;
@@ -392,12 +395,14 @@ Service *Service::addService(vector<Service *> *services,Client *client){
         }
         
     }
-
+    print.push_back(tempOrigin);
     //set destination
     variable_error=true;
     while (variable_error) {
+        printClassVector(&print);
         cout<<"Enter the Destination"<<endl;
         getline(cin,tempDestination);
+        checkIfOut(tempDestination);
         clearScreen();
         if(strIsChar(tempDestination))
             variable_error=false;
@@ -405,25 +410,25 @@ Service *Service::addService(vector<Service *> *services,Client *client){
             variable_error=true;
             cout<<"Destination Input not acceptable, please try again"<<endl;
         }
-        
     }
-
+    print.push_back(tempDestination);
     // set type of service
     variable_error=true;
     while (variable_error) {
+        printClassVector(&print);
         cout<<"Please choose a type of service:"<<endl;
         cout<<endl;
         cout<<"[0] Ordinary"<<endl;
         cout<<"[1] Hazardous"<<endl;
         cout<<"[2] Animal"<<endl;
         cout<<"[3] Low Temperature"<<endl;
-        if(cin>>tempType && tempType<4){
+        if(cin>>tempType && strIsNumber(tempType) && stoi(tempType)<4){
             clearScreen();
-
             variable_error=false;
         }
         else{
             clearScreen();
+            checkIfOut(tempType);
             variable_error=true;
             cout<<"Invalid Type number, please Try Again"<<endl;
 
@@ -431,24 +436,40 @@ Service *Service::addService(vector<Service *> *services,Client *client){
         }
         clearBuffer();
     }
-    
+    print.push_back(tempType);
     //set yy/mm/dd
 
     variable_error=true;
     string tempString;
     vector<string> tempVector;
     while (variable_error) {
+        printClassVector(&print);
         try {
             cout<<"Enter the date(yy mm dd)"<<endl;
             if(getline(cin,tempString)){
                 clearScreen();
+                checkIfOut(tempString);
                 tempVector = vectorString(tempString," ");
-                if(tempVector.size()>=3)
+                for(auto p:tempVector){
+                    if(!strIsNumber(p)){
+                        tempVector.clear();
+                        variable_error=true;
+                        clearScreen();
+                        cout<<"Date Input not Aceptable, please try again"<<endl;
+                        break;
+                    }
+                }
+                if(tempVector.size()==3){
                     Date(date_u_short(stoi(tempVector.at(0))),date_u_short(stoi(tempVector.at(1))),date_u_short(stoi(tempVector.at(2))),1,1);
-                variable_error=false;
+                    variable_error=false;
+                }
+                else{
+                    variable_error=true;
+                    clearScreen();
+                    cout<<"Date Input not Aceptable, please try again"<<endl;
+                }
             }
             else{
-                clearBuffer();
                 variable_error=true;
                 clearScreen();
                 cout<<"minute Input not Aceptable, please try again"<<endl;
@@ -462,17 +483,33 @@ Service *Service::addService(vector<Service *> *services,Client *client){
     variable_error=true;
     vector<string> tempVector_h;
     while (variable_error) {
+        printClassVector(&print);
         try {
             cout<<"Enter the hours(hh mm)"<<endl;
             if(getline(cin,tempString)){
                 clearScreen();
+                checkIfOut(tempString);
                 tempVector_h = vectorString(tempString," ");
-                if(tempVector_h.size()>=2)
+                for(auto p:tempVector_h){
+                    if(!strIsNumber(p)){
+                        tempVector_h.clear();
+                        variable_error=true;
+                        clearScreen();
+                        cout<<"minute Input not Aceptable, please try again"<<endl;
+                        break;
+                    }
+                }
+                if(tempVector_h.size()==2){
                     Date(date_u_short(stoi(tempVector.at(0))),date_u_short(stoi(tempVector.at(1))),date_u_short(stoi(tempVector.at(2))),date_u_short(stoi(tempVector_h.at(0))),date_u_short(stoi(tempVector_h.at(1))));
-                variable_error=false;
+                    variable_error=false;
+                }
+                else{
+                    variable_error=true;
+                    clearScreen();
+                    cout<<"minute Input not Aceptable, please try again"<<endl;
+                }
             }
             else{
-                clearBuffer();
                 variable_error=true;
                 clearScreen();
                 cout<<"minute Input not Aceptable, please try again"<<endl;
@@ -482,6 +519,8 @@ Service *Service::addService(vector<Service *> *services,Client *client){
             cout<<i.error<<endl;
         }
     }
+    Date *temp_date=new Date(date_u_short(stoi(tempVector.at(0))),date_u_short(stoi(tempVector.at(1))),date_u_short(stoi(tempVector.at(2))),date_u_short(stoi(tempVector_h.at(0))),date_u_short(stoi(tempVector_h.at(1))));
+    print.push_back(temp_date->getDateWHour());
 
     /*
     variable_error=true;
@@ -711,33 +750,46 @@ Hour:
             cout<<i.error<<endl;
         }
     }*/
-    Date *temp_date=new Date(date_u_short(stoi(tempVector.at(0))),date_u_short(stoi(tempVector.at(1))),date_u_short(stoi(tempVector.at(2))),date_u_short(stoi(tempVector_h.at(0))),date_u_short(stoi(tempVector_h.at(1))));
     clearScreen();
     //set quantity
     variable_error=true;
     while (variable_error) {
+        printClassVector(&print);
         cout<<"Enter the quantity to transport"<<endl;
-        if(cin>>temp_quantity){
+        if(cin>>temp_quantity && strIsNumber(temp_quantity)){
             clearScreen();
             variable_error=false;
         }
         else
         {
+            checkIfOut(temp_quantity);
             clearScreen();
             cout<<"Quantity not acceptable, please try again"<<endl;
         }
     }
+
+    print.push_back(temp_quantity);
+    printClassVector(&print);
+
+    string t;
+    cout<<"Are u sure you want to Add Service?"<<endl;
+    cin>>t;
+    if(t!="y"){
+        clearScreen();
+        throw exception();
+    }
+
     clearBuffer();
     Service *temp_service;
-    switch (tempType) {
+    switch (stoi(tempType)) {
     case hazardous:
-        temp_service=new  HazardousService(tempMaterial,tempOrigin,tempDestination,0,0,intToType(tempType),on_queue,temp_date,client,temp_quantity,Hazard_enum::explosives);
+        temp_service=new  HazardousService(tempMaterial,tempOrigin,tempDestination,0,0,intToType(stoi(tempType)),on_queue,temp_date,client,stoi(temp_quantity),Hazard_enum::explosives);
         break;
     case lowTemperature:
-        temp_service=new TemperatureService(tempMaterial, tempOrigin,tempDestination,0,0,intToType(tempType),on_queue,temp_date,client,temp_quantity,Temperature_enum::_200);
+        temp_service=new TemperatureService(tempMaterial, tempOrigin,tempDestination,0,0,intToType(stoi(tempType)),on_queue,temp_date,client,stoi(temp_quantity),Temperature_enum::_200);
         break;
     default:
-        temp_service=new Service(tempMaterial, tempOrigin,tempDestination,0,0,intToType(tempType),on_queue,temp_date,client,temp_quantity);
+        temp_service=new Service(tempMaterial, tempOrigin,tempDestination,0,0,intToType(stoi(tempType)),on_queue,temp_date,client,stoi(temp_quantity));
     }
     services->push_back(temp_service);
     Company::getCompany()->services_on_queue_changed=true;
@@ -805,6 +857,8 @@ void Service::editService(){
                             cout<<"Enter the Origin"<<endl;
                             clearBuffer();
                             getline(cin,temp);
+                            if(temp=="\n")
+                                return;
                             clearScreen();
                             if(strIsChar(temp)){
                                 variable_error=false;
@@ -827,6 +881,8 @@ void Service::editService(){
                             cout<<"Enter the Destination"<<endl;
                             clearBuffer();
                             getline(cin,temp);
+                            if(temp=="\n")
+                                return;
                             clearScreen();
                             if(strIsChar(temp)){
                                 variable_error=false;
@@ -843,17 +899,19 @@ void Service::editService(){
                     }
                     case 3:{
                         variable_error=true;
-                        float temp_quantity=0;
+                        string temp_quantity;
                         while (variable_error) {
                             cout<<"Enter the quantity to transport"<<endl;
-                            if(cin>>temp_quantity){
+                            if(cin>>temp_quantity && strIsNumber(temp_quantity)){
                                 clearScreen();
                                 variable_error=false;
-                                setQuantity(temp_quantity);
+                                setQuantity(stoi(temp_quantity));
                                 Company::getCompany()->services_on_queue_changed=true;
                             }
                             else
                             {
+                                if(temp_quantity=="\n")
+                                    return;
                                 clearScreen();
                                 cout<<"Quantity not acceptable, please try again"<<endl;
                             }

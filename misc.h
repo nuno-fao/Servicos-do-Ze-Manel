@@ -17,8 +17,9 @@ void clearBuffer(void);
 bool strIsNumber(string str);
 bool strIsChar(string str);
 unsigned chooseOptionNumber(unsigned minimum, unsigned maximum, string Message, unsigned maxPerPage=0,vector<string> *more_options=nullptr);
-
+void checkIfOut(string &temp);
 int binaryCustomfind(vector<Client*> *vetor, unsigned val);
+void printClassVector(vector<string> *t);
 
 // Verifies a client's NIF
 bool checkNif(int nif);

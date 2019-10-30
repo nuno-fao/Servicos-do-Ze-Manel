@@ -43,14 +43,12 @@ Company *Company::company = nullptr;
 int main()
 {
     clearScreen();
-    //cout<<endl;
     Company *Ze_Manel = nullptr;
     Ze_Manel=Company::getCompany();
     Truck::loadFromFile(Ze_Manel->getVectorTrucks());
     Service::loadFromFile(Ze_Manel->getVectorServicesFinished(),Ze_Manel->getVectorServicesOnTransit(),Ze_Manel->getVectorServicesOnQueue());
     unsigned opt=1;
     string temp;
-    //cout<<Ze_Manel->getVectorTrucks()->at(0)->getlicense()<<endl;
     while (opt!=0) {
         cout<<"[1] See services"<<endl;
         cout<<"[2] Add service"<<endl;
@@ -76,7 +74,12 @@ int main()
                 clearScreen();
                 clearBuffer();
                 a =new Client("Margarida Cruz",121212121);
-                Service::addService(Ze_Manel->getVectorServicesOnQueue(),a);
+                try {
+                    Service::addService(Ze_Manel->getVectorServicesOnQueue(),a);
+                } catch (exception e) {
+
+                }
+
                 break;
             }
 
@@ -88,18 +91,25 @@ int main()
                 }
                 if(Ze_Manel->getVectorServicesOnQueue()->size()){
                     cout<<endl;
-                    unsigned id;
+                    string id;
                     bool var_error=true;
                     while (var_error) {
                         cout<<"Which Service you want to remove ( write service's id ):"<<endl;
                         if(cin>>id){
                             var_error=false;
+                            if(id=="!q")
+                                var_error=false;
+                            else if(!strIsNumber(id))
+                                var_error=true;
+
                         }
                         else {
                             cout<<"Id not acceptable"<<endl;
                         }
                     }
-                    Service::removeService(Ze_Manel->getVectorServicesOnQueue(),id);
+                    if(id!="q")
+                        break;
+                    Service::removeService(Ze_Manel->getVectorServicesOnQueue(),unsigned(stoi(id)));
                     clearScreen();
                 }
                 else
@@ -119,12 +129,16 @@ int main()
                 cout<<out.str();
                 if(Ze_Manel->getVectorServicesOnQueue()->size()){
                     cout<<endl;
-                    unsigned id = 0;
+                    string id;
                     bool var_error=true;
                     while (var_error) {
                         cout<<"Which Service you want to edit ( write service's id ):"<<endl;
                         if(cin>>id){
                             var_error=false;
+                            if(id=="!q")
+                                var_error=false;
+                            else if(!strIsNumber(id))
+                                var_error=true;
                         }
                         else {
                             clearScreen();
@@ -133,15 +147,22 @@ int main()
                             cout<<"Id not acceptable"<<endl;
                         }
                     }
+                    if(id!="q")
+                        break;
                     clearBuffer();
                     //pesquisa binaria!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                     bool h_found=false;
-                    for(auto i:*Ze_Manel->getVectorServicesOnQueue()){
-                        if(id==i->getId()){
-                            i->editService();
-                            h_found=true;
-                            break;
+                    try{
+                        for(auto i:*Ze_Manel->getVectorServicesOnQueue()){
+                            if(unsigned(stoi(id))==i->getId()){
+                                i->editService();
+                                h_found=true;
+                                break;
+                            }
                         }
+
+                    } catch (exception e) {
+
                     }
                     clearScreen();
                     if(!h_found)

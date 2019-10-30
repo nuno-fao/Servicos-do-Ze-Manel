@@ -35,6 +35,7 @@ class Service
 {
 public:
     ~Service();
+    Service();
     //get methods
     string getOrigin() const;
     string getDestination() const;
