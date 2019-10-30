@@ -32,3 +32,18 @@ vector<Client*> *Company::getVectorClients(){
 vector<Truck*> *Company::getVectorTrucks(){
     return &trucks;
 }
+
+Client *Company::getClient(unsigned nif){
+    for(auto i: clients){
+        if(i->getNif()==nif)
+            return i;
+    }
+    throw NotAClient(nif,"Couldn't find the client");
+}
+Truck *Company::getTruck(string license){
+    for(auto i: trucks){
+        if(i->getlicense()==license)
+            return i;
+    }
+    throw TruckDoNotExist("Couldn't find the client",license);
+}

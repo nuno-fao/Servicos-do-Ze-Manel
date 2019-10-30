@@ -191,7 +191,7 @@ int main()
         else{
             clearBuffer();
             clearScreen();
-            cout<<"Non valid option, please try again"<<endl;
+            cout<<"Not a valid option, please try again"<<endl;
         }
     }
     delete Ze_Manel;

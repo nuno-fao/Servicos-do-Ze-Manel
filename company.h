@@ -25,6 +25,8 @@ public:
     vector<Service*> *getVectorServicesOnQueue();
     vector<Client*> *getVectorClients();
     vector<Truck*> *getVectorTrucks();
+    Client *getClient(unsigned nif);
+    Truck *getTruck(string license);
 
 
 private:

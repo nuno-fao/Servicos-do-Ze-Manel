@@ -159,7 +159,7 @@ void Service::loadFromFile(vector<Service*> *services_finished,vector<Service*> 
     double tempDistance;
     string tempMaterial;
     type tempType;
-    string vector;
+    string temptrucks;
     state tempState;
     string tempDate;
     string tempNif;
@@ -167,6 +167,7 @@ void Service::loadFromFile(vector<Service*> *services_finished,vector<Service*> 
     float tempQuantity;
     float tempPrice;
     unsigned tempId;
+    vector<string> tempVectorTruckS;
 
     while(getline(servicesFile,tempMaterial)){
 
@@ -184,7 +185,8 @@ void Service::loadFromFile(vector<Service*> *services_finished,vector<Service*> 
         getline(servicesFile,tempGeneral);
         tempType=intToType(stoi(tempGeneral));
         
-        getline(servicesFile,vector);
+        getline(servicesFile,temptrucks);
+        tempVectorTruckS=vectorString(temptrucks,";");
         
         getline(servicesFile,tempGeneral);
         tempState=intToState(stoi(tempGeneral));
@@ -203,13 +205,17 @@ void Service::loadFromFile(vector<Service*> *services_finished,vector<Service*> 
         try {
             if(tempNif.size()!=9)
                 throw NotAClient(unsigned(stoi(tempNif)),"Not a valid NIF");
-            Client *tempC = findClient(stoi(tempNif));
+            Client *temp_client=Company::getCompany()->getClient(unsigned(stoi(tempNif)));
             if(tempType==3)
-                temp= new TemperatureService(tempMaterial, tempOrigin,tempDestination,tempTime,unsigned(tempDistance),tempType,tempState,tempD,tempC,tempQuantity,Temperature_enum::_200,tempPrice,tempId);
+                temp= new TemperatureService(tempMaterial, tempOrigin,tempDestination,tempTime,unsigned(tempDistance),tempType,tempState,tempD,temp_client,tempQuantity,Temperature_enum::_200,tempPrice,tempId);
             if(tempType==1)
-                temp= new HazardousService(tempMaterial, tempOrigin,tempDestination,tempTime,unsigned(tempDistance),tempType,tempState,tempD,tempC,tempQuantity,Hazard_enum::corrosives,tempPrice,tempId);
+                temp= new HazardousService(tempMaterial, tempOrigin,tempDestination,tempTime,unsigned(tempDistance),tempType,tempState,tempD,temp_client,tempQuantity,Hazard_enum::corrosives,tempPrice,tempId);
             else
-                temp= new Service(tempMaterial,tempOrigin,tempDestination,tempTime,unsigned(tempDistance),tempType,tempState,tempD,tempC,tempQuantity,tempPrice,tempId);
+                temp= new Service(tempMaterial,tempOrigin,tempDestination,tempTime,unsigned(tempDistance),tempType,tempState,tempD,temp_client,tempQuantity,tempPrice,tempId);
+
+            for(auto i:tempVectorTruckS){
+                temp->addTruck(Company::getCompany()->getTruck(i));
+            }
 
             switch (tempState) {
             case on_transit:
@@ -235,6 +241,10 @@ void Service::loadFromFile(vector<Service*> *services_finished,vector<Service*> 
             else
                 temp= new Service(tempMaterial,tempOrigin,tempDestination,tempTime,unsigned(tempDistance),tempType,tempState,tempD,tempC,tempQuantity,tempPrice,tempId);
 
+            for(auto i:tempVectorTruckS){
+                temp->addTruck(Company::getCompany()->getTruck(i));
+            }
+
             switch (tempState) {
             case on_transit:
                 services_on_transit->push_back(temp);
@@ -253,11 +263,199 @@ void Service::loadFromFile(vector<Service*> *services_finished,vector<Service*> 
 
         getline(servicesFile,tempGeneral);
     }
-    
-    
-    
-    
-    
+
+
+    servicesFile.open("./files/on_transit_services.txt");
+    while(getline(servicesFile,tempMaterial)){
+
+        getline(servicesFile,tempGeneral);
+        tempId=unsigned(stoi(tempGeneral));
+        getline(servicesFile,tempOrigin);
+        getline(servicesFile,tempDestination);
+
+        getline(servicesFile,tempGeneral);
+        tempTime=stod(tempGeneral);
+
+        getline(servicesFile,tempGeneral);
+        tempDistance=stoi(tempGeneral);
+
+        getline(servicesFile,tempGeneral);
+        tempType=intToType(stoi(tempGeneral));
+
+        getline(servicesFile,temptrucks);
+        tempVectorTruckS=vectorString(temptrucks,";");
+
+        getline(servicesFile,tempGeneral);
+        tempState=intToState(stoi(tempGeneral));
+
+        getline(servicesFile,tempDate);
+
+        getline(servicesFile,tempNif);
+
+        getline(servicesFile,tempGeneral);
+        tempQuantity=(stof(tempGeneral));
+
+        getline(servicesFile,tempGeneral);
+        tempPrice=(stof(tempGeneral));
+        Service *temp;
+        Date *tempD=new Date(tempDate);
+        try {
+            if(tempNif.size()!=9)
+                throw NotAClient(unsigned(stoi(tempNif)),"Not a valid NIF");
+            Client *temp_client=Company::getCompany()->getClient(unsigned(stoi(tempNif)));
+            if(tempType==3)
+                temp= new TemperatureService(tempMaterial, tempOrigin,tempDestination,tempTime,unsigned(tempDistance),tempType,tempState,tempD,temp_client,tempQuantity,Temperature_enum::_200,tempPrice,tempId);
+            if(tempType==1)
+                temp= new HazardousService(tempMaterial, tempOrigin,tempDestination,tempTime,unsigned(tempDistance),tempType,tempState,tempD,temp_client,tempQuantity,Hazard_enum::corrosives,tempPrice,tempId);
+            else
+                temp= new Service(tempMaterial,tempOrigin,tempDestination,tempTime,unsigned(tempDistance),tempType,tempState,tempD,temp_client,tempQuantity,tempPrice,tempId);
+
+            for(auto i:tempVectorTruckS){
+                temp->addTruck(Company::getCompany()->getTruck(i));
+            }
+
+            switch (tempState) {
+            case on_transit:
+                services_on_transit->push_back(temp);
+                break;
+            case on_queue:
+                services_on_queue->push_back(temp);
+                break;
+            case finished:
+                services_finished->push_back(temp);
+                break;
+            }
+
+        } catch (NotAClient e) {
+            cout<<e.erro+to_string(e.getNif())<<endl;
+            string temp_error;
+            Client *tempC= new NotAClient(e);
+            //getline(cin,temp_error);
+            if(tempType==3)
+                temp= new TemperatureService(tempMaterial, tempOrigin,tempDestination,tempTime,unsigned(tempDistance),tempType,tempState,tempD,tempC,tempQuantity,Temperature_enum::_200,tempPrice,tempId);
+            if(tempType==1)
+                temp= new HazardousService(tempMaterial, tempOrigin,tempDestination,tempTime,unsigned(tempDistance),tempType,tempState,tempD,tempC,tempQuantity,Hazard_enum::corrosives,tempPrice,tempId);
+            else
+                temp= new Service(tempMaterial,tempOrigin,tempDestination,tempTime,unsigned(tempDistance),tempType,tempState,tempD,tempC,tempQuantity,tempPrice,tempId);
+
+            for(auto i:tempVectorTruckS){
+                temp->addTruck(Company::getCompany()->getTruck(i));
+            }
+
+            switch (tempState) {
+            case on_transit:
+                services_on_transit->push_back(temp);
+                break;
+            case on_queue:
+                services_on_queue->push_back(temp);
+                break;
+            case finished:
+                services_finished->push_back(temp);
+                break;
+            }
+        }
+        catch(...){
+            cout<<"Not a valid Nif "+tempNif<<endl;
+        }
+
+        getline(servicesFile,tempGeneral);
+    }
+
+
+    servicesFile.open("./files/finished_services.txt");
+    while(getline(servicesFile,tempMaterial)){
+
+        getline(servicesFile,tempGeneral);
+        tempId=unsigned(stoi(tempGeneral));
+        getline(servicesFile,tempOrigin);
+        getline(servicesFile,tempDestination);
+
+        getline(servicesFile,tempGeneral);
+        tempTime=stod(tempGeneral);
+
+        getline(servicesFile,tempGeneral);
+        tempDistance=stoi(tempGeneral);
+
+        getline(servicesFile,tempGeneral);
+        tempType=intToType(stoi(tempGeneral));
+
+        getline(servicesFile,temptrucks);
+        tempVectorTruckS=vectorString(temptrucks,";");
+
+        getline(servicesFile,tempGeneral);
+        tempState=intToState(stoi(tempGeneral));
+
+        getline(servicesFile,tempDate);
+
+        getline(servicesFile,tempNif);
+
+        getline(servicesFile,tempGeneral);
+        tempQuantity=(stof(tempGeneral));
+
+        getline(servicesFile,tempGeneral);
+        tempPrice=(stof(tempGeneral));
+        Service *temp;
+        Date *tempD=new Date(tempDate);
+        try {
+            if(tempNif.size()!=9)
+                throw NotAClient(unsigned(stoi(tempNif)),"Not a valid NIF");
+            Client *temp_client=Company::getCompany()->getClient(unsigned(stoi(tempNif)));
+            if(tempType==3)
+                temp= new TemperatureService(tempMaterial, tempOrigin,tempDestination,tempTime,unsigned(tempDistance),tempType,tempState,tempD,temp_client,tempQuantity,Temperature_enum::_200,tempPrice,tempId);
+            if(tempType==1)
+                temp= new HazardousService(tempMaterial, tempOrigin,tempDestination,tempTime,unsigned(tempDistance),tempType,tempState,tempD,temp_client,tempQuantity,Hazard_enum::corrosives,tempPrice,tempId);
+            else
+                temp= new Service(tempMaterial,tempOrigin,tempDestination,tempTime,unsigned(tempDistance),tempType,tempState,tempD,temp_client,tempQuantity,tempPrice,tempId);
+
+            for(auto i:tempVectorTruckS){
+                temp->addTruck(Company::getCompany()->getTruck(i));
+            }
+            switch (tempState) {
+            case on_transit:
+                services_on_transit->push_back(temp);
+                break;
+            case on_queue:
+                services_on_queue->push_back(temp);
+                break;
+            case finished:
+                services_finished->push_back(temp);
+                break;
+            }
+
+        } catch (NotAClient e) {
+            cout<<e.erro<<" "<<to_string(e.getNif())<<endl;
+            string temp_error;
+            Client *tempC= new NotAClient(e);
+            //getline(cin,temp_error);
+            if(tempType==3)
+                temp= new TemperatureService(tempMaterial, tempOrigin,tempDestination,tempTime,unsigned(tempDistance),tempType,tempState,tempD,tempC,tempQuantity,Temperature_enum::_200,tempPrice,tempId);
+            if(tempType==1)
+                temp= new HazardousService(tempMaterial, tempOrigin,tempDestination,tempTime,unsigned(tempDistance),tempType,tempState,tempD,tempC,tempQuantity,Hazard_enum::corrosives,tempPrice,tempId);
+            else
+                temp= new Service(tempMaterial,tempOrigin,tempDestination,tempTime,unsigned(tempDistance),tempType,tempState,tempD,tempC,tempQuantity,tempPrice,tempId);
+
+            for(auto i:tempVectorTruckS){
+                temp->addTruck(Company::getCompany()->getTruck(i));
+            }
+            switch (tempState) {
+            case on_transit:
+                services_on_transit->push_back(temp);
+                break;
+            case on_queue:
+                services_on_queue->push_back(temp);
+                break;
+            case finished:
+                services_finished->push_back(temp);
+                break;
+            }
+        }
+        catch(...){
+            cout<<"Not a valid Nif "+tempNif<<endl;
+        }
+
+        getline(servicesFile,tempGeneral);
+    }
+    servicesFile.close();
 }
 void Service::saveToFile(vector<Service*> *services_finished,vector<Service*>*services_on_transit,vector<Service*>*services_on_queue){
     ofstream servicesFile;
@@ -771,10 +969,10 @@ Hour:
     print.push_back(temp_quantity);
     printClassVector(&print);
 
-    string t;
+    string t="p";
     while(t!="y" && t!="n"){
-        cin>>t;
         cout<<"Are u sure you want to Add Service?"<<endl;
+        cin>>t;
         if(t!="y"){
             clearScreen();
             throw exception();

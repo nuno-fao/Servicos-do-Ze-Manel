@@ -104,3 +104,10 @@ class FailedToOpenTrucks {
 public:
     FailedToOpenTrucks() {}
 };
+
+class TruckDoNotExist{
+public:
+    string erro;
+    string license;
+    TruckDoNotExist(string erro,string license):erro(erro),license(license){}
+};
