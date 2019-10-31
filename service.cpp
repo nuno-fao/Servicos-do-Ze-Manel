@@ -235,7 +235,7 @@ void Service::loadFromFile(vector<Service*> *services_finished,vector<Service*> 
                 break;
             }
 
-        } catch (NotAClient e) {
+        } catch (NotAClient &e) {
             cout<<e.erro+to_string(e.getNif())<<endl;
             string temp_error;
             Client *tempC= new NotAClient(e);
@@ -346,7 +346,7 @@ void Service::loadFromFile(vector<Service*> *services_finished,vector<Service*> 
                 break;
             }
 
-        } catch (NotAClient e) {
+        } catch (NotAClient &e) {
             cout<<e.erro+to_string(e.getNif())<<endl;
             string temp_error;
             Client *tempC= new NotAClient(e);
@@ -453,7 +453,7 @@ void Service::loadFromFile(vector<Service*> *services_finished,vector<Service*> 
                 break;
             }
 
-        } catch (NotAClient e) {
+        } catch (NotAClient &e) {
             cout<<e.erro<<" "<<to_string(e.getNif())<<endl;
             string temp_error;
             Client *tempC= new NotAClient(e);
@@ -661,8 +661,16 @@ Service *Service::addService(vector<Service *> *services,Client *client){
                     }
                 }
                 if(tempVector.size()==3){
-                    Date(date_u_short(stoi(tempVector.at(0))),date_u_short(stoi(tempVector.at(1))),date_u_short(stoi(tempVector.at(2))),1,1);
-                    variable_error=false;
+                    int t=now->tm_year;
+                    Date i(unsigned(stoi(tempVector.at(0))),date_u_short(stoi(tempVector.at(1))),date_u_short(stoi(tempVector.at(2))),23,59);
+                    Date f(t-100,1+date_u_short(now->tm_mon),date_u_short(now->tm_mday),date_u_short(now->tm_hour),date_u_short(now->tm_min));
+                    if((f-i)<0){
+                        variable_error=true;
+                        clearScreen();
+                        cout<<"Date Input not Aceptable, please try again"<<endl;
+                    }
+                    else
+                        variable_error=false;
                 }
                 else{
                     variable_error=true;
@@ -701,8 +709,16 @@ Service *Service::addService(vector<Service *> *services,Client *client){
                     }
                 }
                 if(tempVector_h.size()==2){
-                    Date(date_u_short(stoi(tempVector.at(0))),date_u_short(stoi(tempVector.at(1))),date_u_short(stoi(tempVector.at(2))),date_u_short(stoi(tempVector_h.at(0))),date_u_short(stoi(tempVector_h.at(1))));
-                    variable_error=false;
+                    Date i(date_u_short(stoi(tempVector.at(0))),date_u_short(stoi(tempVector.at(1))),date_u_short(stoi(tempVector.at(2))),date_u_short(stoi(tempVector_h.at(0))),date_u_short(stoi(tempVector_h.at(1))));
+                    int t=now->tm_year;
+                    Date f(unsigned(t-100),1+date_u_short(now->tm_mon),date_u_short(now->tm_mday),date_u_short(now->tm_hour),date_u_short(now->tm_min));
+                    if((f-i)<0){
+                        variable_error=true;
+                        clearScreen();
+                        cout<<"Date Input not Aceptable, please try again"<<endl;
+                    }
+                    else
+                        variable_error=false;
                 }
                 else{
                     variable_error=true;
@@ -788,8 +804,16 @@ Service *Service::addService(vector<Service *> *services,Client *client){
                     }
                 }
                 if(tempVector.size()==3){
-                    Date(date_u_short(stoi(tempVector.at(0))),date_u_short(stoi(tempVector.at(1))),date_u_short(stoi(tempVector.at(2))),1,1);
-                    variable_error=false;
+                    Date i(date_u_short(stoi(tempVector.at(0))),date_u_short(stoi(tempVector.at(1))),date_u_short(stoi(tempVector.at(2))),23,59);
+                    int t=now->tm_year;
+                    Date f(unsigned(t-100),1+date_u_short(now->tm_mon),date_u_short(now->tm_mday),date_u_short(now->tm_hour),date_u_short(now->tm_min));
+                    if((f-i)<0){
+                        variable_error=true;
+                        clearScreen();
+                        cout<<"Date Input not Aceptable, please try again"<<endl;
+                    }
+                    else
+                        variable_error=false;
                 }
                 else{
                     variable_error=true;
@@ -828,8 +852,16 @@ Service *Service::addService(vector<Service *> *services,Client *client){
                     }
                 }
                 if(tempVector_h.size()==2){
-                    Date(date_u_short(stoi(tempVector.at(0))),date_u_short(stoi(tempVector.at(1))),date_u_short(stoi(tempVector.at(2))),date_u_short(stoi(tempVector_h.at(0))),date_u_short(stoi(tempVector_h.at(1))));
-                    variable_error=false;
+                    Date i(date_u_short(stoi(tempVector.at(0))),date_u_short(stoi(tempVector.at(1))),date_u_short(stoi(tempVector.at(2))),date_u_short(stoi(tempVector_h.at(0))),date_u_short(stoi(tempVector_h.at(1))));
+                    int t=now->tm_year;
+                    Date f(unsigned(t-100),1+date_u_short(now->tm_mon),date_u_short(now->tm_mday),date_u_short(now->tm_hour),date_u_short(now->tm_min));
+                    if((f-i)<0){
+                        variable_error=true;
+                        clearScreen();
+                        cout<<"Date Input not Aceptable, please try again"<<endl;
+                    }
+                    else
+                        variable_error=false;
                 }
                 else{
                     variable_error=true;
