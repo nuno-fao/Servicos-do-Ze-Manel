@@ -150,7 +150,7 @@ void Truck::loadFromFile(vector<Truck*>* trucks) {
         getline(truckfile, aux);
         aux == "1" ? regist = true : regist = false;
         getline(truckfile, aux);
-        cap = stoi(aux);
+        cap = date_u_short(stoi(aux));
         getline(truckfile, aux);
         carg = date_u_short(stoi(aux));
         getline(truckfile, aux);
