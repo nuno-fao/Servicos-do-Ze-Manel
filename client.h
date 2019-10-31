@@ -37,6 +37,7 @@ public:
 
     friend ostream& operator<<(ostream& out, const Client& client);
 
+    bool operator<(Client &a) const;
     bool operator== (const Client& client1) const;
 protected:
     //tive q comentar para testar!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!11

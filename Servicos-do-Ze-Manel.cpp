@@ -31,15 +31,8 @@ bool verifyName(const string &name) { // TIRAR ISTO E POR NO MISC?
     return true;
 }
 
-bool cmp(const Service *a, const Service *b){
-    if(a->getDate()<b->getDate())
-        return true;
-    else
-        return false;
-}
-
-bool cmp_truck(Truck *a,Truck *b){
-    return a->getlicense()<b->getlicense();
+template<class T> bool cmp_classes(T *a,T *b){
+    return *a<*b;
 }
 
 Company *Company::company = nullptr;
@@ -49,8 +42,10 @@ int main()
     Company *Ze_Manel = nullptr;
     Ze_Manel=Company::getCompany();
     Truck::loadFromFile(Ze_Manel->getVectorTrucks());
-    sort(((*Ze_Manel).getVectorTrucks())->begin(),((*Ze_Manel).getVectorTrucks())->end(),cmp_truck);
+    sort(((*Ze_Manel).getVectorTrucks())->begin(),((*Ze_Manel).getVectorTrucks())->end(),cmp_classes<Truck>);
+    sort(((*Ze_Manel).getVectorClients())->begin(),((*Ze_Manel).getVectorClients())->end(),cmp_classes<Client>);
     Service::loadFromFile(Ze_Manel->getVectorServicesFinished(),Ze_Manel->getVectorServicesOnTransit(),Ze_Manel->getVectorServicesOnQueue());
+
     //vector<Truck*> a(*Ze_Manel->getVectorTrucks());
     unsigned opt=1;
     string temp;

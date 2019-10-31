@@ -115,6 +115,10 @@ bool Client::operator==(const Client& client1) const {
 	return nif == client1.nif;
 }
 
+bool Client::operator<(Client &a) const{
+    return nif<a.getNif();
+}
+
 ostream& operator<<(ostream& out, const Client& client) {
 	out << "*********************************" << endl;
 	out << "Name:" << client.name << endl;

@@ -45,6 +45,8 @@ public:
 	void start_transport(unsigned short cargo); //sets the needed variables so the truck is in transport
 };
 
+bool operator<(Truck &a,Truck &b);
+
 class Congelation : public Truck
 {
 public:

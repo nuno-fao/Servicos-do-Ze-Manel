@@ -223,3 +223,7 @@ void Truck::saveToFile(vector<Truck*>* trucks) {
     }
     truckfile.close();
 }
+
+bool operator<(Truck &a,Truck &b) {
+    return a.getlicense()<b.getlicense();
+}
