@@ -2,22 +2,24 @@
 
 unsigned int Service::lastId=0;
 
-Service::Service(string material, string origin, string destination, double time, unsigned distance, enum type type, enum state state, Date *date, Client *client, float quantity)
-    : origin(origin),destination(destination),material(material), time(time), distance(distance), quantity(quantity), ser_type(type), ser_state(state)
+Service::Service(string material, string origin, string destination, Date *arrivalDate, unsigned distance, enum type type, enum state state, Date *date, Client *client, float quantity)
+    : origin(origin),destination(destination),material(material), distance(distance), quantity(quantity), ser_type(type), ser_state(state)
 {
     
     id=lastId++;
-    setDate(date);
+    setIDate(date);
+    setADate(arrivalDate);
     setClient(client);
     calcPrice();
     
 }
 
-Service::Service(string material, string origin, string destination, double time, unsigned distance, enum type type, enum state state, Date *date, Client *client, float quantity, float total_price, unsigned id)
-    : origin(origin),destination(destination),material(material), time(time), distance(distance), quantity(quantity),  ser_type(type),id(id), ser_state(state),total_price(total_price)
+Service::Service(string material, string origin, string destination, Date *arrivalDate, unsigned distance, enum type type, enum state state, Date *date, Client *client, float quantity, float total_price, unsigned id)
+    : origin(origin),destination(destination),material(material), distance(distance), quantity(quantity),  ser_type(type),id(id), ser_state(state),total_price(total_price)
 {
     lastId++;
-    setDate(date);
+    setIDate(date);
+    setADate(arrivalDate);
     setClient(client);
 
 }
@@ -32,8 +34,8 @@ string Service::getOrigin() const{
 string Service::getDestination() const{
     return destination;
 }
-double Service::getTime() const{
-    return time;
+Date *Service::getADate() const{
+    return arrivalDate;
 }
 unsigned Service::getDistance() const{
     return distance;
@@ -47,7 +49,7 @@ unsigned int Service::getId() const{
 state Service::getState() const{
     return ser_state;
 }
-Date *Service::getDate() const{
+Date *Service::getIDate() const{
     return initialDate;
 }
 Client *Service::getClient() const{
@@ -73,8 +75,8 @@ void Service::setOrigin(string origin){
 void Service::setDestination(string destination){
     this->destination=destination;
 }
-void Service::setTime(double time){
-    this->time=time;
+void Service::setADate(Date *date){
+    arrivalDate=date;
 }
 void Service::setDistance(unsigned distance){
     this->distance=distance;
@@ -85,9 +87,8 @@ void Service::setType(enum type type){
 void Service::setState(enum state state){
     this->ser_state=state;
 }
-void Service::setDate(Date *date){
-    Date *temp=new Date(*date);
-    initialDate=temp;
+void Service::setIDate(Date *date){
+    initialDate=date;
 }
 void Service::setClient(Client *client){
     this->client=client;
@@ -155,13 +156,13 @@ void Service::loadFromFile(vector<Service*> *services_finished,vector<Service*> 
     servicesFile.open("./files/on_queue_services.txt");
     string tempOrigin;
     string tempDestination;
-    double tempTime;
+    string tempADate;
     double tempDistance;
     string tempMaterial;
     type tempType;
     string temptrucks;
     state tempState;
-    string tempDate;
+    string tempIDate;
     string tempNif;
     string tempGeneral;
     float tempQuantity;
@@ -176,8 +177,7 @@ void Service::loadFromFile(vector<Service*> *services_finished,vector<Service*> 
         getline(servicesFile,tempOrigin);
         getline(servicesFile,tempDestination);
         
-        getline(servicesFile,tempGeneral);
-        tempTime=stod(tempGeneral);
+        getline(servicesFile,tempADate);
         
         getline(servicesFile,tempGeneral);
         tempDistance=stoi(tempGeneral);
@@ -191,7 +191,7 @@ void Service::loadFromFile(vector<Service*> *services_finished,vector<Service*> 
         getline(servicesFile,tempGeneral);
         tempState=intToState(stoi(tempGeneral));
         
-        getline(servicesFile,tempDate);
+        getline(servicesFile,tempIDate);
         
         getline(servicesFile,tempNif);
 
@@ -201,17 +201,18 @@ void Service::loadFromFile(vector<Service*> *services_finished,vector<Service*> 
         getline(servicesFile,tempGeneral);
         tempPrice=(stof(tempGeneral));
         Service *temp;
-        Date *tempD=new Date(tempDate);
+        Date *tempI=new Date(tempIDate);
+        Date *tempA=new Date(tempADate);
         try {
             if(tempNif.size()!=9)
                 throw NotAClient(unsigned(stoi(tempNif)),"Not a valid NIF");
             Client *temp_client=Company::getCompany()->getClient(unsigned(stoi(tempNif)));
             if(tempType==3)
-                temp= new TemperatureService(tempMaterial, tempOrigin,tempDestination,tempTime,unsigned(tempDistance),tempType,tempState,tempD,temp_client,tempQuantity,Temperature_enum::_200,tempPrice,tempId);
+                temp= new TemperatureService(tempMaterial, tempOrigin,tempDestination,tempA,unsigned(tempDistance),tempType,tempState,tempI,temp_client,tempQuantity,Temperature_enum::_200,tempPrice,tempId);
             if(tempType==1)
-                temp= new HazardousService(tempMaterial, tempOrigin,tempDestination,tempTime,unsigned(tempDistance),tempType,tempState,tempD,temp_client,tempQuantity,Hazard_enum::corrosives,tempPrice,tempId);
+                temp= new HazardousService(tempMaterial, tempOrigin,tempDestination,tempA,unsigned(tempDistance),tempType,tempState,tempI,temp_client,tempQuantity,Hazard_enum::corrosives,tempPrice,tempId);
             else
-                temp= new Service(tempMaterial,tempOrigin,tempDestination,tempTime,unsigned(tempDistance),tempType,tempState,tempD,temp_client,tempQuantity,tempPrice,tempId);
+                temp= new Service(tempMaterial,tempOrigin,tempDestination,tempA,unsigned(tempDistance),tempType,tempState,tempI,temp_client,tempQuantity,tempPrice,tempId);
 
             for(auto i:tempVectorTruckS){
                 try{
@@ -240,11 +241,11 @@ void Service::loadFromFile(vector<Service*> *services_finished,vector<Service*> 
             Client *tempC= new NotAClient(e);
             //getline(cin,temp_error);
             if(tempType==3)
-                temp= new TemperatureService(tempMaterial, tempOrigin,tempDestination,tempTime,unsigned(tempDistance),tempType,tempState,tempD,tempC,tempQuantity,Temperature_enum::_200,tempPrice,tempId);
+                temp= new TemperatureService(tempMaterial, tempOrigin,tempDestination,tempA,unsigned(tempDistance),tempType,tempState,tempI,tempC,tempQuantity,Temperature_enum::_200,tempPrice,tempId);
             if(tempType==1)
-                temp= new HazardousService(tempMaterial, tempOrigin,tempDestination,tempTime,unsigned(tempDistance),tempType,tempState,tempD,tempC,tempQuantity,Hazard_enum::corrosives,tempPrice,tempId);
+                temp= new HazardousService(tempMaterial, tempOrigin,tempDestination,tempA,unsigned(tempDistance),tempType,tempState,tempI,tempC,tempQuantity,Hazard_enum::corrosives,tempPrice,tempId);
             else
-                temp= new Service(tempMaterial,tempOrigin,tempDestination,tempTime,unsigned(tempDistance),tempType,tempState,tempD,tempC,tempQuantity,tempPrice,tempId);
+                temp= new Service(tempMaterial,tempOrigin,tempDestination,tempA,unsigned(tempDistance),tempType,tempState,tempI,tempC,tempQuantity,tempPrice,tempId);
 
 
             for(auto i:tempVectorTruckS){
@@ -287,8 +288,7 @@ void Service::loadFromFile(vector<Service*> *services_finished,vector<Service*> 
         getline(servicesFile,tempOrigin);
         getline(servicesFile,tempDestination);
 
-        getline(servicesFile,tempGeneral);
-        tempTime=stod(tempGeneral);
+        getline(servicesFile,tempADate);
 
         getline(servicesFile,tempGeneral);
         tempDistance=stoi(tempGeneral);
@@ -302,7 +302,7 @@ void Service::loadFromFile(vector<Service*> *services_finished,vector<Service*> 
         getline(servicesFile,tempGeneral);
         tempState=intToState(stoi(tempGeneral));
 
-        getline(servicesFile,tempDate);
+        getline(servicesFile,tempIDate);
 
         getline(servicesFile,tempNif);
 
@@ -312,17 +312,18 @@ void Service::loadFromFile(vector<Service*> *services_finished,vector<Service*> 
         getline(servicesFile,tempGeneral);
         tempPrice=(stof(tempGeneral));
         Service *temp;
-        Date *tempD=new Date(tempDate);
+        Date *tempD=new Date(tempIDate);
+        Date *tempA=new Date(tempADate);
         try {
             if(tempNif.size()!=9)
                 throw NotAClient(unsigned(stoi(tempNif)),"Not a valid NIF");
             Client *temp_client=Company::getCompany()->getClient(unsigned(stoi(tempNif)));
             if(tempType==3)
-                temp= new TemperatureService(tempMaterial, tempOrigin,tempDestination,tempTime,unsigned(tempDistance),tempType,tempState,tempD,temp_client,tempQuantity,Temperature_enum::_200,tempPrice,tempId);
+                temp= new TemperatureService(tempMaterial, tempOrigin,tempDestination,tempA,unsigned(tempDistance),tempType,tempState,tempD,temp_client,tempQuantity,Temperature_enum::_200,tempPrice,tempId);
             if(tempType==1)
-                temp= new HazardousService(tempMaterial, tempOrigin,tempDestination,tempTime,unsigned(tempDistance),tempType,tempState,tempD,temp_client,tempQuantity,Hazard_enum::corrosives,tempPrice,tempId);
+                temp= new HazardousService(tempMaterial, tempOrigin,tempDestination,tempA,unsigned(tempDistance),tempType,tempState,tempD,temp_client,tempQuantity,Hazard_enum::corrosives,tempPrice,tempId);
             else
-                temp= new Service(tempMaterial,tempOrigin,tempDestination,tempTime,unsigned(tempDistance),tempType,tempState,tempD,temp_client,tempQuantity,tempPrice,tempId);
+                temp= new Service(tempMaterial,tempOrigin,tempDestination,tempA,unsigned(tempDistance),tempType,tempState,tempD,temp_client,tempQuantity,tempPrice,tempId);
 
             for(auto i:tempVectorTruckS){
                 try{
@@ -351,11 +352,11 @@ void Service::loadFromFile(vector<Service*> *services_finished,vector<Service*> 
             Client *tempC= new NotAClient(e);
             //getline(cin,temp_error);
             if(tempType==3)
-                temp= new TemperatureService(tempMaterial, tempOrigin,tempDestination,tempTime,unsigned(tempDistance),tempType,tempState,tempD,tempC,tempQuantity,Temperature_enum::_200,tempPrice,tempId);
+                temp= new TemperatureService(tempMaterial, tempOrigin,tempDestination,tempA,unsigned(tempDistance),tempType,tempState,tempD,tempC,tempQuantity,Temperature_enum::_200,tempPrice,tempId);
             if(tempType==1)
-                temp= new HazardousService(tempMaterial, tempOrigin,tempDestination,tempTime,unsigned(tempDistance),tempType,tempState,tempD,tempC,tempQuantity,Hazard_enum::corrosives,tempPrice,tempId);
+                temp= new HazardousService(tempMaterial, tempOrigin,tempDestination,tempA,unsigned(tempDistance),tempType,tempState,tempD,tempC,tempQuantity,Hazard_enum::corrosives,tempPrice,tempId);
             else
-                temp= new Service(tempMaterial,tempOrigin,tempDestination,tempTime,unsigned(tempDistance),tempType,tempState,tempD,tempC,tempQuantity,tempPrice,tempId);
+                temp= new Service(tempMaterial,tempOrigin,tempDestination,tempA,unsigned(tempDistance),tempType,tempState,tempD,tempC,tempQuantity,tempPrice,tempId);
 
             for(auto i:tempVectorTruckS){
                 try{
@@ -394,8 +395,7 @@ void Service::loadFromFile(vector<Service*> *services_finished,vector<Service*> 
         getline(servicesFile,tempOrigin);
         getline(servicesFile,tempDestination);
 
-        getline(servicesFile,tempGeneral);
-        tempTime=stod(tempGeneral);
+        getline(servicesFile,tempADate);
 
         getline(servicesFile,tempGeneral);
         tempDistance=stoi(tempGeneral);
@@ -409,7 +409,7 @@ void Service::loadFromFile(vector<Service*> *services_finished,vector<Service*> 
         getline(servicesFile,tempGeneral);
         tempState=intToState(stoi(tempGeneral));
 
-        getline(servicesFile,tempDate);
+        getline(servicesFile,tempIDate);
 
         getline(servicesFile,tempNif);
 
@@ -419,17 +419,18 @@ void Service::loadFromFile(vector<Service*> *services_finished,vector<Service*> 
         getline(servicesFile,tempGeneral);
         tempPrice=(stof(tempGeneral));
         Service *temp;
-        Date *tempD=new Date(tempDate);
+        Date *tempD=new Date(tempIDate);
+        Date *tempA=new Date(tempADate);
         try {
             if(tempNif.size()!=9)
                 throw NotAClient(unsigned(stoi(tempNif)),"Not a valid NIF");
             Client *temp_client=Company::getCompany()->getClient(unsigned(stoi(tempNif)));
             if(tempType==3)
-                temp= new TemperatureService(tempMaterial, tempOrigin,tempDestination,tempTime,unsigned(tempDistance),tempType,tempState,tempD,temp_client,tempQuantity,Temperature_enum::_200,tempPrice,tempId);
+                temp= new TemperatureService(tempMaterial, tempOrigin,tempDestination,tempA,unsigned(tempDistance),tempType,tempState,tempD,temp_client,tempQuantity,Temperature_enum::_200,tempPrice,tempId);
             if(tempType==1)
-                temp= new HazardousService(tempMaterial, tempOrigin,tempDestination,tempTime,unsigned(tempDistance),tempType,tempState,tempD,temp_client,tempQuantity,Hazard_enum::corrosives,tempPrice,tempId);
+                temp= new HazardousService(tempMaterial, tempOrigin,tempDestination,tempA,unsigned(tempDistance),tempType,tempState,tempD,temp_client,tempQuantity,Hazard_enum::corrosives,tempPrice,tempId);
             else
-                temp= new Service(tempMaterial,tempOrigin,tempDestination,tempTime,unsigned(tempDistance),tempType,tempState,tempD,temp_client,tempQuantity,tempPrice,tempId);
+                temp= new Service(tempMaterial,tempOrigin,tempDestination,tempA,unsigned(tempDistance),tempType,tempState,tempD,temp_client,tempQuantity,tempPrice,tempId);
 
             for(auto i:tempVectorTruckS){
                 try{
@@ -458,11 +459,11 @@ void Service::loadFromFile(vector<Service*> *services_finished,vector<Service*> 
             Client *tempC= new NotAClient(e);
             //getline(cin,temp_error);
             if(tempType==3)
-                temp= new TemperatureService(tempMaterial, tempOrigin,tempDestination,tempTime,unsigned(tempDistance),tempType,tempState,tempD,tempC,tempQuantity,Temperature_enum::_200,tempPrice,tempId);
+                temp= new TemperatureService(tempMaterial, tempOrigin,tempDestination,tempA,unsigned(tempDistance),tempType,tempState,tempD,tempC,tempQuantity,Temperature_enum::_200,tempPrice,tempId);
             if(tempType==1)
-                temp= new HazardousService(tempMaterial, tempOrigin,tempDestination,tempTime,unsigned(tempDistance),tempType,tempState,tempD,tempC,tempQuantity,Hazard_enum::corrosives,tempPrice,tempId);
+                temp= new HazardousService(tempMaterial, tempOrigin,tempDestination,tempA,unsigned(tempDistance),tempType,tempState,tempD,tempC,tempQuantity,Hazard_enum::corrosives,tempPrice,tempId);
             else
-                temp= new Service(tempMaterial,tempOrigin,tempDestination,tempTime,unsigned(tempDistance),tempType,tempState,tempD,tempC,tempQuantity,tempPrice,tempId);
+                temp= new Service(tempMaterial,tempOrigin,tempDestination,tempA,unsigned(tempDistance),tempType,tempState,tempD,tempC,tempQuantity,tempPrice,tempId);
 
             for(auto i:tempVectorTruckS){
                 try{
@@ -501,7 +502,7 @@ void Service::saveToFile(vector<Service*> *services_finished,vector<Service*>*se
         servicesFile << x->getId()<<endl;
         servicesFile << x->getOrigin()<<endl;
         servicesFile << x->getDestination()<<endl;
-        servicesFile << (x->getTime())<<endl;
+        servicesFile << (x->getADate()->getDate())<<endl;
         servicesFile << (x->getDistance())<<endl;
         servicesFile << (x->getType())<<endl;
 
@@ -510,7 +511,7 @@ void Service::saveToFile(vector<Service*> *services_finished,vector<Service*>*se
         }
 
         servicesFile << endl << (x->getState())<<endl;
-        servicesFile << x->getDate()->getDate() <<endl;
+        servicesFile << x->getIDate()->getDate() <<endl;
         servicesFile << x->getClient()->getNif() << endl;
         servicesFile << x->getQuantity() <<endl;
         servicesFile << x->getTotalPrice() <<endl;
@@ -521,7 +522,7 @@ void Service::saveToFile(vector<Service*> *services_finished,vector<Service*>*se
         servicesFile << x->getId()<<endl;
         servicesFile << x->getOrigin()<<endl;
         servicesFile << x->getDestination()<<endl;
-        servicesFile << (x->getTime())<<endl;
+        servicesFile << (x->getADate()->getDate())<<endl;
         servicesFile << (x->getDistance())<<endl;
         servicesFile << (x->getType())<<endl;
 
@@ -530,7 +531,7 @@ void Service::saveToFile(vector<Service*> *services_finished,vector<Service*>*se
         }
 
         servicesFile << endl << (x->getState())<<endl;
-        servicesFile << x->getDate()->getDate() <<endl;
+        servicesFile << x->getIDate()->getDate() <<endl;
         servicesFile << x->getClient()->getNif() << endl;
         servicesFile << x->getQuantity() <<endl;
         servicesFile << x->getTotalPrice() <<endl;
@@ -541,7 +542,7 @@ void Service::saveToFile(vector<Service*> *services_finished,vector<Service*>*se
         servicesFile << x->getId()<<endl;
         servicesFile << x->getOrigin()<<endl;
         servicesFile << x->getDestination()<<endl;
-        servicesFile << (x->getTime())<<endl;
+        servicesFile << (x->getADate()->getDate())<<endl;
         servicesFile << (x->getDistance())<<endl;
         servicesFile << (x->getType())<<endl;
 
@@ -550,7 +551,7 @@ void Service::saveToFile(vector<Service*> *services_finished,vector<Service*>*se
         }
 
         servicesFile << endl << (x->getState())<<endl;
-        servicesFile << x->getDate()->getDate() <<endl;
+        servicesFile << x->getIDate()->getDate() <<endl;
         servicesFile << x->getClient()->getNif() << endl;
         servicesFile << x->getQuantity() <<endl;
         servicesFile << x->getTotalPrice() <<endl;
@@ -558,33 +559,23 @@ void Service::saveToFile(vector<Service*> *services_finished,vector<Service*>*se
     }
 }
 
-HazardousService::HazardousService(string material_h, string origin_h, string destination_h, double time_h, unsigned distance_h, enum type type_h, enum state state_h, Date *date_h, Client *client_h,float quantity_h,Hazard_enum type): Service(material_h,origin_h,destination_h,time_h,distance_h,type_h,state_h,date_h,client_h,quantity_h),type(type)
+HazardousService::HazardousService(string material_h, string origin_h, string destination_h, Date *arrivalDate_h, unsigned distance_h, enum type type_h, enum state state_h, Date *date_h, Client *client_h,float quantity_h,Hazard_enum type): Service(material_h,origin_h,destination_h,arrivalDate_h,distance_h,type_h,state_h,date_h,client_h,quantity_h),type(type)
 {
-    setDate(date_h);
-    setClient(client_h);
     calcPrice();
     
 }
-HazardousService::HazardousService(string material_h, string origin_h, string destination_h, double time_h, unsigned distance_h, enum type type_h, enum state state_h, Date *date_h, Client *client_h,float quantity_h,Hazard_enum type,float total_price_h,unsigned id_h): Service(material_h,origin_h,destination_h,time_h,distance_h,type_h,state_h,date_h,client_h,quantity_h,total_price_h,id_h),type(type)
+HazardousService::HazardousService(string material_h, string origin_h, string destination_h, Date *arrivalDate_h, unsigned distance_h, enum type type_h, enum state state_h, Date *date_h, Client *client_h,float quantity_h,Hazard_enum type,float total_price_h,unsigned id_h): Service(material_h,origin_h,destination_h,arrivalDate_h,distance_h,type_h,state_h,date_h,client_h,quantity_h,total_price_h,id_h),type(type)
 {
-    setDate(date_h);
-    setClient(client_h);
 
 }
 
-TemperatureService::TemperatureService(string material_s, string origin_s, string destination_s, double time_s, unsigned distance_s, enum type type_s, enum state state_s, Date *date_s, Client *client_s, float quantity_s, Temperature_enum type, float total_price_s,unsigned id_s): Service(material_s,origin_s,destination_s,time_s,distance_s,type_s,state_s,date_s,client_s,quantity_s,total_price_s,id_s) ,type(type)
+TemperatureService::TemperatureService(string material_s, string origin_s, string destination_s, Date *arrivalDate_s, unsigned distance_s, enum type type_s, enum state state_s, Date *date_s, Client *client_s, float quantity_s, Temperature_enum type, float total_price_s,unsigned id_s): Service(material_s,origin_s,destination_s,arrivalDate_s,distance_s,type_s,state_s,date_s,client_s,quantity_s,total_price_s,id_s) ,type(type)
 {
-    setDate(date_s);
-    setClient(client_s);
 
 }
-TemperatureService::TemperatureService(string material_s, string origin_s, string destination_s, double time_s, unsigned distance_s, enum type type_s, enum state state_s, Date *date_s, Client *client_s,float quantity_s,Temperature_enum type): Service(material_s,origin_s,destination_s,time_s,distance_s,type_s,state_s,date_s,client_s,quantity_s) ,type(type)
+TemperatureService::TemperatureService(string material_s, string origin_s, string destination_s, Date *arrivalDate_s, unsigned distance_s, enum type type_s, enum state state_s, Date *date_s, Client *client_s,float quantity_s,Temperature_enum type): Service(material_s,origin_s,destination_s,arrivalDate_s,distance_s,type_s,state_s,date_s,client_s,quantity_s) ,type(type)
 {
-    setDate(date_s);
-    setClient(client_s);
     calcPrice();
-
-
 }
 
 //adicionar hazardous type ou temp range!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -594,6 +585,7 @@ Service *Service::addService(vector<Service *> *services,Client *client){
     string temp_quantity;
     string year;
     vector<string> print;
+    string tempTime,tempDistance;
     bool variable_error=true;
     time_t rawtime;struct tm *now;std::time( &rawtime );now = localtime( &rawtime );
 
@@ -646,6 +638,109 @@ Service *Service::addService(vector<Service *> *services,Client *client){
         }
     }
     print.push_back(tempDestination);
+    //set yy/mm/dd
+
+    variable_error=true;
+    string tempString;
+    vector<string> tempVector;
+    while (variable_error) {
+        printClassVector(&print);
+        try {
+            cout<<"Enter the date of arrival(yy mm dd)"<<endl;
+            if(getline(cin,tempString)){
+                clearScreen();
+                checkIfOut(tempString);
+                tempVector = vectorString(tempString," ");
+                for(auto p:tempVector){
+                    if(!strIsNumber(p)){
+                        tempVector.clear();
+                        variable_error=true;
+                        clearScreen();
+                        cout<<"Date Input not Aceptable, please try again"<<endl;
+                        break;
+                    }
+                }
+                if(tempVector.size()==3){
+                    Date(date_u_short(stoi(tempVector.at(0))),date_u_short(stoi(tempVector.at(1))),date_u_short(stoi(tempVector.at(2))),1,1);
+                    variable_error=false;
+                }
+                else{
+                    variable_error=true;
+                    clearScreen();
+                    cout<<"Date Input not Aceptable, please try again"<<endl;
+                }
+            }
+            else{
+                variable_error=true;
+                clearScreen();
+                cout<<"Date Input not Aceptable, please try again"<<endl;
+            }
+        } catch (DateInvalid i) {
+            clearScreen();
+            cout<<i.error<<endl;
+        }
+    }
+
+    variable_error=true;
+    vector<string> tempVector_h;
+    while (variable_error) {
+        printClassVector(&print);
+        try {
+            cout<<"Enter the hours of Arrival(hh mm)"<<endl;
+            if(getline(cin,tempString)){
+                clearScreen();
+                checkIfOut(tempString);
+                tempVector_h = vectorString(tempString," ");
+                for(auto p:tempVector_h){
+                    if(!strIsNumber(p)){
+                        tempVector_h.clear();
+                        variable_error=true;
+                        clearScreen();
+                        cout<<"minute Input not Aceptable, please try again"<<endl;
+                        break;
+                    }
+                }
+                if(tempVector_h.size()==2){
+                    Date(date_u_short(stoi(tempVector.at(0))),date_u_short(stoi(tempVector.at(1))),date_u_short(stoi(tempVector.at(2))),date_u_short(stoi(tempVector_h.at(0))),date_u_short(stoi(tempVector_h.at(1))));
+                    variable_error=false;
+                }
+                else{
+                    variable_error=true;
+                    clearScreen();
+                    cout<<"minute Input not Aceptable, please try again"<<endl;
+                }
+            }
+            else{
+                variable_error=true;
+                clearScreen();
+                cout<<"minute Input not Aceptable, please try again"<<endl;
+            }
+        } catch (DateInvalid i) {
+            clearScreen();
+            cout<<i.error<<endl;
+        }
+    }
+    Date *temp_date_arrival=new Date(date_u_short(stoi(tempVector.at(0))),date_u_short(stoi(tempVector.at(1))),date_u_short(stoi(tempVector.at(2))),date_u_short(stoi(tempVector_h.at(0))),date_u_short(stoi(tempVector_h.at(1))));
+    print.push_back(temp_date_arrival->getDateWHour());
+
+    //set distance
+    variable_error=true;
+    while (variable_error) {
+        printClassVector(&print);
+        cout<<"Enter the distance to go"<<endl;
+        if(cin>>tempDistance && strIsNumber(tempDistance)){
+            clearScreen();
+            variable_error=false;
+        }
+        else
+        {
+            checkIfOut(tempDistance);
+            clearScreen();
+            cout<<"Distance not acceptable, please try again"<<endl;
+        }
+    }
+
+    print.push_back(tempDistance);
     // set type of service
     variable_error=true;
     while (variable_error) {
@@ -674,8 +769,7 @@ Service *Service::addService(vector<Service *> *services,Client *client){
     //set yy/mm/dd
 
     variable_error=true;
-    string tempString;
-    vector<string> tempVector;
+    tempVector.clear();
     while (variable_error) {
         printClassVector(&print);
         try {
@@ -715,7 +809,7 @@ Service *Service::addService(vector<Service *> *services,Client *client){
     }
 
     variable_error=true;
-    vector<string> tempVector_h;
+    tempVector_h.clear();
     while (variable_error) {
         printClassVector(&print);
         try {
@@ -1019,13 +1113,13 @@ Hour:
     Service *temp_service;
     switch (stoi(tempType)) {
     case hazardous:
-        temp_service=new  HazardousService(tempMaterial,tempOrigin,tempDestination,0,0,intToType(stoi(tempType)),on_queue,temp_date,client,stoi(temp_quantity),Hazard_enum::explosives);
+        temp_service=new  HazardousService(tempMaterial,tempOrigin,tempDestination,temp_date_arrival,0,intToType(stoi(tempType)),on_queue,temp_date,client,stoi(temp_quantity),Hazard_enum::explosives);
         break;
     case lowTemperature:
-        temp_service=new TemperatureService(tempMaterial, tempOrigin,tempDestination,0,0,intToType(stoi(tempType)),on_queue,temp_date,client,stoi(temp_quantity),Temperature_enum::_200);
+        temp_service=new TemperatureService(tempMaterial, tempOrigin,tempDestination,temp_date_arrival,0,intToType(stoi(tempType)),on_queue,temp_date,client,stoi(temp_quantity),Temperature_enum::_200);
         break;
     default:
-        temp_service=new Service(tempMaterial, tempOrigin,tempDestination,0,0,intToType(stoi(tempType)),on_queue,temp_date,client,stoi(temp_quantity));
+        temp_service=new Service(tempMaterial, tempOrigin,tempDestination,temp_date_arrival,0,intToType(stoi(tempType)),on_queue,temp_date,client,stoi(temp_quantity));
     }
     services->push_back(temp_service);
     Company::getCompany()->services_on_queue_changed=true;
@@ -1041,8 +1135,11 @@ ostream& operator <<(ostream& os,Service *a){
     os<<endl;
     os<<"Origin: "+a->getOrigin()<<endl;
     os<<"Destination: "+a->getDestination()<<endl;
+    os<<"Distance: "<<a->getDistance()<<endl;
     os<<endl;
-    os<<"Initial Date: "+a->getDate()->getDateWHour()<<endl;
+    os<<"Initial Date: "+a->getIDate()->getDateWHour()<<endl;
+    os<<"Arrival Date: "+a->getADate()->getDateWHour()<<endl;
+    os<<"Time :"<<*a->getIDate()-*a->getADate()<<" h"<<endl;
     os<<endl;
     os<<"Type of Transport: "+typeToString(a->getType())<<endl;
     int prec_q=0,prec_p=0;
@@ -1090,16 +1187,18 @@ void Service::editService(){
                     clearScreen();
                     variable_error=false;
                     string temp;
+
                     switch (opt) {
                     case 1: {
                         variable_error=true;
                         clearScreen();
+                        clearBuffer();
                         while (variable_error) {
                             cout<<"Enter the Origin"<<endl;
-                            clearBuffer();
                             getline(cin,temp);
-                            if(temp=="\n")
-                                return;
+                            if(temp=="")
+                                break;
+                            checkIfOut(temp);
                             clearScreen();
                             if(strIsChar(temp)){
                                 variable_error=false;
@@ -1108,7 +1207,6 @@ void Service::editService(){
                             }
                             else{
                                 variable_error=true;
-                                clearBuffer();
                                 cout<<"ORigin Input not acceptable, please try again"<<endl;
                             }
 
@@ -1118,12 +1216,13 @@ void Service::editService(){
                     case 2:{
                         //set destination
                         variable_error=true;
+                        clearBuffer();
                         while (variable_error) {
                             cout<<"Enter the Destination"<<endl;
-                            clearBuffer();
                             getline(cin,temp);
-                            if(temp=="\n")
-                                return;
+                            if(temp=="")
+                                break;
+                            checkIfOut(temp);
                             clearScreen();
                             if(strIsChar(temp)){
                                 variable_error=false;
@@ -1136,28 +1235,37 @@ void Service::editService(){
                             }
 
                         }
+
                         break;
                     }
                     case 3:{
                         variable_error=true;
                         string temp_quantity;
+                        clearBuffer();
                         while (variable_error) {
                             cout<<"Enter the quantity to transport"<<endl;
-                            if(cin>>temp_quantity && strIsNumber(temp_quantity)){
+                            getline(cin,temp_quantity);
+                            if(strIsNumber(temp_quantity)){
                                 clearScreen();
                                 variable_error=false;
-                                setQuantity(stoi(temp_quantity));
+                                try {
+                                    setQuantity(stof(temp_quantity));
+                                } catch (...) {
+                                    variable_error=true;
+                                    clearScreen();
+                                    cout<<"Quantity not acceptable, please try again"<<endl;
+                                }
                                 Company::getCompany()->services_on_queue_changed=true;
                             }
                             else
                             {
-                                if(temp_quantity=="\n")
-                                    return;
+                                checkIfOut(temp_quantity);
+                                if(temp_quantity=="")
+                                    break;
                                 clearScreen();
                                 cout<<"Quantity not acceptable, please try again"<<endl;
                             }
                         }
-                        clearBuffer();
                         break;
                     }
                     }

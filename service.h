@@ -39,12 +39,12 @@ public:
     //get methods
     string getOrigin() const;
     string getDestination() const;
-    double getTime() const;
     unsigned getDistance() const;
     type getType() const;
     unsigned int getId() const;
     state getState() const;
-    Date *getDate() const;
+    Date *getIDate() const;
+    Date *getADate() const;
     Client *getClient() const;
     vector<Truck*> *getTrucks();
     float getTotalPrice() const;
@@ -59,7 +59,8 @@ public:
     void setDistance(unsigned distance);
     void setType(type type);
     void setState(state state);
-    void setDate(Date *date);
+    void setIDate(Date *date);
+    void setADate(Date *date);
     void setClient(Client *client);
     void setQuantity(float quantity);
     void setMaterial(string material);
@@ -76,12 +77,12 @@ public:
     friend ostream& operator<<(ostream& os, Service *a);
 
 protected:
-    Service(string material,string origin, string destination, double time, unsigned distance, type type, state state, Date *date,Client *client,float quantity);
-    Service(string material, string origin, string destination, double time, unsigned distance, type type, state state, Date *date, Client *client, float quantity, float total_price,unsigned id);
+    Service(string material,string origin, string destination, Date *arrivalDate, unsigned distance, type type, state state, Date *date,Client *client,float quantity);
+    Service(string material, string origin, string destination, Date *arrivalDate, unsigned distance, type type, state state, Date *date, Client *client, float quantity, float total_price,unsigned id);
     string origin;
     string destination;
     string material;
-    double time;
+    Date *arrivalDate;
     unsigned distance;
     float quantity;
     type ser_type;
@@ -100,16 +101,16 @@ protected:
 class HazardousService: public Service
 {
 public:
-    HazardousService(string material,string origin, string destination, double time, unsigned distance, type type, state state, Date *date,Client *client,float quantity,Hazard_enum hazard);
-    HazardousService(string material,string origin, string destination, double time, unsigned distance, type type, state state, Date *date,Client *client,float quantity,Hazard_enum hazard,float total_price,unsigned id);
+    HazardousService(string material,string origin, string destination, Date *arrivalDate, unsigned distance, type type, state state, Date *date,Client *client,float quantity,Hazard_enum hazard);
+    HazardousService(string material,string origin, string destination, Date *arrivalDate, unsigned distance, type type, state state, Date *date,Client *client,float quantity,Hazard_enum hazard,float total_price,unsigned id);
     Hazard_enum type;
 };
 
 class TemperatureService: public Service
 {
 public:
-    TemperatureService(string material,string origin, string destination, double time, unsigned distance, type type, state state, Date *date,Client *client,float quantity,Temperature_enum hazard);
-    TemperatureService(string material, string origin, string destination, double time, unsigned distance, type type, state state, Date *date, Client *client, float quantity, Temperature_enum hazard, float total_price, unsigned id_s);
+    TemperatureService(string material,string origin, string destination, Date *arrivalDate, unsigned distance, type type, state state, Date *date,Client *client,float quantity,Temperature_enum hazard);
+    TemperatureService(string material, string origin, string destination, Date *arrivalDate, unsigned distance, type type, state state, Date *date, Client *client, float quantity, Temperature_enum hazard, float total_price, unsigned id_s);
     Temperature_enum type;
 };
 

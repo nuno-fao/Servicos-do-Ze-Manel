@@ -155,7 +155,7 @@ int main()
                             cout<<"Id not acceptable"<<endl;
                         }
                     }
-                    if(id!="q")
+                    if(id=="q")
                         break;
                     clearBuffer();
                     //pesquisa binaria!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -177,7 +177,7 @@ int main()
                         cout<<"Couldn't find Service"<<endl;
                 }
                 else
-                    cout<<"There are no services that can be removed"<<endl;
+                    cout<<"There are no services that can be edit"<<endl;
                 string temp;
                 getline(cin,temp);
                 clearScreen();
