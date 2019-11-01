@@ -186,7 +186,7 @@ Client askForClientsInformation(vector<Client> clientsVector) {
 	cin.ignore(10000, '\n');
 
 	for (int i = 0; i < clientsVector.size(); i++) {
-		if (clientsVector[i].getnif() == nif) {
+		if (clientsVector[i].getNif() == nif) {
 			inDatabase = true;
 			break;
 		}
@@ -196,14 +196,14 @@ Client askForClientsInformation(vector<Client> clientsVector) {
 	{
 		cout << "NIF is already in the database, please insert again: ";
 		cin >> nif;
-		validNif(nif);
+		checkNif(nif);
 		cin.clear();
 		cin.ignore(10000, '\n');
 		for (int i = 0; i < clientsVector.size(); i++)
 		{
 			zeroIfNotInFile = 0;
-			if (clientsVector[i].getnif() == nif) {
-				zeroIfNotInFile += 1;
+			if (clientsVector[i].getNif() == nif) {
+				zeroIfNotInFile++;
 				break;
 			}
 		}
@@ -245,5 +245,4 @@ void createClientOption(vector<Client>& clientsVector) {
 	client = askForClientsInformation(clientsVector);
 	client.addClient(clientsVector);
 	cout << endl << endl << "Client created successfully!";
-	menuSeparator();
 }
