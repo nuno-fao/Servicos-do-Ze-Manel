@@ -16,10 +16,10 @@ class Client
 public:
 	Client();
 	Client(string name, unsigned int nif, vector<Service*> *services = nullptr);
-    ~Client();
+    virtual ~Client();
 
 	void loadClients(const string &clientsNameFile, vector<Client> &clientsVector); // Reads the clients file and stores the result in a vector
-	void removeClient(vector<Client>& clientsVector);
+    void removeClient(vector<Client *> &clientsVector);
 	
     //get methods
     string getName() const;
@@ -37,9 +37,11 @@ public:
 
     friend ostream& operator<<(ostream& out, const Client& client);
 
+    bool operator<(Client &a) const;
     bool operator== (const Client& client1) const;
 protected:
-    Client(){};
+    //tive q comentar para testar!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!11
+    //Client(){};
     string name;
     unsigned int id;
     unsigned int nif;
@@ -50,6 +52,7 @@ protected:
 
 class NotAClient: public Client{
 public:
+    ~NotAClient();
     string erro;
     NotAClient(unsigned nif_n, string erro): Client(), erro(erro){
         this->nif=nif_n;
@@ -59,10 +62,12 @@ public:
 	}
 };
 
-class ClientInVector: public Client {
+class ClientInVector{
 public:
+    ~ClientInVector();
 	string erro;
-	ClientInVector(unsigned nif_n, string erro) : Client(), erro(erro) {
+    unsigned nif;
+    ClientInVector(unsigned nif_n, string erro) : erro(erro) {
 		this->nif = nif_n;
 	}
 	unsigned int getNif() const {
@@ -72,8 +77,9 @@ public:
 
 
 
-class CantOpenClientFile: public Client {
+class CantOpenClientFile{
 public:
+    ~CantOpenClientFile();
 	string erro;
-	CantOpenClientFile(string erro): Client(), erro(erro) {}
+    CantOpenClientFile(string erro):erro(erro) {}
 };

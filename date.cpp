@@ -22,7 +22,10 @@ Date::Date(string date) {
 }
 
 
-Date::Date(unsigned year, unsigned short month, unsigned short day, unsigned short hour, unsigned short minute) : year(year), month(month), day(day) ,hour(hour),minute(minute){
+Date::Date(unsigned year, unsigned short month, unsigned short day, unsigned short hour, unsigned short minute) : month(month), day(day) ,hour(hour),minute(minute){
+    if(year<99)
+        year+=2000;
+    this->year=year;
     isValid();
 }
 Date::~Date() {
@@ -63,7 +66,14 @@ string Date::getDate() const {
 }
 
 string Date::getDateWHour() const{
-    return to_string(year) + "/" + to_string(month) + "/" + to_string(day)+",  "+to_string(hour)+":"+to_string(minute);
+    string t="0";
+    string tempMinute=to_string(minute);
+    if(tempMinute.size()==1)
+        t+=to_string(minute);
+    else {
+        t=to_string(minute);
+    }
+    return to_string(year) + "/" + to_string(month) + "/" + to_string(day)+",  "+to_string(hour)+":"+t;
 }
 /*********************************
  * SET Methods
@@ -112,8 +122,8 @@ bool Date::isValid() {
 
     if (month > 0 && month <= 12) {
         if (day > 0 && day <= total_days(year, month)) {
-            if(hour>0 && hour<=23){
-                if(minute>0 && minute<=59)
+            if(hour<=23){
+                if(minute<=59)
                     return true;
                 else
                     throw DateInvalid("Invalid minutes: "+to_string(minute),year,month,day,hour,minute);
@@ -247,3 +257,49 @@ bool operator != (Date const& date1, Date const& data2) {
     return true;
 }
 
+
+
+const int monthDays[12] = {31, 28, 31, 30, 31, 30,31, 31, 30, 31, 30, 31};
+
+
+int countLeapYears(Date *d)
+{
+    unsigned years = d->getYear();
+    if (d->getMonth() <= 2)
+        years--;
+    return years / 4 - years / 100 + years / 400;
+}
+
+int getDifference(Date dt1, Date dt2)
+{
+
+    long int n1 = dt1.getYear()*365 + dt1.getDay();
+    for (int i=0; i<dt1.getMonth() - 1; i++)
+        n1 += monthDays[i];
+    n1 += countLeapYears(&dt1);
+
+    long int n2 = dt2.getYear()*365 + dt2.getDay();
+    for (int i=0; i<dt2.getMonth() - 1; i++)
+        n2 += monthDays[i];
+    n2 += countLeapYears(&dt2);
+
+    return int(n2 - n1);
+}
+
+double operator - (Date  &dt1, Date  &dt2){
+
+    float n1 = dt1.getYear()*365 + dt1.getDay();
+
+    for (int i=0; i<dt1.getMonth() - 1; i++)
+        n1 += monthDays[i];
+
+    n1 += countLeapYears(&dt1);
+
+    float n2 = dt2.getYear()*365 + dt2.getDay();
+    for (int i=0; i<dt2.getMonth() - 1; i++)
+        n2 += monthDays[i];
+    n2 += countLeapYears(&dt2);
+
+    double t=double((n2*24+dt2.getHour()+double(dt2.getMinute()/60.0)) - (n1*24+dt1.getHour()+double(dt1.getMinute()/60.0)));
+    return  t;
+}

@@ -20,11 +20,15 @@ vector<string> vectorString(string stringToVectorize, string separador) {
     while (endPos < stringToVectorize.length()) {
         endPos = stringToVectorize.find(separador, startPos);
         if (endPos == stringToVectorize.npos) {
-            ret.push_back(stringToVectorize.substr(startPos));
+            string t=stringToVectorize.substr(startPos);
+            if(t.size() && t!=" ")
+                ret.push_back(stringToVectorize.substr(startPos));
             break;
         }
         else {
-            ret.push_back(stringToVectorize.substr(startPos, endPos - startPos));
+            string t=stringToVectorize.substr(startPos, endPos - startPos);
+            if(t.size() && t!=" ")
+                ret.push_back(stringToVectorize.substr(startPos, endPos - startPos));
         }
         startPos = endPos + separador.length();
     }
@@ -158,7 +162,26 @@ int binaryCustomfind(vector<Client*> *vetor, unsigned val){
 
 bool checkNif(int nif) {
 
-	if (nif < 100000000 || nif > 999999999) // The number has to be 9 digits long    
-			return false;
-		return true;
-	}
+    if (nif < 100000000 || nif > 999999999) // The number has to be 9 digits long
+        return false;
+    return true;
+}
+
+void checkIfOut(string &temp){
+    if(temp=="!q"){
+        string t;
+        cout<<"Are u sure you want to exit?"<<endl;
+        cin>>t;
+        if(t=="y"){
+            clearScreen();
+            throw exception();
+        }
+        clearScreen();
+    }
+}
+
+void printClassVector(vector<string> *t){
+    for(auto i:*t){
+        cout<<i<<endl;
+    }
+}

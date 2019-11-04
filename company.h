@@ -6,6 +6,10 @@
 #include "service.h"
 #include "truck.h"
 
+
+class Truck;
+class Service;
+class Client;
 using namespace std;
 
 class Company
@@ -21,6 +25,8 @@ public:
     vector<Service*> *getVectorServicesOnQueue();
     vector<Client*> *getVectorClients();
     vector<Truck*> *getVectorTrucks();
+    Client *getClient(unsigned nif);
+    Truck *getTruck(string license);
 
 
 private:

@@ -3,6 +3,7 @@
 #include <vector>
 #include <unordered_map>
 #include "service.h"
+#include "company.h"
 using namespace std;
 
 class Service;
@@ -25,16 +26,16 @@ public:
     Truck(string license, bool available,bool registered,unsigned short capacity, unsigned short cargo);
     virtual ~Truck();
 	//get methods
-	virtual float getprice(Service* service) const = 0;
-	unsigned short getcapacity() const;
-	bool getavailable() const;
-	string getlicense() const;
-	bool getregistered() const;
-	unsigned short getcargo() const;
+    virtual float getprice(Service* service) const;
+    unsigned short getcapacity() const;
+    bool getavailable() const;
+    string getlicense() const;
+    bool getregistered() const;
+    unsigned short getcargo() const;
 	//set methods
-	virtual void setprice(float newval) = 0;
-	void setregistered(bool foo);
-	void setavailable(bool foo);
+    virtual void setprice(float newval){availabe=(bool(newval) && availabe);}
+    void setregistered(bool foo);
+    void setavailable(bool foo);
 	//load and save to file
 	static void loadFromFile(vector<Truck*> *trucks);
 	static void saveToFile(vector<Truck*> *trucks);
@@ -43,6 +44,8 @@ public:
 	void remove_service(unsigned int id); //removes an assigned service when it is finished, searches by id
 	void start_transport(unsigned short cargo); //sets the needed variables so the truck is in transport
 };
+
+bool operator<(Truck &a,Truck &b);
 
 class Congelation : public Truck
 {
@@ -101,5 +104,19 @@ private:
 
 class FailedToOpenTrucks {
 public:
-	FailedToOpenTrucks() {};
+    FailedToOpenTrucks() {}
+};
+
+class TruckDoNotExist{
+public:
+    string erro;
+    string license;
+    TruckDoNotExist(string erro,string license):erro(erro),license(license){}
+};
+
+class NotATruck{
+public:
+    string erro;
+    string license;
+    NotATruck(string erro,string license):erro(erro),license(license){}
 };

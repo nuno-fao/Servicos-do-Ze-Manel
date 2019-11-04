@@ -32,3 +32,42 @@ vector<Client*> *Company::getVectorClients(){
 vector<Truck*> *Company::getVectorTrucks(){
     return &trucks;
 }
+
+Client *Company::getClient(unsigned nif){
+    size_t l=0;
+    unsigned t;
+    vector<Client*> *temp(Company::getCompany()->getVectorClients());
+    if(!temp->size())
+        throw NotAClient(nif,"Couldn't find the client");
+    size_t r=(*temp).size()-1;
+    while (l <= r) {
+        size_t m = l + (r - l) / 2;
+        t=temp->at(m)->getNif();
+        if (temp->at(m)->getNif() == nif)
+            return Company::getCompany()->getVectorClients()->at(m);
+        if (temp->at(m)->getNif() < nif)
+            l = m + 1;
+        else
+            r = m - 1;
+    }
+    throw NotAClient(nif,"Couldn't find the client");
+}
+Truck *Company::getTruck(string license){
+    size_t l=0;
+    string t;
+    vector<Truck*> *vect(Company::getCompany()->getVectorTrucks());
+    if(!vect->size())
+        throw TruckDoNotExist("Couldn't find the Truck",license);
+    size_t r=vect->size()-1;
+    while (l <= r) {
+        size_t m = l + (r - l) / 2;
+        t=vect->at(m)->getlicense();
+        if (vect->at(m)->getlicense() == license)
+            return vect->at(m);
+        if (vect->at(m)->getlicense() < license)
+            l = m + 1;
+        else
+            r = m - 1;
+    }
+    throw TruckDoNotExist("Couldn't find the Truck",license);
+}
