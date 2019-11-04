@@ -230,33 +230,43 @@ bool operator<(Truck &a,Truck &b) {
 
 void Truck::createTruck(vector<Truck*>* trucks) {
 	clearScreen();
-	string aux;
+	string license, type, aux;
+	int capacity;
 	bool invalidInput;
 
 	do {
 		invalidInput = false;
-		cout <<"What's the license of the new truck (XX-YY-ZZ)? "; getline(cin,aux);
+		cout <<"What's the license of the new truck (XX-YY-ZZ)? "; getline(cin, license);
+		if (license == "!q") return;
 
 		//verifies if the license is valid or if it already exists.
-		if (true) {
-
-			//verifica se o nif inserido é unico
-			for (unsigned it = 0; it < clients.size(); it++) {
-				if (VATnumber == clients.at(it).getVATnumber()) {
-					invalidInput = true;
-					break;
-				}
-			}
-		}
-		else {
-			clearScreen();
-			cout << "What's the name of the client? " << name << endl;
-			if (aux == "!q") return;
-			cout << "Invalid data" << endl;
-			clearBuffer();
+		if (!checkLicense(license,trucks)) {
 			invalidInput = true;
+			clearScreen();
 		}
 	} while (invalidInput);
+	
+	do {
+		invalidInput = false;
+		cout << "What's the license of the new truck (XX-YY-ZZ)? " << license << endl;
+		cout << "What's the capacity of the new truck?"; getline(cin, aux);
+		if (aux == "!q") return;
+
+		//verifies if the capacity is valid.
+		if (!strIsNumber(aux)) {
+			invalidInput = true;
+			clearScreen();
+		}
+		else if(stoi(aux)<=0){
+			invalidInput = true;
+			clearScreen();
+		}
+		else {
+			capacity = stoi(aux);
+		}
+	} while (invalidInput);
+	
+
 	
 }
 
