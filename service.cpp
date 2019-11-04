@@ -2,6 +2,9 @@
 
 unsigned int Service::lastId=0;
 
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!SERVICE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+//constructors
 Service::Service(string material, string origin, string destination, Date *arrivalDate, unsigned distance, enum type type, enum state state, Date *date, Client *client, float quantity)
     : origin(origin),destination(destination),material(material), distance(distance), quantity(quantity), ser_type(type), ser_state(state)
 {
@@ -23,11 +26,12 @@ Service::Service(string material, string origin, string destination, Date *arriv
     setClient(client);
 
 }
-
+//destructor
 Service::~Service(){
     initialDate->~Date();
 }
 
+//get methods
 string Service::getOrigin() const{
     return origin;
 }
@@ -96,7 +100,11 @@ void Service::setClient(Client *client){
 void Service::setMaterial(string material){
     this->material=material;
 }
+void Service::setQuantity(float quantity){
+    this->quantity=quantity;
+}
 
+// other methods
 void Service::addTruck(Truck *truck){
     this->trucks.push_back(truck);
 }
@@ -106,6 +114,9 @@ void Service::calcPrice(){
         total_price+=i->getprice(this);
 }
 
+
+
+//help methods
 type intToType(int a){
     switch (a) {
     case 0: return ordinary;
@@ -559,25 +570,6 @@ void Service::saveToFile(vector<Service*> *services_finished,vector<Service*>*se
     }
 }
 
-HazardousService::HazardousService(string material_h, string origin_h, string destination_h, Date *arrivalDate_h, unsigned distance_h, enum type type_h, enum state state_h, Date *date_h, Client *client_h,float quantity_h,Hazard_enum type): Service(material_h,origin_h,destination_h,arrivalDate_h,distance_h,type_h,state_h,date_h,client_h,quantity_h),type(type)
-{
-    calcPrice();
-    
-}
-HazardousService::HazardousService(string material_h, string origin_h, string destination_h, Date *arrivalDate_h, unsigned distance_h, enum type type_h, enum state state_h, Date *date_h, Client *client_h,float quantity_h,Hazard_enum type,float total_price_h,unsigned id_h): Service(material_h,origin_h,destination_h,arrivalDate_h,distance_h,type_h,state_h,date_h,client_h,quantity_h,total_price_h,id_h),type(type)
-{
-
-}
-
-TemperatureService::TemperatureService(string material_s, string origin_s, string destination_s, Date *arrivalDate_s, unsigned distance_s, enum type type_s, enum state state_s, Date *date_s, Client *client_s, float quantity_s, Temperature_enum type, float total_price_s,unsigned id_s): Service(material_s,origin_s,destination_s,arrivalDate_s,distance_s,type_s,state_s,date_s,client_s,quantity_s,total_price_s,id_s) ,type(type)
-{
-
-}
-TemperatureService::TemperatureService(string material_s, string origin_s, string destination_s, Date *arrivalDate_s, unsigned distance_s, enum type type_s, enum state state_s, Date *date_s, Client *client_s,float quantity_s,Temperature_enum type): Service(material_s,origin_s,destination_s,arrivalDate_s,distance_s,type_s,state_s,date_s,client_s,quantity_s) ,type(type)
-{
-    calcPrice();
-}
-
 //adicionar hazardous type ou temp range!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 Service *Service::addService(vector<Service *> *services,Client *client){
     string tempOrigin,tempDestination,tempMaterial;
@@ -619,7 +611,7 @@ Service *Service::addService(vector<Service *> *services,Client *client){
             variable_error=true;
             cout<<"ORigin Input not acceptable, please try again"<<endl;
         }
-        
+
     }
     print.push_back(tempOrigin);
     //set destination
@@ -777,7 +769,7 @@ Service *Service::addService(vector<Service *> *services,Client *client){
             variable_error=true;
             cout<<"Invalid Type number, please Try Again"<<endl;
 
-            
+
         }
         clearBuffer();
     }
@@ -1010,7 +1002,7 @@ Year:
             cout<<i.error<<endl;
         }
     }
-    
+
 
     //set month
 Month:
@@ -1038,7 +1030,7 @@ Month:
             cout<<i.error<<endl;
         }
     }
-    
+
     //set day
 Day:
     variable_error=true;
@@ -1158,52 +1150,6 @@ Hour:
     return temp_service;
 }
 
-
-ostream& operator <<(ostream& os,Service *a){
-    os<<"__________________________________________________"<<endl;
-    os<<"Transporting "+a->getMaterial()+"("<<a->getId()<<")"<<endl;
-    os<<endl;
-    os<<"Client: "+a->getClient()->getName()<<endl;
-    os<<endl;
-    os<<"Origin: "+a->getOrigin()<<endl;
-    os<<"Destination: "+a->getDestination()<<endl;
-    os<<"Distance: "<<a->getDistance()<<endl;
-    os<<endl;
-    os<<"Initial Date: "+a->getIDate()->getDateWHour()<<endl;
-    os<<"Arrival Date: "+a->getADate()->getDateWHour()<<endl;
-    os<<"Time :"<<*a->getIDate()-*a->getADate()<<" h"<<endl;
-    os<<endl;
-    os<<"Type of Transport: "+typeToString(a->getType())<<endl;
-    int prec_q=0,prec_p=0;
-    if((a->getTotalPrice()-int(a->getTotalPrice())>0))
-        prec_p=2;
-
-    if((a->getQuantity()-int(a->getQuantity())>0))
-        prec_q=2;
-    float x=a->getQuantity();
-    os<<endl<<"Trucks: ";
-    for(auto i:a->trucks){
-        os<<i->getlicense()<<" ";
-    }
-    os<<endl<<endl;
-    os<<"Quantity: "<<setprecision(prec_q)<<fixed<<x<<endl;
-    float y=a->getTotalPrice();
-    os<<"Price : "<<setprecision(prec_p)<<fixed<<y<<endl;
-    os<<endl;
-    return os;
-}
-
-bool Service::removeService(vector<Service *> *services, unsigned id){
-    for(auto i=services->begin();i!=services->end();i++){
-        if((*i)->getId()==id){
-            (*i)->~Service();
-            services->erase(i);
-            return  true;
-        }
-    }
-    throw ServiceDoNotExist("Couldn't find Service");
-}
-
 void Service::editService(){
     if(ser_state==on_queue){
         unsigned opt=1;
@@ -1315,6 +1261,72 @@ void Service::editService(){
     }
 
 }
-void Service::setQuantity(float quantity){
-    this->quantity=quantity;
+
+bool Service::removeService(vector<Service *> *services, unsigned id){
+    for(auto i=services->begin();i!=services->end();i++){
+        if((*i)->getId()==id){
+            (*i)->~Service();
+            services->erase(i);
+            return  true;
+        }
+    }
+    throw ServiceDoNotExist("Couldn't find Service");
+}
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!Hazardous
+//constructor
+HazardousService::HazardousService(string material_h, string origin_h, string destination_h, Date *arrivalDate_h, unsigned distance_h, enum type type_h, enum state state_h, Date *date_h, Client *client_h,float quantity_h,Hazard_enum type): Service(material_h,origin_h,destination_h,arrivalDate_h,distance_h,type_h,state_h,date_h,client_h,quantity_h),type(type)
+{
+    calcPrice();
+    
+}
+HazardousService::HazardousService(string material_h, string origin_h, string destination_h, Date *arrivalDate_h, unsigned distance_h, enum type type_h, enum state state_h, Date *date_h, Client *client_h,float quantity_h,Hazard_enum type,float total_price_h,unsigned id_h): Service(material_h,origin_h,destination_h,arrivalDate_h,distance_h,type_h,state_h,date_h,client_h,quantity_h,total_price_h,id_h),type(type)
+{
+
+}
+
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!Temperature
+//constructor
+TemperatureService::TemperatureService(string material_s, string origin_s, string destination_s, Date *arrivalDate_s, unsigned distance_s, enum type type_s, enum state state_s, Date *date_s, Client *client_s, float quantity_s, Temperature_enum type, float total_price_s,unsigned id_s): Service(material_s,origin_s,destination_s,arrivalDate_s,distance_s,type_s,state_s,date_s,client_s,quantity_s,total_price_s,id_s) ,type(type)
+{
+
+}
+TemperatureService::TemperatureService(string material_s, string origin_s, string destination_s, Date *arrivalDate_s, unsigned distance_s, enum type type_s, enum state state_s, Date *date_s, Client *client_s,float quantity_s,Temperature_enum type): Service(material_s,origin_s,destination_s,arrivalDate_s,distance_s,type_s,state_s,date_s,client_s,quantity_s) ,type(type)
+{
+    calcPrice();
+}
+
+
+
+ostream& operator <<(ostream& os,Service *a){
+    os<<"__________________________________________________"<<endl;
+    os<<"Transporting "+a->getMaterial()+"("<<a->getId()<<")"<<endl;
+    os<<endl;
+    os<<"Client: "+a->getClient()->getName()<<endl;
+    os<<endl;
+    os<<"Origin: "+a->getOrigin()<<endl;
+    os<<"Destination: "+a->getDestination()<<endl;
+    os<<"Distance: "<<a->getDistance()<<endl;
+    os<<endl;
+    os<<"Initial Date: "+a->getIDate()->getDateWHour()<<endl;
+    os<<"Arrival Date: "+a->getADate()->getDateWHour()<<endl;
+    os<<"Time :"<<*a->getIDate()-*a->getADate()<<" h"<<endl;
+    os<<endl;
+    os<<"Type of Transport: "+typeToString(a->getType())<<endl;
+    int prec_q=0,prec_p=0;
+    if((a->getTotalPrice()-int(a->getTotalPrice())>0))
+        prec_p=2;
+
+    if((a->getQuantity()-int(a->getQuantity())>0))
+        prec_q=2;
+    float x=a->getQuantity();
+    os<<endl<<"Trucks: ";
+    for(auto i:a->trucks){
+        os<<i->getlicense()<<" ";
+    }
+    os<<endl<<endl;
+    os<<"Quantity: "<<setprecision(prec_q)<<fixed<<x<<endl;
+    float y=a->getTotalPrice();
+    os<<"Price : "<<setprecision(prec_p)<<fixed<<y<<endl;
+    os<<endl;
+    return os;
 }
