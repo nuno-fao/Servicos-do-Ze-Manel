@@ -43,6 +43,8 @@ public:
 	void add_service(Service* service); //adds to the vector the service which the truck is assigned to
 	void remove_service(unsigned int id); //removes an assigned service when it is finished, searches by id
 	void start_transport(unsigned short cargo); //sets the needed variables so the truck is in transport
+	static void createTruck(vector<Truck*>* trucks); //creates a new truck from scratch and adds to the vector
+	static void removeTruck(vector<Truck*>* trucks); //removes a truck, searches by license. iterative
 };
 
 bool operator<(Truck &a,Truck &b);

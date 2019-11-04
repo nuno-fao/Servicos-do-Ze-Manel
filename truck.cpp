@@ -227,3 +227,39 @@ void Truck::saveToFile(vector<Truck*>* trucks) {
 bool operator<(Truck &a,Truck &b) {
     return a.getlicense()<b.getlicense();
 }
+
+void Truck::createTruck(vector<Truck*>* trucks) {
+	clearScreen();
+	string aux;
+	bool invalidInput;
+
+	do {
+		invalidInput = false;
+		cout <<"What's the license of the new truck (XX-YY-ZZ)? "; getline(cin,aux);
+
+		//verifies if the license is valid or if it already exists.
+		if (true) {
+
+			//verifica se o nif inserido é unico
+			for (unsigned it = 0; it < clients.size(); it++) {
+				if (VATnumber == clients.at(it).getVATnumber()) {
+					invalidInput = true;
+					break;
+				}
+			}
+		}
+		else {
+			clearScreen();
+			cout << "What's the name of the client? " << name << endl;
+			if (aux == "!q") return;
+			cout << "Invalid data" << endl;
+			clearBuffer();
+			invalidInput = true;
+		}
+	} while (invalidInput);
+	
+}
+
+void Truck::removeTruck(vector<Truck*>* trucks) {
+
+}

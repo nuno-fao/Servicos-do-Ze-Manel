@@ -185,3 +185,30 @@ void printClassVector(vector<string> *t){
         cout<<i<<endl;
     }
 }
+
+void enter_to_exit()
+{
+	cout << "Press enter to exit...";
+
+	if (!cin) cin.clear();
+
+	if (cin.peek() == '\n') {
+		cin.get();
+		return;
+	}
+
+	cin.ignore(numeric_limits<streamsize>::max(), '\n');
+	cin.get();
+}
+
+bool checkLicense(string license, vector<Truck*>* trucks) {
+	vector<string> auxVec;
+	if (license.size() == 6) {
+		
+	}
+	else {
+		cout << "WRONG FORMAT!!!!\nMust be in XX-YY-ZZ without any other character before or after\n";
+		enter_to_exit();
+		return false;
+	}
+}
