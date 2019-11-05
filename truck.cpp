@@ -230,7 +230,7 @@ bool operator<(Truck &a,Truck &b) {
 
 void Truck::createTruck(vector<Truck*>* trucks) {
 	clearScreen();
-	string license, type, aux;
+	string license, aux, type;
 	int capacity;
 	bool invalidInput;
 
@@ -249,7 +249,7 @@ void Truck::createTruck(vector<Truck*>* trucks) {
 	do {
 		invalidInput = false;
 		cout << "What's the license of the new truck (XX-YY-ZZ)? " << license << endl;
-		cout << "What's the capacity of the new truck?"; getline(cin, aux);
+		cout << "What's the capacity of the new truck? "; getline(cin, aux);
 		if (aux == "!q") return;
 
 		//verifies if the capacity is valid.
@@ -265,6 +265,34 @@ void Truck::createTruck(vector<Truck*>* trucks) {
 			capacity = stoi(aux);
 		}
 	} while (invalidInput);
+
+	do {
+		invalidInput = false;
+		cout << "What's the license of the new truck (XX-YY-ZZ)? " << license << endl;
+		cout << "What's the capacity of the new truck?" << capacity << endl;
+		cout << "What's the truck type (A/N/C/H)? "; getline(cin, aux);
+		if (aux == "!q") return;
+
+		//verifies if the capacity is valid.
+		if (aux.size!=1) {
+			invalidInput = true;
+			cout << "Invalid input!!!\nInput either one of N, A, H, C without extra characters.";
+			enter_to_exit();
+			clearScreen();
+		}
+		else {
+			if (aux == "C" || aux == "c" || aux == "A" || aux == "a" || aux == "H" || aux == "h" || aux == "N" || aux == "n") {
+				type = aux;
+			}
+			else {
+				invalidInput = true;
+				cout << "Invalid input!!!\nInput either one of N, A, H, C without extra characters.";
+				enter_to_exit();
+				clearScreen();
+			}
+		}
+	} while (invalidInput);
+	//add the confirmation part
 	
 
 	
