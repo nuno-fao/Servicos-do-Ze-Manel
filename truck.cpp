@@ -94,6 +94,39 @@ void Normal::setprice(float newval) {
     pricePerKG = newval;
 }
 
+void Truck::info() {
+	cout << "License: " << license << endl;
+	cout << "Capacity: " << capacity << endl;
+	cout << "Available: ";
+	(availabe) ? cout << "true" << endl : cout << "false" << endl << "\tCurrently transporting " << cargo << "KG of cargo" << endl;
+	cout << "Registered: ";
+	(registered) ? cout << "true" << endl : cout << "false" << endl;
+	if (registered) {
+		cout << "\tTo service(s) with ID:";
+		for (auto it : assignedServices) {
+			cout<<" "<<it->getId();
+		}
+		cout << endl;
+	}
+}
+
+void Congelation::info() {
+	Truck::info();
+	cout << "Type: Congelation" << endl;
+}
+void HazardousMat::info() {
+	Truck::info();
+	cout << "Type: Hazardous Material" << endl;
+}
+void Animal::info() {
+	Truck::info();
+	cout << "Type: Animal" << endl;
+}
+void Normal::info() {
+	Truck::info();
+	cout << "Type: Normal" << endl;
+}
+
 void Truck::add_service(Service* service) {
     assignedServices.push_back(service);
 }
@@ -230,7 +263,8 @@ bool operator<(Truck &a,Truck &b) {
 
 void Truck::createTruck(vector<Truck*>* trucks) {
 	clearScreen();
-	string license, aux, type;
+	string license, aux, confirmstr;
+	char type;
 	int capacity;
 	bool invalidInput;
 
@@ -246,6 +280,8 @@ void Truck::createTruck(vector<Truck*>* trucks) {
 		}
 	} while (invalidInput);
 	
+	clearScreen();
+
 	do {
 		invalidInput = false;
 		cout << "What's the license of the new truck (XX-YY-ZZ)? " << license << endl;
@@ -266,6 +302,8 @@ void Truck::createTruck(vector<Truck*>* trucks) {
 		}
 	} while (invalidInput);
 
+	clearScreen();
+
 	do {
 		invalidInput = false;
 		cout << "What's the license of the new truck (XX-YY-ZZ)? " << license << endl;
@@ -281,8 +319,21 @@ void Truck::createTruck(vector<Truck*>* trucks) {
 			clearScreen();
 		}
 		else {
-			if (aux == "C" || aux == "c" || aux == "A" || aux == "a" || aux == "H" || aux == "h" || aux == "N" || aux == "n") {
-				type = aux;
+			if (aux == "C" || aux == "c") {
+				type = 'C';
+				aux = "Congelation";
+			}
+			else if (aux == "A" || aux == "a") {
+				type = 'A';
+				aux = "Animal";
+			}
+			else if (aux == "N" || aux == "n") {
+				type = 'N';
+				aux = "Normal";
+			}
+			else if (aux == "H" || aux == "h") {
+				type = 'H';
+				aux = "Hazardous Materials";
 			}
 			else {
 				invalidInput = true;
@@ -292,10 +343,37 @@ void Truck::createTruck(vector<Truck*>* trucks) {
 			}
 		}
 	} while (invalidInput);
-	//add the confirmation part
-	
 
-	
+	do {
+		clearScreen();
+		cout << "You're about to add a truck with the following characteristics to this business: " << endl;
+		cout << "License: " << license << endl;
+		cout << "Capacity: " << capacity << endl;
+		cout << "Type: " << aux << endl;
+		cout << "Do you wish proceed (Y/N)? ";
+		cin >> confirmstr;
+		clearBuffer();
+	} while (confirmstr != "Y" && confirmstr != "N" && confirmstr != "y" && confirmstr != "n" && confirmstr!="!q");	//confirmation
+	if (confirmstr == "Y" || confirmstr == "y") {
+		switch (type) {
+		case('C'):
+			Congelation* newTruck = new Congelation(license, true, false, capacity, 0);
+			trucks->push_back(newTruck);
+			break;
+		case('A'):
+			Animal* newTruck = new Animal(license, true, false, capacity, 0);
+			trucks->push_back(newTruck);
+			break;
+		case('N'):
+			Normal* newTruck = new Normal(license, true, false, capacity, 0);
+			trucks->push_back(newTruck);
+			break;
+		case('H'):
+			HazardousMat* newTruck = new HazardousMat(license, true, false, capacity, 0);
+			trucks->push_back(newTruck);
+			break;
+		}
+	}
 }
 
 void Truck::removeTruck(vector<Truck*>* trucks) {

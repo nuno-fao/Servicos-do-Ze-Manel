@@ -40,6 +40,7 @@ public:
 	static void loadFromFile(vector<Truck*> *trucks);
 	static void saveToFile(vector<Truck*> *trucks);
 	//other
+	virtual void info();	//prints basic info of the truck
 	void add_service(Service* service); //adds to the vector the service which the truck is assigned to
 	void remove_service(unsigned int id); //removes an assigned service when it is finished, searches by id
 	void start_transport(unsigned short cargo); //sets the needed variables so the truck is in transport
@@ -55,6 +56,7 @@ public:
     Congelation(string license, bool available, bool registered, unsigned short capacity, unsigned short cargo);
 	~Congelation() {}
 
+	void info();
 	float getprice(Service* service) const;
 	void setprice(float newval);
     static unordered_map<Temperature_enum, float> tempMul;
@@ -71,7 +73,8 @@ public:
 	~HazardousMat(){}
 
 
-    float getprice(Service* service)const;
+	void info();
+	float getprice(Service* service)const;
 	void setprice(float newval);
 	static unordered_map<Hazard_enum, float> hazardMul;
 private:
@@ -84,6 +87,7 @@ public:
     Animal(string license, bool available, bool registered, unsigned short capacity, unsigned short cargo);
     ~Animal(){}
 
+	void info();
 	float getprice(Service* service)const;
 	void setprice(float newval);
 
@@ -97,6 +101,7 @@ public:
     Normal(string license, bool available, bool registered, unsigned short capacity, unsigned short cargo);
     ~Normal(){}
 
+	void info();
 	float getprice(Service* service)const;
 	void setprice(float newval);
 
