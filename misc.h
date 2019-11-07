@@ -7,10 +7,12 @@
 #include <sstream>
 
 #include "client.h"
+#include "truck.h"
 
 using namespace std;
 
 class Client;
+class Truck;
 
 void clearScreen();
 vector<string> vectorString(string stringToVectorize, string separator);
