@@ -23,3 +23,6 @@ void printClassVector(vector<string> *t);
 
 // Verifies a client's NIF
 bool checkNif(int nif);
+
+// Verifies if the name is valid (POTENCIALMENTE VOU CAGAR NISTO COMO ESTOU A RETIRAR O NOME COM GETLINE)
+bool verifyName(const string& name)

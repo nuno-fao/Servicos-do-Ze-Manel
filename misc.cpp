@@ -185,3 +185,14 @@ void printClassVector(vector<string> *t){
         cout<<i<<endl;
     }
 }
+
+bool verifyName(const string& name) {
+
+	for (unsigned int i = 0; i < name.size(); i++) {
+		if (!isdigit(name.at(i))) {
+			return false;
+		}
+	}
+
+	return true;
+}

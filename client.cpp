@@ -1,8 +1,5 @@
 #include "client.h"
 
-// Destrutor
-
-
 unsigned int Client::lastId=0;
 
 Client::Client() {}
@@ -116,7 +113,7 @@ bool Client::operator==(const Client& client1) const {
 }
 
 bool Client::operator<(Client &a) const{
-    return nif<a.getNif();
+    return nif < a.getNif();
 }
 
 ostream& operator<<(ostream& out, const Client& client) {
