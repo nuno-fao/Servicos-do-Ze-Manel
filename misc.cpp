@@ -186,13 +186,58 @@ void printClassVector(vector<string> *t){
     }
 }
 
-bool verifyName(const string& name) {
+void enter_to_exit()
+{
+	do
+	{
+		cout << '\n' << "Press a key to continue...";
+	} while (cin.get() != '\n');
+}
 
-	for (unsigned int i = 0; i < name.size(); i++) {
-		if (!isdigit(name.at(i))) {
-			return false;
+bool checkLicense(string license, vector<Truck*>* trucks) {
+	vector<string> auxVec;
+	if (license.size() == 6) {
+		auxVec=vectorString(license, "-");
+		if (auxVec.size() == 3) {
+			unsigned short num=0, letters=0;
+			for (int i = 0; i != auxVec.size();i++) {
+				if (strIsNumber(auxVec[i])) {
+					if (stoi(auxVec[i]) < 100 && stoi(auxVec[i])>0) {
+						num++;
+					}
+					else {
+						cout << "WRONG FORMAT!!!!\nMust be in XX-YY-ZZ without any other character before or after. 2 pairs of numbers and 1 pair of letters\n";
+						cout << "Your input: " << license << endl;
+						enter_to_exit();
+						return false;
+					}
+				}
+				else {
+					if (isalpha(auxVec[0][0]) && isalpha(auxVec[0][1])) {
+						letters++;
+					}
+					else {
+						cout << "WRONG FORMAT!!!!\nMust be in XX-YY-ZZ without any other character before or after. 2 pairs of numbers and 1 pair of letters\n";
+						cout << "Your input: " << license << endl;
+						enter_to_exit();
+						return false;
+					}
+				}
+			}
+			if (num == 2 && letters == 1) {
+				for (auto it : *trucks) {
+					if (it->getlicense() == license) {
+						cout << "The truck with license " << license << " already exists in our database\n";
+						enter_to_exit();
+						return false;
+					}
+				}
+				return true;
+			}
 		}
 	}
-
-	return true;
+	cout << "WRONG FORMAT!!!!\nMust be in XX-YY-ZZ without any other character before or after. 2 pairs of numbers and 1 pair of letters\n";
+	cout << "Your input: " << license << endl;
+	enter_to_exit();
+	return false;
 }

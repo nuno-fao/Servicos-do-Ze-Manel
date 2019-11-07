@@ -4,6 +4,7 @@
 #include <string>
 #include <iomanip>
 #include <iostream>
+#include <sstream>
 
 #include "client.h"
 
@@ -21,8 +22,11 @@ void checkIfOut(string &temp);
 int binaryCustomfind(vector<Client*> *vetor, unsigned val);
 void printClassVector(vector<string> *t);
 
+//so that the user can read the stuff before doing anything else
+void enter_to_exit();
+
 // Verifies a client's NIF
 bool checkNif(int nif);
 
-// Verifies if the name is valid (POTENCIALMENTE VOU CAGAR NISTO COMO ESTOU A RETIRAR O NOME COM GETLINE)
-bool verifyName(const string& name)
+// Verifies a trucks license
+bool checkLicense(string license, vector<Truck*>* trucks);
