@@ -94,6 +94,39 @@ void Normal::setprice(float newval) {
     pricePerKG = newval;
 }
 
+void Truck::info() {
+	cout << "License: " << license << endl;
+	cout << "Capacity: " << capacity << endl;
+	cout << "Available: ";
+	(availabe) ? cout << "true" << endl : cout << "false" << endl << "\tCurrently transporting " << cargo << "KG of cargo" << endl;
+	cout << "Registered: ";
+	(registered) ? cout << "true" << endl : cout << "false" << endl;
+	if (registered) {
+		cout << "\tTo service(s) with ID:";
+		for (auto it : assignedServices) {
+			cout<<" "<<it->getId();
+		}
+		cout << endl;
+	}
+}
+
+void Congelation::info() {
+	Truck::info();
+	cout << "Type: Congelation" << endl;
+}
+void HazardousMat::info() {
+	Truck::info();
+	cout << "Type: Hazardous Material" << endl;
+}
+void Animal::info() {
+	Truck::info();
+	cout << "Type: Animal" << endl;
+}
+void Normal::info() {
+	Truck::info();
+	cout << "Type: Normal" << endl;
+}
+
 void Truck::add_service(Service* service) {
     assignedServices.push_back(service);
 }
@@ -230,36 +263,193 @@ bool operator<(Truck &a,Truck &b) {
 
 void Truck::createTruck(vector<Truck*>* trucks) {
 	clearScreen();
-	string aux;
+	string license, aux, confirmstr;
+	char type;
+	int capacity;
 	bool invalidInput;
 
 	do {
 		invalidInput = false;
-		cout <<"What's the license of the new truck (XX-YY-ZZ)? "; getline(cin,aux);
+		cout <<"What's the license of the new truck (XX-YY-ZZ)? "; getline(cin, license);
+		if (license == "!q") return;
 
 		//verifies if the license is valid or if it already exists.
-		if (true) {
-
-			//verifica se o nif inserido é unico
-			for (unsigned it = 0; it < clients.size(); it++) {
-				if (VATnumber == clients.at(it).getVATnumber()) {
-					invalidInput = true;
-					break;
-				}
-			}
-		}
-		else {
-			clearScreen();
-			cout << "What's the name of the client? " << name << endl;
-			if (aux == "!q") return;
-			cout << "Invalid data" << endl;
-			clearBuffer();
+		if (!checkLicense(license,trucks)) {
 			invalidInput = true;
+			clearScreen();
 		}
 	} while (invalidInput);
 	
+	clearScreen();
+
+	do {
+		invalidInput = false;
+		cout << "What's the license of the new truck (XX-YY-ZZ)? " << license << endl;
+		cout << "What's the capacity of the new truck? "; getline(cin, aux);
+		if (aux == "!q") return;
+
+		//verifies if the capacity is valid.
+		if (!strIsNumber(aux)) {
+			invalidInput = true;
+			clearScreen();
+		}
+		else if(stoi(aux)<=0){
+			invalidInput = true;
+			clearScreen();
+		}
+		else {
+			capacity = stoi(aux);
+		}
+	} while (invalidInput);
+
+	clearScreen();
+
+	do {
+		invalidInput = false;
+		cout << "What's the license of the new truck (XX-YY-ZZ)? " << license << endl;
+		cout << "What's the capacity of the new truck?" << capacity << endl;
+		cout << "What's the truck type (A/N/C/H)? "; getline(cin, aux);
+		if (aux == "!q") return;
+
+		//verifies if the capacity is valid.
+		if (aux.size!=1) {
+			invalidInput = true;
+			cout << "Invalid input!!!\nInput either one of N, A, H, C without extra characters.";
+			enter_to_exit();
+			clearScreen();
+		}
+		else {
+			if (aux == "C" || aux == "c") {
+				type = 'C';
+				aux = "Congelation";
+			}
+			else if (aux == "A" || aux == "a") {
+				type = 'A';
+				aux = "Animal";
+			}
+			else if (aux == "N" || aux == "n") {
+				type = 'N';
+				aux = "Normal";
+			}
+			else if (aux == "H" || aux == "h") {
+				type = 'H';
+				aux = "Hazardous Materials";
+			}
+			else {
+				invalidInput = true;
+				cout << "Invalid input!!!\nInput either one of N, A, H, C without extra characters.";
+				enter_to_exit();
+				clearScreen();
+			}
+		}
+	} while (invalidInput);
+
+	do {
+		clearScreen();
+		cout << "You're about to add a truck with the following characteristics to this business: " << endl;
+		cout << "License: " << license << endl;
+		cout << "Capacity: " << capacity << endl;
+		cout << "Type: " << aux << endl;
+		cout << "Do you wish proceed (Y/N)? ";
+		cin >> confirmstr;
+		clearBuffer();
+	} while (confirmstr != "Y" && confirmstr != "N" && confirmstr != "y" && confirmstr != "n" && confirmstr!="!q");	//confirmation
+	if (confirmstr == "Y" || confirmstr == "y") {
+		switch (type) {
+		case('C'):
+			Congelation* newTruck = new Congelation(license, true, false, capacity, 0);
+			trucks->push_back(newTruck);
+			break;
+		case('A'):
+			Animal* newTruck = new Animal(license, true, false, capacity, 0);
+			trucks->push_back(newTruck);
+			break;
+		case('N'):
+			Normal* newTruck = new Normal(license, true, false, capacity, 0);
+			trucks->push_back(newTruck);
+			break;
+		case('H'):
+			HazardousMat* newTruck = new HazardousMat(license, true, false, capacity, 0);
+			trucks->push_back(newTruck);
+			break;
+		}
+	}
 }
 
 void Truck::removeTruck(vector<Truck*>* trucks) {
+	clearScreen();
+	string license, confirmstr;
+	bool invalidInput;
+	vector<string> auxVec;
 
+	do {
+		invalidInput = false;
+		cout << "What's the license of the new truck (XX-YY-ZZ)? "; getline(cin, license);
+		if (license == "!q") return;
+
+		//verifies if the license is valid or if it already exists.
+		
+		if (license.size() == 6) {
+			auxVec = vectorString(license, "-");
+			if (auxVec.size() == 3) {
+				unsigned short num = 0, letters = 0;
+				for (int i = 0; i != auxVec.size(); i++) {
+					if (strIsNumber(auxVec[i])) {
+						if (stoi(auxVec[i]) < 100 && stoi(auxVec[i]) > 0) {
+							num++;
+						}
+						else {
+							cout << "WRONG FORMAT!!!!\nMust be in XX-YY-ZZ without any other character before or after. 2 pairs of numbers and 1 pair of letters\n";
+							cout << "Your input: " << license << endl;
+							enter_to_exit();
+							invalidInput = true;
+						}
+					}
+					else {
+						if (isalpha(auxVec[0][0]) && isalpha(auxVec[0][1])) {
+							letters++;
+						}
+						else {
+							cout << "WRONG FORMAT!!!!\nMust be in XX-YY-ZZ without any other character before or after. 2 pairs of numbers and 1 pair of letters\n";
+							cout << "Your input: " << license << endl;
+							enter_to_exit();
+							invalidInput = true;
+						}
+					}
+				}
+				if (num == 2 && letters == 1) {
+					for (vector<Truck*>::iterator it = trucks->begin(); it != trucks->end();it++) {
+						if (!((*it)->getregistered()) && (*it)->getavailable()) {
+							if ((*it)->getlicense() == license) {
+								do {
+									clearScreen();
+									cout << "You're about to remove a truck with the following characteristics to this business: " << endl;
+									(*it)->info();
+									cout << "Do you wish proceed (Y/N)? ";
+									cin >> confirmstr;
+									clearBuffer();
+								} while (confirmstr != "Y" && confirmstr != "N" && confirmstr != "y" && confirmstr != "n" && confirmstr != "!q");	//confirmation
+								if (confirmstr == "Y" || confirmstr == "y") {
+									delete (*it);
+									trucks->erase(it);
+								}
+							}
+						}
+						else {
+							cout << "This truck cannot be removed because it is either on transit or registered for a future service" << endl;
+							enter_to_exit();
+						}
+					}
+				}
+				else {
+					cout << "WRONG FORMAT!!!!\nMust be in XX-YY-ZZ without any other character before or after. 2 pairs of numbers and 1 pair of letters\n";
+					cout << "Your input: " << license << endl;
+					enter_to_exit();
+					invalidInput = true;
+				}
+			}
+		}
+	} while (invalidInput);
+
+	
 }

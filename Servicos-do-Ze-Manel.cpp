@@ -20,17 +20,6 @@ using namespace std;
 This function receives a name and returns true if it is valid
 */
 
-bool verifyName(const string &name) { // TIRAR ISTO E POR NO MISC?
-
-    for (unsigned int i = 0; i < name.size(); i++){
-        if (!isdigit(name.at(i))) {
-            return false;
-        }
-    }
-
-    return true;
-}
-
 template<class T> bool cmp_classes(T *a,T *b){
     return *a<*b;
 }
@@ -208,7 +197,7 @@ int main()
 // Options for Client Management in the User Interface
 
 //Prints the menu and asks the user what option to choose
-/*
+
 void runClientsMenu(vector<Client>& clientsVector) {
     int option;
 
@@ -220,9 +209,7 @@ void runClientsMenu(vector<Client>& clientsVector) {
     cout << "3. Remove a client" << endl;
     cout << "4. See information from all clients. " << endl;
     cout << "5. See information from a specific client. " << endl;
-    cout << "6. See all packs bought by a specific client. " << endl;
-    cout << "7. See all packs bought by all clients. " << endl;
-    cout << "8. Buy a touristic pack for a client" << endl << endl;
+	// Eventually add more functions
     cout << "Insert the number correspondent to your option: ";
     cin >> option;
 
@@ -235,15 +222,12 @@ void runClientsMenu(vector<Client>& clientsVector) {
 
     clearBuffer();
 
-    if (option == 0) { //Correr Menu inicial }
+    if (option == 0) { /*Correr Menu inicial*/ }
     if (option == 1) { createClientOption(clientsVector); }
     if (option == 2) { modifyClientOption(clientsVector); }
     if (option == 3) { removeClientOption(clientsVector); }
     if (option == 4) { showAllClients(clientsVector); }
     if (option == 5) { showClientOption(clientsVector); }
-    if (option == 6) { showPacksClient(clientsVector, travelPacksVector); }
-    if (option == 7) { showPacksAllClient(clientsVector, travelPacksVector); }
-    if (option == 8) { buyTravelPack(clientsVector, travelPacksVector); }
 
     // Correr menu inicial de novo (quando acaba a operacao escolhida)
 }
@@ -268,26 +252,28 @@ Client askForClientsInformation(vector<Client> clientsVector) {
     cin >> nif;
     checkNif(nif);
     cin.clear();
-    cin.ignore(10000, '\n');
+    cin.ignore(10000,'\n');
 
     for (int i = 0; i < clientsVector.size(); i++) {
-        if (clientsVector[i].getnif() == nif) {
+        if (clientsVector[i].getNif() == nif) {
             inDatabase = true;
             break;
         }
     }
 
-    while (inDatabase)
+    while (inDatabase) // DEVO FAZER ESTA VERIFICACAO AO ADICIONAR O CLIENTE OU AQUI???
+		// fazer exceptions em qualquer um dos casos
     {
         cout << "NIF is already in the database, please insert again: ";
         cin >> nif;
-        validNif(nif);
+        checkNif(nif);
         cin.clear();
         cin.ignore(10000, '\n');
+
         for (int i = 0; i < clientsVector.size(); i++)
         {
             zeroIfNotInFile = 0;
-            if (clientsVector[i].getnif() == nif) {
+            if (clientsVector[i].getNif() == nif) {
                 zeroIfNotInFile += 1;
                 break;
             }
@@ -296,29 +282,9 @@ Client askForClientsInformation(vector<Client> clientsVector) {
             inDatabase = false;
     }
 
-
-
-    cout << "Number of people in the family: ";
-    cin >> familyNumber;
-    validCin(familyNumber);
-    cin.clear();
-    cin.ignore(10000, '\n');
-
-    cout << "Address (Street / Door Number / Floor Number / Postal Code / Locality): ";
-    getline(cin, addressText);
-
-    while (!Address::validAddressText(addressText) || addressText == "////")
-    {
-        cout << "Invalid address, please insert again: ";
-        getline(cin, addressText);
-    }
-
-
     client.setName(name);
     client.setNif(nif);
-    client.setFamilySize(familyNumber);
-    client.setAddress(Address::addressTextConverter(addressText));
-    client.setTravelPackIds(touristicPacksBought);
+    // set services
     return client;
 }
 
@@ -326,9 +292,12 @@ Client askForClientsInformation(vector<Client> clientsVector) {
 //Asks the user for data and adds a new client to clientsvector
 void createClientOption(vector<Client>& clientsVector) {
     Client client;
+
     cout << "Please insert the data of your new client" << endl << endl;
+
     client = askForClientsInformation(clientsVector);
     client.addClient(clientsVector);
+
     cout << endl << endl << "Client created successfully!";
     menuSeparator();
-}*/
+}
