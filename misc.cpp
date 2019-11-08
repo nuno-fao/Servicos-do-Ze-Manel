@@ -123,8 +123,8 @@ unsigned chooseOptionNumber(unsigned minimum, unsigned maximum, string Message, 
                     i-=maxPerPage+unsigned(abs(signed(i-last_i)));
                 else if(signed(i-(maxPerPage+unsigned(abs(signed(i-last_i)))))<0 && option-1==unsigned(abs(signed(i-last_i))))
                     i=0;
-                else if(option==unsigned(abs(signed(i-last_i))))
-                    i=min(maximum-maxPerPage+1,i+minimum)-minimum;
+                else if(option==unsigned(abs(signed(i-last_i)))){}
+                    //i=min(maximum-maxPerPage+1,i+minimum)-minimum;
                 else if(option>(unsigned(abs(signed(i-last_i)))+1))
                     return maximum;
                 error=false;
@@ -190,13 +190,13 @@ void enter_to_exit()
 {
 	do
 	{
-		cout << '\n' << "Press a key to continue...";
+		cout << '\n' << "Press enter to continue...";
 	} while (cin.get() != '\n');
 }
 
 bool checkLicense(string license, vector<Truck*>* trucks) {
 	vector<string> auxVec;
-	if (license.size() == 6) {
+	if (license.size() == 8) {
 		auxVec=vectorString(license, "-");
 		if (auxVec.size() == 3) {
 			unsigned short num=0, letters=0;
@@ -206,18 +206,18 @@ bool checkLicense(string license, vector<Truck*>* trucks) {
 						num++;
 					}
 					else {
-						cout << "WRONG FORMAT!!!!\nMust be in XX-YY-ZZ without any other character before or after. 2 pairs of numbers and 1 pair of letters\n";
+						cout << "WRONG FORMAT!!!!\nMust be in XX-YY-ZZ without any other character before or after. 2 pairs of numbers and 1 pair of capital letters\n";
 						cout << "Your input: " << license << endl;
 						enter_to_exit();
 						return false;
 					}
 				}
 				else {
-					if (isalpha(auxVec[0][0]) && isalpha(auxVec[0][1])) {
+					if (isupper(auxVec[i][0]) && isupper(auxVec[i][1])) {
 						letters++;
 					}
 					else {
-						cout << "WRONG FORMAT!!!!\nMust be in XX-YY-ZZ without any other character before or after. 2 pairs of numbers and 1 pair of letters\n";
+						cout << "WRONG FORMAT!!!!\nMust be in XX-YY-ZZ without any other character before or after. 2 pairs of numbers and 1 pair of capital letters\n";
 						cout << "Your input: " << license << endl;
 						enter_to_exit();
 						return false;
@@ -236,7 +236,7 @@ bool checkLicense(string license, vector<Truck*>* trucks) {
 			}
 		}
 	}
-	cout << "WRONG FORMAT!!!!\nMust be in XX-YY-ZZ without any other character before or after. 2 pairs of numbers and 1 pair of letters\n";
+	cout << "WRONG FORMAT!!!!\nMust be in XX-YY-ZZ without any other character before or after. 2 pairs of numbers and 1 pair of capital letters\n";
 	cout << "Your input: " << license << endl;
 	enter_to_exit();
 	return false;
