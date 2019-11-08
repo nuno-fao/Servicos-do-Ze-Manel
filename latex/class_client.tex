@@ -1,0 +1,83 @@
+\hypertarget{class_client}{}\section{Client Class Reference}
+\label{class_client}\index{Client@{Client}}
+
+
+Inheritance diagram for Client\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=145pt]{class_client__inherit__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_client_a3cdfb856b1cccd81052f589c850ab86f}\label{class_client_a3cdfb856b1cccd81052f589c850ab86f}} 
+{\bfseries Client} (string name, unsigned int nif, vector$<$ \hyperlink{class_service}{Service} $\ast$$>$ $\ast$services=nullptr)
+\item 
+\mbox{\Hypertarget{class_client_aeca0569267dbf7d1b20e4d77b98326af}\label{class_client_aeca0569267dbf7d1b20e4d77b98326af}} 
+void {\bfseries load\+Clients} (const string \&clients\+Name\+File, vector$<$ \hyperlink{class_client}{Client} $>$ \&clients\+Vector)
+\item 
+\mbox{\Hypertarget{class_client_a7f845c33f4aa7b7081ae72d9a16c2d3f}\label{class_client_a7f845c33f4aa7b7081ae72d9a16c2d3f}} 
+void {\bfseries remove\+Client} (vector$<$ \hyperlink{class_client}{Client} $\ast$$>$ \&clients\+Vector)
+\item 
+\mbox{\Hypertarget{class_client_a5c473ba52d7678744edec9e51052c947}\label{class_client_a5c473ba52d7678744edec9e51052c947}} 
+string {\bfseries get\+Name} () const
+\item 
+\mbox{\Hypertarget{class_client_a35c9fed8cdb36d28fd5e51bd2aee852e}\label{class_client_a35c9fed8cdb36d28fd5e51bd2aee852e}} 
+unsigned {\bfseries get\+Nif} () const
+\item 
+\mbox{\Hypertarget{class_client_ae241a8ae0811ea7c023dbc69d345a8b4}\label{class_client_ae241a8ae0811ea7c023dbc69d345a8b4}} 
+vector$<$ \hyperlink{class_service}{Service} $\ast$ $>$ {\bfseries get\+Services\+Vector} () const
+\item 
+\mbox{\Hypertarget{class_client_a1c7f938360e23b3e0e52d17965f88725}\label{class_client_a1c7f938360e23b3e0e52d17965f88725}} 
+void {\bfseries set\+Name} (string name)
+\item 
+\mbox{\Hypertarget{class_client_a8d0ab1a3c654d361dacde7e1d2b92c94}\label{class_client_a8d0ab1a3c654d361dacde7e1d2b92c94}} 
+void {\bfseries set\+Nif} (unsigned nif)
+\item 
+\mbox{\Hypertarget{class_client_abf36aa7168464608e917fa40f1ba52db}\label{class_client_abf36aa7168464608e917fa40f1ba52db}} 
+void {\bfseries add\+Service} (\hyperlink{class_service}{Service} $\ast$service)
+\item 
+\mbox{\Hypertarget{class_client_a2f9628fce03c1b43aa8eb9cb6b4e6280}\label{class_client_a2f9628fce03c1b43aa8eb9cb6b4e6280}} 
+void {\bfseries add\+Client} (vector$<$ \hyperlink{class_client}{Client} $>$ \&clients\+Vector)
+\item 
+\mbox{\Hypertarget{class_client_afb5d445b316288c82c98407c10ede17e}\label{class_client_afb5d445b316288c82c98407c10ede17e}} 
+bool {\bfseries operator$<$} (\hyperlink{class_client}{Client} \&a) const
+\item 
+\mbox{\Hypertarget{class_client_a5cc669077f776648216ae03461b8c178}\label{class_client_a5cc669077f776648216ae03461b8c178}} 
+bool {\bfseries operator==} (const \hyperlink{class_client}{Client} \&client1) const
+\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_client_a456e36f9972a8bf3ecdb5f0e70b3bd5d}\label{class_client_a456e36f9972a8bf3ecdb5f0e70b3bd5d}} 
+string {\bfseries name}
+\item 
+\mbox{\Hypertarget{class_client_adad90ca6a484cb64345ca62f1c7979ce}\label{class_client_adad90ca6a484cb64345ca62f1c7979ce}} 
+unsigned int {\bfseries id}
+\item 
+\mbox{\Hypertarget{class_client_a1c94dc96a56cb5032573fb1d528517c2}\label{class_client_a1c94dc96a56cb5032573fb1d528517c2}} 
+unsigned int {\bfseries nif}
+\item 
+\mbox{\Hypertarget{class_client_a02b601f12b9905edae7e64ded9bde912}\label{class_client_a02b601f12b9905edae7e64ded9bde912}} 
+vector$<$ \hyperlink{class_service}{Service} $\ast$ $>$ {\bfseries services}
+\end{DoxyCompactItemize}
+\subsection*{Static Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_client_a515d8893da8949a5189865e19461c737}\label{class_client_a515d8893da8949a5189865e19461c737}} 
+static unsigned int {\bfseries last\+Id} =0
+\end{DoxyCompactItemize}
+\subsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_client_a001b1071dc56da194d697f845bbc4b1b}\label{class_client_a001b1071dc56da194d697f845bbc4b1b}} 
+ostream \& {\bfseries operator$<$$<$} (ostream \&out, const \hyperlink{class_client}{Client} \&client)
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+client.\+h\item 
+client.\+cpp\end{DoxyCompactItemize}

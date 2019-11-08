@@ -1,0 +1,6 @@
+<map id="Truck" name="Truck">
+<area shape="rect" id="node2" href="$class_animal.html" title="Animal" alt="" coords="5,80,68,107"/>
+<area shape="rect" id="node3" href="$class_congelation.html" title="Congelation" alt="" coords="93,80,183,107"/>
+<area shape="rect" id="node4" href="$class_hazardous_mat.html" title="HazardousMat" alt="" coords="207,80,314,107"/>
+<area shape="rect" id="node5" href="$class_normal.html" title="Normal" alt="" coords="338,80,402,107"/>
+</map>
