@@ -1,0 +1,4 @@
+<map id="Service" name="Service">
+<area shape="rect" id="node2" href="$class_hazardous_service.html" title="HazardousService" alt="" coords="5,80,135,107"/>
+<area shape="rect" id="node3" href="$class_temperature_service.html" title="TemperatureService" alt="" coords="159,80,298,107"/>
+</map>

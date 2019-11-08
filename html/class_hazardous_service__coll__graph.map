@@ -1,0 +1,5 @@
+<map id="HazardousService" name="HazardousService">
+<area shape="rect" id="node2" href="$class_service.html" title="Service" alt="" coords="39,109,105,136"/>
+<area shape="rect" id="node3" href="$class_client.html" title="Client" alt="" coords="5,5,61,32"/>
+<area shape="rect" id="node4" href="$class_date.html" title="Date" alt="" coords="85,5,136,32"/>
+</map>

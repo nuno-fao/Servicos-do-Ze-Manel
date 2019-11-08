@@ -37,7 +37,7 @@ public:
     ~Service();
     Service();
     //get methods
-    string getOrigin() const;
+    string getOrigin() const; /*!< @return string #origin  */
     string getDestination() const;
     unsigned getDistance() const;
     type getType() const;
@@ -79,7 +79,7 @@ public:
 protected:
     Service(string material,string origin, string destination, Date *arrivalDate, unsigned distance, type type, state state, Date *date,Client *client,float quantity);
     Service(string material, string origin, string destination, Date *arrivalDate, unsigned distance, type type, state state, Date *date, Client *client, float quantity, float total_price,unsigned id);
-    string origin;
+    string origin; /**< stores the origin of the Service */
     string destination;
     string material;
     Date *arrivalDate;
