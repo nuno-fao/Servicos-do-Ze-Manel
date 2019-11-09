@@ -43,7 +43,7 @@ int main()
         cout<<"[2] Add service"<<endl;
         cout<<"[3] Remove service"<<endl;
         cout<<"[4] Edit service"<<endl;
-        if(cin>>opt && opt<=4)
+        if(cin>>opt && opt<=5)
             switch (opt) {
             case 0:
                 break;
@@ -172,6 +172,16 @@ int main()
                 clearScreen();
                 break;
 
+            }
+            case 5:{
+
+                for(auto i:*Ze_Manel->getVectorClients()){
+                    cout<<i<<endl;
+                }
+                string temp;
+                getline(cin,temp);
+                clearScreen();
+                break;
             }
 
             default:
