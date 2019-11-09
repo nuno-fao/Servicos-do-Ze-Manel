@@ -507,7 +507,7 @@ void Service::loadFromFile(vector<Service*> *services_finished,vector<Service*> 
 }
 void Service::saveToFile(vector<Service*> *services_finished,vector<Service*>*services_on_transit,vector<Service*>*services_on_queue){
     ofstream servicesFile;
-    servicesFile.open("./files/on_queue_services.txt");
+    servicesFile.open("./files/finished_services.txt");
     for(auto x:*services_finished){
         servicesFile << x->getMaterial()<<endl;
         servicesFile << x->getId()<<endl;
@@ -528,6 +528,7 @@ void Service::saveToFile(vector<Service*> *services_finished,vector<Service*>*se
         servicesFile << x->getTotalPrice() <<endl;
         servicesFile << ":::::::::::"<<endl;
     }
+    servicesFile.open("./files/on_queue_services.txt");
     for(auto x:*services_on_queue){
         servicesFile << x->getMaterial()<<endl;
         servicesFile << x->getId()<<endl;
@@ -548,6 +549,7 @@ void Service::saveToFile(vector<Service*> *services_finished,vector<Service*>*se
         servicesFile << x->getTotalPrice() <<endl;
         servicesFile << ":::::::::::"<<endl;
     }
+    servicesFile.open("./files/on_transit_services.txt");
     for(auto x:*services_on_transit){
         servicesFile << x->getMaterial()<<endl;
         servicesFile << x->getId()<<endl;
@@ -632,9 +634,119 @@ Service *Service::addService(vector<Service *> *services,Client *client){
     print.push_back(tempDestination);
     //set yy/mm/dd
 
+
+
+
     variable_error=true;
     string tempString;
     vector<string> tempVector;
+    while (variable_error) {
+        printClassVector(&print);
+        try {
+            cout<<"Enter the departure date(yy mm dd)"<<endl;
+            if(getline(cin,tempString)){
+                clearScreen();
+                checkIfOut(tempString);
+                tempVector = vectorString(tempString," ");
+                for(auto p:tempVector){
+                    if(!strIsNumber(p)){
+                        tempVector.clear();
+                        variable_error=true;
+                        clearScreen();
+                        cout<<"Date Input not Aceptable, please try again"<<endl;
+                        break;
+                    }
+                }
+                if(tempVector.size()==3){
+                    Date i(date_u_short(stoi(tempVector.at(0))),date_u_short(stoi(tempVector.at(1))),date_u_short(stoi(tempVector.at(2))),23,59);
+                    int t=now->tm_year;
+                    Date f(unsigned(t-100),1+date_u_short(now->tm_mon),date_u_short(now->tm_mday),date_u_short(now->tm_hour),date_u_short(now->tm_min));
+                    if((f-i)<0){
+                        variable_error=true;
+                        clearScreen();
+                        cout<<"Date Input not Aceptable, should not be prior to current date, please try again"<<endl;
+                    }
+                    else
+                        variable_error=false;
+                }
+                else{
+                    variable_error=true;
+                    clearScreen();
+                    cout<<"Date Input not Aceptable, please try again"<<endl;
+                }
+            }
+            else{
+                variable_error=true;
+                clearScreen();
+                cout<<"minute Input not Aceptable, please try again"<<endl;
+            }
+        } catch (DateInvalid i) {
+            clearScreen();
+            cout<<i.error<<endl;
+        }
+    }
+
+    variable_error=true;
+    vector<string> tempVector_h;
+    while (variable_error) {
+        printClassVector(&print);
+        try {
+            cout<<"Enter the departure hours(hh mm)"<<endl;
+            if(getline(cin,tempString)){
+                clearScreen();
+                checkIfOut(tempString);
+                tempVector_h = vectorString(tempString," ");
+                for(auto p:tempVector_h){
+                    if(!strIsNumber(p)){
+                        tempVector_h.clear();
+                        variable_error=true;
+                        clearScreen();
+                        cout<<"minute Input not Aceptable, please try again"<<endl;
+                        break;
+                    }
+                }
+                if(tempVector_h.size()==2){
+                    Date i(date_u_short(stoi(tempVector.at(0))),date_u_short(stoi(tempVector.at(1))),date_u_short(stoi(tempVector.at(2))),date_u_short(stoi(tempVector_h.at(0))),date_u_short(stoi(tempVector_h.at(1))));
+                    int t=now->tm_year;
+                    Date f(unsigned(t-100),1+date_u_short(now->tm_mon),date_u_short(now->tm_mday),date_u_short(now->tm_hour),date_u_short(now->tm_min));
+                    if((f-i)<0){
+                        variable_error=true;
+                        clearScreen();
+                        cout<<"Input not Aceptable, should not be prior to current date, please try again"<<endl;
+                    }
+                    else
+                        variable_error=false;
+                }
+                else{
+                    variable_error=true;
+                    clearScreen();
+                    cout<<"minute Input not Aceptable, please try again"<<endl;
+                }
+            }
+            else{
+                variable_error=true;
+                clearScreen();
+                cout<<"minute Input not Aceptable, please try again"<<endl;
+            }
+        } catch (DateInvalid i) {
+            clearScreen();
+            cout<<i.error<<endl;
+        }
+    }
+    Date *temp_date=new Date(date_u_short(stoi(tempVector.at(0))),date_u_short(stoi(tempVector.at(1))),date_u_short(stoi(tempVector.at(2))),date_u_short(stoi(tempVector_h.at(0))),date_u_short(stoi(tempVector_h.at(1))));
+    print.push_back(temp_date->getDateWHour());
+
+
+
+
+
+
+
+
+
+    variable_error=true;
+    tempVector.clear();
+
     while (variable_error) {
         printClassVector(&print);
         try {
@@ -659,7 +771,7 @@ Service *Service::addService(vector<Service *> *services,Client *client){
                     if((f-i)<0){
                         variable_error=true;
                         clearScreen();
-                        cout<<"Date Input not Aceptable, please try again"<<endl;
+                        cout<<"Date Input not Aceptable, should not be prior to current date, please try again"<<endl;
                     }
                     else
                         variable_error=false;
@@ -682,7 +794,7 @@ Service *Service::addService(vector<Service *> *services,Client *client){
     }
 
     variable_error=true;
-    vector<string> tempVector_h;
+    tempVector_h.clear();
     while (variable_error) {
         printClassVector(&print);
         try {
@@ -707,7 +819,7 @@ Service *Service::addService(vector<Service *> *services,Client *client){
                     if((f-i)<0){
                         variable_error=true;
                         clearScreen();
-                        cout<<"Date Input not Aceptable, please try again"<<endl;
+                        cout<<"Input not Aceptable, should not be prior to current date, please try again"<<endl;
                     }
                     else
                         variable_error=false;
@@ -776,103 +888,7 @@ Service *Service::addService(vector<Service *> *services,Client *client){
     print.push_back(tempType);
     //set yy/mm/dd
 
-    variable_error=true;
-    tempVector.clear();
-    while (variable_error) {
-        printClassVector(&print);
-        try {
-            cout<<"Enter the date(yy mm dd)"<<endl;
-            if(getline(cin,tempString)){
-                clearScreen();
-                checkIfOut(tempString);
-                tempVector = vectorString(tempString," ");
-                for(auto p:tempVector){
-                    if(!strIsNumber(p)){
-                        tempVector.clear();
-                        variable_error=true;
-                        clearScreen();
-                        cout<<"Date Input not Aceptable, please try again"<<endl;
-                        break;
-                    }
-                }
-                if(tempVector.size()==3){
-                    Date i(date_u_short(stoi(tempVector.at(0))),date_u_short(stoi(tempVector.at(1))),date_u_short(stoi(tempVector.at(2))),23,59);
-                    int t=now->tm_year;
-                    Date f(unsigned(t-100),1+date_u_short(now->tm_mon),date_u_short(now->tm_mday),date_u_short(now->tm_hour),date_u_short(now->tm_min));
-                    if((f-i)<0){
-                        variable_error=true;
-                        clearScreen();
-                        cout<<"Date Input not Aceptable, please try again"<<endl;
-                    }
-                    else
-                        variable_error=false;
-                }
-                else{
-                    variable_error=true;
-                    clearScreen();
-                    cout<<"Date Input not Aceptable, please try again"<<endl;
-                }
-            }
-            else{
-                variable_error=true;
-                clearScreen();
-                cout<<"minute Input not Aceptable, please try again"<<endl;
-            }
-        } catch (DateInvalid i) {
-            clearScreen();
-            cout<<i.error<<endl;
-        }
-    }
 
-    variable_error=true;
-    tempVector_h.clear();
-    while (variable_error) {
-        printClassVector(&print);
-        try {
-            cout<<"Enter the hours(hh mm)"<<endl;
-            if(getline(cin,tempString)){
-                clearScreen();
-                checkIfOut(tempString);
-                tempVector_h = vectorString(tempString," ");
-                for(auto p:tempVector_h){
-                    if(!strIsNumber(p)){
-                        tempVector_h.clear();
-                        variable_error=true;
-                        clearScreen();
-                        cout<<"minute Input not Aceptable, please try again"<<endl;
-                        break;
-                    }
-                }
-                if(tempVector_h.size()==2){
-                    Date i(date_u_short(stoi(tempVector.at(0))),date_u_short(stoi(tempVector.at(1))),date_u_short(stoi(tempVector.at(2))),date_u_short(stoi(tempVector_h.at(0))),date_u_short(stoi(tempVector_h.at(1))));
-                    int t=now->tm_year;
-                    Date f(unsigned(t-100),1+date_u_short(now->tm_mon),date_u_short(now->tm_mday),date_u_short(now->tm_hour),date_u_short(now->tm_min));
-                    if((f-i)<0){
-                        variable_error=true;
-                        clearScreen();
-                        cout<<"Date Input not Aceptable, please try again"<<endl;
-                    }
-                    else
-                        variable_error=false;
-                }
-                else{
-                    variable_error=true;
-                    clearScreen();
-                    cout<<"minute Input not Aceptable, please try again"<<endl;
-                }
-            }
-            else{
-                variable_error=true;
-                clearScreen();
-                cout<<"minute Input not Aceptable, please try again"<<endl;
-            }
-        } catch (DateInvalid i) {
-            clearScreen();
-            cout<<i.error<<endl;
-        }
-    }
-    Date *temp_date=new Date(date_u_short(stoi(tempVector.at(0))),date_u_short(stoi(tempVector.at(1))),date_u_short(stoi(tempVector.at(2))),date_u_short(stoi(tempVector_h.at(0))),date_u_short(stoi(tempVector_h.at(1))));
-    print.push_back(temp_date->getDateWHour());
 
     /*
     variable_error=true;
