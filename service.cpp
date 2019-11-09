@@ -767,8 +767,7 @@ Service *Service::addService(vector<Service *> *services,Client *client){
                 if(tempVector.size()==3){
                     int t=now->tm_year;
                     Date i(unsigned(stoi(tempVector.at(0))),date_u_short(stoi(tempVector.at(1))),date_u_short(stoi(tempVector.at(2))),23,59);
-                    Date f(t-100,1+date_u_short(now->tm_mon),date_u_short(now->tm_mday),date_u_short(now->tm_hour),date_u_short(now->tm_min));
-                    if((f-i)<0){
+                    if((*temp_date-i)<0){
                         variable_error=true;
                         clearScreen();
                         cout<<"Date Input not Aceptable, should not be prior to current date, please try again"<<endl;
@@ -816,7 +815,7 @@ Service *Service::addService(vector<Service *> *services,Client *client){
                     Date i(date_u_short(stoi(tempVector.at(0))),date_u_short(stoi(tempVector.at(1))),date_u_short(stoi(tempVector.at(2))),date_u_short(stoi(tempVector_h.at(0))),date_u_short(stoi(tempVector_h.at(1))));
                     int t=now->tm_year;
                     Date f(unsigned(t-100),1+date_u_short(now->tm_mon),date_u_short(now->tm_mday),date_u_short(now->tm_hour),date_u_short(now->tm_min));
-                    if((f-i)<0){
+                    if((*temp_date-i)<0){
                         variable_error=true;
                         clearScreen();
                         cout<<"Input not Aceptable, should not be prior to current date, please try again"<<endl;
