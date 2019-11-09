@@ -2,16 +2,17 @@
 
 // TODO: excecoes, verificacoes, hipotese de cancelar com !q, usar enter_to_exit() nos menus
 // Confirmar alteracoes do cliente com Y/N?
+// Descomentar misc 126
 
-
-unsigned int Client::lastId=0;
 
 Client::Client() {}
 
-Client::Client(string name, unsigned int nif, vector<Service*> *services): name(name), id(lastId), nif(nif){
+Client::Client(string name, unsigned int nif, vector<Service*> *services): name(name), nif(nif){
     if(services==nullptr)
         services=new vector<Service*>;
-    lastId++;
+
+	//if (!checkNif(nif))
+		//throw BadNif(nif, "NIF not allowed!");
 }
 
 
@@ -46,7 +47,7 @@ void Client::addClient(vector<Client>& clientsVector) {
 
     for (vector<Client>::iterator it = clientsVector.begin(); it != clientsVector.end(); it++) {
         if (it->nif == this->nif) {
-            //throw ClientInVector(nif, "Client is already exists in the database");
+            throw ClientInVector(nif, "Client is already in the database!");
         }
     }
 
@@ -70,43 +71,50 @@ void Client::removeClient(vector<Client*>& clientsVector) {
 }
 
 
-void Client::loadClients(const string &clientsNameFile, vector<Client> &clientsVector){
+void Client::loadClients(vector<Client*>& clientsVector) {
 
-    string clientsText;
-    ifstream clientsFile;
-    Client client;
+	string clientsNameFile = "clients.txt"; // File containing clients
+	string clientsText; // String containing contents of clients.txt
+	ifstream clientsFile;
+	Client client;
 
-    int i = 0;
+	int i = 0;
 
-    clientsFile.open(clientsNameFile);
-    if (clientsFile.fail())
-    {
-        throw CantOpenClientFile("Could not open associated clients.txt file");
-    }
+	clientsFile.open(clientsNameFile);
+	if (clientsFile.fail())
+	{
+		throw CantOpenClientFile("Could not open associated clients.txt file");
+	}
 
-    else
-    {
-        while (getline(clientsFile, clientsText))
-        {
-            switch (i)
-            {
-            case 0:
-                client.setName(clientsText);
-                break;
-            case 1:
-                client.setNif(unsigned(stoi(clientsText)));
-                break;
-            case 2:
-                // Add service id
-            default:
-                break;
-            }
-            i++;
-        }
-    }
+	else
+	{
+		while (getline(clientsFile, clientsText))
+		{
+			switch (i)
+			{
+			case 0:
+				client.setName(clientsText);
+				break;
+			case 1:
+				client.setNif(unsigned(stoi(clientsText)));
+				break;
+			default:
+				break;
+			}
+			i++;
+			if (i == 3) {
+				clientsVector.push_back(&client);
+				i = 0;
+			}
+		}
+	}
 
-    clientsVector.push_back(client);
-    clientsFile.close();
+	clientsVector.push_back(&client);
+	clientsFile.close();
+}
+
+void Client::saveToFile(vector<Client*>& clientsVector)
+{
 }
 
 
@@ -116,7 +124,7 @@ bool Client::operator==(const Client& client1) const {
     return nif == client1.nif;
 }
 
-bool Client::operator<(Client &a) const{
+bool Client::operator<(const Client &a) const{
     return nif < a.getNif();
 }
 
@@ -129,6 +137,7 @@ ostream& operator<<(ostream& out, const Client& client) {
 
     return out;
 }
+
 
 ClientInVector::~ClientInVector(){
 }
