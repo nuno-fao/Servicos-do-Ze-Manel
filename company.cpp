@@ -47,8 +47,10 @@ Client *Company::getClient(unsigned nif){
             return Company::getCompany()->getVectorClients()->at(m);
         if (temp->at(m)->getNif() < nif)
             l = m + 1;
-        else
+        else if(m>0)
             r = m - 1;
+        else
+            break;
     }
     throw NotAClient(nif,"Couldn't find the client");
 }
@@ -66,8 +68,16 @@ Truck *Company::getTruck(string license){
             return vect->at(m);
         if (vect->at(m)->getlicense() < license)
             l = m + 1;
-        else
+        else if(m>0)
             r = m - 1;
+        else
+            break;
     }
     throw TruckDoNotExist("Couldn't find the Truck",license);
+}
+
+
+Service *getService(unsigned id){
+
+
 }

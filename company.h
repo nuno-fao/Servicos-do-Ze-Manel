@@ -27,6 +27,7 @@ public:
     vector<Truck*> *getVectorTrucks();
     Client *getClient(unsigned nif);
     Truck *getTruck(string license);
+    Service *getService(unsigned id);
 
 
 private:

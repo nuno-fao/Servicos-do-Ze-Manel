@@ -188,97 +188,116 @@ void printClassVector(vector<string> *t){
 
 void enter_to_exit()
 {
-	do
-	{
-		cout << '\n' << "Press enter to continue...";
-	} while (cin.get() != '\n');
+    do
+    {
+        cout << '\n' << "Press enter to continue...";
+    } while (cin.get() != '\n');
 }
 
 bool checkLicense(string license, vector<Truck*>* trucks) {
-	vector<string> auxVec;
-	if (license.size() == 8) {
-		auxVec=vectorString(license, "-");
-		if (auxVec.size() == 3) {
-			unsigned short num=0, letters=0;
-			for (int i = 0; i != auxVec.size();i++) {
-				if (strIsNumber(auxVec[i])) {
-					if (stoi(auxVec[i]) < 100 && stoi(auxVec[i])>0) {
-						num++;
-					}
-					else {
-						cout << "WRONG FORMAT!!!!\nMust be in XX-YY-ZZ without any other character before or after. 2 pairs of numbers and 1 pair of capital letters\n";
-						cout << "Your input: " << license << endl;
-						enter_to_exit();
-						return false;
-					}
-				}
-				else {
-					if (isupper(auxVec[i][0]) && isupper(auxVec[i][1])) {
-						letters++;
-					}
-					else {
-						cout << "WRONG FORMAT!!!!\nMust be in XX-YY-ZZ without any other character before or after. 2 pairs of numbers and 1 pair of capital letters\n";
-						cout << "Your input: " << license << endl;
-						enter_to_exit();
-						return false;
-					}
-				}
-			}
-			if (num == 2 && letters == 1) {
-				for (auto it : *trucks) {
-					if (it->getlicense() == license) {
-						cout << "The truck with license " << license << " already exists in our database\n";
-						enter_to_exit();
-						return false;
-					}
-				}
-				return true;
-			}
-		}
-	}
-	cout << "WRONG FORMAT!!!!\nMust be in XX-YY-ZZ without any other character before or after. 2 pairs of numbers and 1 pair of capital letters\n";
-	cout << "Your input: " << license << endl;
-	enter_to_exit();
-	return false;
+    vector<string> auxVec;
+    if (license.size() == 8) {
+        auxVec=vectorString(license, "-");
+        if (auxVec.size() == 3) {
+            unsigned short num=0, letters=0;
+            for (int i = 0; i != auxVec.size();i++) {
+                if (strIsNumber(auxVec[i])) {
+                    if (stoi(auxVec[i]) < 100 && stoi(auxVec[i])>0) {
+                        num++;
+                    }
+                    else {
+                        cout << "WRONG FORMAT!!!!\nMust be in XX-YY-ZZ without any other character before or after. 2 pairs of numbers and 1 pair of capital letters\n";
+                        cout << "Your input: " << license << endl;
+                        enter_to_exit();
+                        return false;
+                    }
+                }
+                else {
+                    if (isupper(auxVec[i][0]) && isupper(auxVec[i][1])) {
+                        letters++;
+                    }
+                    else {
+                        cout << "WRONG FORMAT!!!!\nMust be in XX-YY-ZZ without any other character before or after. 2 pairs of numbers and 1 pair of capital letters\n";
+                        cout << "Your input: " << license << endl;
+                        enter_to_exit();
+                        return false;
+                    }
+                }
+            }
+            if (num == 2 && letters == 1) {
+                for (auto it : *trucks) {
+                    if (it->getlicense() == license) {
+                        cout << "The truck with license " << license << " already exists in our database\n";
+                        enter_to_exit();
+                        return false;
+                    }
+                }
+                return true;
+            }
+        }
+    }
+    cout << "WRONG FORMAT!!!!\nMust be in XX-YY-ZZ without any other character before or after. 2 pairs of numbers and 1 pair of capital letters\n";
+    cout << "Your input: " << license << endl;
+    enter_to_exit();
+    return false;
 }
 
 bool checkLicenseV2(string license) {
-	vector<string> auxVec;
-	if (license.size() == 8) {
-		auxVec = vectorString(license, "-");
-		if (auxVec.size() == 3) {
-			unsigned short num = 0, letters = 0;
-			for (int i = 0; i != auxVec.size(); i++) {
-				if (strIsNumber(auxVec[i])) {
-					if (stoi(auxVec[i]) < 100 && stoi(auxVec[i]) > 0) {
-						num++;
-					}
-					else {
-						cout << "WRONG FORMAT!!!!\nMust be in XX-YY-ZZ without any other character before or after. 2 pairs of numbers and 1 pair of capital letters\n";
-						cout << "Your input: " << license << endl;
-						enter_to_exit();
-						return false;
-					}
-				}
-				else {
-					if (isupper(auxVec[i][0]) && isupper(auxVec[i][1])) {
-						letters++;
-					}
-					else {
-						cout << "WRONG FORMAT!!!!\nMust be in XX-YY-ZZ without any other character before or after. 2 pairs of numbers and 1 pair of capital letters\n";
-						cout << "Your input: " << license << endl;
-						enter_to_exit();
-						return false;
-					}
-				}
-			}
-			if (num == 2 && letters == 1) {
-				return true;
-			}
-		}
-	}
-	cout << "WRONG FORMAT!!!!\nMust be in XX-YY-ZZ without any other character before or after. 2 pairs of numbers and 1 pair of capital letters\n";
-	cout << "Your input: " << license << endl;
-	enter_to_exit();
-	return false;
+    vector<string> auxVec;
+    if (license.size() == 8) {
+        auxVec = vectorString(license, "-");
+        if (auxVec.size() == 3) {
+            unsigned short num = 0, letters = 0;
+            for (int i = 0; i != auxVec.size(); i++) {
+                if (strIsNumber(auxVec[i])) {
+                    if (stoi(auxVec[i]) < 100 && stoi(auxVec[i]) > 0) {
+                        num++;
+                    }
+                    else {
+                        cout << "WRONG FORMAT!!!!\nMust be in XX-YY-ZZ without any other character before or after. 2 pairs of numbers and 1 pair of capital letters\n";
+                        cout << "Your input: " << license << endl;
+                        enter_to_exit();
+                        return false;
+                    }
+                }
+                else {
+                    if (isupper(auxVec[i][0]) && isupper(auxVec[i][1])) {
+                        letters++;
+                    }
+                    else {
+                        cout << "WRONG FORMAT!!!!\nMust be in XX-YY-ZZ without any other character before or after. 2 pairs of numbers and 1 pair of capital letters\n";
+                        cout << "Your input: " << license << endl;
+                        enter_to_exit();
+                        return false;
+                    }
+                }
+            }
+            if (num == 2 && letters == 1) {
+                return true;
+            }
+        }
+    }
+    cout << "WRONG FORMAT!!!!\nMust be in XX-YY-ZZ without any other character before or after. 2 pairs of numbers and 1 pair of capital letters\n";
+    cout << "Your input: " << license << endl;
+    enter_to_exit();
+    return false;
+}
+
+long askForId(string classToAsk,string what_to_do, string identifier){
+    string id;
+    cout<<"Which "+classToAsk+" you want to "+what_to_do+" ( write "+classToAsk+"'s "+identifier+" ):"<<endl;
+    if(cin>>id){
+        if(strIsNumber(id) && stoi(id)>=0){
+            long t_id=stol(id);
+            return t_id;
+        }
+    }
+
+    if(id=="!q"){
+        clearScreen();
+        return  -1;
+    }
+    cout<<identifier+" not acceptable"<<endl;
+    return -2;
+
 }

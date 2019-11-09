@@ -15,6 +15,96 @@
 using namespace std;
 
 
+void manage_client(Client *client){
+    unsigned opt=1;
+    while (opt!=0) {
+        clearScreen();
+        cout <<*client<<endl;
+        cout<<"[1] Edit Client"<<endl;
+        cout<<"[2] Remove Client"<<endl;
+        cout<<"[3] Edit Services"<<endl;
+        cout<<"[4] Cancel Service"<<endl;
+        cout<<"[5] See Service"<<endl;
+        cout<<"[0] Return"<<endl;
+        if(cin>>opt && opt<=5)
+        {
+            clearScreen();
+            switch (opt) {
+            case 1:
+                //client->editClient();
+                break;
+            case 2:{
+                //Client::removeClient();
+                break;
+            }
+            case 0:{
+                return;
+            }
+
+            case 3:{
+
+                long id=long(0);
+                Service *temp_client = nullptr;
+                do{
+                    for(auto i: *Company::getCompany()->getVectorServicesOnQueue()){
+                        cout<<i;
+                    }
+                }while((id=askForId("Service","Edit","Id"))==-2);
+                clearScreen();
+                for(auto i: *Company::getCompany()->getVectorServicesOnQueue()){
+                    if(i->getId()==long(id)){
+                        temp_client=i;
+                        break;
+                    }
+                }
+                temp_client->editService();
+                break;
+
+            }
+            case 4:{
+
+                long id=long(0);
+                Service *temp_client = nullptr;
+                do{
+                    for(auto i: *Company::getCompany()->getVectorServicesOnQueue()){
+                        cout<<i;
+                    }
+                }while((id=askForId("Service","Remove","Id"))==-2);
+                clearScreen();
+                for(auto i: *Company::getCompany()->getVectorServicesOnQueue()){
+                    if(i->getId()==long(id)){
+                        temp_client=i;
+                        break;
+                    }
+                }
+                Service::removeService(Company::getCompany()->getVectorServicesOnQueue(),unsigned(id));
+                string temp;
+                clearBuffer();
+                getline(cin,temp);
+                break;
+
+            }
+            case 5:{
+
+                break;
+            }
+
+            default:
+                opt=1;
+            }
+        }
+        else{
+            opt=1;
+            clearBuffer();
+            clearScreen();
+            cout<<"Not a valid option, please try again"<<endl;
+        }
+    }
+}
+
+void mainMenu();
+void menu_clients();
+
 
 /*
 This function receives a name and returns true if it is valid
@@ -23,6 +113,7 @@ This function receives a name and returns true if it is valid
 template<class T> bool cmp_classes(T *a,T *b){
     return *a<*b;
 }
+
 
 Company *Company::company = nullptr;
 int main()
@@ -37,158 +128,53 @@ int main()
     Service::loadFromFile(Ze_Manel->getVectorServicesFinished(),Ze_Manel->getVectorServicesOnTransit(),Ze_Manel->getVectorServicesOnQueue());
 
     //vector<Truck*> a(*Ze_Manel->getVectorTrucks());
-    unsigned opt=1;
     string temp;
+    mainMenu();
+    delete Ze_Manel;
+
+
+    return 0;
+}
+
+void mainMenu(){
+    unsigned opt=1;
     while (opt!=0) {
-        cout<<"[1] See services"<<endl;
-        cout<<"[2] Add service"<<endl;
-        cout<<"[3] Remove service"<<endl;
-        cout<<"[4] Edit service"<<endl;
+        cout<<"[1] Clients"<<endl;
+        cout<<"[2] Trucks"<<endl;
+        cout<<"[3] Services"<<endl;
+        cout<<"[4] Information"<<endl;
         if(cin>>opt && opt<=5)
+        {
+            clearScreen();
             switch (opt) {
             case 0:
                 break;
             case 1:{
-                clearBuffer();
-                clearScreen();
-                for(auto i=Ze_Manel->getVectorServicesOnQueue()->begin();i!=Ze_Manel->getVectorServicesOnQueue()->end();i++)
-                    cout<<*i;
-                if(!Ze_Manel->getVectorServicesOnQueue()->size())
-                    cout<<"There is no info to show"<<endl;
-                getline(cin,temp);
-                clearScreen();
+                menu_clients();
                 break;
             }
             case 2:{
-                Client *a=nullptr;
-                clearScreen();
-                clearBuffer();
-                a =new Client("Margarida Cruz",121212121);
-                try {
-                    Service::addService(Ze_Manel->getVectorServicesOnQueue(),a);
-                } catch (exception e) {
 
-                }
-                clearScreen();
                 break;
             }
 
             case 3:{
-                clearScreen();
-                clearBuffer();
-                for(auto i:*Ze_Manel->getVectorServicesOnQueue()){
-                    cout<<i->getMaterial()<<", id: "<<i->getId()<<endl;
-                }
-                if(Ze_Manel->getVectorServicesOnQueue()->size()){
-                    cout<<endl;
-                    string id;
-                    bool var_error=true;
-                    while (var_error) {
-                        cout<<"Which Service you want to remove ( write service's id ):"<<endl;
-                        if(cin>>id){
-                            var_error=false;
-                            if(id=="!q")
-                                var_error=false;
-                            else if(!strIsNumber(id))
-                                var_error=true;
 
-                        }
-                        else {
-                            cout<<"Id not acceptable"<<endl;
-                        }
-                    }
-                    if(id=="!q"){
-                        clearScreen();
-                        break;
-                    }
-                    try{
-                        Service::removeService(Ze_Manel->getVectorServicesOnQueue(),unsigned(stoi(id)));
-                        clearScreen();
-                    }
-                    catch(ServiceDoNotExist e){
-                        cout<<e.erro<<endl;
-                        clearBuffer();
-                    }
-                }
-                else
-                    cout<<"There are no services that can be removed"<<endl;
-                string temp;
-                getline(cin,temp);
-                clearScreen();
                 break;
             }
             case 4:{
-                clearScreen();
-                clearBuffer();
-                stringstream out;
-                for(auto i:*Ze_Manel->getVectorServicesOnQueue()){
-                    out<<i->getMaterial()<<", id: "<<i->getId()<<endl;
-                }
-                cout<<out.str();
-                if(Ze_Manel->getVectorServicesOnQueue()->size()){
-                    cout<<endl;
-                    string id;
-                    bool var_error=true;
-                    while (var_error) {
-                        cout<<"Which Service you want to edit ( write service's id ):"<<endl;
-                        if(cin>>id){
-                            var_error=false;
-                            if(id=="!q")
-                                var_error=false;
-                            else if(!strIsNumber(id))
-                                var_error=true;
-                        }
-                        else {
-                            clearScreen();
-                            clearBuffer();
-                            cout<<out.str();
-                            cout<<"Id not acceptable"<<endl;
-                        }
-                    }
-                    if(id=="q")
-                        break;
-                    clearBuffer();
-                    //pesquisa binaria!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                    bool h_found=false;
-                    try{
-                        for(auto i:*Ze_Manel->getVectorServicesOnQueue()){
-                            if(unsigned(stoi(id))==i->getId()){
-                                i->editService();
-                                h_found=true;
-                                break;
-                            }
-                        }
 
-                    } catch (exception e) {
-
-                    }
-                    clearScreen();
-                    if(!h_found)
-                        cout<<"Couldn't find Service"<<endl;
-                }
-                else
-                    cout<<"There are no services that can be edit"<<endl;
-                string temp;
-                getline(cin,temp);
-                clearScreen();
                 break;
-
             }
             case 5:{
-                clearBuffer();
-                cout << Ze_Manel->getVectorClients()->size() <<endl;
-                for(auto i:*Ze_Manel->getVectorClients()){
-                    cout<<*i<<endl;
-                }
-                string temp;
-                getline(cin,temp);
-                clearScreen();
+
                 break;
             }
 
             default:
                 opt=1;
             }
+        }
         else{
             opt=1;
             clearBuffer();
@@ -196,8 +182,62 @@ int main()
             cout<<"Not a valid option, please try again"<<endl;
         }
     }
-    delete Ze_Manel;
-
-
-    return 0;
 }
+
+void menu_clients(){
+    unsigned opt=1;
+    while (opt!=0) {
+        clearScreen();
+        cout<<"[1] Add Client"<<endl;
+        cout<<"[2] Manage Client"<<endl;
+        cout<<"[0] Return to Main Menu"<<endl;
+        if(cin>>opt && opt<=2)
+        {
+            clearScreen();
+            switch (opt) {
+            case 0:
+                break;
+            case 1:{
+                menu_clients();
+                break;
+            }
+            case 2:{
+                int nif=0;
+                Client *temp_client;
+                do{
+                    for(auto i: *Company::getCompany()->getVectorClients()){
+                        cout<<*i;
+                    }
+                }while((nif=askForId("Client","manage","Nif"))==-2);
+
+                if(nif>0){
+                    try {
+                        temp_client=Company::getCompany()->getClient(unsigned(nif));
+                        manage_client(temp_client);
+
+                    } catch (NotAClient e) {
+                        cout << e.erro << endl;
+                    }
+                }
+                clearBuffer();
+                string temp;
+                getline(cin,temp);
+                break;
+            }
+
+            default:
+                opt=1;
+            }
+        }
+        else{
+            opt=1;
+            clearBuffer();
+            clearScreen();
+            cout<<"Not a valid option, please try again"<<endl;
+        }
+    }
+}
+
+
+
+
