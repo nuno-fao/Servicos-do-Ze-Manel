@@ -31,7 +31,7 @@ int main()
     Company *Ze_Manel = nullptr;
     Ze_Manel=Company::getCompany();
     Truck::loadFromFile(Ze_Manel->getVectorTrucks());
-	//Client::loadClients(Ze_Manel->getVectorClients());
+    Client::loadClients(*Ze_Manel->getVectorClients());
     sort(((*Ze_Manel).getVectorTrucks())->begin(),((*Ze_Manel).getVectorTrucks())->end(),cmp_classes<Truck>);
     sort(((*Ze_Manel).getVectorClients())->begin(),((*Ze_Manel).getVectorClients())->end(),cmp_classes<Client>);
     Service::loadFromFile(Ze_Manel->getVectorServicesFinished(),Ze_Manel->getVectorServicesOnTransit(),Ze_Manel->getVectorServicesOnQueue());
@@ -175,9 +175,10 @@ int main()
 
             }
             case 5:{
-
+                clearBuffer();
+                cout << Ze_Manel->getVectorClients()->size() <<endl;
                 for(auto i:*Ze_Manel->getVectorClients()){
-                    cout<<i<<endl;
+                    cout<<*i<<endl;
                 }
                 string temp;
                 getline(cin,temp);
