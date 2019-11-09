@@ -123,8 +123,8 @@ unsigned chooseOptionNumber(unsigned minimum, unsigned maximum, string Message, 
                     i-=maxPerPage+unsigned(abs(signed(i-last_i)));
                 else if(signed(i-(maxPerPage+unsigned(abs(signed(i-last_i)))))<0 && option-1==unsigned(abs(signed(i-last_i))))
                     i=0;
-                else if(option==unsigned(abs(signed(i-last_i)))){}
-                    //i=min(maximum-maxPerPage+1,i+minimum)-minimum;
+                else if(option==unsigned(abs(signed(i-last_i))))
+                    i=min(maximum-maxPerPage+1,i+minimum)-minimum;
                 else if(option>(unsigned(abs(signed(i-last_i)))+1))
                     return maximum;
                 error=false;
@@ -232,6 +232,47 @@ bool checkLicense(string license, vector<Truck*>* trucks) {
 						return false;
 					}
 				}
+				return true;
+			}
+		}
+	}
+	cout << "WRONG FORMAT!!!!\nMust be in XX-YY-ZZ without any other character before or after. 2 pairs of numbers and 1 pair of capital letters\n";
+	cout << "Your input: " << license << endl;
+	enter_to_exit();
+	return false;
+}
+
+bool checkLicenseV2(string license) {
+	vector<string> auxVec;
+	if (license.size() == 8) {
+		auxVec = vectorString(license, "-");
+		if (auxVec.size() == 3) {
+			unsigned short num = 0, letters = 0;
+			for (int i = 0; i != auxVec.size(); i++) {
+				if (strIsNumber(auxVec[i])) {
+					if (stoi(auxVec[i]) < 100 && stoi(auxVec[i]) > 0) {
+						num++;
+					}
+					else {
+						cout << "WRONG FORMAT!!!!\nMust be in XX-YY-ZZ without any other character before or after. 2 pairs of numbers and 1 pair of capital letters\n";
+						cout << "Your input: " << license << endl;
+						enter_to_exit();
+						return false;
+					}
+				}
+				else {
+					if (isupper(auxVec[i][0]) && isupper(auxVec[i][1])) {
+						letters++;
+					}
+					else {
+						cout << "WRONG FORMAT!!!!\nMust be in XX-YY-ZZ without any other character before or after. 2 pairs of numbers and 1 pair of capital letters\n";
+						cout << "Your input: " << license << endl;
+						enter_to_exit();
+						return false;
+					}
+				}
+			}
+			if (num == 2 && letters == 1) {
 				return true;
 			}
 		}

@@ -32,3 +32,4 @@ bool checkNif(int nif);
 
 // Verifies a trucks license
 bool checkLicense(string license, vector<Truck*>* trucks);
+bool checkLicenseV2(string license);
