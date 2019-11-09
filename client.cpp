@@ -73,7 +73,7 @@ void Client::removeClient(vector<Client*>& clientsVector) {
 
 void Client::loadClients(vector<Client*>& clientsVector) {
 
-	string clientsNameFile = "clients.txt"; // File containing clients
+    string clientsNameFile = "./files/clients.txt"; // File containing clients
 	string clientsText; // String containing contents of clients.txt
 	ifstream clientsFile;
 	Client client;
@@ -102,14 +102,13 @@ void Client::loadClients(vector<Client*>& clientsVector) {
 				break;
 			}
 			i++;
-			if (i == 3) {
-				clientsVector.push_back(&client);
+            if (i == 3) {
+                Client *temp=new Client(client);
+                clientsVector.push_back(temp);
 				i = 0;
 			}
 		}
-	}
-
-	clientsVector.push_back(&client);
+    }
 	clientsFile.close();
 }
 
