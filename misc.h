@@ -9,6 +9,8 @@
 #include "client.h"
 #include "truck.h"
 
+
+#define min(a,b) (((a) < (b)) ? (a) : (b))
 using namespace std;
 
 class Client;
