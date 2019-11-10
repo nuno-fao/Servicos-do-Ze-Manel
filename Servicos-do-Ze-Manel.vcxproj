@@ -98,6 +98,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Address.cpp" />
     <ClCompile Include="client.cpp" />
     <ClCompile Include="company.cpp" />
     <ClCompile Include="date.cpp" />
@@ -107,6 +108,7 @@
     <ClCompile Include="truck.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Address.h" />
     <ClInclude Include="client.h" />
     <ClInclude Include="company.h" />
     <ClInclude Include="date.h" />
