@@ -157,14 +157,20 @@ void Client::removeClient(vector<Client*>& clientsVector) {
 	for (auto it = clientsVector.begin(); it != clientsVector.end(); it++)
 	{
 		if ((*it)->getNif() == nif) {
-			(*it)->~Client();
-			clientsVector.erase(it);
-			cout << "Client removed sucessfully" << endl;
-			enter_to_exit();
-			return;
+			if ((*it)->getServicesVector()->size() == 0) {
+				(*it)->~Client();
+				clientsVector.erase(it);
+				cout << "Client removed sucessfully" << endl;
+				enter_to_exit();
+				return;
+			}
+			else {
+				cout << "That client cannot be removed as it has at least one service reserved" << endl;
+				return;
+			}
 		}
 	}
-	throw ClientNotInVector(nif, "Client doesn't exist");
+	//throw ClientNotInVector(nif, "Client doesn't exist");
 }
 
 
