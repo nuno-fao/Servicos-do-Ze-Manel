@@ -33,6 +33,13 @@ Service::Service(string material, string origin, string destination, Date *arriv
 //destructor
 Service::~Service(){
     initialDate->~Date();
+    if(ser_state==on_queue)
+        for(auto i=Company::getCompany()->getVectorServicesOnQueue()->begin();i!=Company::getCompany()->getVectorServicesOnQueue()->end();i++){
+            if((*i)->getId()==id){
+                Company::getCompany()->getVectorServicesOnQueue()->erase(i);
+            }
+        }
+
 }
 
 //get methods
@@ -432,9 +439,6 @@ void Service::loadFromFile(list<Service*> *services_finished,vector<Service*> *s
         getline(servicesFile,tempGeneral);
         tempType=intToType(stoi(tempGeneral));
 
-        getline(servicesFile,temptrucks);
-        tempVectorTruckS=vectorString(temptrucks,";");
-
         getline(servicesFile,tempGeneral);
         tempState=intToState(stoi(tempGeneral));
 
@@ -461,14 +465,6 @@ void Service::loadFromFile(list<Service*> *services_finished,vector<Service*> *s
             else
                 temp= new Service(tempMaterial,tempOrigin,tempDestination,tempA,unsigned(tempDistance),tempType,tempState,tempD,temp_client,tempQuantity,tempPrice,tempId);
 
-            for(auto i:tempVectorTruckS){
-                try{
-                    temp->addTruck(Company::getCompany()->getTruck(i));
-                }
-                catch(TruckDoNotExist e){
-                    cout<<e.erro+" "<<e.license<<endl;
-                }
-            }
 
             switch (tempState) {
             case on_transit:
@@ -536,10 +532,6 @@ void Service::saveToFile(list<Service*> *services_finished,vector<Service*>*serv
         servicesFile << (x->getADate()->getDate())<<endl;
         servicesFile << (x->getDistance())<<endl;
         servicesFile << (x->getType())<<endl;
-
-        for(auto i: *x->getTrucks()){
-            servicesFile << i->getlicense() <<";";
-        }
 
         servicesFile << endl << (x->getState())<<endl;
         servicesFile << x->getIDate()->getDate() <<endl;
@@ -1394,10 +1386,14 @@ void Service::editService(){
 
 bool Service::removeService(vector<Service *> *services, unsigned id){
     for(auto i=services->begin();i!=services->end();i++){
-        if((*i)->getId()==id){
+        if((*i)->getId()==id && (*i)->getState()==on_queue){
             (*i)->~Service();
             services->erase(i);
             return  true;
+        }
+        else if((*i)->getState()!=on_queue){
+            cout<<"couldn't remove service, already finished or or route"<<endl;
+            return  false;
         }
     }
     throw ServiceDoNotExist("Couldn't find Service");
