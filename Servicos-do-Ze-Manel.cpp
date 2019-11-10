@@ -107,6 +107,7 @@ void manage_client(Client *client){
 void menu_services();
 void mainMenu();
 void menu_clients();
+void menu_trucks();
 void information();
 void clientsInformation();
 void infoEveryServices(),infoOnQueueServices(),infoOnTransitServices(),infoFinishedServices();
@@ -162,7 +163,7 @@ void mainMenu(){
                 break;
             }
             case 2:{
-
+				menu_trucks();
                 break;
             }
 
@@ -241,6 +242,43 @@ void menu_clients(){
             cout<<"Not a valid option, please try again"<<endl;
         }
     }
+}
+
+void menu_clients() {
+	unsigned opt = 1;
+	while (opt != 0) {
+		clearScreen();
+		cout << "[1] Add Truck" << endl;
+		cout << "[2] Remove Truck" << endl;
+		cout << "[0] Return to Main Menu" << endl;
+		if (cin >> opt && opt <= 2)
+		{
+			clearScreen();
+			switch (opt) {
+			case 0:
+				break;
+			case 1: {
+				clearBuffer();
+				Truck::createTruck(Company::getCompany()->getVectorTrucks());
+				break;
+			}
+			case 2: {
+				clearBuffer();
+				Truck::removeTruck(Company::getCompany()->getVectorTrucks());
+				break;
+			}
+
+			default:
+				opt = 1;
+			}
+		}
+		else {
+			opt = 1;
+			clearBuffer();
+			clearScreen();
+			cout << "Not a valid option, please try again" << endl;
+		}
+	}
 }
 
 void menu_services(){
