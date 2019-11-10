@@ -14,7 +14,8 @@ class Truck;
 class Client
 {
 public:
-	Client();
+    Client(Client const &);
+    Client();
 	Client(string name, unsigned int nif, vector<Service*> *services = nullptr);
     virtual ~Client();
 
@@ -25,16 +26,18 @@ public:
 	
     //get methods
     string getName() const;
+    float getMoneySpent() const;
     unsigned getNif() const;
     vector<Service*> getServicesVector() const;
 
     //set methods
     void setName(string name);
     void setNif(unsigned nif);
+    void calcMoneySpent();
 
     //add methods
     void addService(Service *service);
-	void addClient(vector<Client>& clientsVector);
+    static void addClient(vector<Client*> *clientsVector);
 
 
     friend ostream& operator<<(ostream& out, const Client& client);
@@ -44,6 +47,7 @@ public:
 protected:
     //tive q comentar para testar!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!11
     //Client(){};
+    float money_spent=0;
     string name;
     unsigned int nif;
     vector<Service*> services;

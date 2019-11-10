@@ -15,12 +15,12 @@ enum class Hazard_enum;
 class Truck
 {
 protected:
-	string license; //format XX-YY-ZZ
-	bool availabe;	//is the truck available right now?
-	bool registered;	//is the truck registered to a service in the future?
-	vector<Service*> assignedServices;	//services the truck is registered to
-	unsigned short capacity; //in KG
-	unsigned short cargo; //if in transit this holds the weight it transports, if not it is 0 
+    string license; ///format XX-YY-ZZ
+    bool availabe;	///is the truck available right now?
+    bool registered;	///is the truck registered to a service in the future?
+    vector<Service*> assignedServices;	///services the truck is registered to
+    unsigned short capacity; ///in KG
+    unsigned short cargo; ///if in transit this holds the weight it transports, if not it is 0
 
 public:
     Truck(string license, bool available,bool registered,unsigned short capacity, unsigned short cargo);

@@ -5,12 +5,14 @@
 #ifdef _WIN32
 void clearScreen() {
     system("cls"); system("cls");
+    Company::getCompany()->updateTruckSituation();
 }
 #endif
 
 #ifdef linux
 void clearScreen() {
     system("clear"); system("clear");
+    Company::getCompany()->updateTruckSituation();
 }
 #endif
 
@@ -300,4 +302,14 @@ long askForId(string classToAsk,string what_to_do, string identifier){
     cout<<identifier+" not acceptable"<<endl;
     return -2;
 
+}
+
+
+
+bool cmpOnQueue(Service *a,Service *b){
+    return *a->getIDate() <*b->getIDate();
+}
+
+bool cmpOnTransit(Service *a,Service *b){
+    return *b->getIDate() <*a->getIDate();
 }

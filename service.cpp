@@ -218,6 +218,7 @@ void Service::loadFromFile(vector<Service*> *services_finished,vector<Service*> 
             if(tempNif.size()!=9)
                 throw NotAClient(unsigned(stoi(tempNif)),"Not a valid NIF");
             Client *temp_client=Company::getCompany()->getClient(unsigned(stoi(tempNif)));
+
             if(tempType==3)
                 temp= new TemperatureService(tempMaterial, tempOrigin,tempDestination,tempA,unsigned(tempDistance),tempType,tempState,tempI,temp_client,tempQuantity,Temperature_enum::_200,tempPrice,tempId);
             if(tempType==1)
@@ -227,7 +228,9 @@ void Service::loadFromFile(vector<Service*> *services_finished,vector<Service*> 
 
             for(auto i:tempVectorTruckS){
                 try{
-                    temp->addTruck(Company::getCompany()->getTruck(i));
+                    Truck *temp_truck=Company::getCompany()->getTruck(i);
+                    temp->addTruck(temp_truck);
+                    temp_truck->add_service(temp);
                 }
                 catch(TruckDoNotExist e){
                     cout<<e.erro+" "<<e.license<<endl;
@@ -245,6 +248,7 @@ void Service::loadFromFile(vector<Service*> *services_finished,vector<Service*> 
                 services_finished->push_back(temp);
                 break;
             }
+            temp_client->addService(temp);
 
         } catch (NotAClient &e) {
             cout<<e.erro+to_string(e.getNif())<<endl;
@@ -261,8 +265,10 @@ void Service::loadFromFile(vector<Service*> *services_finished,vector<Service*> 
 
             for(auto i:tempVectorTruckS){
                 try{
-                    temp->addTruck(Company::getCompany()->getTruck(i));
-                    //temp->addTruck(Company::getCompany()->getTruck(i));
+                    Truck *temp_truck=Company::getCompany()->getTruck(i);
+                    temp->addTruck(temp_truck);
+                    temp_truck->add_service(temp);
+
                 }
                 catch(TruckDoNotExist e){
                     cout<<e.erro+" "<<e.license<<endl;
@@ -338,7 +344,9 @@ void Service::loadFromFile(vector<Service*> *services_finished,vector<Service*> 
 
             for(auto i:tempVectorTruckS){
                 try{
-                    temp->addTruck(Company::getCompany()->getTruck(i));
+                    Truck *temp_truck=Company::getCompany()->getTruck(i);
+                    temp->addTruck(temp_truck);
+                    temp_truck->add_service(temp);
                 }
                 catch(TruckDoNotExist e){
                     cout<<e.erro+" "<<e.license<<endl;
@@ -357,6 +365,8 @@ void Service::loadFromFile(vector<Service*> *services_finished,vector<Service*> 
                 break;
             }
 
+            temp_client->addService(temp);
+
         } catch (NotAClient &e) {
             cout<<e.erro+to_string(e.getNif())<<endl;
             string temp_error;
@@ -371,7 +381,9 @@ void Service::loadFromFile(vector<Service*> *services_finished,vector<Service*> 
 
             for(auto i:tempVectorTruckS){
                 try{
-                    temp->addTruck(Company::getCompany()->getTruck(i));
+                    Truck *temp_truck=Company::getCompany()->getTruck(i);
+                    temp->addTruck(temp_truck);
+                    temp_truck->add_service(temp);
                 }
                 catch(TruckDoNotExist e){
                     cout<<e.erro+" "<<e.license<<endl;
@@ -463,6 +475,8 @@ void Service::loadFromFile(vector<Service*> *services_finished,vector<Service*> 
                 services_finished->push_back(temp);
                 break;
             }
+
+            temp_client->addService(temp);
 
         } catch (NotAClient &e) {
             cout<<e.erro<<" "<<to_string(e.getNif())<<endl;

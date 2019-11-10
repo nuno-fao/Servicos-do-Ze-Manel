@@ -7,12 +7,17 @@
 
 Client::Client() {}
 
+Client::Client(Client const &x){
+    this->nif=x.getNif();
+    this->name=x.getName();
+}
+
 Client::Client(string name, unsigned int nif, vector<Service*> *services): name(name), nif(nif){
     if(services==nullptr)
         services=new vector<Service*>;
 
-	//if (!checkNif(nif))
-		//throw BadNif(nif, "NIF not allowed!");
+    //if (!checkNif(nif))
+    //throw BadNif(nif, "NIF not allowed!");
 }
 
 
@@ -43,15 +48,44 @@ void Client::addService(Service *service){
     services.push_back(service);
 }
 
-void Client::addClient(vector<Client>& clientsVector) {
+void Client::addClient(vector<Client *> *clientsVector) {
 
-    for (vector<Client>::iterator it = clientsVector.begin(); it != clientsVector.end(); it++) {
-        if (it->nif == this->nif) {
-            throw ClientInVector(nif, "Client is already in the database!");
+
+    clearScreen();
+    string tempName;
+    string tempNif;
+    bool variable_error=true;
+    while (variable_error) {
+        cout<<"Enter the Name"<<endl;
+
+        getline(cin,tempName);
+        checkIfOut(tempName);
+        clearScreen();
+        if(strIsChar(tempName))
+            variable_error=false;
+        else{
+            variable_error=true;
+            cout<<"Name Input not acceptable, please try again"<<endl;
+        }
+
+    }
+    variable_error=true;
+    while (variable_error) {
+        cout<<"Enter the Nif"<<endl;
+
+        getline(cin,tempNif);
+        checkIfOut(tempNif);
+        clearScreen();
+        if(strIsNumber(tempNif) && tempNif.size()==9)
+            variable_error=false;
+        else{
+            variable_error=true;
+            cout<<"Nif Input not acceptable, please try again"<<endl;
         }
     }
+    Client *tempClient = new Client(tempName,unsigned(stoi(tempNif)));
+    clientsVector->push_back(tempClient);
 
-    clientsVector.push_back(*this);
 }
 
 // Removes client from the vector
@@ -74,42 +108,42 @@ void Client::removeClient(vector<Client*>& clientsVector) {
 void Client::loadClients(vector<Client*>& clientsVector) {
 
     string clientsNameFile = "./files/clients.txt"; // File containing clients
-	string clientsText; // String containing contents of clients.txt
-	ifstream clientsFile;
-	Client client;
+    string clientsText; // String containing contents of clients.txt
+    ifstream clientsFile;
+    Client client;
 
-	int i = 0;
+    int i = 0;
 
-	clientsFile.open(clientsNameFile);
-	if (clientsFile.fail())
-	{
-		throw CantOpenClientFile("Could not open associated clients.txt file");
-	}
+    clientsFile.open(clientsNameFile);
+    if (clientsFile.fail())
+    {
+        throw CantOpenClientFile("Could not open associated clients.txt file");
+    }
 
-	else
-	{
-		while (getline(clientsFile, clientsText))
-		{
-			switch (i)
-			{
-			case 0:
-				client.setName(clientsText);
-				break;
-			case 1:
-				client.setNif(unsigned(stoi(clientsText)));
-				break;
-			default:
-				break;
-			}
-			i++;
+    else
+    {
+        while (getline(clientsFile, clientsText))
+        {
+            switch (i)
+            {
+            case 0:
+                client.setName(clientsText);
+                break;
+            case 1:
+                client.setNif(unsigned(stoi(clientsText)));
+                break;
+            default:
+                break;
+            }
+            i++;
             if (i == 3) {
                 Client *temp=new Client(client);
                 clientsVector.push_back(temp);
-				i = 0;
-			}
-		}
+                i = 0;
+            }
+        }
     }
-	clientsFile.close();
+    clientsFile.close();
 }
 
 void Client::saveToFile(vector<Client*>& clientsVector)
@@ -146,6 +180,17 @@ CantOpenClientFile::~CantOpenClientFile(){
 }
 NotAClient::~NotAClient(){
 
+}
+
+float Client::getMoneySpent() const{
+    return money_spent;
+}
+
+void Client::calcMoneySpent(){
+    money_spent=0;
+    for(auto i:services){
+        money_spent+=i->getTotalPrice();
+    }
 }
 
 

@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include <vector>
+#include <algorithm>
 
 #include "client.h"
 #include "service.h"
@@ -28,6 +29,7 @@ public:
     Client *getClient(unsigned nif);
     Truck *getTruck(string license);
     Service *getService(unsigned id);
+    void updateTruckSituation();
 
 
 private:

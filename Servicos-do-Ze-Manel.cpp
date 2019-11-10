@@ -11,6 +11,7 @@
 #include "truck.h"
 #include "service.h"
 #include "company.h"
+#include "misc.h"
 
 using namespace std;
 
@@ -85,7 +86,7 @@ void manage_client(Client *client){
 
             }
             case 5:{
-
+                cout<<*client;
                 break;
             }
 
@@ -114,7 +115,6 @@ template<class T> bool cmp_classes(T *a,T *b){
     return *a<*b;
 }
 
-
 Company *Company::company = nullptr;
 int main()
 {
@@ -125,6 +125,8 @@ int main()
     Client::loadClients(*Ze_Manel->getVectorClients());
     sort(((*Ze_Manel).getVectorTrucks())->begin(),((*Ze_Manel).getVectorTrucks())->end(),cmp_classes<Truck>);
     sort(((*Ze_Manel).getVectorClients())->begin(),((*Ze_Manel).getVectorClients())->end(),cmp_classes<Client>);
+    sort(((*Ze_Manel).getVectorServicesOnQueue())->begin(),((*Ze_Manel).getVectorServicesOnQueue())->end(),cmpOnQueue);
+    sort(((*Ze_Manel).getVectorServicesOnTransit())->begin(),((*Ze_Manel).getVectorServicesOnTransit())->end(),cmpOnTransit);
     Service::loadFromFile(Ze_Manel->getVectorServicesFinished(),Ze_Manel->getVectorServicesOnTransit(),Ze_Manel->getVectorServicesOnQueue());
 
     //vector<Truck*> a(*Ze_Manel->getVectorTrucks());
@@ -198,11 +200,12 @@ void menu_clients(){
             case 0:
                 break;
             case 1:{
-                menu_clients();
+                clearBuffer();
+                Client::addClient(Company::getCompany()->getVectorClients());
                 break;
             }
             case 2:{
-                int nif=0;
+                long nif=0;
                 Client *temp_client;
                 do{
                     for(auto i: *Company::getCompany()->getVectorClients()){
@@ -215,8 +218,8 @@ void menu_clients(){
                         temp_client=Company::getCompany()->getClient(unsigned(nif));
                         manage_client(temp_client);
 
-                    } catch (NotAClient e) {
-                        cout << e.erro << endl;
+                    } catch (NotAClient *e) {
+                        cout << e->erro << endl;
                     }
                 }
                 clearBuffer();
@@ -238,6 +241,98 @@ void menu_clients(){
     }
 }
 
+void information(){
+    unsigned opt=1;
+    while (opt!=0) {
+        clearScreen();
+        cout <<*client<<endl;
+        cout<<"[1] Edit Client"<<endl;
+        cout<<"[2] Remove Client"<<endl;
+        cout<<"[3] Edit Services"<<endl;
+        cout<<"[4] Cancel Service"<<endl;
+        cout<<"[5] See Service"<<endl;
+        cout<<"[0] Return"<<endl;
+        if(cin>>opt && opt<=5)
+        {
+            clearScreen();
+            switch (opt) {
+            case 0:{
+                return;
+            }
+            case 1:
+                //client->editClient();
+                break;
+            case 2:{
+                //Client::removeClient();
+                break;
+            }
+
+            default:
+                opt=1;
+            }
+        }
+        else{
+            opt=1;
+            clearBuffer();
+            clearScreen();
+            cout<<"Not a valid option, please try again"<<endl;
+        }
+    }
+}
+
+void clientsInformation(){
+    unsigned opt=1;
+    while (opt!=0) {
+        clearScreen();
+        cout<<"[1] Order by Nif"<<endl;
+        cout<<"[2] Order by money Spent(low to high)"<<endl;
+        cout<<"[3] Order by money Spent(high to low)"<<endl;
+        cout<<"[4] Order by number of Services"<<endl;
+        cout<<"[5] Show Clients with Services on queue"<<endl;
+        cout<<"[6] Show Clients with Services on Transit"<<endl;
+        cout<<"[7] Show Specific Client"<<endl;
+        cout<<"[0] Return"<<endl;
+        if(cin>>opt && opt<=5)
+        {
+            clearScreen();
+            switch (opt) {
+            case 0:{
+                return;
+            }
+            case 1:
+                //client->editClient();
+                break;
+            case 2:{
+                //Client::removeClient();
+                break;
+            }
+            case 3:
+                //client->editClient();
+                break;
+            case 4:{
+                //Client::removeClient();
+                break;
+            }
+            case 5:
+                //client->editClient();
+                break;
+            case 6:{
+                //Client::removeClient();
+                break;
+            }
+
+            default:
+                opt=1;
+            }
+        }
+        else{
+            opt=1;
+            clearBuffer();
+            clearScreen();
+            cout<<"Not a valid option, please try again"<<endl;
+        }
+    }
+}
 
 
 

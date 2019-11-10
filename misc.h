@@ -8,6 +8,8 @@
 
 #include "client.h"
 #include "truck.h"
+#include "company.h"
+#include "service.h"
 
 
 #define min(a,b) (((a) < (b)) ? (a) : (b))
@@ -15,6 +17,8 @@ using namespace std;
 
 class Client;
 class Truck;
+class Company;
+class Service;
 
 void clearScreen();
 vector<string> vectorString(string stringToVectorize, string separator);
@@ -36,3 +40,9 @@ bool checkNif(int nif);
 bool checkLicense(string license, vector<Truck*>* trucks);
 bool checkLicenseV2(string license);
 long askForId(string classToAsk, string what_to_do, string identifier);
+
+template<class T> bool cmp_classes(T *a,T *b);
+
+bool cmpOnQueue(Service *a,Service *b);
+
+bool cmpOnTransit(Service *a,Service *b);
