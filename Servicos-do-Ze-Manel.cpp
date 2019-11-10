@@ -202,7 +202,7 @@ void menu_clients(){
             case 1:{
                 clearBuffer();
                 Client::addClient(Company::getCompany()->getVectorClients());
-                break;
+				break;
             }
             case 2:{
                 long nif=0;
