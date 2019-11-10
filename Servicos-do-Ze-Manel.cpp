@@ -144,9 +144,9 @@ int main()
 
 void mainMenu(){
     unsigned opt=1;
-	while (opt != 0) {
-		cout<<"[0] Exit program"<<endl;
-		cout<<"[1] Clients"<<endl;
+    while (opt != 0) {
+        cout<<"[0] Exit program"<<endl;
+        cout<<"[1] Clients"<<endl;
         cout<<"[2] Trucks"<<endl;
         cout<<"[3] Services"<<endl;
         cout<<"[4] Information"<<endl;
@@ -203,7 +203,7 @@ void menu_clients(){
             case 1:{
                 clearBuffer();
                 Client::addClient(Company::getCompany()->getVectorClients());
-				break;
+                break;
             }
             case 2:{
                 long nif=0;
@@ -247,7 +247,6 @@ void menu_services(){
     while (opt!=0) {
         clearScreen();
         cout<<"[1] Add Service"<<endl;
-        cout<<"[2] Manage Service"<<endl;
         cout<<"[0] Return to Main Menu"<<endl;
         if(cin>>opt && opt<=2)
         {
@@ -264,29 +263,6 @@ void menu_services(){
                 clearBuffer();
                 clearScreen();
                 Service::addService(Company::getCompany()->getVectorServicesOnQueue(),tempClient);
-                break;
-            }
-            case 30:{
-                long nif=0;
-                Client *temp_client;
-                do{
-                    for(auto i: *Company::getCompany()->getVectorClients()){
-                        cout<<*i;
-                    }
-                }while((nif=askForId("Client","manage","Nif"))==-2);
-
-                if(nif>0){
-                    try {
-                        temp_client=Company::getCompany()->getClient(unsigned(nif));
-                        manage_client(temp_client);
-
-                    } catch (NotAClient *e) {
-                        cout << e->erro << endl;
-                    }
-                }
-                //clearBuffer(); Tem de estar comentado senão não apresenta o menu no ecrã
-                string temp;
-                getline(cin,temp);
                 break;
             }
 
@@ -461,31 +437,31 @@ void clientsInformation(){
                 break;
             }
             case 7:{
-				long nif = 0;
-				Client* temp_client;
-				do {
-					for (auto i : *Company::getCompany()->getVectorClients()) {
-						cout << *i;
-					}
-				} while ((nif = askForId("Client", "manage", "Nif")) == -2);
+                long nif = 0;
+                Client* temp_client;
+                do {
+                    for (auto i : *Company::getCompany()->getVectorClients()) {
+                        cout << *i;
+                    }
+                } while ((nif = askForId("Client", "manage", "Nif")) == -2);
 
-				if (nif > 0) {
-					try {
-						temp_client = Company::getCompany()->getClient(unsigned(nif));
-						cout << endl << *temp_client << endl;
-						cout << "Services: " << endl;
-						for(auto it = temp_client->getServicesVector()->begin(); it != temp_client->getServicesVector()->end(); it++)
-						{
-							cout << (*it) << endl;
-						}
-					}
-					catch (NotAClient * e) {
-						cout << e->erro << endl;
-					}
-				}
-				//clearBuffer(); Tem de estar comentado senão não apresenta o menu no ecrã
-				string temp;
-				getline(cin, temp);
+                if (nif > 0) {
+                    try {
+                        temp_client = Company::getCompany()->getClient(unsigned(nif));
+                        cout << endl << *temp_client << endl;
+                        cout << "Services: " << endl;
+                        for(auto it = temp_client->getServicesVector()->begin(); it != temp_client->getServicesVector()->end(); it++)
+                        {
+                            cout << (*it) << endl;
+                        }
+                    }
+                    catch (NotAClient * e) {
+                        cout << e->erro << endl;
+                    }
+                }
+                //clearBuffer(); Tem de estar comentado senão não apresenta o menu no ecrã
+                string temp;
+                getline(cin, temp);
                 break;
             }
 
@@ -502,5 +478,167 @@ void clientsInformation(){
     }
 }
 
+void servicesInformation(){
+    unsigned opt=1;
+    clearScreen();
+    while (opt!=0) {
+        cout<<"[1] Order by Begin"<<endl;
+        cout<<"[2] Order by money Spent(low to high)"<<endl;
+        cout<<"[3] Order by money Spent(high to low)"<<endl; // Não funciona
+        cout<<"[4] Order by number of Services"<<endl;
+        cout<<"[5] Show Clients with Services on queue"<<endl;
+        cout<<"[6] Show Clients with Services on Transit"<<endl;
+        cout<<"[7] Show Specific Client"<<endl;
+        cout<<"[0] Return"<<endl;
+        if(cin>>opt && opt<=7)
+        {
+            clearScreen();
+            switch (opt) {
+            case 0:{
+                return;
+            }
+            case 1:
+                if(Company::getCompany()->getVectorClients()->size())
+                    for(auto i: *Company::getCompany()->getVectorClients()){
+                        cout<<*i;
+                    }
+                else
+                    cout<<"There is no Information to show"<<endl;
+                clearBuffer();
+                enter_to_exit();
+                break;
+            case 2:{
+                vector<Client*> temp(*Company::getCompany()->getVectorClients());
+                sort(temp.begin(),temp.end(),cmp_classes<Client>);
+                if(temp.size())
+                    for(auto i: temp){
+                        cout<<*i;
+                    }
+                else
+                    cout<<"There is no Information to show"<<endl;
+                clearBuffer();
+                enter_to_exit();
+                break;
+            }
+            case 3:{
+                vector<Client*> temp(*Company::getCompany()->getVectorClients());
+                sort(temp.begin(),temp.end(),[](Client *a, Client *b)
+                {
+                    return !(a->getMoneySpent() < b->getMoneySpent());
+                }
+                );
+                if(temp.size())
+                    for(auto i: temp){
+                        cout<<*i;
+                    }
+                else
+                    cout<<"There is no Information to show"<<endl;
+                clearBuffer();
+                enter_to_exit();
+                break;
+            }
+            case 4:{
+                vector<Client*> temp(*Company::getCompany()->getVectorClients());
+                sort(temp.begin(),temp.end(),[](Client *a, Client *b)
+                {
+                    return (a->getServicesVector()->size() < b->getServicesVector()->size());
+                }
+                );
+                if(temp.size())
+                    for(auto i: temp){
+                        cout<<*i;
+                        cout<<i->getServicesVector()->size()<<endl;
+                    }
+                else
+                    cout<<"There is no Information to show"<<endl;
+                clearBuffer();
+                enter_to_exit();
+                break;
+            }
+            case 5:{
+                map<Client*, int>::iterator it;
+                map<Client*, int> temp_ocurre;
+                for(auto i: *Company::getCompany()->getVectorServicesOnQueue()){
+                    it = temp_ocurre.find(i->getClient());
+                    if(it != temp_ocurre.end()){
+                        it->second++;
+                    }
+                    else {
+                        temp_ocurre[i->getClient()]=0;
+                    }
+                }
+                if(temp_ocurre.size())
+                    for(auto i: temp_ocurre){
+                        cout<<*i.first;
+                    }
+                else
+                    cout<<"There is no Information to show"<<endl;
+                clearBuffer();
+                enter_to_exit();
+                break;
+            }
+            case 6:{
+                map<Client*, int>::iterator it;
+                map<Client*, int> temp_ocurre;
+                for(auto i: *Company::getCompany()->getVectorServicesOnTransit()){
+                    it = temp_ocurre.find(i->getClient());
+                    if(it != temp_ocurre.end()){
+                        it->second++;
+                    }
+                    else {
+                        temp_ocurre[i->getClient()]=0;
+                    }
+                }
+                if(temp_ocurre.size())
+                    for(auto i: temp_ocurre){
+                        cout<<*i.first;
+                    }
+                else
+                    cout<<"There is no Information to show"<<endl;
+                clearBuffer();
+                enter_to_exit();
+                break;
+            }
+            case 7:{
+                long nif = 0;
+                Client* temp_client;
+                do {
+                    for (auto i : *Company::getCompany()->getVectorClients()) {
+                        cout << *i;
+                    }
+                } while ((nif = askForId("Client", "manage", "Nif")) == -2);
+
+                if (nif > 0) {
+                    try {
+                        temp_client = Company::getCompany()->getClient(unsigned(nif));
+                        cout << endl << *temp_client << endl;
+                        cout << "Services: " << endl;
+                        for(auto it = temp_client->getServicesVector()->begin(); it != temp_client->getServicesVector()->end(); it++)
+                        {
+                            cout << (*it) << endl;
+                        }
+                    }
+                    catch (NotAClient * e) {
+                        cout << e->erro << endl;
+                    }
+                }
+                //clearBuffer(); Tem de estar comentado senão não apresenta o menu no ecrã
+                string temp;
+                getline(cin, temp);
+                break;
+            }
+
+            default:
+                opt=1;
+            }
+        }
+        else{
+            opt=1;
+            clearBuffer();
+            clearScreen();
+            cout<<"Not a valid option, please try again"<<endl;
+        }
+    }
+}
 
 
