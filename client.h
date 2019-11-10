@@ -28,7 +28,7 @@ public:
     string getName() const;
     float getMoneySpent() const;
     unsigned getNif() const;
-    vector<Service*> getServicesVector() const;
+    vector<Service*> *getServicesVector();
 
     //set methods
     void setName(string name);

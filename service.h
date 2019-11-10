@@ -69,8 +69,8 @@ public:
     void calcPrice();
 
     //file methods
-    static void saveToFile(vector<Service*>*services_finished, vector<Service *> *services_on_transit, vector<Service *> *services_on_queue);
-    static void loadFromFile(vector<Service *> *services_finished, vector<Service *> *services_on_transit, vector<Service *> *services_on_queue);
+    static void saveToFile(list<Service*>*services_finished, vector<Service *> *services_on_transit, vector<Service *> *services_on_queue);
+    static void loadFromFile(list<Service *> *services_finished, vector<Service *> *services_on_transit, vector<Service *> *services_on_queue);
     static Service *addService(vector<Service *> *services, Client *client=nullptr);
     void editService();
     static bool removeService(vector<Service *> *services,unsigned id);

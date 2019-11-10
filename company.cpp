@@ -16,7 +16,7 @@ Company::~Company(){
     }
 }
 
-vector<Service*> *Company::getVectorServicesFinished(){
+list<Service*> *Company::getVectorServicesFinished(){
     return &services_finished;
 }
 vector<Service*> *Company::getVectorServicesOnTransit(){

@@ -194,6 +194,7 @@ void enter_to_exit()
     {
         cout << '\n' << "Press enter to continue...";
     } while (cin.get() != '\n');
+    clearScreen();
 }
 
 bool checkLicense(string license, vector<Truck*>* trucks) {

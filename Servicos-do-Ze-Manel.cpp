@@ -1,4 +1,4 @@
-// Serviços do Zé Manel.cpp : This file contains the 'main' function. Program execution begins and ends there.
+// Serviços do Zé Manel.cpp : This file contains the 'main' function. Program execution begins and ends There.
 //
 
 #include <iostream>
@@ -6,6 +6,7 @@
 #include <cctype>
 #include <algorithm>
 #include <ctime>
+#include <map>
 
 #include "client.h"
 #include "truck.h"
@@ -105,6 +106,8 @@ void manage_client(Client *client){
 
 void mainMenu();
 void menu_clients();
+void information();
+void clientsInformation();
 
 
 /*
@@ -145,7 +148,7 @@ void mainMenu(){
         cout<<"[2] Trucks"<<endl;
         cout<<"[3] Services"<<endl;
         cout<<"[4] Information"<<endl;
-        if(cin>>opt && opt<=5)
+        if(cin>>opt && opt<=4)
         {
             clearScreen();
             switch (opt) {
@@ -165,11 +168,7 @@ void mainMenu(){
                 break;
             }
             case 4:{
-
-                break;
-            }
-            case 5:{
-
+                information();
                 break;
             }
 
@@ -245,8 +244,7 @@ void information(){
     unsigned opt=1;
     while (opt!=0) {
         clearScreen();
-        cout <<*client<<endl;
-        cout<<"[1] Edit Client"<<endl;
+        cout<<"[1] Clients"<<endl;
         cout<<"[2] Remove Client"<<endl;
         cout<<"[3] Edit Services"<<endl;
         cout<<"[4] Cancel Service"<<endl;
@@ -260,7 +258,7 @@ void information(){
                 return;
             }
             case 1:
-                //client->editClient();
+                clientsInformation();
                 break;
             case 2:{
                 //Client::removeClient();
@@ -282,8 +280,8 @@ void information(){
 
 void clientsInformation(){
     unsigned opt=1;
+    clearScreen();
     while (opt!=0) {
-        clearScreen();
         cout<<"[1] Order by Nif"<<endl;
         cout<<"[2] Order by money Spent(low to high)"<<endl;
         cout<<"[3] Order by money Spent(high to low)"<<endl;
@@ -292,7 +290,7 @@ void clientsInformation(){
         cout<<"[6] Show Clients with Services on Transit"<<endl;
         cout<<"[7] Show Specific Client"<<endl;
         cout<<"[0] Return"<<endl;
-        if(cin>>opt && opt<=5)
+        if(cin>>opt && opt<=7)
         {
             clearScreen();
             switch (opt) {
@@ -300,23 +298,108 @@ void clientsInformation(){
                 return;
             }
             case 1:
-                //client->editClient();
+                if(Company::getCompany()->getVectorClients()->size())
+                    for(auto i: *Company::getCompany()->getVectorClients()){
+                        cout<<*i;
+                    }
+                else
+                    cout<<"There is no Infoormation to show"<<endl;
+                clearBuffer();
+                enter_to_exit();
                 break;
             case 2:{
-                //Client::removeClient();
+                vector<Client*> temp(*Company::getCompany()->getVectorClients());
+                sort(temp.begin(),temp.end(),cmp_classes<Client>);
+                if(temp.size())
+                    for(auto i: temp){
+                        cout<<*i;
+                    }
+                else
+                    cout<<"There is no Infoormation to show"<<endl;
+                clearBuffer();
+                enter_to_exit();
                 break;
             }
-            case 3:
-                //client->editClient();
+            case 3:{
+                vector<Client*> temp(*Company::getCompany()->getVectorClients());
+                sort(temp.begin(),temp.end(),[](Client *a, Client *b)
+                {
+                    return !(a->getMoneySpent() < b->getMoneySpent());
+                }
+                );
+                if(temp.size())
+                    for(auto i: temp){
+                        cout<<*i;
+                    }
+                else
+                    cout<<"There is no Infoormation to show"<<endl;
+                clearBuffer();
+                enter_to_exit();
                 break;
+            }
             case 4:{
-                //Client::removeClient();
+                vector<Client*> temp(*Company::getCompany()->getVectorClients());
+                sort(temp.begin(),temp.end(),[](Client *a, Client *b)
+                {
+                    return (a->getServicesVector()->size() < b->getServicesVector()->size());
+                }
+                );
+                if(temp.size())
+                    for(auto i: temp){
+                        cout<<*i;
+                        cout<<i->getServicesVector()->size()<<endl;
+                    }
+                else
+                    cout<<"There is no Information to show"<<endl;
+                clearBuffer();
+                enter_to_exit();
                 break;
             }
-            case 5:
-                //client->editClient();
+            case 5:{
+                map<Client*, int>::iterator it;
+                map<Client*, int> temp_ocurre;
+                for(auto i: *Company::getCompany()->getVectorServicesOnQueue()){
+                    it = temp_ocurre.find(i->getClient());
+                    if(it != temp_ocurre.end()){
+                        it->second++;
+                    }
+                    else {
+                        temp_ocurre[i->getClient()]=0;
+                    }
+                }
+                if(temp_ocurre.size())
+                    for(auto i: temp_ocurre){
+                        cout<<*i.first;
+                    }
+                else
+                    cout<<"There is no Information to show"<<endl;
+                clearBuffer();
+                enter_to_exit();
                 break;
+            }
             case 6:{
+                map<Client*, int>::iterator it;
+                map<Client*, int> temp_ocurre;
+                for(auto i: *Company::getCompany()->getVectorServicesOnTransit()){
+                    it = temp_ocurre.find(i->getClient());
+                    if(it != temp_ocurre.end()){
+                        it->second++;
+                    }
+                    else {
+                        temp_ocurre[i->getClient()]=0;
+                    }
+                }
+                if(temp_ocurre.size())
+                    for(auto i: temp_ocurre){
+                        cout<<*i.first;
+                    }
+                else
+                    cout<<"There is no Information to show"<<endl;
+                clearBuffer();
+                enter_to_exit();
+                break;
+            }
+            case 7:{
                 //Client::removeClient();
                 break;
             }

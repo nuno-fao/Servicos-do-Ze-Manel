@@ -2,6 +2,7 @@
 #include <string>
 #include <vector>
 #include <algorithm>
+#include <list>
 
 #include "client.h"
 #include "service.h"
@@ -21,7 +22,7 @@ public:
     bool services_finished_changed=false,services_on_transit_changed=false,services_on_queue_changed=false;
     bool clients_changed=false;
     bool trucks_changed=false;
-    vector<Service*> *getVectorServicesFinished();
+    list<Service*> *getVectorServicesFinished();
     vector<Service*> *getVectorServicesOnTransit();
     vector<Service*> *getVectorServicesOnQueue();
     vector<Client*> *getVectorClients();
@@ -38,7 +39,8 @@ private:
     int generalRevenue; // lucro geral
     int dangerousRevenue; //lucro caminhao perigoso
     int freezeRevenue; //
-    vector<Service*> services_finished,services_on_transit,services_on_queue;
+    list<Service*> services_finished;
+    vector<Service*> services_on_transit,services_on_queue;
     vector<Client*> clients;
     vector<Truck*> trucks;
 
