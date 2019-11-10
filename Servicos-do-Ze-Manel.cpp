@@ -104,6 +104,7 @@ void manage_client(Client *client){
     }
 }
 
+void menu_services();
 void mainMenu();
 void menu_clients();
 void information();
@@ -165,7 +166,7 @@ void mainMenu(){
             }
 
             case 3:{
-
+                menu_services();
                 break;
             }
             case 4:{
@@ -205,6 +206,67 @@ void menu_clients(){
                 break;
             }
             case 2:{
+                long nif=0;
+                Client *temp_client;
+                do{
+                    for(auto i: *Company::getCompany()->getVectorClients()){
+                        cout<<*i;
+                    }
+                }while((nif=askForId("Client","manage","Nif"))==-2);
+
+                if(nif>0){
+                    try {
+                        temp_client=Company::getCompany()->getClient(unsigned(nif));
+                        manage_client(temp_client);
+
+                    } catch (NotAClient *e) {
+                        cout << e->erro << endl;
+                    }
+                }
+                //clearBuffer(); Tem de estar comentado senão não apresenta o menu no ecrã
+                string temp;
+                getline(cin,temp);
+                break;
+            }
+
+            default:
+                opt=1;
+            }
+        }
+        else{
+            opt=1;
+            clearBuffer();
+            clearScreen();
+            cout<<"Not a valid option, please try again"<<endl;
+        }
+    }
+}
+
+void menu_services(){
+    unsigned opt=1;
+    while (opt!=0) {
+        clearScreen();
+        cout<<"[1] Add Service"<<endl;
+        cout<<"[2] Manage Service"<<endl;
+        cout<<"[0] Return to Main Menu"<<endl;
+        if(cin>>opt && opt<=2)
+        {
+            clearScreen();
+            switch (opt) {
+            case 0:
+                break;
+            case 1:{
+                clearScreen();
+                for(auto i:*Company::getCompany()->getVectorClients()){
+                    cout<<*i;
+                }
+                Client *tempClient= Company::getCompany()->getClient(unsigned(askForId("Client","add a Service","Nif")));
+                clearBuffer();
+                clearScreen();
+                Service::addService(Company::getCompany()->getVectorServicesOnQueue(),tempClient);
+                break;
+            }
+            case 30:{
                 long nif=0;
                 Client *temp_client;
                 do{

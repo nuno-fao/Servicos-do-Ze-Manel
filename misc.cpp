@@ -52,7 +52,7 @@ bool strIsNumber(string str) {
         return false;
     }
     for (unsigned i = 0; i < str.length(); i++) {
-        if (!isdigit(str[i])) {
+        if (!isdigit(str[i]) && str.at(i)!=' ') {
             if (str[i] != '.') {
                 return false;
             }
