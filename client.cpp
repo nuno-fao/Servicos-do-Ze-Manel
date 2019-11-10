@@ -94,6 +94,7 @@ void Client::editClient()
 		cout << "[0] Return" << endl;
 		if (cin >> opt && opt <= 2) {
 			clearScreen();
+			clearBuffer();
 			switch (opt) {
 			case 1: {
 				string tempName;
@@ -116,7 +117,23 @@ void Client::editClient()
 				break;
 			}
 			case 2: {
-				// edit nif
+				bool variable_error = true;
+				string tempNif;
+				while (variable_error) {
+					cout << "Enter the Nif" << endl;
+
+					getline(cin, tempNif);
+					checkIfOut(tempNif);
+					clearScreen();
+					if (strIsNumber(tempNif) && tempNif.size() == 9)
+						variable_error = false;
+					else {
+						variable_error = true;
+						cout << "Nif Input not acceptable, please try again" << endl;
+					}
+				}
+
+				setNif(unsigned(stoi(tempNif)));
 				break;
 			}
 			case 0: {
