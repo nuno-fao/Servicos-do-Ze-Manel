@@ -77,10 +77,10 @@ Truck *Company::getTruck(string license){
 }
 
 
-Service *getService(unsigned id){
-
-
-}
+//Service *getService(unsigned id){
+//
+//
+//}
 
 void Company::updateTruckSituation(){
     time_t rawtime;struct tm *now;std::time( &rawtime );now = localtime( &rawtime );
