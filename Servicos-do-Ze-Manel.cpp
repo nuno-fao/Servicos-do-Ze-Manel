@@ -222,7 +222,7 @@ void menu_clients(){
                         cout << e->erro << endl;
                     }
                 }
-                clearBuffer();
+                //clearBuffer(); Tem de estar comentado senão não apresenta o menu no ecrã
                 string temp;
                 getline(cin,temp);
                 break;
@@ -283,7 +283,7 @@ void clientsInformation(){
     while (opt!=0) {
         cout<<"[1] Order by Nif"<<endl;
         cout<<"[2] Order by money Spent(low to high)"<<endl;
-        cout<<"[3] Order by money Spent(high to low)"<<endl;
+        cout<<"[3] Order by money Spent(high to low)"<<endl; // Não funciona
         cout<<"[4] Order by number of Services"<<endl;
         cout<<"[5] Show Clients with Services on queue"<<endl;
         cout<<"[6] Show Clients with Services on Transit"<<endl;
@@ -302,7 +302,7 @@ void clientsInformation(){
                         cout<<*i;
                     }
                 else
-                    cout<<"There is no Infoormation to show"<<endl;
+                    cout<<"There is no Information to show"<<endl;
                 clearBuffer();
                 enter_to_exit();
                 break;
@@ -314,7 +314,7 @@ void clientsInformation(){
                         cout<<*i;
                     }
                 else
-                    cout<<"There is no Infoormation to show"<<endl;
+                    cout<<"There is no Information to show"<<endl;
                 clearBuffer();
                 enter_to_exit();
                 break;
@@ -331,7 +331,7 @@ void clientsInformation(){
                         cout<<*i;
                     }
                 else
-                    cout<<"There is no Infoormation to show"<<endl;
+                    cout<<"There is no Information to show"<<endl;
                 clearBuffer();
                 enter_to_exit();
                 break;
@@ -399,7 +399,31 @@ void clientsInformation(){
                 break;
             }
             case 7:{
-                //Client::removeClient();
+				long nif = 0;
+				Client* temp_client;
+				do {
+					for (auto i : *Company::getCompany()->getVectorClients()) {
+						cout << *i;
+					}
+				} while ((nif = askForId("Client", "manage", "Nif")) == -2);
+
+				if (nif > 0) {
+					try {
+						temp_client = Company::getCompany()->getClient(unsigned(nif));
+						cout << endl << *temp_client << endl;
+						cout << "Services: " << endl;
+						for(auto it = temp_client->getServicesVector()->begin(); it != temp_client->getServicesVector()->end(); it++)
+						{
+							cout << (*it) << endl;
+						}
+					}
+					catch (NotAClient * e) {
+						cout << e->erro << endl;
+					}
+				}
+				//clearBuffer(); Tem de estar comentado senão não apresenta o menu no ecrã
+				string temp;
+				getline(cin, temp);
                 break;
             }
 

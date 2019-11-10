@@ -160,7 +160,6 @@ bool Client::operator<(const Client &a) const{
 }
 
 ostream& operator<<(ostream& out, const Client& client) {
-    out << "*********************************" << endl;
     out << "Name:" << client.name << endl;
     out << "NIF: " << client.nif << endl;
     // Print services
@@ -196,41 +195,6 @@ void Client::calcMoneySpent(){
 
 // Options for Client Management in the User Interface
 
-//Prints the menu and asks the user what option to choose
-
-//void runClientsMenu(vector<Client>& clientsVector) {
-//	int option;
-//
-//	cout << "Welcome to the Clients Menu! Please choose what you want to do: ";
-//	cout << endl << endl;
-//	cout << "0. Go back" << endl;
-//	cout << "1. Create a new client." << endl;
-//	cout << "2. Change a client information." << endl;
-//	cout << "3. Remove a client" << endl;
-//	cout << "4. See information from all clients. " << endl;
-//	cout << "5. See information from a specific client. " << endl;
-//	// Eventually add more functions
-//	cout << "Insert the number correspondent to your option: ";
-//	cin >> option;
-//
-//	while (cin.fail() || option < 0 || option > 8)
-//	{
-//		cout << "Invalid option, please insert the option again: ";
-//		clearBuffer();
-//		cin >> option;
-//	}
-//
-//	clearBuffer();
-//
-//	if (option == 0) { /*Correr Menu inicial*/ }
-//	if (option == 1) { createClientOption(clientsVector); }
-//	if (option == 2) { modifyClientOption(clientsVector); }
-//	if (option == 3) { removeClientOption(clientsVector); }
-//	if (option == 4) { showAllClients(clientsVector); }
-//	if (option == 5) { showClientOption(clientsVector); }
-//
-//	// Correr menu inicial de novo (quando acaba a operacao escolhida)
-//}
 //
 ////Asks for client information and returns a client
 //Client askForClientsInformation(vector<Client> clientsVector) {
