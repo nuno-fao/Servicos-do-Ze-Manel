@@ -202,8 +202,14 @@ void menu_clients(){
             case 0:
                 break;
             case 1:{
-                clearBuffer();
-                Client::addClient(Company::getCompany()->getVectorClients());
+                try {
+                    clearBuffer();
+                    Client::addClient(Company::getCompany()->getVectorClients());
+                }
+                catch(...){
+
+                }
+
                 break;
             }
             case 2:{
@@ -220,13 +226,13 @@ void menu_clients(){
                         temp_client=Company::getCompany()->getClient(unsigned(nif));
                         manage_client(temp_client);
 
-                    } catch (NotAClient *e) {
-                        cout << e->erro << endl;
+                    } catch (NotAClient e) {
+                        clearScreen();
+                        clearBuffer();
+                        cout << e.erro<<"erty" << endl;
+                        enter_to_exit();
                     }
                 }
-                //clearBuffer(); Tem de estar comentado senão não apresenta o menu no ecrã
-                string temp;
-                getline(cin,temp);
                 break;
             }
 
@@ -531,7 +537,7 @@ void infoEveryServices(){
     while (opt!=0) {
         cout<<"[1] Every Service"<<endl;
         cout<<"[2] Services On Queue"<<endl;
-        cout<<"[3] Services On Transit"<<endl; // Não funciona
+        cout<<"[3] Services On Transit"<<endl;
         cout<<"[4] Services Finished"<<endl;
         cout<<"[0] Return"<<endl;
         if(cin>>opt && opt<=4)

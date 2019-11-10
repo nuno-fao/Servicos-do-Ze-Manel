@@ -90,7 +90,14 @@ void Company::updateTruckSituation(){
     Date f(unsigned(now->tm_year-100),1+date_u_short(now->tm_mon),date_u_short(now->tm_mday),date_u_short(now->tm_hour),date_u_short(now->tm_min));
 
     for(auto it=services_on_transit.begin(); it!= services_on_transit.end();it++){
-        if(*(*it)->getADate()<=f){
+        try {
+            (*it)->getId();
+        } catch (...) {
+            it=services_on_transit.erase(it);
+            continue;
+        }
+
+        if(*(*it)->getADate()>=f){
             break;
         }
         else{
@@ -104,7 +111,13 @@ void Company::updateTruckSituation(){
     }
 
     for(auto it=services_on_queue.begin(); it!= services_on_queue.end();it++){
-        if(*(*it)->getIDate()<=f){
+        try {
+            (*it)->getId();
+        } catch (...) {
+            it=services_on_queue.erase(it);
+            continue;
+        }
+        if(*(*it)->getIDate()>=f){
             break;
         }
         else{
@@ -127,7 +140,16 @@ void Company::updateServicesSituation(){
     Date f(unsigned(now->tm_year-100),1+date_u_short(now->tm_mon),date_u_short(now->tm_mday),date_u_short(now->tm_hour),date_u_short(now->tm_min));
 
     for(auto it=services_on_transit.begin(); it!= services_on_transit.end();it++){
-        if(*(*it)->getADate()<=f){
+        try {
+            (*it)->getId();
+        } catch (...) {
+            it=services_on_transit.erase(it);
+            continue;
+        }
+        if(*(*it)->getIDate()>=f){
+            break;
+        }
+        if(*(*it)->getADate()>=f){
             break;
         }
         else{
@@ -136,7 +158,16 @@ void Company::updateServicesSituation(){
     }
 
     for(auto it=services_on_queue.begin(); it!= services_on_queue.end();it++){
-        if(*(*it)->getIDate()<=f){
+        try {
+            (*it)->getId();
+        } catch (...) {
+            it=services_on_queue.erase(it);
+            continue;
+        }
+        if(*(*it)->getIDate()>=f){
+            break;
+        }
+        if(*(*it)->getIDate()>=f){
             break;
         }
         else{
