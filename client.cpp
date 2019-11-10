@@ -47,8 +47,6 @@ void Client::addService(Service *service){
 }
 
 void Client::addClient(vector<Client *> *clientsVector) {
-
-
     clearScreen();
     string tempName;
     string tempNif;
@@ -84,6 +82,45 @@ void Client::addClient(vector<Client *> *clientsVector) {
     Client *tempClient = new Client(tempName,unsigned(stoi(tempNif)));
     clientsVector->push_back(tempClient);
 
+}
+
+void Client::editClient(vector<Client*>& clientsVector)
+{
+	//clearScreen();
+	//string tempName;
+	//string tempNif;
+	//bool variable_error = true;
+	//while (variable_error) {
+	//	cout << "Enter the Name" << endl;
+
+	//	getline(cin, tempName);
+	//	checkIfOut(tempName);
+	//	clearScreen();
+	//	if (strIsChar(tempName))
+	//		variable_error = false;
+	//	else {
+	//		variable_error = true;
+	//		cout << "Name Input not acceptable, please try again" << endl;
+	//	}
+
+	//}
+	//variable_error = true;
+	//while (variable_error) {
+	//	cout << "Enter the Nif" << endl;
+
+	//	getline(cin, tempNif);
+	//	checkIfOut(tempNif);
+	//	clearScreen();
+	//	if (strIsNumber(tempNif) && tempNif.size() == 9)
+	//		variable_error = false;
+	//	else {
+	//		variable_error = true;
+	//		cout << "Nif Input not acceptable, please try again" << endl;
+	//	}
+	//}
+
+	//Client* tempClient = new Client(tempName, unsigned(stoi(tempNif)));
+	//clientsVector->push_back(tempClient);
 }
 
 // Removes client from the vector
