@@ -155,7 +155,7 @@ void Truck::loadFromFile(vector<Truck*>* trucks) {
     bool avai, regist;
     unsigned short cap, carg;
     vector<string> auxVec;
-    truckfile.open("./files/trucks.txt");
+    truckfile.open("files//trucks.txt");
     if (!truckfile.is_open()) { throw FailedToOpenTrucks(); }
     //load hazard multipliers for hazardous cargo trucks
     getline(truckfile, aux);
