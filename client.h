@@ -80,6 +80,19 @@ public:
 	}
 };
 
+class ClientNotInVector {
+public:
+	~ClientNotInVector();
+	string erro;
+	unsigned nif;
+	ClientNotInVector(unsigned nif_n, string erro) : erro(erro) {
+		this->nif = nif_n;
+	}
+	unsigned int getNif() const {
+		return nif;
+	}
+};
+
 
 
 class CantOpenClientFile{

@@ -32,19 +32,18 @@ void manage_client(Client *client){
         {
             clearScreen();
             switch (opt) {
-            case 1:
+			case 0: {
+				return;
+			}
+			case 1:
 				clearBuffer();
 				client->editClient();
                 break;
             case 2:{
 				clearBuffer();
 				client->removeClient(*Company::getCompany()->getVectorClients());
-                break;
+				return;
             }
-            case 0:{
-                return;
-            }
-
             case 3:{
 
                 long id=long(0);

@@ -154,19 +154,17 @@ void Client::editClient()
 void Client::removeClient(vector<Client*>& clientsVector) {
 	Client *client;
 
-    size_t last_pos = clientsVector.size() - 1;
-    for (size_t i = 0; i < clientsVector.size(); i++)
-    {
-        client = clientsVector[i];
-        if (*this == *client) {
-            clientsVector[i] = clientsVector[last_pos];
-            clientsVector.pop_back();
-            break;
-        }
-    }
-
-	cout << "Client removed sucessfully" << endl;
-	enter_to_exit();
+	for (auto it = clientsVector.begin(); it != clientsVector.end(); it++)
+	{
+		if ((*it)->getNif() == nif) {
+			(*it)->~Client();
+			clientsVector.erase(it);
+			cout << "Client removed sucessfully" << endl;
+			enter_to_exit();
+			return;
+		}
+	}
+	throw ClientNotInVector(nif, "Client doesn't exist");
 }
 
 
@@ -252,6 +250,10 @@ ostream& operator<<(ostream& out, const Client& client) {
 ClientInVector::~ClientInVector(){
 }
 
+ClientNotInVector::~ClientNotInVector(){
+}
+
+
 CantOpenClientFile::~CantOpenClientFile(){
 
 }
@@ -269,79 +271,3 @@ void Client::calcMoneySpent(){
         money_spent+=i->getTotalPrice();
     }
 }
-
-
-// ----------------------- //
-
-// Options for Client Management in the User Interface
-
-//
-////Asks for client information and returns a client
-//Client askForClientsInformation(vector<Client> clientsVector) {
-//	Client client;
-//
-//	string name;
-//	int zeroIfNotInFile = 0;
-//	int nif;
-//	int familyNumber;
-//	bool inDatabase = false;
-//	string addressText;
-//	vector<int> touristicPacksBought;
-//	touristicPacksBought.push_back(0);
-//
-//	cout << "Name: ";
-//	getline(cin, name);
-//
-//	cout << "NIF: ";
-//	cin >> nif;
-//	checkNif(nif);
-//	cin.clear();
-//	cin.ignore(10000, '\n');
-//
-//	for (int i = 0; i < clientsVector.size(); i++) {
-//		if (clientsVector[i].getNif() == nif) {
-//			inDatabase = true;
-//			break;
-//		}
-//	}
-//
-//	while (inDatabase) // DEVO FAZER ESTA VERIFICACAO AO ADICIONAR O CLIENTE OU AQUI???
-//		// fazer exceptions em qualquer um dos casos
-//	{
-//		cout << "NIF is already in the database, please insert again: ";
-//		cin >> nif;
-//		checkNif(nif);
-//		cin.clear();
-//		cin.ignore(10000, '\n');
-//
-//		for (int i = 0; i < clientsVector.size(); i++)
-//		{
-//			zeroIfNotInFile = 0;
-//			if (clientsVector[i].getNif() == nif) {
-//				zeroIfNotInFile += 1;
-//				break;
-//			}
-//		}
-//		if (zeroIfNotInFile == 0)
-//			inDatabase = false;
-//	}
-//
-//	client.setName(name);
-//	client.setNif(nif);
-//	// set services
-//	return client;
-//}
-//
-//
-////Asks the user for data and adds a new client to clientsvector
-//void createClientOption(vector<Client>& clientsVector) {
-//	Client client;
-//
-//	cout << "Please insert the data of your new client" << endl << endl;
-//
-//	client = askForClientsInformation(clientsVector);
-//	client.addClient(clientsVector);
-//
-//	cout << endl << endl << "Client created successfully!";
-//	menuSeparator();
-//}
