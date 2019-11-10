@@ -5,7 +5,7 @@ unsigned int Service::lastId=0;
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!SERVICE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 //constructors
-Service::Service(string material, string origin, string destination, Date *arrivalDate, unsigned distance, enum type type, enum state state, Date *date, Client *client, float quantity)
+Service::Service(string material, Address origin, Address destination, Date *arrivalDate, unsigned distance, enum type type, enum state state, Date *date, Client *client, float quantity)
     : material(material), distance(distance), quantity(quantity), ser_type(type), ser_state(state)
 {
     
@@ -548,6 +548,7 @@ void Service::saveToFile(list<Service*> *services_finished,vector<Service*>*serv
         servicesFile << x->getTotalPrice() <<endl;
         servicesFile << ":::::::::::"<<endl;
     }
+    servicesFile.close();
     servicesFile.open("./files/on_queue_services.txt");
     for(auto x:*services_on_queue){
         servicesFile << x->getMaterial()<<endl;
@@ -569,6 +570,7 @@ void Service::saveToFile(list<Service*> *services_finished,vector<Service*>*serv
         servicesFile << x->getTotalPrice() <<endl;
         servicesFile << ":::::::::::"<<endl;
     }
+    servicesFile.close();
     servicesFile.open("./files/on_transit_services.txt");
     for(auto x:*services_on_transit){
         servicesFile << x->getMaterial()<<endl;
@@ -637,10 +639,14 @@ Service *Service::addService(vector<Service *> *services,Client *client){
                     string postal_code;
                     cin>>postal_code;
                     vector<string> temp_postal_code= vectorString(postal_code,"-");
-                    if(temp_postal_code.size()==2 && strIsNumber(temp_postal_code.at(0)) && strIsNumber(temp_postal_code.at(1))){
+                    if(temp_postal_code.size()==2 && strIsNumber(temp_postal_code.at(0)) && strIsNumber(temp_postal_code.at(1)) && temp_postal_code.at(0).size()==4 && temp_postal_code.at(1).size()==3){
                         origin=Address(temp_address_no_pc.at(0),date_u_short(stoi(temp_address_no_pc.at(1))),postal_code,temp_address_no_pc.at(2));
                         variable_error=false;
                         break;
+                    }
+                    else{
+                        clearScreen();
+                        cout<<"Postal code not acceptable\nEnter the Origin postal code (xxxx-yyy)"<<endl;
                     }
 
                 }
@@ -655,10 +661,14 @@ Service *Service::addService(vector<Service *> *services,Client *client){
                     string postal_code;
                     cin>>postal_code;
                     vector<string> temp_postal_code= vectorString(postal_code,"-");
-                    if(temp_postal_code.size()==2 && strIsNumber(temp_postal_code.at(0)) && strIsNumber(temp_postal_code.at(1))){
+                    if(temp_postal_code.size()==2 && strIsNumber(temp_postal_code.at(0)) && strIsNumber(temp_postal_code.at(1)) && temp_postal_code.at(0).size()==4 && temp_postal_code.at(1).size()==3){
                         origin=Address("",0,postal_code,temp_address_no_pc.at(0));
                         variable_error=false;
                         break;
+                    }
+                    else{
+                        clearScreen();
+                        cout<<"Postal code not acceptable\nEnter the Origin postal code (xxxx-yyy)"<<endl;
                     }
 
                 }
@@ -674,6 +684,8 @@ Service *Service::addService(vector<Service *> *services,Client *client){
 
     }
 
+    clearScreen();
+    clearBuffer();
     print.push_back(tempOrigin);
     //set destination
     variable_error=true;
@@ -686,38 +698,45 @@ Service *Service::addService(vector<Service *> *services,Client *client){
         if(temp_address_no_pc.size()==3){
             clearScreen();
             if(strIsChar(temp_address_no_pc.at(2)) && strIsNumber(temp_address_no_pc.at(1))){
-                variable_error=false;
                 cout<<"Enter the Destination postal code (xxxx-yyy)"<<endl;
                 while(true){
                     string postal_code;
                     cin>>postal_code;
                     vector<string> temp_postal_code= vectorString(postal_code,"-");
-                    if(temp_postal_code.size()==2 && strIsNumber(temp_postal_code.at(0)) && strIsNumber(temp_postal_code.at(1))){
-                        origin=Address(temp_address_no_pc.at(0),date_u_short(stoi(temp_address_no_pc.at(1))),postal_code,temp_address_no_pc.at(2));
+                    if(temp_postal_code.size()==2 && strIsNumber(temp_postal_code.at(0)) && strIsNumber(temp_postal_code.at(1)) && temp_postal_code.at(0).size()==4 && temp_postal_code.at(1).size()==3){
+                        destination=Address(temp_address_no_pc.at(0),date_u_short(stoi(temp_address_no_pc.at(1))),postal_code,temp_address_no_pc.at(2));
+                        variable_error=false;
                         break;
+                    }
+                    else{
+                        clearScreen();
+                        cout<<"Postal code not acceptable\nEnter the Destination postal code (xxxx-yyy)"<<endl;
                     }
 
                 }
-                variable_error=false;
 
             }
         }
         else if(temp_address_no_pc.size()==1 && strIsChar(temp_address_no_pc.at(0))){
             clearScreen();
-            if(strIsChar(temp_address_no_pc.at(2)) && strIsNumber(temp_address_no_pc.at(1))){
-                variable_error=false;
+            if(strIsChar(temp_address_no_pc.at(0))){
                 cout<<"Enter the Destination postal code (xxxx-yyy)"<<endl;
                 while(true){
                     string postal_code;
                     cin>>postal_code;
                     vector<string> temp_postal_code= vectorString(postal_code,"-");
-                    if(temp_postal_code.size()==2 && strIsNumber(temp_postal_code.at(0)) && strIsNumber(temp_postal_code.at(1))){
+                    if(temp_postal_code.size()==2 && strIsNumber(temp_postal_code.at(0)) && strIsNumber(temp_postal_code.at(1)) && temp_postal_code.at(0).size()==4 && temp_postal_code.at(1).size()==3){
                         origin=Address("",0,postal_code,temp_address_no_pc.at(0));
+
+                        variable_error=false;
                         break;
+                    }
+                    else{
+                        clearScreen();
+                        cout<<"Postal code not acceptable\nEnter the Destination postal code (xxxx-yyy)"<<endl;
                     }
 
                 }
-                variable_error=false;
 
             }
 
@@ -732,7 +751,7 @@ Service *Service::addService(vector<Service *> *services,Client *client){
 
 
 
-
+    clearBuffer();
     variable_error=true;
     string tempString;
     vector<string> tempVector;
@@ -1248,13 +1267,13 @@ Hour:
     Service *temp_service;
     switch (stoi(tempType)) {
     case hazardous:
-        temp_service=new  HazardousService(tempMaterial,tempOrigin,tempDestination,temp_date_arrival,0,intToType(stoi(tempType)),on_queue,temp_date,client,stoi(temp_quantity),Hazard_enum::explosives);
+        temp_service=new  HazardousService(tempMaterial,origin,destination,temp_date_arrival,unsigned(stoi(tempDistance)),intToType(stoi(tempType)),on_queue,temp_date,client,stoi(temp_quantity),Hazard_enum::explosives);
         break;
     case lowTemperature:
-        temp_service=new TemperatureService(tempMaterial, tempOrigin,tempDestination,temp_date_arrival,0,intToType(stoi(tempType)),on_queue,temp_date,client,stoi(temp_quantity),Temperature_enum::_200);
+        temp_service=new TemperatureService(tempMaterial, origin,destination,temp_date_arrival,unsigned(stoi(tempDistance)),intToType(stoi(tempType)),on_queue,temp_date,client,stoi(temp_quantity),Temperature_enum::_200);
         break;
     default:
-        temp_service=new Service(tempMaterial, tempOrigin,tempDestination,temp_date_arrival,0,intToType(stoi(tempType)),on_queue,temp_date,client,stoi(temp_quantity));
+        temp_service=new Service(tempMaterial,origin,destination,temp_date_arrival,unsigned(stoi(tempDistance)),intToType(stoi(tempType)),intToState(0),temp_date,client,stoi(temp_quantity));
     }
     services->push_back(temp_service);
     Company::getCompany()->services_on_queue_changed=true;
@@ -1385,7 +1404,7 @@ bool Service::removeService(vector<Service *> *services, unsigned id){
 }
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!Hazardous
 //constructor
-HazardousService::HazardousService(string material_h, string origin_h, string destination_h, Date *arrivalDate_h, unsigned distance_h, enum type type_h, enum state state_h, Date *date_h, Client *client_h,float quantity_h,Hazard_enum type): Service(material_h,origin_h,destination_h,arrivalDate_h,distance_h,type_h,state_h,date_h,client_h,quantity_h),type(type)
+HazardousService::HazardousService(string material_h, Address origin_h, Address destination_h, Date *arrivalDate_h, unsigned distance_h, enum type type_h, enum state state_h, Date *date_h, Client *client_h,float quantity_h,Hazard_enum type): Service(material_h,origin_h,destination_h,arrivalDate_h,distance_h,type_h,state_h,date_h,client_h,quantity_h),type(type)
 {
     calcPrice();
     
@@ -1401,7 +1420,7 @@ TemperatureService::TemperatureService(string material_s, string origin_s, strin
 {
 
 }
-TemperatureService::TemperatureService(string material_s, string origin_s, string destination_s, Date *arrivalDate_s, unsigned distance_s, enum type type_s, enum state state_s, Date *date_s, Client *client_s,float quantity_s,Temperature_enum type): Service(material_s,origin_s,destination_s,arrivalDate_s,distance_s,type_s,state_s,date_s,client_s,quantity_s) ,type(type)
+TemperatureService::TemperatureService(string material_s, Address origin_s, Address destination_s, Date *arrivalDate_s, unsigned distance_s, enum type type_s, enum state state_s, Date *date_s, Client *client_s,float quantity_s,Temperature_enum type): Service(material_s,origin_s,destination_s,arrivalDate_s,distance_s,type_s,state_s,date_s,client_s,quantity_s) ,type(type)
 {
     calcPrice();
 }

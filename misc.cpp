@@ -5,6 +5,7 @@
 #ifdef _WIN32
 void clearScreen() {
     system("cls"); system("cls");
+    Company::getCompany()->updateServicesSituation();
     Company::getCompany()->updateTruckSituation();
 }
 #endif
@@ -12,6 +13,7 @@ void clearScreen() {
 #ifdef linux
 void clearScreen() {
     system("clear"); system("clear");
+    Company::getCompany()->updateServicesSituation();
     Company::getCompany()->updateTruckSituation();
 }
 #endif

@@ -31,6 +31,7 @@ public:
     Truck *getTruck(string license);
     Service *getService(unsigned id);
     void updateTruckSituation();
+    void updateServicesSituation();
 
 
 private:
