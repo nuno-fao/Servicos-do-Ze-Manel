@@ -306,7 +306,7 @@ void Service::loadFromFile(list<Service*> *services_finished,vector<Service*> *s
         getline(servicesFile,tempGeneral);
     }
 
-
+    servicesFile.close();
     servicesFile.open("./files/on_transit_services.txt");
     while(getline(servicesFile,tempMaterial)){
 
@@ -419,7 +419,7 @@ void Service::loadFromFile(list<Service*> *services_finished,vector<Service*> *s
         getline(servicesFile,tempGeneral);
     }
 
-
+    servicesFile.close();
     servicesFile.open("./files/finished_services.txt");
     while(getline(servicesFile,tempMaterial)){
 
@@ -1515,7 +1515,7 @@ bool Service::removeService(vector<Service *> *services, unsigned id){
             (*i)->~Service();
             services->erase(i);
             Company::getCompany()->services_on_queue_changed=true;
-            break;
+            return true;
         }
         else if((*i)->getState()!=on_queue){
             cout<<"couldn't remove service, already finished or or route"<<endl;
