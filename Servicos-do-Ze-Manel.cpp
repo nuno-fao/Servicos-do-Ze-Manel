@@ -302,7 +302,7 @@ void clientsInformation(){
                         cout<<*i;
                     }
                 else
-                    cout<<"There is no Infoormation to show"<<endl;
+                    cout<<"There is no Information to show"<<endl;
                 clearBuffer();
                 enter_to_exit();
                 break;
@@ -410,8 +410,12 @@ void clientsInformation(){
 				if (nif > 0) {
 					try {
 						temp_client = Company::getCompany()->getClient(unsigned(nif));
-						cout << *temp_client << endl;
-
+						cout << endl << *temp_client << endl;
+						cout << "Services: " << endl;
+						for(auto it = temp_client->getServicesVector()->begin(); it != temp_client->getServicesVector()->end(); it++)
+						{
+							cout << (*it) << endl;
+						}
 					}
 					catch (NotAClient * e) {
 						cout << e->erro << endl;
