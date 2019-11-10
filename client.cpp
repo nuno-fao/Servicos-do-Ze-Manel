@@ -84,43 +84,55 @@ void Client::addClient(vector<Client *> *clientsVector) {
 
 }
 
-void Client::editClient(vector<Client*>& clientsVector)
+void Client::editClient()
 {
-	//clearScreen();
-	//string tempName;
-	//string tempNif;
-	//bool variable_error = true;
-	//while (variable_error) {
-	//	cout << "Enter the Name" << endl;
+	unsigned opt = 1;
+	while (opt != 0) {
+		clearScreen();
+		cout << "[1] Edit Name" << endl;
+		cout << "[2] Edit Nif" << endl;
+		cout << "[0] Return" << endl;
+		if (cin >> opt && opt <= 2) {
+			clearScreen();
+			switch (opt) {
+			case 1: {
+				string tempName;
+				bool variable_error = true;
+				while (variable_error) {
+					cout << "Enter the Name" << endl;
 
-	//	getline(cin, tempName);
-	//	checkIfOut(tempName);
-	//	clearScreen();
-	//	if (strIsChar(tempName))
-	//		variable_error = false;
-	//	else {
-	//		variable_error = true;
-	//		cout << "Name Input not acceptable, please try again" << endl;
-	//	}
+					getline(cin, tempName);
+					checkIfOut(tempName);
+					clearScreen();
+					if (strIsChar(tempName))
+						variable_error = false;
+					else {
+						variable_error = true;
+						cout << "Name Input not acceptable, please try again" << endl;
+					}
+				}
 
-	//}
-	//variable_error = true;
-	//while (variable_error) {
-	//	cout << "Enter the Nif" << endl;
-
-	//	getline(cin, tempNif);
-	//	checkIfOut(tempNif);
-	//	clearScreen();
-	//	if (strIsNumber(tempNif) && tempNif.size() == 9)
-	//		variable_error = false;
-	//	else {
-	//		variable_error = true;
-	//		cout << "Nif Input not acceptable, please try again" << endl;
-	//	}
-	//}
-
-	//Client* tempClient = new Client(tempName, unsigned(stoi(tempNif)));
-	//clientsVector->push_back(tempClient);
+				setName(tempName);
+				break;
+			}
+			case 2: {
+				// edit nif
+				break;
+			}
+			case 0: {
+				return;
+			}
+			default:
+				opt = 1;
+			}
+		}
+		else {
+			opt = 1;
+			clearBuffer();
+			clearScreen();
+			cout << "Not a valid option, please try again" << endl;
+		}
+	}
 }
 
 // Removes client from the vector

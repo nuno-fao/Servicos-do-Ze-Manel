@@ -22,7 +22,7 @@ public:
   	static void loadClients(vector<Client*>& clientsVector);
 	static void saveToFile(vector<Client*>& clientsVector);
 
-	void editClient(vector<Client*>& clientsVector);
+	void editClient();
 	void removeClient(vector<Client *> &clientsVector);
 	
     //get methods

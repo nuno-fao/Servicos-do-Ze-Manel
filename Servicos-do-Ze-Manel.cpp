@@ -33,7 +33,7 @@ void manage_client(Client *client){
             clearScreen();
             switch (opt) {
             case 1:
-                //client->editClient(Company::getCompany()->getVectorClients());
+                client->editClient();
                 break;
             case 2:{
                 //Client::removeClient();
@@ -202,7 +202,23 @@ void menu_clients(){
                 break;
             case 1:{
                 clearBuffer();
-                Client::addClient(Company::getCompany()->getVectorClients());
+				string tempName;
+				bool variable_error = true;
+				while (variable_error) {
+					cout << "Enter the Name" << endl;
+
+					getline(cin, tempName);
+					checkIfOut(tempName);
+					clearScreen();
+					if (strIsChar(tempName))
+						variable_error = false;
+					else {
+						variable_error = true;
+						cout << "Name Input not acceptable, please try again" << endl;
+					}
+
+				}
+
 				break;
             }
             case 2:{
