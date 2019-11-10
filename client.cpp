@@ -2,8 +2,6 @@
 
 // TODO: excecoes, verificacoes, hipotese de cancelar com !q, usar enter_to_exit() nos menus
 // Confirmar alteracoes do cliente com Y/N?
-// Descomentar misc 126
-
 
 Client::Client() {}
 
@@ -13,7 +11,7 @@ Client::Client(Client const &x){
 }
 
 Client::Client(string name, unsigned int nif, vector<Service*> *services): name(name), nif(nif){
-    if(services==nullptr)
+	if(services==nullptr)
         services=new vector<Service*>;
 
     //if (!checkNif(nif))

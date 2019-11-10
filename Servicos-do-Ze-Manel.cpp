@@ -143,8 +143,9 @@ int main()
 
 void mainMenu(){
     unsigned opt=1;
-    while (opt!=0) {
-        cout<<"[1] Clients"<<endl;
+	while (opt != 0) {
+		cout<<"[0] Exit program"<<endl;
+		cout<<"[1] Clients"<<endl;
         cout<<"[2] Trucks"<<endl;
         cout<<"[3] Services"<<endl;
         cout<<"[4] Information"<<endl;
