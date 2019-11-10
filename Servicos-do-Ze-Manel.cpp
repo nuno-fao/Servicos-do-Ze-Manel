@@ -33,7 +33,7 @@ void manage_client(Client *client){
             clearScreen();
             switch (opt) {
             case 1:
-                //client->editClient();
+                //client->editClient(Company::getCompany()->getVectorClients());
                 break;
             case 2:{
                 //Client::removeClient();

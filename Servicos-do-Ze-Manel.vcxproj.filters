@@ -36,6 +36,9 @@
     <ClCompile Include="Servicos-do-Ze-Manel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Address.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="client.h">
@@ -54,6 +57,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="truck.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Address.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
