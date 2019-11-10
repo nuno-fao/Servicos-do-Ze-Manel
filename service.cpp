@@ -639,18 +639,17 @@ Service *Service::addService(vector<Service *> *services,Client *client){
                     vector<string> temp_postal_code= vectorString(postal_code,"-");
                     if(temp_postal_code.size()==2 && strIsNumber(temp_postal_code.at(0)) && strIsNumber(temp_postal_code.at(1))){
                         origin=Address(temp_address_no_pc.at(0),date_u_short(stoi(temp_address_no_pc.at(1))),postal_code,temp_address_no_pc.at(2));
+                        variable_error=false;
                         break;
                     }
 
                 }
-                variable_error=false;
 
             }
         }
         else if(temp_address_no_pc.size()==1 && strIsChar(temp_address_no_pc.at(0))){
             clearScreen();
-            if(strIsChar(temp_address_no_pc.at(2)) && strIsNumber(temp_address_no_pc.at(1))){
-                variable_error=false;
+            if(strIsChar(temp_address_no_pc.at(0))){
                 cout<<"Enter the Origin postal code (xxxx-yyy)"<<endl;
                 while(true){
                     string postal_code;
@@ -658,11 +657,11 @@ Service *Service::addService(vector<Service *> *services,Client *client){
                     vector<string> temp_postal_code= vectorString(postal_code,"-");
                     if(temp_postal_code.size()==2 && strIsNumber(temp_postal_code.at(0)) && strIsNumber(temp_postal_code.at(1))){
                         origin=Address("",0,postal_code,temp_address_no_pc.at(0));
+                        variable_error=false;
                         break;
                     }
 
                 }
-                variable_error=false;
 
             }
 
