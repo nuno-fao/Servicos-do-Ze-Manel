@@ -23,7 +23,7 @@ void manage_client(Client *client){
         clearScreen();
         cout <<*client<<endl;
         cout<<"[1] Edit Client"<<endl;
-		cout<<"[2] Remove Client"<<endl;
+        cout<<"[2] Remove Client"<<endl;
         cout<<"[3] Edit Services"<<endl;
         cout<<"[4] Cancel Service"<<endl;
         cout<<"[5] See Service"<<endl;
@@ -33,12 +33,10 @@ void manage_client(Client *client){
             clearScreen();
             switch (opt) {
             case 1:
-				clearBuffer();
-				client->editClient();
+                //client->editClient(Company::getCompany()->getVectorClients());
                 break;
             case 2:{
-				clearBuffer();
-				client->removeClient(*Company::getCompany()->getVectorClients());
+                //Client::removeClient();
                 break;
             }
             case 0:{
@@ -51,7 +49,7 @@ void manage_client(Client *client){
                 Service *temp_client = nullptr;
                 do{
                     for(auto i: *Company::getCompany()->getVectorServicesOnQueue()){
-                        cout<<i;
+                        cout<<"("<<i->getId()<<") "<<i->getMaterial()<<"   "<<i->getIDate()->getYear()<<"/"<<i->getIDate()->getMonth()<<"/"<<i->getIDate()->getDay()<<", "<<i->getIDate()->getHour()<<":"<<i->getIDate()->getMinute()<<endl;
                     }
                 }while((id=askForId("Service","Edit","Id"))==-2);
                 clearScreen();
@@ -71,7 +69,7 @@ void manage_client(Client *client){
                 Service *temp_client = nullptr;
                 do{
                     for(auto i: *Company::getCompany()->getVectorServicesOnQueue()){
-                        cout<<i;
+                        cout<<"("<<i->getId()<<") "<<i->getMaterial()<<"   "<<i->getIDate()->getYear()<<"/"<<i->getIDate()->getMonth()<<"/"<<i->getIDate()->getDay()<<", "<<i->getIDate()->getHour()<<":"<<i->getIDate()->getMinute()<<endl;
                     }
                 }while((id=askForId("Service","Remove","Id"))==-2);
                 clearScreen();
@@ -89,13 +87,7 @@ void manage_client(Client *client){
 
             }
             case 5:{
-				clearBuffer();
-				cout << "Services: " << endl;
-				for (auto it = client->getServicesVector()->begin(); it != client->getServicesVector()->end(); it++)
-				{
-					cout << (*it) << endl;
-				}
-				enter_to_exit();
+                cout<<*client;
                 break;
             }
 
@@ -117,6 +109,7 @@ void mainMenu();
 void menu_clients();
 void information();
 void clientsInformation();
+void infoEveryServices(),infoOnQueueServices(),infoOnTransitServices(),infoFinishedServices();
 
 
 /*
@@ -144,7 +137,6 @@ int main()
     //vector<Truck*> a(*Ze_Manel->getVectorTrucks());
     string temp;
     mainMenu();
-	Client::saveToFile(*Ze_Manel->getVectorClients());
     delete Ze_Manel;
 
 
@@ -153,9 +145,9 @@ int main()
 
 void mainMenu(){
     unsigned opt=1;
-	while (opt != 0) {
-		cout<<"[0] Exit program"<<endl;
-		cout<<"[1] Clients"<<endl;
+    while (opt != 0) {
+        cout<<"[0] Exit program"<<endl;
+        cout<<"[1] Clients"<<endl;
         cout<<"[2] Trucks"<<endl;
         cout<<"[3] Services"<<endl;
         cout<<"[4] Information"<<endl;
@@ -170,7 +162,7 @@ void mainMenu(){
                 break;
             }
             case 2:{
-				menu_trucks();
+
                 break;
             }
 
@@ -210,9 +202,9 @@ void menu_clients(){
             case 0:
                 break;
             case 1:{
-				clearBuffer();
-				Client::addClient(Company::getCompany()->getVectorClients());
-				break;
+                clearBuffer();
+                Client::addClient(Company::getCompany()->getVectorClients());
+                break;
             }
             case 2:{
                 long nif=0;
@@ -251,49 +243,11 @@ void menu_clients(){
     }
 }
 
-void menu_trucks() {
-	unsigned opt = 1;
-	while (opt != 0) {
-		clearScreen();
-		cout << "[1] Add Truck" << endl;
-		cout << "[2] Remove Truck" << endl;
-		cout << "[0] Return to Main Menu" << endl;
-		if (cin >> opt && opt <= 2)
-		{
-			clearScreen();
-			switch (opt) {
-			case 0:
-				break;
-			case 1: {
-				clearBuffer();
-				Truck::createTruck(Company::getCompany()->getVectorTrucks());
-				break;
-			}
-			case 2: {
-				clearBuffer();
-				Truck::removeTruck(Company::getCompany()->getVectorTrucks());
-				break;
-			}
-
-			default:
-				opt = 1;
-			}
-		}
-		else {
-			opt = 1;
-			clearBuffer();
-			clearScreen();
-			cout << "Not a valid option, please try again" << endl;
-		}
-	}
-}
-
 void menu_services(){
     unsigned opt=1;
     while (opt!=0) {
         clearScreen();
         cout<<"[1] Add Service"<<endl;
-        cout<<"[2] Manage Service"<<endl;
         cout<<"[0] Return to Main Menu"<<endl;
         if(cin>>opt && opt<=2)
         {
@@ -310,29 +264,6 @@ void menu_services(){
                 clearBuffer();
                 clearScreen();
                 Service::addService(Company::getCompany()->getVectorServicesOnQueue(),tempClient);
-                break;
-            }
-            case 2:{
-                long nif=0;
-                Client *temp_client;
-                do{
-                    for(auto i: *Company::getCompany()->getVectorClients()){
-                        cout<<*i;
-                    }
-                }while((nif=askForId("Client","manage","Nif"))==-2);
-
-                if(nif>0){
-                    try {
-                        temp_client=Company::getCompany()->getClient(unsigned(nif));
-                        manage_client(temp_client);
-
-                    } catch (NotAClient *e) {
-                        cout << e->erro << endl;
-                    }
-                }
-                //clearBuffer(); Tem de estar comentado senão não apresenta o menu no ecrã
-                string temp;
-                getline(cin,temp);
                 break;
             }
 
@@ -507,31 +438,31 @@ void clientsInformation(){
                 break;
             }
             case 7:{
-				long nif = 0;
-				Client* temp_client;
-				do {
-					for (auto i : *Company::getCompany()->getVectorClients()) {
-						cout << *i;
-					}
-				} while ((nif = askForId("Client", "manage", "Nif")) == -2);
+                long nif = 0;
+                Client* temp_client;
+                do {
+                    for (auto i : *Company::getCompany()->getVectorClients()) {
+                        cout << *i;
+                    }
+                } while ((nif = askForId("Client", "manage", "Nif")) == -2);
 
-				if (nif > 0) {
-					try {
-						temp_client = Company::getCompany()->getClient(unsigned(nif));
-						cout << endl << *temp_client << endl;
-						cout << "Services: " << endl;
-						for(auto it = temp_client->getServicesVector()->begin(); it != temp_client->getServicesVector()->end(); it++)
-						{
-							cout << (*it) << endl;
-						}
-					}
-					catch (NotAClient * e) {
-						cout << e->erro << endl;
-					}
-				}
-				//clearBuffer(); Tem de estar comentado senão não apresenta o menu no ecrã
-				string temp;
-				getline(cin, temp);
+                if (nif > 0) {
+                    try {
+                        temp_client = Company::getCompany()->getClient(unsigned(nif));
+                        cout << endl << *temp_client << endl;
+                        cout << "Services: " << endl;
+                        for(auto it = temp_client->getServicesVector()->begin(); it != temp_client->getServicesVector()->end(); it++)
+                        {
+                            cout << (*it) << endl;
+                        }
+                    }
+                    catch (NotAClient * e) {
+                        cout << e->erro << endl;
+                    }
+                }
+                //clearBuffer(); Tem de estar comentado senão não apresenta o menu no ecrã
+                string temp;
+                getline(cin, temp);
                 break;
             }
 
@@ -548,5 +479,104 @@ void clientsInformation(){
     }
 }
 
+void servicesInformation(){
+    unsigned opt=1;
+    clearScreen();
+    while (opt!=0) {
+        cout<<"[1] Every Service"<<endl;
+        cout<<"[2] Services On Queue"<<endl;
+        cout<<"[3] Services On Transit"<<endl; // Não funciona
+        cout<<"[4] Services Finished"<<endl;
+        cout<<"[0] Return"<<endl;
+        if(cin>>opt && opt<=4)
+        {
+            clearScreen();
+            switch (opt) {
+            case 0:{
+                return;
+            }
+            case 1:
+                infoEveryServices();
+                break;
+            case 2:{
+                infoOnQueueServices();
+                break;
+            }
+            case 3:{
+                infoOnTransitServices();
+                break;
+            }
+            case 4:{
+                infoFinishedServices();
+                break;
+            }
 
+
+            default:
+                opt=1;
+            }
+        }
+        else{
+            opt=1;
+            clearBuffer();
+            clearScreen();
+            cout<<"Not a valid option, please try again"<<endl;
+        }
+    }
+}
+
+void infoEveryServices(){
+    unsigned opt=1;
+    clearScreen();
+    while (opt!=0) {
+        cout<<"[1] Every Service"<<endl;
+        cout<<"[2] Services On Queue"<<endl;
+        cout<<"[3] Services On Transit"<<endl; // Não funciona
+        cout<<"[4] Services Finished"<<endl;
+        cout<<"[0] Return"<<endl;
+        if(cin>>opt && opt<=4)
+        {
+            clearScreen();
+            switch (opt) {
+            case 0:{
+                return;
+            }
+            case 1:
+                infoEveryServices();
+                break;
+            case 2:{
+                infoOnQueueServices();
+                break;
+            }
+            case 3:{
+                infoOnTransitServices();
+                break;
+            }
+            case 4:{
+                infoFinishedServices();
+                break;
+            }
+
+
+            default:
+                opt=1;
+            }
+        }
+        else{
+            opt=1;
+            clearBuffer();
+            clearScreen();
+            cout<<"Not a valid option, please try again"<<endl;
+        }
+    }
+}
+void infoOnQueueServices(){
+
+}
+void infoOnTransitServices(){
+
+}
+void infoFinishedServices(){
+
+}
 
