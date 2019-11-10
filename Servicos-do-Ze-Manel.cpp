@@ -245,12 +245,10 @@ void information(){
     while (opt!=0) {
         clearScreen();
         cout<<"[1] Clients"<<endl;
-        cout<<"[2] Remove Client"<<endl;
-        cout<<"[3] Edit Services"<<endl;
-        cout<<"[4] Cancel Service"<<endl;
-        cout<<"[5] See Service"<<endl;
+        cout<<"[2] Services"<<endl;
+        cout<<"[3] Trucks"<<endl;
         cout<<"[0] Return"<<endl;
-        if(cin>>opt && opt<=5)
+        if(cin>>opt && opt<=3)
         {
             clearScreen();
             switch (opt) {
