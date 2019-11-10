@@ -46,6 +46,7 @@ public:
 	void start_transport(unsigned short cargo); //sets the needed variables so the truck is in transport
 	static void createTruck(vector<Truck*>* trucks); //creates a new truck from scratch and adds to the vector
 	static void removeTruck(vector<Truck*>* trucks); //removes a truck, searches by license. iterative
+	static void showTruck(vector<Truck*>* trucks); //searches truck by license and prints its info
 };
 
 bool operator<(Truck &a,Truck &b);
