@@ -19,6 +19,7 @@ class Client;
 class Truck;
 class Company;
 class Service;
+class Address;
 
 void clearScreen();
 vector<string> vectorString(string stringToVectorize, string separator);

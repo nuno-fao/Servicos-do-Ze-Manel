@@ -9,6 +9,7 @@
 #include "misc.h"
 #include "client.h"
 #include "company.h"
+#include "Address.h"
 
 using namespace std;
 
@@ -19,6 +20,7 @@ class TemperatureService;
 class HazardousService;
 class Date;
 class Company;
+class Address;
 
 enum class Hazard_enum {explosives, gases, flammableliq, flammablesolid, oxidizer, poisons, radioactive, corrosives, other}; //categories for the diferent dangers
 enum class Temperature_enum{_100,_200,_300,_400};
@@ -37,8 +39,8 @@ public:
     ~Service();
     Service();
     //get methods
-    string getOrigin() const; /*!< @return string #origin  */
-    string getDestination() const;
+    Address getOrigin() const; /*!< @return string #origin  */
+    Address getDestination() const;
     unsigned getDistance() const;
     type getType() const;
     unsigned int getId() const;
@@ -53,8 +55,8 @@ public:
     string getMaterial() const;
 
     //set methods
-    void setOrigin(string origin);
-    void setDestination(string destination);
+    void setOrigin(Address origin);
+    void setDestination(Address destination);
     void setTime(double time);
     void setDistance(unsigned distance);
     void setType(type type);
@@ -79,8 +81,8 @@ public:
 protected:
     Service(string material,string origin, string destination, Date *arrivalDate, unsigned distance, type type, state state, Date *date,Client *client,float quantity);
     Service(string material, string origin, string destination, Date *arrivalDate, unsigned distance, type type, state state, Date *date, Client *client, float quantity, float total_price,unsigned id);
-    string origin; /**< stores the origin of the Service */
-    string destination;
+    Address *origin; /**< stores the origin of the Service */
+    Address *destination;
     string material;
     Date *arrivalDate;
     unsigned distance;

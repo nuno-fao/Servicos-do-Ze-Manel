@@ -6,23 +6,27 @@ unsigned int Service::lastId=0;
 
 //constructors
 Service::Service(string material, string origin, string destination, Date *arrivalDate, unsigned distance, enum type type, enum state state, Date *date, Client *client, float quantity)
-    : origin(origin),destination(destination),material(material), distance(distance), quantity(quantity), ser_type(type), ser_state(state)
+    : material(material), distance(distance), quantity(quantity), ser_type(type), ser_state(state)
 {
     
     id=lastId++;
     setIDate(date);
     setADate(arrivalDate);
+    setOrigin(Address(origin));
+    setDestination(Address(destination));
     setClient(client);
     calcPrice();
     
 }
 
 Service::Service(string material, string origin, string destination, Date *arrivalDate, unsigned distance, enum type type, enum state state, Date *date, Client *client, float quantity, float total_price, unsigned id)
-    : origin(origin),destination(destination),material(material), distance(distance), quantity(quantity),  ser_type(type),id(id), ser_state(state),total_price(total_price)
+    : material(material), distance(distance), quantity(quantity),  ser_type(type),id(id), ser_state(state),total_price(total_price)
 {
     lastId++;
     setIDate(date);
     setADate(arrivalDate);
+    setOrigin(Address(origin));
+    setDestination(Address(destination));
     setClient(client);
 
 }
@@ -32,11 +36,11 @@ Service::~Service(){
 }
 
 //get methods
-string Service::getOrigin() const{
-    return origin;
+Address Service::getOrigin() const{
+    return *origin;
 }
-string Service::getDestination() const{
-    return destination;
+Address Service::getDestination() const{
+    return *destination;
 }
 Date *Service::getADate() const{
     return arrivalDate;
@@ -73,11 +77,13 @@ string Service::getMaterial() const{
 }
 
 //set methods
-void Service::setOrigin(string origin){
-    this->origin=origin;
+void Service::setOrigin(Address origin){
+    Address *x=new Address(origin);
+    this->origin=x;
 }
-void Service::setDestination(string destination){
-    this->destination=destination;
+void Service::setDestination(Address destination){
+    Address *x=new Address(destination);
+    this->destination=x;
 }
 void Service::setADate(Date *date){
     arrivalDate=date;
@@ -525,8 +531,8 @@ void Service::saveToFile(list<Service*> *services_finished,vector<Service*>*serv
     for(auto x:*services_finished){
         servicesFile << x->getMaterial()<<endl;
         servicesFile << x->getId()<<endl;
-        servicesFile << x->getOrigin()<<endl;
-        servicesFile << x->getDestination()<<endl;
+        servicesFile << x->getOrigin().getFullAdress()<<endl;
+        servicesFile << x->getDestination().getFullAdress()<<endl;
         servicesFile << (x->getADate()->getDate())<<endl;
         servicesFile << (x->getDistance())<<endl;
         servicesFile << (x->getType())<<endl;
@@ -546,8 +552,8 @@ void Service::saveToFile(list<Service*> *services_finished,vector<Service*>*serv
     for(auto x:*services_on_queue){
         servicesFile << x->getMaterial()<<endl;
         servicesFile << x->getId()<<endl;
-        servicesFile << x->getOrigin()<<endl;
-        servicesFile << x->getDestination()<<endl;
+        servicesFile << x->getOrigin().getFullAdress() <<endl;
+        servicesFile << x->getDestination().getFullAdress() <<endl;
         servicesFile << (x->getADate()->getDate())<<endl;
         servicesFile << (x->getDistance())<<endl;
         servicesFile << (x->getType())<<endl;
@@ -567,8 +573,8 @@ void Service::saveToFile(list<Service*> *services_finished,vector<Service*>*serv
     for(auto x:*services_on_transit){
         servicesFile << x->getMaterial()<<endl;
         servicesFile << x->getId()<<endl;
-        servicesFile << x->getOrigin()<<endl;
-        servicesFile << x->getDestination()<<endl;
+        servicesFile << x->getOrigin().getFullAdress() <<endl;
+        servicesFile << x->getDestination().getFullAdress() <<endl;
         servicesFile << (x->getADate()->getDate())<<endl;
         servicesFile << (x->getDistance())<<endl;
         servicesFile << (x->getType())<<endl;
@@ -596,6 +602,7 @@ Service *Service::addService(vector<Service *> *services,Client *client){
     string tempTime,tempDistance;
     bool variable_error=true;
     time_t rawtime;struct tm *now;std::time( &rawtime );now = localtime( &rawtime );
+    Address origin,destination;
 
     //set material
     while (variable_error) {
@@ -616,30 +623,106 @@ Service *Service::addService(vector<Service *> *services,Client *client){
     clearScreen();
     while (variable_error) {
         printClassVector(&print);
-        cout<<"Enter the Origin"<<endl;
+        cout<<"Enter the Origin (street / doorNumber / location) or (location)"<<endl;
 
         getline(cin,tempOrigin);
+        vector<string> temp_address_no_pc=vectorString(tempOrigin,"/");
         checkIfOut(tempOrigin);
-        clearScreen();
-        if(strIsChar(tempOrigin))
-            variable_error=false;
+        if(temp_address_no_pc.size()==3){
+            clearScreen();
+            if(strIsChar(temp_address_no_pc.at(2)) && strIsNumber(temp_address_no_pc.at(1))){
+                variable_error=false;
+                cout<<"Enter the Origin postal code (xxxx-yyy)"<<endl;
+                while(true){
+                    string postal_code;
+                    cin>>postal_code;
+                    vector<string> temp_postal_code= vectorString(postal_code,"-");
+                    if(temp_postal_code.size()==2 && strIsNumber(temp_postal_code.at(0)) && strIsNumber(temp_postal_code.at(1))){
+                        origin=Address(temp_address_no_pc.at(0),date_u_short(stoi(temp_address_no_pc.at(1))),postal_code,temp_address_no_pc.at(2));
+                        break;
+                    }
+
+                }
+                variable_error=false;
+
+            }
+        }
+        else if(temp_address_no_pc.size()==1 && strIsChar(temp_address_no_pc.at(0))){
+            clearScreen();
+            if(strIsChar(temp_address_no_pc.at(2)) && strIsNumber(temp_address_no_pc.at(1))){
+                variable_error=false;
+                cout<<"Enter the Origin postal code (xxxx-yyy)"<<endl;
+                while(true){
+                    string postal_code;
+                    cin>>postal_code;
+                    vector<string> temp_postal_code= vectorString(postal_code,"-");
+                    if(temp_postal_code.size()==2 && strIsNumber(temp_postal_code.at(0)) && strIsNumber(temp_postal_code.at(1))){
+                        origin=Address("",0,postal_code,temp_address_no_pc.at(0));
+                        break;
+                    }
+
+                }
+                variable_error=false;
+
+            }
+
+        }
+
         else{
             variable_error=true;
             cout<<"ORigin Input not acceptable, please try again"<<endl;
         }
 
     }
+
     print.push_back(tempOrigin);
     //set destination
     variable_error=true;
     while (variable_error) {
         printClassVector(&print);
-        cout<<"Enter the Destination"<<endl;
+        cout<<"Enter the Destination (street / doorNumber / location) or (location)"<<endl;
         getline(cin,tempDestination);
+        vector<string> temp_address_no_pc=vectorString(tempDestination,"/");
         checkIfOut(tempDestination);
-        clearScreen();
-        if(strIsChar(tempDestination))
-            variable_error=false;
+        if(temp_address_no_pc.size()==3){
+            clearScreen();
+            if(strIsChar(temp_address_no_pc.at(2)) && strIsNumber(temp_address_no_pc.at(1))){
+                variable_error=false;
+                cout<<"Enter the Destination postal code (xxxx-yyy)"<<endl;
+                while(true){
+                    string postal_code;
+                    cin>>postal_code;
+                    vector<string> temp_postal_code= vectorString(postal_code,"-");
+                    if(temp_postal_code.size()==2 && strIsNumber(temp_postal_code.at(0)) && strIsNumber(temp_postal_code.at(1))){
+                        origin=Address(temp_address_no_pc.at(0),date_u_short(stoi(temp_address_no_pc.at(1))),postal_code,temp_address_no_pc.at(2));
+                        break;
+                    }
+
+                }
+                variable_error=false;
+
+            }
+        }
+        else if(temp_address_no_pc.size()==1 && strIsChar(temp_address_no_pc.at(0))){
+            clearScreen();
+            if(strIsChar(temp_address_no_pc.at(2)) && strIsNumber(temp_address_no_pc.at(1))){
+                variable_error=false;
+                cout<<"Enter the Destination postal code (xxxx-yyy)"<<endl;
+                while(true){
+                    string postal_code;
+                    cin>>postal_code;
+                    vector<string> temp_postal_code= vectorString(postal_code,"-");
+                    if(temp_postal_code.size()==2 && strIsNumber(temp_postal_code.at(0)) && strIsNumber(temp_postal_code.at(1))){
+                        origin=Address("",0,postal_code,temp_address_no_pc.at(0));
+                        break;
+                    }
+
+                }
+                variable_error=false;
+
+            }
+
+        }
         else{
             variable_error=true;
             cout<<"Destination Input not acceptable, please try again"<<endl;
@@ -1332,8 +1415,8 @@ ostream& operator <<(ostream& os,Service *a){
     os<<endl;
     os<<"Client: "+a->getClient()->getName()<<endl;
     os<<endl;
-    os<<"Origin: "+a->getOrigin()<<endl;
-    os<<"Destination: "+a->getDestination()<<endl;
+    os<<"Origin: "+a->getOrigin().getFullAdress() <<endl;
+    os<<"Destination: "+a->getDestination().getFullAdress() <<endl;
     os<<"Distance: "<<a->getDistance()<<endl;
     os<<endl;
     os<<"Initial Date: "+a->getIDate()->getDateWHour()<<endl;
