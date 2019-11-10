@@ -144,8 +144,22 @@ void Client::loadClients(vector<Client*>& clientsVector) {
     clientsFile.close();
 }
 
-void Client::saveToFile(vector<Client*>& clientsVector)
-{
+void Client::saveToFile(vector<Client*>& clientsVector){
+	string clientsNameFile = "./files/clients.txt"; // File containing clients
+	ofstream clientsFile;
+	clientsFile.open(clientsNameFile);
+	if (clientsFile.fail()){
+		throw CantOpenClientFile("Could not open associated clients.txt file");
+	}
+	else{
+		for (auto it = clientsVector.begin(); it != clientsVector.end(); it++)
+		{
+			clientsFile << (*it)->getName() << endl;
+			clientsFile << (*it)->getNif() << endl;
+			clientsFile << "::::::::::::::::::::::::::::" << endl;
+		}
+	}
+	clientsFile.close();
 }
 
 
@@ -161,9 +175,8 @@ bool Client::operator<(const Client &a) const{
 
 ostream& operator<<(ostream& out, const Client& client) {
     out << "Name:" << client.name << endl;
-    out << "NIF: " << client.nif << endl;
-    // Print services
-    out << "*********************************" << endl;
+    out << "NIF: " << client.nif << endl; 
+	out << "*********************************" << endl;
 
     return out;
 }
