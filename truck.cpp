@@ -454,7 +454,7 @@ void Truck::showTruck(vector<Truck*>* trucks) {
 	do {
 		clearScreen();
 		invalidInput = false;
-		cout << "What's the license of the truck you wish to remove (XX-YY-ZZ)? "; getline(cin, license);
+		cout << "What's the license of the truck you wish to see (XX-YY-ZZ)? "; getline(cin, license);
 		if (license == "!q") return;
 
 		//verifies if the license is valid or if it already exists.
