@@ -1,8 +1,6 @@
 #include "client.h"
 
 // TODO: excecoes, verificacoes, hipotese de cancelar com !q, usar enter_to_exit() nos menus
-// Confirmar alteracoes do cliente com Y/N?
-
 Client::Client() {}
 
 Client::Client(Client const &x){
@@ -154,7 +152,7 @@ void Client::editClient()
 
 // Removes client from the vector
 void Client::removeClient(vector<Client*>& clientsVector) {
-    Client *client;
+	Client *client;
 
     size_t last_pos = clientsVector.size() - 1;
     for (size_t i = 0; i < clientsVector.size(); i++)
@@ -166,6 +164,9 @@ void Client::removeClient(vector<Client*>& clientsVector) {
             break;
         }
     }
+
+	cout << "Client removed sucessfully" << endl;
+	enter_to_exit();
 }
 
 

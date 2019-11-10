@@ -23,7 +23,7 @@ void manage_client(Client *client){
         clearScreen();
         cout <<*client<<endl;
         cout<<"[1] Edit Client"<<endl;
-        cout<<"[2] Remove Client"<<endl;
+		cout<<"[2] Remove Client"<<endl;
         cout<<"[3] Edit Services"<<endl;
         cout<<"[4] Cancel Service"<<endl;
         cout<<"[5] See Service"<<endl;
@@ -38,7 +38,7 @@ void manage_client(Client *client){
                 break;
             case 2:{
 				clearBuffer();
-				//Client::removeClient();
+				client->removeClient(*Company::getCompany()->getVectorClients());
                 break;
             }
             case 0:{
@@ -89,7 +89,13 @@ void manage_client(Client *client){
 
             }
             case 5:{
-                cout<<*client;
+				clearBuffer();
+				cout << "Services: " << endl;
+				for (auto it = client->getServicesVector()->begin(); it != client->getServicesVector()->end(); it++)
+				{
+					cout << (*it) << endl;
+				}
+				enter_to_exit();
                 break;
             }
 
@@ -138,6 +144,7 @@ int main()
     //vector<Truck*> a(*Ze_Manel->getVectorTrucks());
     string temp;
     mainMenu();
+	Client::saveToFile(*Ze_Manel->getVectorClients());
     delete Ze_Manel;
 
 
