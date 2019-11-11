@@ -530,7 +530,7 @@ void Service::saveToFile(list<Service*> *services_finished,vector<Service*>*serv
         servicesFile << (x->getDistance())<<endl;
         servicesFile << (x->getType())<<endl;
 
-        servicesFile << endl << (x->getState())<<endl;
+        servicesFile << (x->getState())<<endl;
         servicesFile << x->getIDate()->getDate() <<endl;
         servicesFile << x->getClient()->getNif() << endl;
         servicesFile << x->getQuantity() <<endl;
