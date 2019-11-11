@@ -466,16 +466,16 @@ void Service::loadFromFile(list<Service*> *services_finished,vector<Service*> *s
             switch (tempState) {
             case on_transit:
                 services_on_transit->push_back(temp);
+                temp_client->addService(temp);
                 break;
             case on_queue:
                 services_on_queue->push_back(temp);
+                temp_client->addService(temp);
                 break;
             case finished:
                 services_finished->push_back(temp);
                 break;
             }
-
-            temp_client->addService(temp);
 
         } catch (NotAClient &e) {
             cout<<e.erro<<" "<<to_string(e.getNif())<<endl;

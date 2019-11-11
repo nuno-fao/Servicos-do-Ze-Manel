@@ -68,11 +68,11 @@ void manage_client(Client *client){
                     else{
 
                         temp_client->editService();
-
+                        cout<<"Successfully Edited"<<endl;
                     }
                 }
                 else{
-                    cout<<"No Service can be removed"<<endl;
+                    cout<<"No Service can be Edited"<<endl;
                     clearBuffer();
                     enter_to_exit();
                 }
@@ -110,7 +110,7 @@ void manage_client(Client *client){
                     }
                 }
                 else{
-                    cout<<"No Service can be removed"<<endl;
+                    cout<<"No Service can be Canceled"<<endl;
                 }
                 clearBuffer();
                 enter_to_exit();
@@ -297,10 +297,21 @@ void menu_services(){
                 for(auto i:*Company::getCompany()->getVectorClients()){
                     cout<<*i;
                 }
-                Client *tempClient= Company::getCompany()->getClient(unsigned(askForId("Client","add a Service","Nif")));
-                clearBuffer();
-                clearScreen();
-                Service::addService(Company::getCompany()->getVectorServicesOnQueue(),tempClient);
+                try{
+                    int temp=int(askForId("Client","add a Service","Nif"));
+                    if(temp==-1)
+                        break;
+                    Client *tempClient= Company::getCompany()->getClient(unsigned(temp));
+                    clearBuffer();
+                    clearScreen();
+                    Service::addService(Company::getCompany()->getVectorServicesOnQueue(),tempClient);
+                    enter_to_exit();
+                }
+                catch(NotAClient e){
+                    clearBuffer();
+                    cout<<e.erro<<endl;
+                    enter_to_exit();
+                }
                 break;
             }
 
@@ -478,10 +489,15 @@ void clientsInformation(){
                 long nif = 0;
                 Client* temp_client;
                 do {
+                    clearScreen();
                     for (auto i : *Company::getCompany()->getVectorClients()) {
                         cout << *i;
                     }
+                    if(nif==-2){
+                        cout<<"Nif not Acceptable"<<endl;
+                    }
                 } while ((nif = askForId("Client", "manage", "Nif")) == -2);
+                clearScreen();
 
                 if (nif > 0) {
                     try {
@@ -493,8 +509,8 @@ void clientsInformation(){
                             cout << (*it) << endl;
                         }
                     }
-                    catch (NotAClient * e) {
-                        cout << e->erro << endl;
+                    catch (NotAClient e) {
+                        cout << e.erro << endl;
                     }
                 }
                 //clearBuffer(); Tem de estar comentado senão não apresenta o menu no ecrã

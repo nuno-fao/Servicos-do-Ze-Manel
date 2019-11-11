@@ -1,4 +1,5 @@
 <map id="Service" name="Service">
-<area shape="rect" id="node2" href="$class_client.html" title="Client" alt="" coords="5,5,61,32"/>
-<area shape="rect" id="node3" href="$class_date.html" title="Date" alt="" coords="85,5,136,32"/>
+<area shape="rect" id="node2" href="$class_address.html" title="Address" alt="" coords="5,5,76,32"/>
+<area shape="rect" id="node3" href="$class_client.html" title="Client" alt="" coords="111,5,167,32"/>
+<area shape="rect" id="node4" href="$class_date.html" title="Date" alt="" coords="191,5,242,32"/>
 </map>

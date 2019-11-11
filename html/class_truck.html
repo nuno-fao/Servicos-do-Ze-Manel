@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Ze-Manel-documents: Truck Class Reference</title>
+<title>My Project: Truck Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -21,7 +21,7 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">Ze-Manel-documents
+   <div id="projectname">My Project
    </div>
   </td>
  </tr>
@@ -82,7 +82,8 @@ Inheritance diagram for Truck:</div>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a310563b5c12feb94c1e1f8f855c1ee05"><td class="memItemLeft" align="right" valign="top"><a id="a310563b5c12feb94c1e1f8f855c1ee05"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>Truck</b> (string license, bool available, bool registered, unsigned short capacity, unsigned short cargo)</td></tr>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_truck.html#a310563b5c12feb94c1e1f8f855c1ee05">Truck</a> (string license, bool available, bool <a class="el" href="class_truck.html#a80b8405cf7a15b236fef70116f99c4fb">registered</a>, unsigned short <a class="el" href="class_truck.html#a14541fad6d47c606ce4e1bd150a68a23">capacity</a>, unsigned short <a class="el" href="class_truck.html#a968fc6b1a6171a03e4254d6615da4ecd">cargo</a>)</td></tr>
+<tr class="memdesc:a310563b5c12feb94c1e1f8f855c1ee05"><td class="mdescLeft">&#160;</td><td class="mdescRight">if in transit this holds the weight it transports, if not it is 0 <br /></td></tr>
 <tr class="separator:a310563b5c12feb94c1e1f8f855c1ee05"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2f11c2039060bcc94ce5d6784035f1bc"><td class="memItemLeft" align="right" valign="top"><a id="a2f11c2039060bcc94ce5d6784035f1bc"></a>
 virtual float&#160;</td><td class="memItemRight" valign="bottom"><b>getprice</b> (<a class="el" href="class_service.html">Service</a> *service) const</td></tr>
@@ -121,7 +122,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>add_service</b> (<a c
 void&#160;</td><td class="memItemRight" valign="bottom"><b>remove_service</b> (unsigned int id)</td></tr>
 <tr class="separator:a0abc7397fd6dba0eeeb2b5ae3e225fd1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aca68ecb83bcdc73de6bd381dccb70e4d"><td class="memItemLeft" align="right" valign="top"><a id="aca68ecb83bcdc73de6bd381dccb70e4d"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>start_transport</b> (unsigned short cargo)</td></tr>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>start_transport</b> (unsigned short <a class="el" href="class_truck.html#a968fc6b1a6171a03e4254d6615da4ecd">cargo</a>)</td></tr>
 <tr class="separator:aca68ecb83bcdc73de6bd381dccb70e4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
@@ -138,6 +139,9 @@ static void&#160;</td><td class="memItemRight" valign="bottom"><b>createTruck</b
 <tr class="memitem:acb3e375dfa4ba812de7e65f0b3e37ded"><td class="memItemLeft" align="right" valign="top"><a id="acb3e375dfa4ba812de7e65f0b3e37ded"></a>
 static void&#160;</td><td class="memItemRight" valign="bottom"><b>removeTruck</b> (vector&lt; <a class="el" href="class_truck.html">Truck</a> *&gt; *trucks)</td></tr>
 <tr class="separator:acb3e375dfa4ba812de7e65f0b3e37ded"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a093fa621d8576a61352648799920c8a2"><td class="memItemLeft" align="right" valign="top"><a id="a093fa621d8576a61352648799920c8a2"></a>
+static void&#160;</td><td class="memItemRight" valign="bottom"><b>showTruck</b> (vector&lt; <a class="el" href="class_truck.html">Truck</a> *&gt; *trucks)</td></tr>
+<tr class="separator:a093fa621d8576a61352648799920c8a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
@@ -145,19 +149,24 @@ Protected Attributes</h2></td></tr>
 string&#160;</td><td class="memItemRight" valign="bottom"><b>license</b></td></tr>
 <tr class="separator:a3dd293529f462f3a21838f9a6bc5a7d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aba72f1b27aee018c99f2fd8f06858390"><td class="memItemLeft" align="right" valign="top"><a id="aba72f1b27aee018c99f2fd8f06858390"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>availabe</b></td></tr>
+bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_truck.html#aba72f1b27aee018c99f2fd8f06858390">availabe</a></td></tr>
+<tr class="memdesc:aba72f1b27aee018c99f2fd8f06858390"><td class="mdescLeft">&#160;</td><td class="mdescRight">format XX-YY-ZZ <br /></td></tr>
 <tr class="separator:aba72f1b27aee018c99f2fd8f06858390"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a80b8405cf7a15b236fef70116f99c4fb"><td class="memItemLeft" align="right" valign="top"><a id="a80b8405cf7a15b236fef70116f99c4fb"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>registered</b></td></tr>
+bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_truck.html#a80b8405cf7a15b236fef70116f99c4fb">registered</a></td></tr>
+<tr class="memdesc:a80b8405cf7a15b236fef70116f99c4fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">is the truck available right now? <br /></td></tr>
 <tr class="separator:a80b8405cf7a15b236fef70116f99c4fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3b153477458e5c93c1521ee2f4741638"><td class="memItemLeft" align="right" valign="top"><a id="a3b153477458e5c93c1521ee2f4741638"></a>
-vector&lt; <a class="el" href="class_service.html">Service</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>assignedServices</b></td></tr>
+vector&lt; <a class="el" href="class_service.html">Service</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_truck.html#a3b153477458e5c93c1521ee2f4741638">assignedServices</a></td></tr>
+<tr class="memdesc:a3b153477458e5c93c1521ee2f4741638"><td class="mdescLeft">&#160;</td><td class="mdescRight">is the truck registered to a service in the future? <br /></td></tr>
 <tr class="separator:a3b153477458e5c93c1521ee2f4741638"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a14541fad6d47c606ce4e1bd150a68a23"><td class="memItemLeft" align="right" valign="top"><a id="a14541fad6d47c606ce4e1bd150a68a23"></a>
-unsigned short&#160;</td><td class="memItemRight" valign="bottom"><b>capacity</b></td></tr>
+unsigned short&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_truck.html#a14541fad6d47c606ce4e1bd150a68a23">capacity</a></td></tr>
+<tr class="memdesc:a14541fad6d47c606ce4e1bd150a68a23"><td class="mdescLeft">&#160;</td><td class="mdescRight">services the truck is registered to <br /></td></tr>
 <tr class="separator:a14541fad6d47c606ce4e1bd150a68a23"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a968fc6b1a6171a03e4254d6615da4ecd"><td class="memItemLeft" align="right" valign="top"><a id="a968fc6b1a6171a03e4254d6615da4ecd"></a>
-unsigned short&#160;</td><td class="memItemRight" valign="bottom"><b>cargo</b></td></tr>
+unsigned short&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_truck.html#a968fc6b1a6171a03e4254d6615da4ecd">cargo</a></td></tr>
+<tr class="memdesc:a968fc6b1a6171a03e4254d6615da4ecd"><td class="mdescLeft">&#160;</td><td class="mdescRight">in KG <br /></td></tr>
 <tr class="separator:a968fc6b1a6171a03e4254d6615da4ecd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <hr/>The documentation for this class was generated from the following files:<ul>
