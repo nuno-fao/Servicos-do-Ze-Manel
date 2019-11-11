@@ -152,24 +152,22 @@ bool operator < (Date const& date1, Date const& data2) {
 
     if (date1.getYear() == data2.getYear()) {
         if (date1.getMonth() == data2.getMonth()) {
-            if (date1.getDay() < data2.getDay()) {
-                return true;
+            if (date1.getDay() == data2.getDay()) {
+                if(date1.getHour() == data2.getHour()){
+                    return (date1.getMinute() < data2.getMinute());
+                }
+                else
+                    return date1.getHour() < data2.getHour();
+
             }
             else {
                 return false;
             }
         }
-        else if (date1.getMonth() < data2.getMonth()) {
-            return true;
-        }
-        else {
-            return false;
-        }
+        else
+            return date1.getMonth() < data2.getMonth();
     }
-    else if (date1.getYear() < data2.getYear()) {
-        return true;
-    }
-    return false;
+    return (date1.getYear() < data2.getYear());
 }
 
 bool operator > (Date const& date1, Date const& data2) {

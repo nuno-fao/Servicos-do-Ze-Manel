@@ -11,20 +11,21 @@ Inheritance diagram for Service\+:\nopagebreak
 \end{figure}
 
 
-Collaboration diagram for Service\+:\nopagebreak
+Collaboration diagram for Service\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=198pt]{class_service__coll__graph}
+\includegraphics[width=276pt]{class_service__coll__graph}
 \end{center}
 \end{figure}
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-string \hyperlink{class_service_a2142a2fd589d94614694a71d9e7c2647}{get\+Origin} () const
+\hyperlink{class_address}{Address} \hyperlink{class_service_a186e0115cc0197181b4e060bfe4cd502}{get\+Origin} () const
 \item 
-\mbox{\Hypertarget{class_service_a739e634d2f98145f67db2221aee02d7d}\label{class_service_a739e634d2f98145f67db2221aee02d7d}} 
-string {\bfseries get\+Destination} () const
+\mbox{\Hypertarget{class_service_a2aabf308bd77e1de07afa28d5ff72b08}\label{class_service_a2aabf308bd77e1de07afa28d5ff72b08}} 
+\hyperlink{class_address}{Address} {\bfseries get\+Destination} () const
 \item 
 \mbox{\Hypertarget{class_service_a7b36594e1a24656f065f7d41b79bb718}\label{class_service_a7b36594e1a24656f065f7d41b79bb718}} 
 unsigned {\bfseries get\+Distance} () const
@@ -62,11 +63,11 @@ float {\bfseries get\+Multiplier} ()
 \mbox{\Hypertarget{class_service_a92be216e9c710b28bc4046353884b3e2}\label{class_service_a92be216e9c710b28bc4046353884b3e2}} 
 string {\bfseries get\+Material} () const
 \item 
-\mbox{\Hypertarget{class_service_a4a0b39f65bf93c6c4bb1f3ed46e09026}\label{class_service_a4a0b39f65bf93c6c4bb1f3ed46e09026}} 
-void {\bfseries set\+Origin} (string \hyperlink{class_service_a0e23ac4930720ab597a5c584703151f9}{origin})
+\mbox{\Hypertarget{class_service_af3f248b1ecea5fd3fb0da198bfdbc7d5}\label{class_service_af3f248b1ecea5fd3fb0da198bfdbc7d5}} 
+void {\bfseries set\+Origin} (\hyperlink{class_address}{Address} \hyperlink{class_service_a4abd0a104d97e5bdb8e8ca93bab31ce7}{origin})
 \item 
-\mbox{\Hypertarget{class_service_ac55887f707a51352588fd35d5b5361da}\label{class_service_ac55887f707a51352588fd35d5b5361da}} 
-void {\bfseries set\+Destination} (string destination)
+\mbox{\Hypertarget{class_service_a1c2082379deaf672919165e540afcab2}\label{class_service_a1c2082379deaf672919165e540afcab2}} 
+void {\bfseries set\+Destination} (\hyperlink{class_address}{Address} destination)
 \item 
 \mbox{\Hypertarget{class_service_aed76805ea044b29f0dafe65a7d39f2dc}\label{class_service_aed76805ea044b29f0dafe65a7d39f2dc}} 
 void {\bfseries set\+Time} (double time)
@@ -107,11 +108,11 @@ void {\bfseries edit\+Service} ()
 \subsection*{Static Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{class_service_ad353882cb821be640bb4627b9a38f030}\label{class_service_ad353882cb821be640bb4627b9a38f030}} 
-static void {\bfseries save\+To\+File} (vector$<$ \hyperlink{class_service}{Service} $\ast$$>$ $\ast$services\+\_\+finished, vector$<$ \hyperlink{class_service}{Service} $\ast$$>$ $\ast$services\+\_\+on\+\_\+transit, vector$<$ \hyperlink{class_service}{Service} $\ast$$>$ $\ast$services\+\_\+on\+\_\+queue)
+\mbox{\Hypertarget{class_service_aa3672a3a070ca951f5b66075a5d4c339}\label{class_service_aa3672a3a070ca951f5b66075a5d4c339}} 
+static void {\bfseries save\+To\+File} (list$<$ \hyperlink{class_service}{Service} $\ast$$>$ $\ast$services\+\_\+finished, vector$<$ \hyperlink{class_service}{Service} $\ast$$>$ $\ast$services\+\_\+on\+\_\+transit, vector$<$ \hyperlink{class_service}{Service} $\ast$$>$ $\ast$services\+\_\+on\+\_\+queue)
 \item 
-\mbox{\Hypertarget{class_service_a494bf949ee67e670ad7d442cf579af22}\label{class_service_a494bf949ee67e670ad7d442cf579af22}} 
-static void {\bfseries load\+From\+File} (vector$<$ \hyperlink{class_service}{Service} $\ast$$>$ $\ast$services\+\_\+finished, vector$<$ \hyperlink{class_service}{Service} $\ast$$>$ $\ast$services\+\_\+on\+\_\+transit, vector$<$ \hyperlink{class_service}{Service} $\ast$$>$ $\ast$services\+\_\+on\+\_\+queue)
+\mbox{\Hypertarget{class_service_add72b2a9e781bdb20a26bdff39952088}\label{class_service_add72b2a9e781bdb20a26bdff39952088}} 
+static void {\bfseries load\+From\+File} (list$<$ \hyperlink{class_service}{Service} $\ast$$>$ $\ast$services\+\_\+finished, vector$<$ \hyperlink{class_service}{Service} $\ast$$>$ $\ast$services\+\_\+on\+\_\+transit, vector$<$ \hyperlink{class_service}{Service} $\ast$$>$ $\ast$services\+\_\+on\+\_\+queue)
 \item 
 \mbox{\Hypertarget{class_service_a9e1aa933d52a23d5e265666bdedea0f1}\label{class_service_a9e1aa933d52a23d5e265666bdedea0f1}} 
 static \hyperlink{class_service}{Service} $\ast$ {\bfseries add\+Service} (vector$<$ \hyperlink{class_service}{Service} $\ast$$>$ $\ast$services, \hyperlink{class_client}{Client} $\ast$client=nullptr)
@@ -122,19 +123,19 @@ static bool {\bfseries remove\+Service} (vector$<$ \hyperlink{class_service}{Ser
 \subsection*{Protected Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{class_service_a1b3d554287523d558d4d38814c24d591}\label{class_service_a1b3d554287523d558d4d38814c24d591}} 
-{\bfseries Service} (string material, string \hyperlink{class_service_a0e23ac4930720ab597a5c584703151f9}{origin}, string destination, \hyperlink{class_date}{Date} $\ast$arrival\+Date, unsigned distance, type type, state state, \hyperlink{class_date}{Date} $\ast$date, \hyperlink{class_client}{Client} $\ast$client, float quantity)
+\mbox{\Hypertarget{class_service_ab00ec0b62c00dc5dfad8442c85de3b12}\label{class_service_ab00ec0b62c00dc5dfad8442c85de3b12}} 
+{\bfseries Service} (string material, \hyperlink{class_address}{Address} \hyperlink{class_service_a4abd0a104d97e5bdb8e8ca93bab31ce7}{origin}, \hyperlink{class_address}{Address} destination, \hyperlink{class_date}{Date} $\ast$arrival\+Date, unsigned distance, type type, state state, \hyperlink{class_date}{Date} $\ast$date, \hyperlink{class_client}{Client} $\ast$client, float quantity)
 \item 
 \mbox{\Hypertarget{class_service_aa8037c739c084ca5f12d25de6316d5ca}\label{class_service_aa8037c739c084ca5f12d25de6316d5ca}} 
-{\bfseries Service} (string material, string \hyperlink{class_service_a0e23ac4930720ab597a5c584703151f9}{origin}, string destination, \hyperlink{class_date}{Date} $\ast$arrival\+Date, unsigned distance, type type, state state, \hyperlink{class_date}{Date} $\ast$date, \hyperlink{class_client}{Client} $\ast$client, float quantity, float total\+\_\+price, unsigned id)
+{\bfseries Service} (string material, string \hyperlink{class_service_a4abd0a104d97e5bdb8e8ca93bab31ce7}{origin}, string destination, \hyperlink{class_date}{Date} $\ast$arrival\+Date, unsigned distance, type type, state state, \hyperlink{class_date}{Date} $\ast$date, \hyperlink{class_client}{Client} $\ast$client, float quantity, float total\+\_\+price, unsigned id)
 \end{DoxyCompactItemize}
 \subsection*{Protected Attributes}
 \begin{DoxyCompactItemize}
 \item 
-string \hyperlink{class_service_a0e23ac4930720ab597a5c584703151f9}{origin}
+\hyperlink{class_address}{Address} $\ast$ \hyperlink{class_service_a4abd0a104d97e5bdb8e8ca93bab31ce7}{origin}
 \item 
-\mbox{\Hypertarget{class_service_abf66f5a213e665172a45cb304fae31ad}\label{class_service_abf66f5a213e665172a45cb304fae31ad}} 
-string {\bfseries destination}
+\mbox{\Hypertarget{class_service_adf346b71b98618cf84e5d0a0eca2ee1e}\label{class_service_adf346b71b98618cf84e5d0a0eca2ee1e}} 
+\hyperlink{class_address}{Address} $\ast$ {\bfseries destination}
 \item 
 \mbox{\Hypertarget{class_service_a04a4efb2434d7c4acb7c43bfef2d9c52}\label{class_service_a04a4efb2434d7c4acb7c43bfef2d9c52}} 
 string {\bfseries material}
@@ -184,23 +185,23 @@ ostream \& {\bfseries operator$<$$<$} (ostream \&os, \hyperlink{class_service}{S
 
 
 \subsection{Member Function Documentation}
-\mbox{\Hypertarget{class_service_a2142a2fd589d94614694a71d9e7c2647}\label{class_service_a2142a2fd589d94614694a71d9e7c2647}} 
+\mbox{\Hypertarget{class_service_a186e0115cc0197181b4e060bfe4cd502}\label{class_service_a186e0115cc0197181b4e060bfe4cd502}} 
 \index{Service@{Service}!get\+Origin@{get\+Origin}}
 \index{get\+Origin@{get\+Origin}!Service@{Service}}
 \subsubsection{\texorpdfstring{get\+Origin()}{getOrigin()}}
-{\footnotesize\ttfamily string Service\+::get\+Origin (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+{\footnotesize\ttfamily \hyperlink{class_address}{Address} Service\+::get\+Origin (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
 
 \begin{DoxyReturn}{Returns}
-string \hyperlink{class_service_a0e23ac4930720ab597a5c584703151f9}{origin} 
+string \hyperlink{class_service_a4abd0a104d97e5bdb8e8ca93bab31ce7}{origin} 
 \end{DoxyReturn}
 
 
 \subsection{Member Data Documentation}
-\mbox{\Hypertarget{class_service_a0e23ac4930720ab597a5c584703151f9}\label{class_service_a0e23ac4930720ab597a5c584703151f9}} 
+\mbox{\Hypertarget{class_service_a4abd0a104d97e5bdb8e8ca93bab31ce7}\label{class_service_a4abd0a104d97e5bdb8e8ca93bab31ce7}} 
 \index{Service@{Service}!origin@{origin}}
 \index{origin@{origin}!Service@{Service}}
 \subsubsection{\texorpdfstring{origin}{origin}}
-{\footnotesize\ttfamily string Service\+::origin\hspace{0.3cm}{\ttfamily [protected]}}
+{\footnotesize\ttfamily \hyperlink{class_address}{Address}$\ast$ Service\+::origin\hspace{0.3cm}{\ttfamily [protected]}}
 
 stores the origin of the \hyperlink{class_service}{Service} 
 

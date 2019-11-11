@@ -46,43 +46,74 @@ void manage_client(Client *client){
             case 3:{
 
                 long id=long(0);
-                Service *temp_client = nullptr;
-                do{
+                if(Company::getCompany()->getVectorServicesOnQueue()->size()){
+                    Service *temp_client = nullptr;
+                    do{
+                        for(auto i: *Company::getCompany()->getVectorServicesOnQueue()){
+                            cout<<"("<<i->getId()<<") "<<i->getMaterial()<<"   "<<i->getIDate()->getYear()<<"/"<<i->getIDate()->getMonth()<<"/"<<i->getIDate()->getDay()<<", "<<i->getIDate()->getHour()<<":"<<i->getIDate()->getMinute()<<endl;
+                        }
+                    }while((id=askForId("Service","Edit","Id"))==-2);
+                    clearScreen();
                     for(auto i: *Company::getCompany()->getVectorServicesOnQueue()){
-                        cout<<"("<<i->getId()<<") "<<i->getMaterial()<<"   "<<i->getIDate()->getYear()<<"/"<<i->getIDate()->getMonth()<<"/"<<i->getIDate()->getDay()<<", "<<i->getIDate()->getHour()<<":"<<i->getIDate()->getMinute()<<endl;
+                        if(i->getId()==long(id)){
+                            temp_client=i;
+                            break;
+                        }
                     }
-                }while((id=askForId("Service","Edit","Id"))==-2);
-                clearScreen();
-                for(auto i: *Company::getCompany()->getVectorServicesOnQueue()){
-                    if(i->getId()==long(id)){
-                        temp_client=i;
-                        break;
+                    if(temp_client==nullptr){
+                        cout<<"couldn't find the specified service"<<endl;
+                        clearBuffer();
+                        enter_to_exit();
+                    }
+                    else{
+
+                        temp_client->editService();
+                        cout<<"Successfully Edited"<<endl;
                     }
                 }
-                temp_client->editService();
+                else{
+                    cout<<"No Service can be Edited"<<endl;
+                    clearBuffer();
+                    enter_to_exit();
+                }
                 break;
 
             }
             case 4:{
 
                 long id=long(0);
-                Service *temp_client = nullptr;
-                do{
+                if(Company::getCompany()->getVectorServicesOnQueue()->size()){
+                    Service *temp_client = nullptr;
+                    do{
+                        for(auto i: *Company::getCompany()->getVectorServicesOnQueue()){
+                            cout<<"("<<i->getId()<<") "<<i->getMaterial()<<"   "<<i->getIDate()->getYear()<<"/"<<i->getIDate()->getMonth()<<"/"<<i->getIDate()->getDay()<<", "<<i->getIDate()->getHour()<<":"<<i->getIDate()->getMinute()<<endl;
+                        }
+                    }while((id=askForId("Service","Remove","Id"))==-2);
+                    clearScreen();
                     for(auto i: *Company::getCompany()->getVectorServicesOnQueue()){
-                        cout<<"("<<i->getId()<<") "<<i->getMaterial()<<"   "<<i->getIDate()->getYear()<<"/"<<i->getIDate()->getMonth()<<"/"<<i->getIDate()->getDay()<<", "<<i->getIDate()->getHour()<<":"<<i->getIDate()->getMinute()<<endl;
+                        if(i->getId()==long(id)){
+                            temp_client=i;
+                            break;
+                        }
                     }
-                }while((id=askForId("Service","Remove","Id"))==-2);
-                clearScreen();
-                for(auto i: *Company::getCompany()->getVectorServicesOnQueue()){
-                    if(i->getId()==long(id)){
-                        temp_client=i;
-                        break;
+                    if(temp_client==nullptr){
+                        cout<<"couldn't find the specified service"<<endl;
+                    }
+                    else{
+                        try{
+                            Service::removeService(Company::getCompany()->getVectorServicesOnQueue(),unsigned(id));
+                            cout<<"Successfully Removed"<<endl;
+                        }
+                        catch(ServiceDoNotExist e){
+                            cout<<e.erro<<endl;
+                        }
                     }
                 }
-                Service::removeService(Company::getCompany()->getVectorServicesOnQueue(),unsigned(id));
-                string temp;
+                else{
+                    cout<<"No Service can be Canceled"<<endl;
+                }
                 clearBuffer();
-                getline(cin,temp);
+                enter_to_exit();
                 break;
 
             }
@@ -203,8 +234,14 @@ void menu_clients(){
             case 0:
                 break;
             case 1:{
-                clearBuffer();
-                Client::addClient(Company::getCompany()->getVectorClients());
+                try {
+                    clearBuffer();
+                    Client::addClient(Company::getCompany()->getVectorClients());
+                }
+                catch(...){
+
+                }
+
                 break;
             }
             case 2:{
@@ -221,13 +258,13 @@ void menu_clients(){
                         temp_client=Company::getCompany()->getClient(unsigned(nif));
                         manage_client(temp_client);
 
-                    } catch (NotAClient *e) {
-                        cout << e->erro << endl;
+                    } catch (NotAClient e) {
+                        clearScreen();
+                        clearBuffer();
+                        cout << e.erro<<"erty" << endl;
+                        enter_to_exit();
                     }
                 }
-                //clearBuffer(); Tem de estar comentado senão não apresenta o menu no ecrã
-                string temp;
-                getline(cin,temp);
                 break;
             }
 
@@ -298,10 +335,21 @@ void menu_services(){
                 for(auto i:*Company::getCompany()->getVectorClients()){
                     cout<<*i;
                 }
-                Client *tempClient= Company::getCompany()->getClient(unsigned(askForId("Client","add a Service","Nif")));
-                clearBuffer();
-                clearScreen();
-                Service::addService(Company::getCompany()->getVectorServicesOnQueue(),tempClient);
+                try{
+                    int temp=int(askForId("Client","add a Service","Nif"));
+                    if(temp==-1)
+                        break;
+                    Client *tempClient= Company::getCompany()->getClient(unsigned(temp));
+                    clearBuffer();
+                    clearScreen();
+                    Service::addService(Company::getCompany()->getVectorServicesOnQueue(),tempClient);
+                    enter_to_exit();
+                }
+                catch(NotAClient e){
+                    clearBuffer();
+                    cout<<e.erro<<endl;
+                    enter_to_exit();
+                }
                 break;
             }
 
@@ -479,10 +527,15 @@ void clientsInformation(){
                 long nif = 0;
                 Client* temp_client;
                 do {
+                    clearScreen();
                     for (auto i : *Company::getCompany()->getVectorClients()) {
                         cout << *i;
                     }
+                    if(nif==-2){
+                        cout<<"Nif not Acceptable"<<endl;
+                    }
                 } while ((nif = askForId("Client", "manage", "Nif")) == -2);
+                clearScreen();
 
                 if (nif > 0) {
                     try {
@@ -494,8 +547,8 @@ void clientsInformation(){
                             cout << (*it) << endl;
                         }
                     }
-                    catch (NotAClient * e) {
-                        cout << e->erro << endl;
+                    catch (NotAClient e) {
+                        cout << e.erro << endl;
                     }
                 }
                 //clearBuffer(); Tem de estar comentado senão não apresenta o menu no ecrã
@@ -569,7 +622,7 @@ void infoEveryServices(){
     while (opt!=0) {
         cout<<"[1] Every Service"<<endl;
         cout<<"[2] Services On Queue"<<endl;
-        cout<<"[3] Services On Transit"<<endl; // Não funciona
+        cout<<"[3] Services On Transit"<<endl;
         cout<<"[4] Services Finished"<<endl;
         cout<<"[0] Return"<<endl;
         if(cin>>opt && opt<=4)

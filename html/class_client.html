@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Ze-Manel-documents: Client Class Reference</title>
+<title>My Project: Client Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -21,7 +21,7 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">Ze-Manel-documents
+   <div id="projectname">My Project
    </div>
   </td>
  </tr>
@@ -60,8 +60,8 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="#pro-attribs">Protected Attributes</a> &#124;
-<a href="#pro-static-attribs">Static Protected Attributes</a> &#124;
 <a href="#friends">Friends</a> &#124;
 <a href="class_client-members.html">List of all members</a>  </div>
   <div class="headertitle">
@@ -79,63 +79,75 @@ Inheritance diagram for Client:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
+<tr class="memitem:ad63288699ab4eb2a5f39e76fe76223b9"><td class="memItemLeft" align="right" valign="top"><a id="ad63288699ab4eb2a5f39e76fe76223b9"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>Client</b> (<a class="el" href="class_client.html">Client</a> const &amp;)</td></tr>
+<tr class="separator:ad63288699ab4eb2a5f39e76fe76223b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3cdfb856b1cccd81052f589c850ab86f"><td class="memItemLeft" align="right" valign="top"><a id="a3cdfb856b1cccd81052f589c850ab86f"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>Client</b> (string name, unsigned int nif, vector&lt; <a class="el" href="class_service.html">Service</a> *&gt; *services=nullptr)</td></tr>
 <tr class="separator:a3cdfb856b1cccd81052f589c850ab86f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aeca0569267dbf7d1b20e4d77b98326af"><td class="memItemLeft" align="right" valign="top"><a id="aeca0569267dbf7d1b20e4d77b98326af"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>loadClients</b> (const string &amp;clientsNameFile, vector&lt; <a class="el" href="class_client.html">Client</a> &gt; &amp;clientsVector)</td></tr>
-<tr class="separator:aeca0569267dbf7d1b20e4d77b98326af"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad9a4ac1aa117db0b279d2219ab776fac"><td class="memItemLeft" align="right" valign="top"><a id="ad9a4ac1aa117db0b279d2219ab776fac"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>editClient</b> (vector&lt; <a class="el" href="class_client.html">Client</a> *&gt; &amp;clientsVector)</td></tr>
+<tr class="separator:ad9a4ac1aa117db0b279d2219ab776fac"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7f845c33f4aa7b7081ae72d9a16c2d3f"><td class="memItemLeft" align="right" valign="top"><a id="a7f845c33f4aa7b7081ae72d9a16c2d3f"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>removeClient</b> (vector&lt; <a class="el" href="class_client.html">Client</a> *&gt; &amp;clientsVector)</td></tr>
 <tr class="separator:a7f845c33f4aa7b7081ae72d9a16c2d3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5c473ba52d7678744edec9e51052c947"><td class="memItemLeft" align="right" valign="top"><a id="a5c473ba52d7678744edec9e51052c947"></a>
 string&#160;</td><td class="memItemRight" valign="bottom"><b>getName</b> () const</td></tr>
 <tr class="separator:a5c473ba52d7678744edec9e51052c947"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a226ff919591e7fdfa6c386e9aa5300a5"><td class="memItemLeft" align="right" valign="top"><a id="a226ff919591e7fdfa6c386e9aa5300a5"></a>
+float&#160;</td><td class="memItemRight" valign="bottom"><b>getMoneySpent</b> () const</td></tr>
+<tr class="separator:a226ff919591e7fdfa6c386e9aa5300a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a35c9fed8cdb36d28fd5e51bd2aee852e"><td class="memItemLeft" align="right" valign="top"><a id="a35c9fed8cdb36d28fd5e51bd2aee852e"></a>
 unsigned&#160;</td><td class="memItemRight" valign="bottom"><b>getNif</b> () const</td></tr>
 <tr class="separator:a35c9fed8cdb36d28fd5e51bd2aee852e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae241a8ae0811ea7c023dbc69d345a8b4"><td class="memItemLeft" align="right" valign="top"><a id="ae241a8ae0811ea7c023dbc69d345a8b4"></a>
-vector&lt; <a class="el" href="class_service.html">Service</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>getServicesVector</b> () const</td></tr>
-<tr class="separator:ae241a8ae0811ea7c023dbc69d345a8b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a13ab3e2d37fde2de5b6a40d4523bb999"><td class="memItemLeft" align="right" valign="top"><a id="a13ab3e2d37fde2de5b6a40d4523bb999"></a>
+vector&lt; <a class="el" href="class_service.html">Service</a> * &gt; *&#160;</td><td class="memItemRight" valign="bottom"><b>getServicesVector</b> ()</td></tr>
+<tr class="separator:a13ab3e2d37fde2de5b6a40d4523bb999"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1c7f938360e23b3e0e52d17965f88725"><td class="memItemLeft" align="right" valign="top"><a id="a1c7f938360e23b3e0e52d17965f88725"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>setName</b> (string name)</td></tr>
 <tr class="separator:a1c7f938360e23b3e0e52d17965f88725"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8d0ab1a3c654d361dacde7e1d2b92c94"><td class="memItemLeft" align="right" valign="top"><a id="a8d0ab1a3c654d361dacde7e1d2b92c94"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>setNif</b> (unsigned nif)</td></tr>
 <tr class="separator:a8d0ab1a3c654d361dacde7e1d2b92c94"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a65027bc2da365dfdbbf0393ee2697586"><td class="memItemLeft" align="right" valign="top"><a id="a65027bc2da365dfdbbf0393ee2697586"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>calcMoneySpent</b> ()</td></tr>
+<tr class="separator:a65027bc2da365dfdbbf0393ee2697586"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abf36aa7168464608e917fa40f1ba52db"><td class="memItemLeft" align="right" valign="top"><a id="abf36aa7168464608e917fa40f1ba52db"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>addService</b> (<a class="el" href="class_service.html">Service</a> *service)</td></tr>
 <tr class="separator:abf36aa7168464608e917fa40f1ba52db"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2f9628fce03c1b43aa8eb9cb6b4e6280"><td class="memItemLeft" align="right" valign="top"><a id="a2f9628fce03c1b43aa8eb9cb6b4e6280"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>addClient</b> (vector&lt; <a class="el" href="class_client.html">Client</a> &gt; &amp;clientsVector)</td></tr>
-<tr class="separator:a2f9628fce03c1b43aa8eb9cb6b4e6280"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afb5d445b316288c82c98407c10ede17e"><td class="memItemLeft" align="right" valign="top"><a id="afb5d445b316288c82c98407c10ede17e"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>operator&lt;</b> (<a class="el" href="class_client.html">Client</a> &amp;a) const</td></tr>
-<tr class="separator:afb5d445b316288c82c98407c10ede17e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1cbbbf2ea0d65791314b7640c053197b"><td class="memItemLeft" align="right" valign="top"><a id="a1cbbbf2ea0d65791314b7640c053197b"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>operator&lt;</b> (const <a class="el" href="class_client.html">Client</a> &amp;a) const</td></tr>
+<tr class="separator:a1cbbbf2ea0d65791314b7640c053197b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5cc669077f776648216ae03461b8c178"><td class="memItemLeft" align="right" valign="top"><a id="a5cc669077f776648216ae03461b8c178"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>operator==</b> (const <a class="el" href="class_client.html">Client</a> &amp;client1) const</td></tr>
 <tr class="separator:a5cc669077f776648216ae03461b8c178"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:ac18a40ed6975665b7f7661c8dcf7bf1b"><td class="memItemLeft" align="right" valign="top"><a id="ac18a40ed6975665b7f7661c8dcf7bf1b"></a>
+static void&#160;</td><td class="memItemRight" valign="bottom"><b>loadClients</b> (vector&lt; <a class="el" href="class_client.html">Client</a> *&gt; &amp;clientsVector)</td></tr>
+<tr class="separator:ac18a40ed6975665b7f7661c8dcf7bf1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aceebaabb74ad1e3e5b30c168e5ef681b"><td class="memItemLeft" align="right" valign="top"><a id="aceebaabb74ad1e3e5b30c168e5ef681b"></a>
+static void&#160;</td><td class="memItemRight" valign="bottom"><b>saveToFile</b> (vector&lt; <a class="el" href="class_client.html">Client</a> *&gt; &amp;clientsVector)</td></tr>
+<tr class="separator:aceebaabb74ad1e3e5b30c168e5ef681b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acd07078857cade36eee66b733de7bc38"><td class="memItemLeft" align="right" valign="top"><a id="acd07078857cade36eee66b733de7bc38"></a>
+static void&#160;</td><td class="memItemRight" valign="bottom"><b>addClient</b> (vector&lt; <a class="el" href="class_client.html">Client</a> *&gt; *clientsVector)</td></tr>
+<tr class="separator:acd07078857cade36eee66b733de7bc38"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
+<tr class="memitem:a9d5dc70a6eee2fded8217a7983fe5fd0"><td class="memItemLeft" align="right" valign="top"><a id="a9d5dc70a6eee2fded8217a7983fe5fd0"></a>
+float&#160;</td><td class="memItemRight" valign="bottom"><b>money_spent</b> =0</td></tr>
+<tr class="separator:a9d5dc70a6eee2fded8217a7983fe5fd0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a456e36f9972a8bf3ecdb5f0e70b3bd5d"><td class="memItemLeft" align="right" valign="top"><a id="a456e36f9972a8bf3ecdb5f0e70b3bd5d"></a>
 string&#160;</td><td class="memItemRight" valign="bottom"><b>name</b></td></tr>
 <tr class="separator:a456e36f9972a8bf3ecdb5f0e70b3bd5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adad90ca6a484cb64345ca62f1c7979ce"><td class="memItemLeft" align="right" valign="top"><a id="adad90ca6a484cb64345ca62f1c7979ce"></a>
-unsigned int&#160;</td><td class="memItemRight" valign="bottom"><b>id</b></td></tr>
-<tr class="separator:adad90ca6a484cb64345ca62f1c7979ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1c94dc96a56cb5032573fb1d528517c2"><td class="memItemLeft" align="right" valign="top"><a id="a1c94dc96a56cb5032573fb1d528517c2"></a>
 unsigned int&#160;</td><td class="memItemRight" valign="bottom"><b>nif</b></td></tr>
 <tr class="separator:a1c94dc96a56cb5032573fb1d528517c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a02b601f12b9905edae7e64ded9bde912"><td class="memItemLeft" align="right" valign="top"><a id="a02b601f12b9905edae7e64ded9bde912"></a>
 vector&lt; <a class="el" href="class_service.html">Service</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>services</b></td></tr>
 <tr class="separator:a02b601f12b9905edae7e64ded9bde912"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-static-attribs"></a>
-Static Protected Attributes</h2></td></tr>
-<tr class="memitem:a515d8893da8949a5189865e19461c737"><td class="memItemLeft" align="right" valign="top"><a id="a515d8893da8949a5189865e19461c737"></a>
-static unsigned int&#160;</td><td class="memItemRight" valign="bottom"><b>lastId</b> =0</td></tr>
-<tr class="separator:a515d8893da8949a5189865e19461c737"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
 Friends</h2></td></tr>

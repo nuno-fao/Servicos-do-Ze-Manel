@@ -33,12 +33,9 @@ Service::Service(string material, string origin, string destination, Date *arriv
 //destructor
 Service::~Service(){
     initialDate->~Date();
-    if(ser_state==on_queue)
-        for(auto i=Company::getCompany()->getVectorServicesOnQueue()->begin();i!=Company::getCompany()->getVectorServicesOnQueue()->end();i++){
-            if((*i)->getId()==id){
-                Company::getCompany()->getVectorServicesOnQueue()->erase(i);
-            }
-        }
+    arrivalDate->~Date();
+    origin->~Address();
+    destination->~Address();
 
 }
 
@@ -309,7 +306,7 @@ void Service::loadFromFile(list<Service*> *services_finished,vector<Service*> *s
         getline(servicesFile,tempGeneral);
     }
 
-
+    servicesFile.close();
     servicesFile.open("./files/on_transit_services.txt");
     while(getline(servicesFile,tempMaterial)){
 
@@ -422,7 +419,7 @@ void Service::loadFromFile(list<Service*> *services_finished,vector<Service*> *s
         getline(servicesFile,tempGeneral);
     }
 
-
+    servicesFile.close();
     servicesFile.open("./files/finished_services.txt");
     while(getline(servicesFile,tempMaterial)){
 
@@ -469,16 +466,16 @@ void Service::loadFromFile(list<Service*> *services_finished,vector<Service*> *s
             switch (tempState) {
             case on_transit:
                 services_on_transit->push_back(temp);
+                temp_client->addService(temp);
                 break;
             case on_queue:
                 services_on_queue->push_back(temp);
+                temp_client->addService(temp);
                 break;
             case finished:
                 services_finished->push_back(temp);
                 break;
             }
-
-            temp_client->addService(temp);
 
         } catch (NotAClient &e) {
             cout<<e.erro<<" "<<to_string(e.getNif())<<endl;
@@ -533,7 +530,7 @@ void Service::saveToFile(list<Service*> *services_finished,vector<Service*>*serv
         servicesFile << (x->getDistance())<<endl;
         servicesFile << (x->getType())<<endl;
 
-        servicesFile << endl << (x->getState())<<endl;
+        servicesFile << (x->getState())<<endl;
         servicesFile << x->getIDate()->getDate() <<endl;
         servicesFile << x->getClient()->getNif() << endl;
         servicesFile << x->getQuantity() <<endl;
@@ -1265,7 +1262,7 @@ Hour:
         temp_service=new TemperatureService(tempMaterial, origin,destination,temp_date_arrival,unsigned(stoi(tempDistance)),intToType(stoi(tempType)),on_queue,temp_date,client,stoi(temp_quantity),Temperature_enum::_200);
         break;
     default:
-        temp_service=new Service(tempMaterial,origin,destination,temp_date_arrival,unsigned(stoi(tempDistance)),intToType(stoi(tempType)),intToState(0),temp_date,client,stoi(temp_quantity));
+        temp_service=new Service(tempMaterial,origin,destination,temp_date_arrival,unsigned(stoi(tempDistance)),intToType(stoi(tempType)),on_queue,temp_date,client,stoi(temp_quantity));
     }
     services->push_back(temp_service);
     Company::getCompany()->services_on_queue_changed=true;
@@ -1283,59 +1280,177 @@ void Service::editService(){
                 cout<<"[1] edit Origin"<<endl;
                 cout<<"[2] edit destination"<<endl;
                 cout<<"[3] edit Quantity"<<endl;
+                cout<<"[0] exit"<<endl;
                 if(cin>>opt && opt<=3){
                     clearScreen();
                     variable_error=false;
                     string temp;
-
+                    string tempOrigin;
+                    Address temp_origin;
                     switch (opt) {
+                    case 0:{
+                        return;
+                    }
                     case 1: {
+                        clearBuffer();
                         variable_error=true;
                         clearScreen();
-                        clearBuffer();
                         while (variable_error) {
-                            cout<<"Enter the Origin"<<endl;
-                            getline(cin,temp);
-                            if(temp=="")
-                                break;
-                            checkIfOut(temp);
-                            clearScreen();
-                            if(strIsChar(temp)){
-                                variable_error=false;
-                                setOrigin(temp);
-                                Company::getCompany()->services_on_queue_changed=true;
+                            cout<<"Enter the Origin (street / doorNumber / location) or (location)"<<endl;
+
+                            getline(cin,tempOrigin);
+                            vector<string> temp_address_no_pc=vectorString(tempOrigin,"/");
+                            checkIfOut(tempOrigin);
+                            if(temp_address_no_pc.size()==3){
+                                clearScreen();
+                                if(strIsChar(temp_address_no_pc.at(2)) && strIsNumber(temp_address_no_pc.at(1))){
+                                    variable_error=false;
+                                    cout<<"Enter the Origin postal code (xxxx-yyy)"<<endl;
+                                    while(true){
+                                        string postal_code;
+                                        cin>>postal_code;
+                                        vector<string> temp_postal_code= vectorString(postal_code,"-");
+                                        if(temp_postal_code.size()==2 && strIsNumber(temp_postal_code.at(0)) && strIsNumber(temp_postal_code.at(1)) && temp_postal_code.at(0).size()==4 && temp_postal_code.at(1).size()==3){
+                                            temp_origin=Address(temp_address_no_pc.at(0),date_u_short(stoi(temp_address_no_pc.at(1))),postal_code,temp_address_no_pc.at(2));
+                                            variable_error=false;
+                                            break;
+                                        }
+                                        else{
+                                            clearScreen();
+                                            cout<<"Postal code not acceptable\nEnter the Origin postal code (xxxx-yyy)"<<endl;
+                                        }
+
+                                    }
+
+                                }
                             }
+                            else if(temp_address_no_pc.size()==1 && strIsChar(temp_address_no_pc.at(0))){
+                                clearScreen();
+                                if(strIsChar(temp_address_no_pc.at(0))){
+                                    cout<<"Enter the Origin postal code (xxxx-yyy)"<<endl;
+                                    while(true){
+                                        string postal_code;
+                                        cin>>postal_code;
+                                        vector<string> temp_postal_code= vectorString(postal_code,"-");
+                                        if(temp_postal_code.size()==2 && strIsNumber(temp_postal_code.at(0)) && strIsNumber(temp_postal_code.at(1)) && temp_postal_code.at(0).size()==4 && temp_postal_code.at(1).size()==3){
+                                            temp_origin=Address("",0,postal_code,temp_address_no_pc.at(0));
+                                            variable_error=false;
+                                            break;
+                                        }
+                                        else{
+                                            clearScreen();
+                                            cout<<"Postal code not acceptable\nEnter the Origin postal code (xxxx-yyy)"<<endl;
+                                        }
+
+                                    }
+
+                                }
+
+                            }
+
                             else{
+                                checkIfOut(tempOrigin);
+                                if(tempOrigin=="")
+                                    break;
+                                variable_error=true;
+                                clearScreen();
+                                cout<<"ORigin Input not acceptable, please try again"<<endl;
+                            }
+
+                        }
+                        string t="p";
+                        while(t!="y" && t!="n"){
+                            cout<<"Are u sure you want to Edit Service?"<<endl;
+                            cin>>t;
+                            if(t!="y"){
+                                clearScreen();
+                                throw exception();
+                            }
+                        }
+                        Company::getCompany()->services_on_queue_changed=true;
+                        this->setOrigin(temp_origin);
+                        break;
+                    }
+
+
+                    case 2:{
+                        clearBuffer();
+                        //set destination
+                        variable_error=true;
+                        clearScreen();
+                        while (variable_error) {
+                            cout<<"Enter the Destination (street / doorNumber / location) or (location)"<<endl;
+
+                            getline(cin,tempOrigin);
+                            vector<string> temp_address_no_pc=vectorString(tempOrigin,"/");
+                            checkIfOut(tempOrigin);
+                            if(temp_address_no_pc.size()==3){
+                                clearScreen();
+                                if(strIsChar(temp_address_no_pc.at(2)) && strIsNumber(temp_address_no_pc.at(1))){
+                                    variable_error=false;
+                                    cout<<"Enter the Destination postal code (xxxx-yyy)"<<endl;
+                                    while(true){
+                                        string postal_code;
+                                        cin>>postal_code;
+                                        vector<string> temp_postal_code= vectorString(postal_code,"-");
+                                        if(temp_postal_code.size()==2 && strIsNumber(temp_postal_code.at(0)) && strIsNumber(temp_postal_code.at(1)) && temp_postal_code.at(0).size()==4 && temp_postal_code.at(1).size()==3){
+                                            temp_origin=Address(temp_address_no_pc.at(0),date_u_short(stoi(temp_address_no_pc.at(1))),postal_code,temp_address_no_pc.at(2));
+                                            variable_error=false;
+                                            break;
+                                        }
+                                        else{
+                                            clearScreen();
+                                            cout<<"Postal code not acceptable\nEnter the Destination postal code (xxxx-yyy)"<<endl;
+                                        }
+
+                                    }
+
+                                }
+                            }
+                            else if(temp_address_no_pc.size()==1 && strIsChar(temp_address_no_pc.at(0))){
+                                clearScreen();
+                                if(strIsChar(temp_address_no_pc.at(0))){
+                                    cout<<"Enter the Destination postal code (xxxx-yyy)"<<endl;
+                                    while(true){
+                                        string postal_code;
+                                        cin>>postal_code;
+                                        vector<string> temp_postal_code= vectorString(postal_code,"-");
+                                        if(temp_postal_code.size()==2 && strIsNumber(temp_postal_code.at(0)) && strIsNumber(temp_postal_code.at(1)) && temp_postal_code.at(0).size()==4 && temp_postal_code.at(1).size()==3){
+                                            temp_origin=Address("",0,postal_code,temp_address_no_pc.at(0));
+                                            variable_error=false;
+                                            break;
+                                        }
+                                        else{
+                                            clearScreen();
+                                            cout<<"Postal code not acceptable\nEnter the Destination postal code (xxxx-yyy)"<<endl;
+                                        }
+
+                                    }
+
+                                }
+
+                            }
+
+                            else{
+                                clearScreen();
+                                if(tempOrigin=="")
+                                    break;
                                 variable_error=true;
                                 cout<<"ORigin Input not acceptable, please try again"<<endl;
                             }
 
                         }
-                        break;
-                    }
-                    case 2:{
-                        //set destination
-                        variable_error=true;
-                        clearBuffer();
-                        while (variable_error) {
-                            cout<<"Enter the Destination"<<endl;
-                            getline(cin,temp);
-                            if(temp=="")
-                                break;
-                            checkIfOut(temp);
-                            clearScreen();
-                            if(strIsChar(temp)){
-                                variable_error=false;
-                                setDestination(temp);
-                                Company::getCompany()->services_on_queue_changed=true;
+                        string t="p";
+                        while(t!="y" && t!="n"){
+                            cout<<"Are u sure you want to Edit Service?"<<endl;
+                            cin>>t;
+                            if(t!="y"){
+                                clearScreen();
+                                throw exception();
                             }
-                            else{
-                                variable_error=true;
-                                cout<<"Destination Input not acceptable, please try again"<<endl;
-                            }
-
                         }
-
+                        Company::getCompany()->services_on_queue_changed=true;
+                        this->setDestination(temp_origin);
                         break;
                     }
                     case 3:{
@@ -1349,13 +1464,22 @@ void Service::editService(){
                                 clearScreen();
                                 variable_error=false;
                                 try {
+                                    string t="p";
+                                    while(t!="y" && t!="n"){
+                                        cout<<"Are u sure you want to Edit Service?"<<endl;
+                                        cin>>t;
+                                        if(t!="y"){
+                                            clearScreen();
+                                            throw exception();
+                                        }
+                                    }
+                                    Company::getCompany()->services_on_queue_changed=true;
                                     setQuantity(stof(temp_quantity));
                                 } catch (...) {
                                     variable_error=true;
                                     clearScreen();
                                     cout<<"Quantity not acceptable, please try again"<<endl;
                                 }
-                                Company::getCompany()->services_on_queue_changed=true;
                             }
                             else
                             {
@@ -1386,10 +1510,12 @@ void Service::editService(){
 
 bool Service::removeService(vector<Service *> *services, unsigned id){
     for(auto i=services->begin();i!=services->end();i++){
+        clearBuffer();
         if((*i)->getId()==id && (*i)->getState()==on_queue){
             (*i)->~Service();
             services->erase(i);
-            return  true;
+            Company::getCompany()->services_on_queue_changed=true;
+            return true;
         }
         else if((*i)->getState()!=on_queue){
             cout<<"couldn't remove service, already finished or or route"<<endl;
@@ -1450,6 +1576,7 @@ ostream& operator <<(ostream& os,Service *a){
         os<<i->getlicense()<<" ";
     }
     os<<endl<<endl;
+    os<<"State: "<<a->getState()<<endl;
     os<<"Quantity: "<<setprecision(prec_q)<<fixed<<x<<endl;
     float y=a->getTotalPrice();
     os<<"Price : "<<setprecision(prec_p)<<fixed<<y<<endl;

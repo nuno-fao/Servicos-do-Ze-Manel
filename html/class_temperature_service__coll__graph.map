@@ -1,5 +1,6 @@
 <map id="TemperatureService" name="TemperatureService">
-<area shape="rect" id="node2" href="$class_service.html" title="Service" alt="" coords="41,109,108,136"/>
-<area shape="rect" id="node3" href="$class_client.html" title="Client" alt="" coords="8,5,64,32"/>
-<area shape="rect" id="node4" href="$class_date.html" title="Date" alt="" coords="88,5,139,32"/>
+<area shape="rect" id="node2" href="$class_service.html" title="Service" alt="" coords="106,109,173,136"/>
+<area shape="rect" id="node3" href="$class_address.html" title="Address" alt="" coords="5,5,76,32"/>
+<area shape="rect" id="node4" href="$class_client.html" title="Client" alt="" coords="111,5,167,32"/>
+<area shape="rect" id="node5" href="$class_date.html" title="Date" alt="" coords="191,5,242,32"/>
 </map>

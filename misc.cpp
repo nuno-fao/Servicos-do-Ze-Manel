@@ -302,6 +302,7 @@ long askForId(string classToAsk,string what_to_do, string identifier){
         clearScreen();
         return  -1;
     }
+    clearScreen();
     cout<<identifier+" not acceptable"<<endl;
     return -2;
 
