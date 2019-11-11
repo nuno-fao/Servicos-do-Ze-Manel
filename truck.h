@@ -26,7 +26,6 @@ public:
     Truck(string license, bool available,bool registered,unsigned short capacity, unsigned short cargo);
     virtual ~Truck();
 	//get methods
-    virtual float getprice(Service* service) const;
     unsigned short getcapacity() const;
     bool getavailable() const;
     string getlicense() const;
@@ -58,12 +57,8 @@ public:
 	~Congelation() {}
 
 	void info();
-	float getprice(Service* service) const;
-	void setprice(float newval);
-    static unordered_map<Temperature_enum, float> tempMul;
-
-
-private:
+    static unordered_map<Temperature_enum, float> tempMul;	//will hold price multipliers depending on the service
+	static unordered_map<unsigned short, unsigned short> CapDist; //holds how many trucks of this have x capacity being that the latter is the key
 	static float pricePerKG;
 };
 
@@ -75,11 +70,10 @@ public:
 
 
 	void info();
-	float getprice(Service* service)const;
-	void setprice(float newval);
-	static unordered_map<Hazard_enum, float> hazardMul;
-private:
-    static float pricePerKG;
+	static float pricePerKG;
+	static unordered_map<Hazard_enum, float> hazardMul;	//will hold price multipliers depending on the service
+	static unordered_map<unsigned short, unsigned short> CapDist; //holds how many trucks of this have x capacity being that the latter is the key
+
 };
 
 class Animal : public Truck
@@ -89,11 +83,8 @@ public:
     ~Animal(){}
 
 	void info();
-	float getprice(Service* service)const;
-	void setprice(float newval);
-
-private:
 	static float pricePerKG;
+	static unordered_map<unsigned short, unsigned short> CapDist; //holds how many trucks of this have x capacity being that the latter is the key
 };
 
 class Normal : public Truck
@@ -103,11 +94,9 @@ public:
     ~Normal(){}
 
 	void info();
-	float getprice(Service* service)const;
-	void setprice(float newval);
-
-private:
 	static float pricePerKG;
+	static unordered_map<unsigned short, unsigned short> CapDist; //holds how many trucks of this have x capacity being that the latter is the key
+
 };
 
 class FailedToOpenTrucks {
