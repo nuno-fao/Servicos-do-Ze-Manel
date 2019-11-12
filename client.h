@@ -5,7 +5,6 @@
 #include "service.h"
 #include "misc.h"
 
-
 using namespace std;
 
 class Service;
@@ -14,14 +13,58 @@ class Truck;
 class Client
 {
 public:
-    Client(Client const &);
-    Client();
+/**
+ * Constructor with a Client Object as parameter
+ * @param x Client data that is used to initialize the Client Object
+ */
+    Client(Client const &x);
+/**
+ * Default Constructor
+ */
+	Client();
+/**
+ * @brief Constructor with all data necessary
+ *
+ * Receives all the data it needs to construct a client properly
+ * It is the most used constructor of the three
+ * @param name Name of the client
+ * @param nif Identification number of the client
+ * @param services - Pointer to the vector of pointers to Services that the client has bought (none by default)
+
+ */
 	Client(string name, unsigned int nif, vector<Service*> *services = nullptr);
+/**
+ * Default Destructor
+ */
     virtual ~Client();
-
+/**
+ * @brief Loads the clients
+ *
+ * Loads the clients into the program by pushing them to a vector
+ * It does this by going line by line in the clients.txt (which is formatted)
+ *
+ * @param clientsVector - Vector where the pointers to the Clients are stored
+ * @return Returns nothing
+ */
   	static void loadClients(vector<Client*>& clientsVector);
+/**
+ * @brief Saves the clients
+ *
+ * Saves the clients the user has added by writing to the clients.txt file
+ * It does this by iterating through the clientsVector
+ *
+ * @param clientsVector - Vector where the pointers to the Clients are stored
+ * @return Returns nothing
+ */
 	static void saveToFile(vector<Client*>& clientsVector);
-
+	/**
+ * @brief Edits the information of a client
+ *
+ * Edits the information of a client by asking
+ *
+ * @param clientsVector - Vector where the pointers to the Clients are stored
+ * @return Returns nothing
+ */
 	void editClient();
 	void removeClient(vector<Client *> &clientsVector);
 	
@@ -46,11 +89,9 @@ public:
     bool operator<(const Client &a) const;
     bool operator== (const Client& client1) const;
 protected:
-    //tive q comentar para testar!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!11
-    //Client(){};
-    float money_spent=0;
+    float money_spent=0; /*!< Total money spent in services - used  */
     string name;
-    unsigned int nif;
+    unsigned int nif; /*!< Client's Identification - used whenever comparing and verifying clients */
     vector<Service*> services;
 
 };
@@ -80,6 +121,19 @@ public:
 	}
 };
 
+class ClientNotInVector {
+public:
+	~ClientNotInVector();
+	string erro;
+	unsigned nif;
+	ClientNotInVector(unsigned nif_n, string erro) : erro(erro) {
+		this->nif = nif_n;
+	}
+	unsigned int getNif() const {
+		return nif;
+	}
+};
+
 
 
 class CantOpenClientFile{
@@ -88,10 +142,3 @@ public:
 	string erro;
     CantOpenClientFile(string erro): erro(erro) {}
 };
-
-//class BadNif {
-//public:
-//	~BadNif;
-//	string erro;
-//	CantOpenClientFile(string erro) : erro(erro) {}
-//};

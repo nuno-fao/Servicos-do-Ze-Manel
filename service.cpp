@@ -580,7 +580,9 @@ void Service::saveToFile(list<Service*> *services_finished,vector<Service*>*serv
 //adicionar hazardous type ou temp range!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 Service *Service::addService(vector<Service *> *services,Client *client){
     string tempOrigin,tempDestination,tempMaterial;
-    string tempType ,month,day,hour,minute;
+    string tempType,tempSpecType,month,day,hour,minute;
+    Temperature_enum temp_temperature=Temperature_enum::_100;
+    Hazard_enum temp_hazard=Hazard_enum::other;
     string temp_quantity;
     string year;
     vector<string> print;
@@ -982,7 +984,68 @@ Service *Service::addService(vector<Service *> *services,Client *client){
         }
         clearBuffer();
     }
-    print.push_back(tempType);
+    print.push_back(typeToString(intToType(stoi(tempType))));// set type of service
+
+    if(stoi(tempType)==1){
+        variable_error=true;
+        while (variable_error) {
+            printClassVector(&print);
+            cout<<"Please choose a type of service:"<<endl;
+            cout<<endl;
+            cout<<"[0] Explosives"<<endl;
+            cout<<"[1] Gases"<<endl;
+            cout<<"[2] Flammable Liquid"<<endl;
+            cout<<"[3] Flammable Solid"<<endl;
+            cout<<"[4] Oxidizer"<<endl;
+            cout<<"[5] Poisons"<<endl;
+            cout<<"[6] Radioactive"<<endl;
+            cout<<"[7] Corrosives"<<endl;
+            cout<<"[8] Other"<<endl;
+
+            if(cin>>tempSpecType && strIsNumber(tempSpecType) && stoi(tempSpecType)<9){
+                clearScreen();
+                variable_error=false;
+            }
+            else{
+                clearScreen();
+                checkIfOut(tempSpecType);
+                temp_hazard=static_cast<Hazard_enum>(stoi(tempSpecType)) ;
+                variable_error=true;
+                cout<<"Invalid Type number, please Try Again"<<endl;
+
+
+            }
+            clearBuffer();
+        }
+    }
+    else if(stoi(tempType)==3){
+        variable_error=true;
+        while (variable_error) {
+            printClassVector(&print);
+            cout<<"Please choose a type of service:"<<endl;
+            cout<<endl;
+            cout<<"[0] 100"<<endl;
+            cout<<"[1] 200"<<endl;
+            cout<<"[2] 300"<<endl;
+            cout<<"[3] 400"<<endl;
+
+            if(cin>>tempSpecType && strIsNumber(tempSpecType) && stoi(tempSpecType)<4){
+                clearScreen();
+                temp_temperature=static_cast<Temperature_enum>(stoi(tempSpecType)) ;
+                variable_error=false;
+            }
+            else{
+                clearScreen();
+                checkIfOut(tempSpecType);
+                variable_error=true;
+                cout<<"Invalid Type number, please Try Again"<<endl;
+
+
+            }
+            clearBuffer();
+        }
+    }
+
     //set yy/mm/dd
 
 
@@ -1250,15 +1313,24 @@ Hour:
     Service *temp_service;
     switch (stoi(tempType)) {
     case hazardous:
-        temp_service=new  HazardousService(tempMaterial,origin,destination,temp_date_arrival,unsigned(stoi(tempDistance)),intToType(stoi(tempType)),on_queue,temp_date,client,stoi(temp_quantity),Hazard_enum::explosives);
+        temp_service=new  HazardousService(tempMaterial,origin,destination,temp_date_arrival,unsigned(stoi(tempDistance)),intToType(stoi(tempType)),on_queue,temp_date,client,stoi(temp_quantity),temp_hazard);
+        temp_service->total_price=stoi(temp_quantity)*HazardousMat::pricePerKG*HazardousMat::hazardMul[temp_hazard];
         break;
     case lowTemperature:
-        temp_service=new TemperatureService(tempMaterial, origin,destination,temp_date_arrival,unsigned(stoi(tempDistance)),intToType(stoi(tempType)),on_queue,temp_date,client,stoi(temp_quantity),Temperature_enum::_200);
+        temp_service=new TemperatureService(tempMaterial, origin,destination,temp_date_arrival,unsigned(stoi(tempDistance)),intToType(stoi(tempType)),on_queue,temp_date,client,stoi(temp_quantity),temp_temperature);
+        temp_service->total_price=stoi(temp_quantity)*Congelation::pricePerKG*Congelation::tempMul[temp_temperature];
+        break;
+    case animal:
+        temp_service=new Service(tempMaterial,origin,destination,temp_date_arrival,unsigned(stoi(tempDistance)),intToType(stoi(tempType)),on_queue,temp_date,client,stoi(temp_quantity));
+        temp_service->total_price=stoi(temp_quantity)*Animal::pricePerKG;
         break;
     default:
         temp_service=new Service(tempMaterial,origin,destination,temp_date_arrival,unsigned(stoi(tempDistance)),intToType(stoi(tempType)),on_queue,temp_date,client,stoi(temp_quantity));
+        temp_service->total_price=stoi(temp_quantity)*Normal::pricePerKG;
+        break;
     }
     services->push_back(temp_service);
+    client->addService(temp_service);
     Company::getCompany()->services_on_queue_changed=true;
     return temp_service;
 }

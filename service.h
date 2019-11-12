@@ -22,8 +22,8 @@ class Date;
 class Company;
 class Address;
 
-enum class Hazard_enum {explosives, gases, flammableliq, flammablesolid, oxidizer, poisons, radioactive, corrosives, other}; //categories for the diferent dangers
-enum class Temperature_enum{_100,_200,_300,_400};
+enum class Hazard_enum {explosives=0, gases=1, flammableliq=2, flammablesolid=3, oxidizer=4, poisons=5, radioactive=6, corrosives=7, other=8}; //categories for the diferent dangers
+enum class Temperature_enum{_100=0,_200=1,_300=2,_400=3};
 
 enum type {
     ordinary=0,hazardous=1,animal=2,lowTemperature=3
