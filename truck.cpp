@@ -35,7 +35,7 @@ Truck::~Truck(){
 
 Truck::Truck(string license, bool available, bool registered, unsigned short capacity, unsigned short cargo) {
     this->license=license;
-    this->availabe = available;
+    this->available = available;
     this->registered = registered;
     this->capacity = capacity;
     this->cargo = cargo;
@@ -59,7 +59,7 @@ unsigned short Truck::getcapacity() const {
 }
 
 bool Truck::getavailable() const {
-    return availabe;
+    return available;
 }
 
 bool Truck::getregistered() const{
@@ -80,7 +80,7 @@ vector<Service*> *Truck::getServices(){
 
 
 void Truck::setavailable(bool foo) {
-    availabe = foo;
+    available = foo;
 }
 
 void Truck::setregistered(bool foo) {
@@ -91,7 +91,7 @@ void Truck::info() {
     cout << "License: " << license << endl;
     cout << "Capacity: " << capacity << endl;
     cout << "Available: ";
-    (availabe) ? cout << "true" << endl : cout << "false" << endl << "\tCurrently transporting " << cargo << "KG of cargo" << endl;
+    (available) ? cout << "true" << endl : cout << "false" << endl << "\tCurrently transporting " << cargo << "KG of cargo" << endl;
     cout << "Registered: ";
     (registered) ? cout << "true" << endl : cout << "false" << endl;
     if (registered) {
@@ -135,7 +135,7 @@ void Truck::remove_service(unsigned int id) {
 }
 
 void Truck::start_transport(unsigned short cargo) {
-    availabe = false;
+    available = false;
     this->cargo = cargo;
 }
 

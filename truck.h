@@ -17,10 +17,10 @@ class Truck
 {
 protected:
     string license; ///format XX-YY-ZZ
-    bool availabe;	///is the truck available right now?
+    bool available;	///is the truck available right now?
     bool registered;	///is the truck registered to a service in the future?
     vector<Service*> assignedServices;	///services the truck is registered to
-    unsigned short capacity; ///in KG
+    unsigned short capacity; //in KG
     unsigned short cargo; ///if in transit this holds the weight it transports, if not it is 0
 
 public:
@@ -34,7 +34,7 @@ public:
     unsigned short getcargo() const;
     vector<Service*> *getServices();
     //set methods
-    virtual void setprice(float newval){availabe=(bool(newval) && availabe);}
+    virtual void setprice(float newval){available=(bool(newval) && available);}
     void setregistered(bool foo);
     void setavailable(bool foo);
     //load and save to file

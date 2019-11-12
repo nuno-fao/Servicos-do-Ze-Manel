@@ -837,7 +837,7 @@ void menu_editprices() {
         clearScreen();
         cout << "[1] Temperature Price Multipliers" << endl;
         cout << "[2] Hazard Multipliers" << endl;
-        cout << "[3] Standart price per KG" << endl;
+        cout << "[3] Standard price per KG" << endl;
         cout << "[0] Return to Main Menu" << endl;
         if (cin >> opt && opt <= 3)
         {

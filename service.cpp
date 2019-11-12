@@ -118,8 +118,6 @@ void Service::addTruck(Truck *truck,float cargo){
     this->trucks[truck]=cargo;
 }
 
-
-
 //help methods
 type intToType(int a){
     switch (a) {
