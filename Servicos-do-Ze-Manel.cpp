@@ -829,8 +829,8 @@ void menu_editprices() {
                             cout << "What will be the new value? "; cin >> aux;
                             clearBuffer();
                             if (strIsNumber(aux)) {
-                                if (stoi(aux) > 0) {
-                                    HazardousMat::hazardMul[Hazard_enum::explosives] = stoi(aux);
+                                if (stof(aux) > 0) {
+                                    HazardousMat::hazardMul[Hazard_enum::explosives] = stof(aux);
                                     cout << "Multiplier changed successfully!!!" << endl;
                                     enter_to_exit();
                                 }
@@ -852,8 +852,8 @@ void menu_editprices() {
                             cout << "What will be the new value? "; cin >> aux;
                             clearBuffer();
                             if (strIsNumber(aux)) {
-                                if (stoi(aux) > 0) {
-                                    HazardousMat::hazardMul[Hazard_enum::gases] = stoi(aux);
+                                if (stof(aux) > 0) {
+                                    HazardousMat::hazardMul[Hazard_enum::gases] = stof(aux);
                                     cout << "Multiplier changed successfully!!!" << endl;
                                     enter_to_exit();
                                 }
@@ -875,8 +875,8 @@ void menu_editprices() {
                             cout << "What will be the new value? "; cin >> aux;
                             clearBuffer();
                             if (strIsNumber(aux)) {
-                                if (stoi(aux) > 0) {
-                                    HazardousMat::hazardMul[Hazard_enum::flammableliq] = stoi(aux);
+                                if (stof(aux) > 0) {
+                                    HazardousMat::hazardMul[Hazard_enum::flammableliq] = stof(aux);
                                     cout << "Multiplier changed successfully!!!" << endl;
                                     enter_to_exit();
                                 }
@@ -898,8 +898,8 @@ void menu_editprices() {
                             cout << "What will be the new value? "; cin >> aux;
                             clearBuffer();
                             if (strIsNumber(aux)) {
-                                if (stoi(aux) > 0) {
-                                    HazardousMat::hazardMul[Hazard_enum::flammablesolid] = stoi(aux);
+                                if (stof(aux) > 0) {
+                                    HazardousMat::hazardMul[Hazard_enum::flammablesolid] = stof(aux);
                                     cout << "Multiplier changed successfully!!!" << endl;
                                     enter_to_exit();
                                 }
@@ -921,8 +921,8 @@ void menu_editprices() {
                             cout << "What will be the new value? "; cin >> aux;
                             clearBuffer();
                             if (strIsNumber(aux)) {
-                                if (stoi(aux) > 0) {
-                                    HazardousMat::hazardMul[Hazard_enum::oxidizer] = stoi(aux);
+                                if (stof(aux) > 0) {
+                                    HazardousMat::hazardMul[Hazard_enum::oxidizer] = stof(aux);
                                     cout << "Multiplier changed successfully!!!" << endl;
                                     enter_to_exit();
                                 }
@@ -944,8 +944,8 @@ void menu_editprices() {
                             cout << "What will be the new value? "; cin >> aux;
                             clearBuffer();
                             if (strIsNumber(aux)) {
-                                if (stoi(aux) > 0) {
-                                    HazardousMat::hazardMul[Hazard_enum::poisons] = stoi(aux);
+                                if (stof(aux) > 0) {
+                                    HazardousMat::hazardMul[Hazard_enum::poisons] = stof(aux);
                                     cout << "Multiplier changed successfully!!!" << endl;
                                     enter_to_exit();
                                 }
@@ -967,8 +967,8 @@ void menu_editprices() {
                             cout << "What will be the new value? "; cin >> aux;
                             clearBuffer();
                             if (strIsNumber(aux)) {
-                                if (stoi(aux) > 0) {
-                                    HazardousMat::hazardMul[Hazard_enum::radioactive] = stoi(aux);
+                                if (stof(aux) > 0) {
+                                    HazardousMat::hazardMul[Hazard_enum::radioactive] = stof(aux);
                                     cout << "Multiplier changed successfully!!!" << endl;
                                     enter_to_exit();
                                 }
@@ -990,8 +990,8 @@ void menu_editprices() {
                             cout << "What will be the new value? "; cin >> aux;
                             clearBuffer();
                             if (strIsNumber(aux)) {
-                                if (stoi(aux) > 0) {
-                                    HazardousMat::hazardMul[Hazard_enum::corrosives] = stoi(aux);
+                                if (stof(aux) > 0) {
+                                    HazardousMat::hazardMul[Hazard_enum::corrosives] = stof(aux);
                                     cout << "Multiplier changed successfully!!!" << endl;
                                     enter_to_exit();
                                 }
@@ -1013,8 +1013,8 @@ void menu_editprices() {
                             cout << "What will be the new value? "; cin >> aux;
                             clearBuffer();
                             if (strIsNumber(aux)) {
-                                if (stoi(aux) > 0) {
-                                    HazardousMat::hazardMul[Hazard_enum::other] = stoi(aux);
+                                if (stof(aux) > 0) {
+                                    HazardousMat::hazardMul[Hazard_enum::other] = stof(aux);
                                     cout << "Multiplier changed successfully!!!" << endl;
                                     enter_to_exit();
                                 }
@@ -1067,8 +1067,8 @@ void menu_editprices() {
                             cout << "What will be the new value? "; cin >> aux;
                             clearBuffer();
                             if (strIsNumber(aux)) {
-                                if (stoi(aux) > 0) {
-                                    Congelation::tempMul[Temperature_enum::_100] = stoi(aux);
+                                if (stof(aux) > 0) {
+                                    Congelation::tempMul[Temperature_enum::_100] = stof(aux);
                                     cout << "Multiplier changed successfully!!!" << endl;
                                     enter_to_exit();
                                 }
@@ -1090,8 +1090,8 @@ void menu_editprices() {
                             cout << "What will be the new value? "; cin >> aux;
                             clearBuffer();
                             if (strIsNumber(aux)) {
-                                if (stoi(aux) > 0) {
-                                    Congelation::tempMul[Temperature_enum::_200] = stoi(aux);
+                                if (stof(aux) > 0) {
+                                    Congelation::tempMul[Temperature_enum::_200] = stof(aux);
                                     cout << "Multiplier changed successfully!!!" << endl;
                                     enter_to_exit();
                                 }
@@ -1113,8 +1113,8 @@ void menu_editprices() {
                             cout << "What will be the new value? "; cin >> aux;
                             clearBuffer();
                             if (strIsNumber(aux)) {
-                                if (stoi(aux) > 0) {
-                                    Congelation::tempMul[Temperature_enum::_300] = stoi(aux);
+                                if (stof(aux) > 0) {
+                                    Congelation::tempMul[Temperature_enum::_300] = stof(aux);
                                     cout << "Multiplier changed successfully!!!" << endl;
                                     enter_to_exit();
                                 }
@@ -1136,8 +1136,8 @@ void menu_editprices() {
                             cout << "What will be the new value? "; cin >> aux;
                             clearBuffer();
                             if (strIsNumber(aux)) {
-                                if (stoi(aux) > 0) {
-                                    Congelation::tempMul[Temperature_enum::_400] = stoi(aux);
+                                if (stof(aux) > 0) {
+                                    Congelation::tempMul[Temperature_enum::_400] = stof(aux);
                                     cout << "Multiplier changed successfully!!!" << endl;
                                     enter_to_exit();
                                 }
@@ -1190,8 +1190,8 @@ void menu_editprices() {
                             cout << "What will be the new value? "; cin >> aux;
                             clearBuffer();
                             if (strIsNumber(aux)) {
-                                if (stoi(aux) > 0) {
-                                    Congelation::pricePerKG = stoi(aux);
+                                if (stof(aux) > 0) {
+                                    Congelation::pricePerKG = stof(aux);
                                     cout << "Multiplier changed successfully!!!" << endl;
                                     enter_to_exit();
                                 }
@@ -1213,8 +1213,8 @@ void menu_editprices() {
                             cout << "What will be the new value? "; cin >> aux;
                             clearBuffer();
                             if (strIsNumber(aux)) {
-                                if (stoi(aux) > 0) {
-                                    HazardousMat::pricePerKG = stoi(aux);
+                                if (stof(aux) > 0) {
+                                    HazardousMat::pricePerKG = stof(aux);
                                     cout << "Multiplier changed successfully!!!" << endl;
                                     enter_to_exit();
                                 }
@@ -1236,8 +1236,8 @@ void menu_editprices() {
                             cout << "What will be the new value? "; cin >> aux;
                             clearBuffer();
                             if (strIsNumber(aux)) {
-                                if (stoi(aux) > 0) {
-                                    Animal::pricePerKG = stoi(aux);
+                                if (stof(aux) > 0) {
+                                    Animal::pricePerKG = stof(aux);
                                     cout << "Multiplier changed successfully!!!" << endl;
                                     enter_to_exit();
                                 }
@@ -1259,8 +1259,8 @@ void menu_editprices() {
                             cout << "What will be the new value? "; cin >> aux;
                             clearBuffer();
                             if (strIsNumber(aux)) {
-                                if (stoi(aux) > 0) {
-                                    Normal::pricePerKG = stoi(aux);
+                                if (stof(aux) > 0) {
+                                    Normal::pricePerKG = stof(aux);
                                     cout << "Multiplier changed successfully!!!" << endl;
                                     enter_to_exit();
                                 }
