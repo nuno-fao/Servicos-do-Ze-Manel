@@ -262,7 +262,6 @@ bool Client::operator<(const Client &a) const{
 ostream& operator<<(ostream& out, const Client& client) {
     out << "Name:" << client.name << endl;
     out << "NIF: " << client.nif << endl; 
-	out << "*********************************" << endl;
 
     return out;
 }

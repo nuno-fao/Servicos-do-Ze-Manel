@@ -42,7 +42,11 @@ void manage_client(Client *client){
                     clearBuffer();
                     client->removeClient(*Company::getCompany()->getVectorClients());
                 }
-                catch (...) {
+                catch (ClientNotInVector e) {
+					clearScreen();
+					clearBuffer();
+					cout << e.erro << endl;
+					enter_to_exit();
                 }
                 return;
             }
@@ -257,8 +261,11 @@ void menu_clients(){
                     clearBuffer();
                     Client::addClient(Company::getCompany()->getVectorClients());
                 }
-                catch(...){
-
+                catch(ClientInVector e){
+					clearScreen();
+					clearBuffer();
+					cout << e.erro << endl;
+					enter_to_exit();
                 }
 
                 break;
@@ -280,7 +287,7 @@ void menu_clients(){
                     } catch (NotAClient e) {
                         clearScreen();
                         clearBuffer();
-                        cout << e.erro<<"erty" << endl;
+                        cout << e.erro << endl;
                         enter_to_exit();
                     }
                 }
