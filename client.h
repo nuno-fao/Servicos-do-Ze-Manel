@@ -171,6 +171,14 @@ public:
 * @return Returns true if the Client has a smaller nif
 */
     bool operator<(const Client &a) const;
+/**
+* @brief Operator == overloading
+*
+* Overload of == operator for comparisons. A Client is == if his identification number is the same
+*
+* @param client1 - Client Object containing the nif to be compared
+* @return Returns true if the Client has an equal nif
+*/
     bool operator== (const Client& client1) const;
 protected:
     float money_spent=0; /*!< Total money spent in services - used  */
@@ -182,11 +190,29 @@ protected:
 
 class NotAClient: public Client{
 public:
+/**
+* Default destructor
+*/
     ~NotAClient();
-    string erro;
+    string erro; /*!< Message describing error */
+/**
+ * @brief Constructor with all data necessary
+ *
+ * This exception is thrown if a given nif belongs to no client
+ *
+ * @param nif_n - Identification number of the client
+ * @param erro - Message describing error
+ */
     NotAClient(unsigned nif_n, string erro): erro(erro){
         this->nif=nif_n;
     }
+/**
+ * @brief Gets identification number
+ *
+ * Returns identification number of the client searched
+ *
+ * @return Returns an unsigned integer containing the identification number
+ */
 	unsigned int getNif() const {
 		return nif;
 	}
@@ -194,12 +220,30 @@ public:
 
 class ClientInVector{
 public:
+/**
+* Default destructor
+*/
     ~ClientInVector();
-	string erro;
+	string erro; /*!< Message describing error */
     unsigned nif;
+/**
+ * @brief Constructor with all data necessary
+ *
+ * This exception is thrown if the Client being searched for is already in the Clients vector
+ *
+ * @param nif_n - Identification number of the client
+ * @param erro - Message describing error
+ */
     ClientInVector(unsigned nif_n, string erro): erro(erro) {
 		this->nif = nif_n;
 	}
+/**
+ * @brief Gets identification number
+ *
+ * Returns identification number of the client
+ *
+ * @return Returns an unsigned integer containing the identification number
+ */
 	unsigned int getNif() const {
 		return nif;
 	}
@@ -207,12 +251,30 @@ public:
 
 class ClientNotInVector {
 public:
+/**
+* Default destructor
+*/
 	~ClientNotInVector();
-	string erro;
+	string erro; /*!< Message describing error */
 	unsigned nif;
+/**
+ * @brief Constructor with all data necessary
+ *
+ * This exception is thrown if the Client being searched for is not in the Clients vector
+ *
+ * @param nif_n - Identification number of the client
+ * @param erro - Message describing error
+ */
 	ClientNotInVector(unsigned nif_n, string erro) : erro(erro) {
 		this->nif = nif_n;
 	}
+/**
+ * @brief Gets identification number
+ *
+ * Returns identification number of the client searched
+ *
+ * @return Returns an unsigned integer containing the identification number
+ */
 	unsigned int getNif() const {
 		return nif;
 	}
@@ -222,7 +284,17 @@ public:
 
 class CantOpenClientFile{
 public:
+/**
+* Default destructor
+*/
     ~CantOpenClientFile();
-	string erro;
+	string erro; /*!< Message describing error */
+/**
+ * @brief Constructor with all data necessary
+ *
+ * This exception is thrown if the program is unable to open the associated file containing the clients
+ *
+ * @param erro - Message describing error
+ */
     CantOpenClientFile(string erro): erro(erro) {}
 };
