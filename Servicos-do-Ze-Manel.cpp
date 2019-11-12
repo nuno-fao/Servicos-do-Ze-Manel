@@ -188,7 +188,14 @@ int main()
     //vector<Truck*> a(*Ze_Manel->getVectorTrucks());
     string temp;
     mainMenu();
-    Client::saveToFile(*Ze_Manel->getVectorClients());
+	try
+	{
+		Client::saveToFile(*Ze_Manel->getVectorClients());
+	}
+	catch (CantOpenClientFile e)
+	{
+		cout << e.erro << endl;
+	}
     delete Ze_Manel;
 
 
