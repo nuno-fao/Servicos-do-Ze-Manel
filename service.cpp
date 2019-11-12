@@ -1398,7 +1398,7 @@ Hour:
     variable_error=true;
     while (variable_error) {
         printClassVector(&print);
-        cout<<"Enter the quantity to transport"<<endl;
+        cout<<"Enter the quantity to transport (in kg)"<<endl;
         if(cin>>temp_quantity && strIsNumber(temp_quantity)){
             clearScreen();
             variable_error=false;
@@ -1433,12 +1433,13 @@ Hour:
         temp_service->total_price=stoi(temp_quantity)*Normal::pricePerKG*temp_service->getDistance();
         break;
     }
+	cout << "Total price: " << endl;
     print.push_back(to_string(temp_service->getTotalPrice()));
     printClassVector(&print);
 
     string t="p";
     while(t!="y" && t!="n"){
-        cout<<"Are u sure you want to Add Service?"<<endl;
+        cout<<"Are u sure you want to Add Service? (y/n)"<<endl;
         cin>>t;
         if(t!="y"){
             clearScreen();
@@ -1463,10 +1464,10 @@ void Service::editService(){
             bool variable_error=true;
             while (variable_error) {
                 cout<<this;
-                cout<<"[1] edit Origin"<<endl;
-                cout<<"[2] edit destination"<<endl;
-                cout<<"[3] edit Quantity"<<endl;
-                cout<<"[0] exit"<<endl;
+                cout<<"[1] Edit Origin"<<endl;
+                cout<<"[2] Edit destination"<<endl;
+                cout<<"[3] Edit Quantity"<<endl;
+                cout<<"[0] Exit"<<endl;
                 if(cin>>opt && opt<=3){
                     clearScreen();
                     variable_error=false;

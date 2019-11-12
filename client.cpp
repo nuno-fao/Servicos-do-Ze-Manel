@@ -1,5 +1,8 @@
 #include "client.h"
 
+// Falta comentar removeService
+
+
 Client::Client() {}
 
 Client::Client(Client const &x){
@@ -87,14 +90,17 @@ void Client::addClient(vector<Client *> *clientsVector) {
         }
     }
     Client *tempClient = new Client(tempName,unsigned(stoi(tempNif)));
-	for (auto it = *clientsVector->begin(); it != *clientsVector->end(); it++)
+	for (auto it = clientsVector->begin(); it != clientsVector->end(); it++)
 	{
-		if (tempClient->getNif() == (*it).getNif())
+		if (tempClient->getNif() == (*it)->getNif())
 			throw ClientInVector(tempClient->getNif(), "Client you're trying to add already exists in the database!");
 			
 	}
 	clientsVector->push_back(tempClient);
+	cout << "Client added sucessfully" << endl;
+	enter_to_exit();
 
+	sort(Company::getCompany()->getVectorClients()->begin(), Company::getCompany()->getVectorClients()->end(), cmp_classes<Client>);
 }
 
 void Client::editClient()
@@ -127,6 +133,8 @@ void Client::editClient()
 				}
 
 				setName(tempName);
+				cout << "Client edited sucessfully" << endl;
+				enter_to_exit();
 				break;
 			}
 			case 2: {
@@ -147,6 +155,9 @@ void Client::editClient()
 				}
 
 				setNif(unsigned(stoi(tempNif)));
+
+				cout << "Client edited sucessfully" << endl;
+				enter_to_exit();
 				break;
 			}
 			case 0: {
@@ -163,6 +174,9 @@ void Client::editClient()
 			cout << "Not a valid option, please try again" << endl;
 		}
 	}
+
+	sort(Company::getCompany()->getVectorClients()->begin(), Company::getCompany()->getVectorClients()->end(), cmp_classes<Client>);
+
 }
 
 // Removes client from the vector
@@ -260,7 +274,7 @@ bool Client::operator<(const Client &a) const{
 }
 
 ostream& operator<<(ostream& out, const Client& client) {
-    out << "Name:" << client.name << endl;
+    out << "Name: " << client.name << endl;
     out << "NIF: " << client.nif << endl; 
 
     return out;
