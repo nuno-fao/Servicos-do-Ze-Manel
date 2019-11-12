@@ -194,6 +194,9 @@ int main()
 void mainMenu(){
     unsigned opt=1;
     while (opt != 0) {
+		cout << "****************************" << endl;
+		cout << "TRANSPORTES SML" << endl;
+		cout << "****************************" << endl;
         cout<<"[0] Exit program"<<endl;
         cout<<"[1] Clients"<<endl;
         cout<<"[2] Trucks"<<endl;
