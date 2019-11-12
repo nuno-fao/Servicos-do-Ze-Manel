@@ -1464,10 +1464,10 @@ void Service::editService(){
             bool variable_error=true;
             while (variable_error) {
                 cout<<this;
-                cout<<"[1] edit Origin"<<endl;
-                cout<<"[2] edit destination"<<endl;
-                cout<<"[3] edit Quantity"<<endl;
-                cout<<"[0] exit"<<endl;
+                cout<<"[1] Edit Origin"<<endl;
+                cout<<"[2] Edit destination"<<endl;
+                cout<<"[3] Edit Quantity"<<endl;
+                cout<<"[0] Exit"<<endl;
                 if(cin>>opt && opt<=3){
                     clearScreen();
                     variable_error=false;
