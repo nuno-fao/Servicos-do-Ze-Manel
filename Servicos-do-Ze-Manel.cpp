@@ -653,7 +653,7 @@ void trucksInformation() {
         cout << "[6] Show Trucks with Services on queue" << endl;
         cout << "[7] Show Trucks on Transit" << endl;
         cout << "[8] Show Specific Truck" << endl;
-        cout << "[9] Show Multipliers and Standart Prices" << endl;
+        cout << "[9] Show Multipliers and Standard Prices" << endl;
         cout << "[0] Return" << endl;
         if (cin >> opt && opt <= 9)
         {
