@@ -78,7 +78,13 @@ void Client::addClient(vector<Client *> *clientsVector) {
         }
     }
     Client *tempClient = new Client(tempName,unsigned(stoi(tempNif)));
-    clientsVector->push_back(tempClient);
+	for (auto it = *clientsVector->begin(); it != *clientsVector->end(); it++)
+	{
+		if (tempClient->getNif() == (*it).getNif())
+			throw ClientInVector(tempClient->getNif(), "Client you're trying to add already exists in the database!");
+			
+	}
+	clientsVector->push_back(tempClient);
 
 }
 
@@ -263,6 +269,7 @@ ClientNotInVector::~ClientNotInVector(){
 CantOpenClientFile::~CantOpenClientFile(){
 
 }
+
 NotAClient::~NotAClient(){
 
 }
