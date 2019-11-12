@@ -15,9 +15,6 @@ Inheritance diagram for Truck\+:\nopagebreak
 \mbox{\Hypertarget{class_truck_a310563b5c12feb94c1e1f8f855c1ee05}\label{class_truck_a310563b5c12feb94c1e1f8f855c1ee05}} 
 \hyperlink{class_truck_a310563b5c12feb94c1e1f8f855c1ee05}{Truck} (string license, bool available, bool \hyperlink{class_truck_a80b8405cf7a15b236fef70116f99c4fb}{registered}, unsigned short \hyperlink{class_truck_a14541fad6d47c606ce4e1bd150a68a23}{capacity}, unsigned short \hyperlink{class_truck_a968fc6b1a6171a03e4254d6615da4ecd}{cargo})
 \begin{DoxyCompactList}\small\item\em if in transit this holds the weight it transports, if not it is 0 \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{class_truck_a2f11c2039060bcc94ce5d6784035f1bc}\label{class_truck_a2f11c2039060bcc94ce5d6784035f1bc}} 
-virtual float {\bfseries getprice} (\hyperlink{class_service}{Service} $\ast$service) const
-\item 
 \mbox{\Hypertarget{class_truck_ad775a01ae4cb8c36d6e2438f4dd37792}\label{class_truck_ad775a01ae4cb8c36d6e2438f4dd37792}} 
 unsigned short {\bfseries getcapacity} () const
 \item 
@@ -32,6 +29,9 @@ bool {\bfseries getregistered} () const
 \item 
 \mbox{\Hypertarget{class_truck_a1bc18daed6fb7f0b900dac32013a250f}\label{class_truck_a1bc18daed6fb7f0b900dac32013a250f}} 
 unsigned short {\bfseries getcargo} () const
+\item 
+\mbox{\Hypertarget{class_truck_a207506f38e78d7a5f065893295a2c00d}\label{class_truck_a207506f38e78d7a5f065893295a2c00d}} 
+vector$<$ \hyperlink{class_service}{Service} $\ast$ $>$ $\ast$ {\bfseries get\+Services} ()
 \item 
 \mbox{\Hypertarget{class_truck_a22d2dc22b1c5b9652d463ec624442403}\label{class_truck_a22d2dc22b1c5b9652d463ec624442403}} 
 virtual void {\bfseries setprice} (float newval)
@@ -69,7 +69,7 @@ static void {\bfseries create\+Truck} (vector$<$ \hyperlink{class_truck}{Truck} 
 \mbox{\Hypertarget{class_truck_acb3e375dfa4ba812de7e65f0b3e37ded}\label{class_truck_acb3e375dfa4ba812de7e65f0b3e37ded}} 
 static void {\bfseries remove\+Truck} (vector$<$ \hyperlink{class_truck}{Truck} $\ast$$>$ $\ast$trucks)
 \item 
-\mbox{\Hypertarget{class_truck_a093fa621d8576a61352648799920c8a2}\label{class_truck_a093fa621d8576a61352648799920c8a2}} 
+\mbox{\Hypertarget{class_truck_a61f38539157cdc6879a15e0a02255edc}\label{class_truck_a61f38539157cdc6879a15e0a02255edc}} 
 static void {\bfseries show\+Truck} (vector$<$ \hyperlink{class_truck}{Truck} $\ast$$>$ $\ast$trucks)
 \end{DoxyCompactItemize}
 \subsection*{Protected Attributes}

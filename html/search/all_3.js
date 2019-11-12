@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['failedtoopentrucks',['FailedToOpenTrucks',['../class_failed_to_open_trucks.html',1,'']]]
+  ['editclient',['editClient',['../class_client.html#afe8b004559fd1480fb8747c352f167db',1,'Client']]]
 ];

@@ -85,9 +85,6 @@ Public Member Functions</h2></td></tr>
 &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_truck.html#a310563b5c12feb94c1e1f8f855c1ee05">Truck</a> (string license, bool available, bool <a class="el" href="class_truck.html#a80b8405cf7a15b236fef70116f99c4fb">registered</a>, unsigned short <a class="el" href="class_truck.html#a14541fad6d47c606ce4e1bd150a68a23">capacity</a>, unsigned short <a class="el" href="class_truck.html#a968fc6b1a6171a03e4254d6615da4ecd">cargo</a>)</td></tr>
 <tr class="memdesc:a310563b5c12feb94c1e1f8f855c1ee05"><td class="mdescLeft">&#160;</td><td class="mdescRight">if in transit this holds the weight it transports, if not it is 0 <br /></td></tr>
 <tr class="separator:a310563b5c12feb94c1e1f8f855c1ee05"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2f11c2039060bcc94ce5d6784035f1bc"><td class="memItemLeft" align="right" valign="top"><a id="a2f11c2039060bcc94ce5d6784035f1bc"></a>
-virtual float&#160;</td><td class="memItemRight" valign="bottom"><b>getprice</b> (<a class="el" href="class_service.html">Service</a> *service) const</td></tr>
-<tr class="separator:a2f11c2039060bcc94ce5d6784035f1bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad775a01ae4cb8c36d6e2438f4dd37792"><td class="memItemLeft" align="right" valign="top"><a id="ad775a01ae4cb8c36d6e2438f4dd37792"></a>
 unsigned short&#160;</td><td class="memItemRight" valign="bottom"><b>getcapacity</b> () const</td></tr>
 <tr class="separator:ad775a01ae4cb8c36d6e2438f4dd37792"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -103,6 +100,9 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>getregistered</b> () 
 <tr class="memitem:a1bc18daed6fb7f0b900dac32013a250f"><td class="memItemLeft" align="right" valign="top"><a id="a1bc18daed6fb7f0b900dac32013a250f"></a>
 unsigned short&#160;</td><td class="memItemRight" valign="bottom"><b>getcargo</b> () const</td></tr>
 <tr class="separator:a1bc18daed6fb7f0b900dac32013a250f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a207506f38e78d7a5f065893295a2c00d"><td class="memItemLeft" align="right" valign="top"><a id="a207506f38e78d7a5f065893295a2c00d"></a>
+vector&lt; <a class="el" href="class_service.html">Service</a> * &gt; *&#160;</td><td class="memItemRight" valign="bottom"><b>getServices</b> ()</td></tr>
+<tr class="separator:a207506f38e78d7a5f065893295a2c00d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a22d2dc22b1c5b9652d463ec624442403"><td class="memItemLeft" align="right" valign="top"><a id="a22d2dc22b1c5b9652d463ec624442403"></a>
 virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>setprice</b> (float newval)</td></tr>
 <tr class="separator:a22d2dc22b1c5b9652d463ec624442403"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -139,9 +139,9 @@ static void&#160;</td><td class="memItemRight" valign="bottom"><b>createTruck</b
 <tr class="memitem:acb3e375dfa4ba812de7e65f0b3e37ded"><td class="memItemLeft" align="right" valign="top"><a id="acb3e375dfa4ba812de7e65f0b3e37ded"></a>
 static void&#160;</td><td class="memItemRight" valign="bottom"><b>removeTruck</b> (vector&lt; <a class="el" href="class_truck.html">Truck</a> *&gt; *trucks)</td></tr>
 <tr class="separator:acb3e375dfa4ba812de7e65f0b3e37ded"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a093fa621d8576a61352648799920c8a2"><td class="memItemLeft" align="right" valign="top"><a id="a093fa621d8576a61352648799920c8a2"></a>
+<tr class="memitem:a61f38539157cdc6879a15e0a02255edc"><td class="memItemLeft" align="right" valign="top"><a id="a61f38539157cdc6879a15e0a02255edc"></a>
 static void&#160;</td><td class="memItemRight" valign="bottom"><b>showTruck</b> (vector&lt; <a class="el" href="class_truck.html">Truck</a> *&gt; *trucks)</td></tr>
-<tr class="separator:a093fa621d8576a61352648799920c8a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="separator:a61f38539157cdc6879a15e0a02255edc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['origin',['origin',['../class_service.html#a4abd0a104d97e5bdb8e8ca93bab31ce7',1,'Service']]]
+  ['loadclients',['loadClients',['../class_client.html#ac18a40ed6975665b7f7661c8dcf7bf1b',1,'Client']]]
 ];

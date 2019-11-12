@@ -32,19 +32,19 @@ void manage_client(Client *client){
         {
             clearScreen();
             switch (opt) {
-			case 1: {
-				clearBuffer();
-				client->editClient();
-				break;
-			}
+            case 1: {
+                clearBuffer();
+                client->editClient();
+                break;
+            }
             case 2:{
-				try {
-					clearBuffer();
-					client->removeClient(*Company::getCompany()->getVectorClients());
-				}
-				catch (...) {
-				}				
-				return;
+                try {
+                    clearBuffer();
+                    client->removeClient(*Company::getCompany()->getVectorClients());
+                }
+                catch (...) {
+                }
+                return;
             }
             case 0:{
                 return;
@@ -125,14 +125,14 @@ void manage_client(Client *client){
 
             }
             case 5:{
-				clearBuffer();
-				cout << "Services: " << endl;
-				for (auto it = client->getServicesVector()->begin(); it != client->getServicesVector()->end(); it++)
-				{
-					cout << (*it) << endl;
-				}
-				enter_to_exit();
-				break;
+                clearBuffer();
+                cout << "Services: " << endl;
+                for (auto it = client->getServicesVector()->begin(); it != client->getServicesVector()->end(); it++)
+                {
+                    cout << (*it) << endl;
+                }
+                enter_to_exit();
+                break;
             }
 
             default:
@@ -184,7 +184,7 @@ int main()
     //vector<Truck*> a(*Ze_Manel->getVectorTrucks());
     string temp;
     mainMenu();
-	Client::saveToFile(*Ze_Manel->getVectorClients());
+    Client::saveToFile(*Ze_Manel->getVectorClients());
     delete Ze_Manel;
 
 
@@ -462,6 +462,7 @@ void clientsInformation(){
                 if(temp.size())
                     for(auto i: temp){
                         cout<<*i;
+                        cout<<i->getMoneySpent()<<endl;
                     }
                 else
                     cout<<"There is no Information to show"<<endl;
@@ -479,6 +480,7 @@ void clientsInformation(){
                 if(temp.size())
                     for(auto i: temp){
                         cout<<*i;
+                        cout<<i->getMoneySpent()<<endl;
                     }
                 else
                     cout<<"There is no Information to show"<<endl;
@@ -565,20 +567,47 @@ void clientsInformation(){
                 if (nif > 0) {
                     try {
                         temp_client = Company::getCompany()->getClient(unsigned(nif));
-                        cout << endl << *temp_client << endl;
-                        cout << "Services: " << endl;
-                        for(auto it = temp_client->getServicesVector()->begin(); it != temp_client->getServicesVector()->end(); it++)
-                        {
-                            cout << (*it) << endl;
+
+                        while(true){
+                            cout << endl << *temp_client << endl;
+                            cout<<"[1] See services"<<endl;
+                            cout<<"[0] Return"<<endl;
+                            unsigned temp_opt=3;
+                            if(cin>>temp_opt){
+                                if(temp_opt==1){
+                                    clearScreen();
+                                    cout << "Services: " << endl;
+                                    for(auto it = temp_client->getServicesVector()->begin(); it != temp_client->getServicesVector()->end(); it++)
+                                    {
+                                        cout << (*it) << endl;
+                                    }
+                                    clearBuffer();
+                                    enter_to_exit();
+                                    clearScreen();
+                                    break;
+                                }
+                                else if (temp_opt==0) {
+                                    clearBuffer();
+                                    clearScreen();
+                                    break;
+                                }
+                                else{
+                                    clearScreen();
+                                    cout<<"Input not acceptable"<<endl;
+                                    clearBuffer();
+                                }
+                            }
+                            else{
+                                clearScreen();
+                                cout<<"Input not acceptable"<<endl;
+                                clearBuffer();
+                            }
                         }
                     }
                     catch (NotAClient e) {
                         cout << e.erro << endl;
                     }
                 }
-                //clearBuffer(); Tem de estar comentado senão não apresenta o menu no ecrã
-                string temp;
-                getline(cin, temp);
                 break;
             }
 
@@ -616,89 +645,104 @@ void trucksInformation() {
             case 0: {
                 return;
             }
-            case 1:
+            case 1:{
+                bool nInfo=true;
                 if (Company::getCompany()->getVectorTrucks()->size())
                     for (auto i : *Company::getCompany()->getVectorTrucks()) {
                         i->info();
+                        nInfo=false;
                     }
-                else
+                if(nInfo)
                     cout << "There is no Information to show" << endl;
                 clearBuffer();
                 enter_to_exit();
                 break;
+            }
             case 2: {
+                bool nInfo=true;
                 if (Company::getCompany()->getVectorTrucks()->size())
                     for (auto i : *Company::getCompany()->getVectorTrucks()) {
                         if (typeid(*i)==typeid(Congelation)) {
                             i->info();
+                            nInfo=false;
                         }
                     }
-                else
+                if(nInfo)
                     cout << "There is no Information to show" << endl;
                 clearBuffer();
                 enter_to_exit();
                 break;
             }
             case 3: {
+                bool nInfo=true;
                 if (Company::getCompany()->getVectorTrucks()->size())
                     for (auto i : *Company::getCompany()->getVectorTrucks()) {
                         if (typeid(*i) == typeid(HazardousMat)) {
                             i->info();
+                            nInfo=false;
                         }
                     }
-                else
+                if(nInfo)
                     cout << "There is no Information to show" << endl;
                 clearBuffer();
                 enter_to_exit();
                 break;
             }
             case 4: {
+                bool nInfo=true;
                 if (Company::getCompany()->getVectorTrucks()->size())
                     for (auto i : *Company::getCompany()->getVectorTrucks()) {
                         if (typeid(*i) == typeid(Animal)) {
                             i->info();
+                            nInfo=false;
                         }
                     }
-                else
+                if(nInfo)
                     cout << "There is no Information to show" << endl;
                 clearBuffer();
                 enter_to_exit();
                 break;
             }
             case 5: {
+                bool nInfo=true;
                 if (Company::getCompany()->getVectorTrucks()->size())
                     for (auto i : *Company::getCompany()->getVectorTrucks()) {
                         if (typeid(*i) == typeid(Normal)) {
                             i->info();
+                            nInfo=false;
                         }
                     }
-                else
+                if(nInfo)
                     cout << "There is no Information to show" << endl;
                 clearBuffer();
                 enter_to_exit();
                 break;
             }
             case 6: {
+                bool nInfo=true;
                 if (Company::getCompany()->getVectorTrucks()->size())
                     for (auto i : *Company::getCompany()->getVectorTrucks()) {
-                        if ((!(i->getavailable()) && i->getServices().size()>1) || (i->getavailable() && i->getregistered())) {
+                        if ((!(i->getavailable()) && i->getServices()->size()>1) || (i->getavailable() && i->getregistered())) {
                             i->info();
+                            nInfo=false;
                         }
                     }
-                else
+                if(nInfo)
                     cout << "There is no Information to show" << endl;
                 clearBuffer();
                 enter_to_exit();
                 break;
             }
             case 7: {
+                bool nInfo=true;
                 if (Company::getCompany()->getVectorTrucks()->size())
                     for (auto i : *Company::getCompany()->getVectorTrucks()) {
                         if (!(i->getavailable())) {
                             i->info();
+                            nInfo=true;
                         }
                     }
-                else
+                if(nInfo)
                     cout << "There is no Information to show" << endl;
                 clearBuffer();
                 enter_to_exit();
@@ -764,7 +808,7 @@ void trucksInformation() {
                 cout << "_300 multiplier: " << Congelation::tempMul[Temperature_enum::_300] << endl;
                 cout << "_400 multiplier: " << Congelation::tempMul[Temperature_enum::_400] << endl;
                 cout <<endl<< "---STD Prices---" << endl;
-                cout << "Congelation price per KG" << Congelation::pricePerKG << endl;
+                cout << "Congelation price per KG: " << Congelation::pricePerKG << endl;
                 cout << "Hazard price per KG: " << HazardousMat::pricePerKG << endl;
                 cout << "Animal price per KG: " << Animal::pricePerKG << endl;
                 cout << "Normal price per KG: " << Normal::pricePerKG << endl;
@@ -817,7 +861,7 @@ void menu_editprices() {
                     if (cin >> opt1 && opt1 <= 9)
                     {
                         clearScreen();
-                        switch (opt) {
+                        switch (opt1) {
                         case 0:
                             break;
                         case 1: {
@@ -827,8 +871,8 @@ void menu_editprices() {
                             cout << "What will be the new value? "; cin >> aux;
                             clearBuffer();
                             if (strIsNumber(aux)) {
-                                if (stoi(aux) > 0) {
-                                    HazardousMat::hazardMul[Hazard_enum::explosives] = stoi(aux);
+                                if (stof(aux) > 0) {
+                                    HazardousMat::hazardMul[Hazard_enum::explosives] = stof(aux);
                                     cout << "Multiplier changed successfully!!!" << endl;
                                     enter_to_exit();
                                 }
@@ -850,8 +894,8 @@ void menu_editprices() {
                             cout << "What will be the new value? "; cin >> aux;
                             clearBuffer();
                             if (strIsNumber(aux)) {
-                                if (stoi(aux) > 0) {
-                                    HazardousMat::hazardMul[Hazard_enum::gases] = stoi(aux);
+                                if (stof(aux) > 0) {
+                                    HazardousMat::hazardMul[Hazard_enum::gases] = stof(aux);
                                     cout << "Multiplier changed successfully!!!" << endl;
                                     enter_to_exit();
                                 }
@@ -873,8 +917,8 @@ void menu_editprices() {
                             cout << "What will be the new value? "; cin >> aux;
                             clearBuffer();
                             if (strIsNumber(aux)) {
-                                if (stoi(aux) > 0) {
-                                    HazardousMat::hazardMul[Hazard_enum::flammableliq] = stoi(aux);
+                                if (stof(aux) > 0) {
+                                    HazardousMat::hazardMul[Hazard_enum::flammableliq] = stof(aux);
                                     cout << "Multiplier changed successfully!!!" << endl;
                                     enter_to_exit();
                                 }
@@ -896,8 +940,8 @@ void menu_editprices() {
                             cout << "What will be the new value? "; cin >> aux;
                             clearBuffer();
                             if (strIsNumber(aux)) {
-                                if (stoi(aux) > 0) {
-                                    HazardousMat::hazardMul[Hazard_enum::flammablesolid] = stoi(aux);
+                                if (stof(aux) > 0) {
+                                    HazardousMat::hazardMul[Hazard_enum::flammablesolid] = stof(aux);
                                     cout << "Multiplier changed successfully!!!" << endl;
                                     enter_to_exit();
                                 }
@@ -919,8 +963,8 @@ void menu_editprices() {
                             cout << "What will be the new value? "; cin >> aux;
                             clearBuffer();
                             if (strIsNumber(aux)) {
-                                if (stoi(aux) > 0) {
-                                    HazardousMat::hazardMul[Hazard_enum::oxidizer] = stoi(aux);
+                                if (stof(aux) > 0) {
+                                    HazardousMat::hazardMul[Hazard_enum::oxidizer] = stof(aux);
                                     cout << "Multiplier changed successfully!!!" << endl;
                                     enter_to_exit();
                                 }
@@ -942,8 +986,8 @@ void menu_editprices() {
                             cout << "What will be the new value? "; cin >> aux;
                             clearBuffer();
                             if (strIsNumber(aux)) {
-                                if (stoi(aux) > 0) {
-                                    HazardousMat::hazardMul[Hazard_enum::poisons] = stoi(aux);
+                                if (stof(aux) > 0) {
+                                    HazardousMat::hazardMul[Hazard_enum::poisons] = stof(aux);
                                     cout << "Multiplier changed successfully!!!" << endl;
                                     enter_to_exit();
                                 }
@@ -965,8 +1009,8 @@ void menu_editprices() {
                             cout << "What will be the new value? "; cin >> aux;
                             clearBuffer();
                             if (strIsNumber(aux)) {
-                                if (stoi(aux) > 0) {
-                                    HazardousMat::hazardMul[Hazard_enum::radioactive] = stoi(aux);
+                                if (stof(aux) > 0) {
+                                    HazardousMat::hazardMul[Hazard_enum::radioactive] = stof(aux);
                                     cout << "Multiplier changed successfully!!!" << endl;
                                     enter_to_exit();
                                 }
@@ -988,8 +1032,8 @@ void menu_editprices() {
                             cout << "What will be the new value? "; cin >> aux;
                             clearBuffer();
                             if (strIsNumber(aux)) {
-                                if (stoi(aux) > 0) {
-                                    HazardousMat::hazardMul[Hazard_enum::corrosives] = stoi(aux);
+                                if (stof(aux) > 0) {
+                                    HazardousMat::hazardMul[Hazard_enum::corrosives] = stof(aux);
                                     cout << "Multiplier changed successfully!!!" << endl;
                                     enter_to_exit();
                                 }
@@ -1011,8 +1055,8 @@ void menu_editprices() {
                             cout << "What will be the new value? "; cin >> aux;
                             clearBuffer();
                             if (strIsNumber(aux)) {
-                                if (stoi(aux) > 0) {
-                                    HazardousMat::hazardMul[Hazard_enum::other] = stoi(aux);
+                                if (stof(aux) > 0) {
+                                    HazardousMat::hazardMul[Hazard_enum::other] = stof(aux);
                                     cout << "Multiplier changed successfully!!!" << endl;
                                     enter_to_exit();
                                 }
@@ -1055,7 +1099,7 @@ void menu_editprices() {
                     if (cin >> opt1 && opt1 <= 4)
                     {
                         clearScreen();
-                        switch (opt) {
+                        switch (opt1) {
                         case 0:
                             break;
                         case 1: {
@@ -1065,8 +1109,8 @@ void menu_editprices() {
                             cout << "What will be the new value? "; cin >> aux;
                             clearBuffer();
                             if (strIsNumber(aux)) {
-                                if (stoi(aux) > 0) {
-                                    Congelation::tempMul[Temperature_enum::_100] = stoi(aux);
+                                if (stof(aux) > 0) {
+                                    Congelation::tempMul[Temperature_enum::_100] = stof(aux);
                                     cout << "Multiplier changed successfully!!!" << endl;
                                     enter_to_exit();
                                 }
@@ -1088,8 +1132,8 @@ void menu_editprices() {
                             cout << "What will be the new value? "; cin >> aux;
                             clearBuffer();
                             if (strIsNumber(aux)) {
-                                if (stoi(aux) > 0) {
-                                    Congelation::tempMul[Temperature_enum::_200] = stoi(aux);
+                                if (stof(aux) > 0) {
+                                    Congelation::tempMul[Temperature_enum::_200] = stof(aux);
                                     cout << "Multiplier changed successfully!!!" << endl;
                                     enter_to_exit();
                                 }
@@ -1111,8 +1155,8 @@ void menu_editprices() {
                             cout << "What will be the new value? "; cin >> aux;
                             clearBuffer();
                             if (strIsNumber(aux)) {
-                                if (stoi(aux) > 0) {
-                                    Congelation::tempMul[Temperature_enum::_300] = stoi(aux);
+                                if (stof(aux) > 0) {
+                                    Congelation::tempMul[Temperature_enum::_300] = stof(aux);
                                     cout << "Multiplier changed successfully!!!" << endl;
                                     enter_to_exit();
                                 }
@@ -1134,8 +1178,8 @@ void menu_editprices() {
                             cout << "What will be the new value? "; cin >> aux;
                             clearBuffer();
                             if (strIsNumber(aux)) {
-                                if (stoi(aux) > 0) {
-                                    Congelation::tempMul[Temperature_enum::_400] = stoi(aux);
+                                if (stof(aux) > 0) {
+                                    Congelation::tempMul[Temperature_enum::_400] = stof(aux);
                                     cout << "Multiplier changed successfully!!!" << endl;
                                     enter_to_exit();
                                 }
@@ -1178,7 +1222,7 @@ void menu_editprices() {
                     if (cin >> opt1 && opt1 <= 4)
                     {
                         clearScreen();
-                        switch (opt) {
+                        switch (opt1) {
                         case 0:
                             break;
                         case 1: {
@@ -1188,8 +1232,8 @@ void menu_editprices() {
                             cout << "What will be the new value? "; cin >> aux;
                             clearBuffer();
                             if (strIsNumber(aux)) {
-                                if (stoi(aux) > 0) {
-                                    Congelation::pricePerKG = stoi(aux);
+                                if (stof(aux) > 0) {
+                                    Congelation::pricePerKG = stof(aux);
                                     cout << "Multiplier changed successfully!!!" << endl;
                                     enter_to_exit();
                                 }
@@ -1211,8 +1255,8 @@ void menu_editprices() {
                             cout << "What will be the new value? "; cin >> aux;
                             clearBuffer();
                             if (strIsNumber(aux)) {
-                                if (stoi(aux) > 0) {
-                                    HazardousMat::pricePerKG = stoi(aux);
+                                if (stof(aux) > 0) {
+                                    HazardousMat::pricePerKG = stof(aux);
                                     cout << "Multiplier changed successfully!!!" << endl;
                                     enter_to_exit();
                                 }
@@ -1234,8 +1278,8 @@ void menu_editprices() {
                             cout << "What will be the new value? "; cin >> aux;
                             clearBuffer();
                             if (strIsNumber(aux)) {
-                                if (stoi(aux) > 0) {
-                                    Animal::pricePerKG = stoi(aux);
+                                if (stof(aux) > 0) {
+                                    Animal::pricePerKG = stof(aux);
                                     cout << "Multiplier changed successfully!!!" << endl;
                                     enter_to_exit();
                                 }
@@ -1257,8 +1301,8 @@ void menu_editprices() {
                             cout << "What will be the new value? "; cin >> aux;
                             clearBuffer();
                             if (strIsNumber(aux)) {
-                                if (stoi(aux) > 0) {
-                                    Normal::pricePerKG = stoi(aux);
+                                if (stof(aux) > 0) {
+                                    Normal::pricePerKG = stof(aux);
                                     cout << "Multiplier changed successfully!!!" << endl;
                                     enter_to_exit();
                                 }
