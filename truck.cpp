@@ -6,14 +6,16 @@ float HazardousMat::pricePerKG;
 float Congelation::pricePerKG;
 float Normal::pricePerKG;
 float Animal::pricePerKG;
+unordered_map<unsigned short, unsigned short> HazardousMat::CapDist;
+unordered_map<unsigned short, unsigned short> Congelation::CapDist;
+unordered_map<unsigned short, unsigned short> Normal::CapDist;
+unordered_map<unsigned short, unsigned short> Animal::CapDist;
+
 
 Truck::~Truck(){
 
 };
 
-float Truck::getprice(Service* service) const{
-    return service->getMultiplier()*0;
-}
 
 Truck::Truck(string license, bool available, bool registered, unsigned short capacity, unsigned short cargo) {
     this->license=license;
@@ -56,20 +58,8 @@ unsigned short Truck::getcargo() const {
     return cargo;
 }
 
-float HazardousMat::getprice(Service *service) const {
-    return service->getMultiplier()*service->getDistance()*HazardousMat::pricePerKG;
-}
-
-float Congelation::getprice(Service *service) const {
-    return service->getMultiplier()*service->getDistance()*Congelation::pricePerKG;
-}
-
-float Animal::getprice(Service *service) const {
-    return Animal::pricePerKG*service->getDistance();
-}
-
-float Normal::getprice(Service *service) const {
-    return service->getDistance()*Normal::pricePerKG;
+vector<Service*> Truck::getServices() const {
+	return assignedServices;
 }
 
 
@@ -79,19 +69,6 @@ void Truck::setavailable(bool foo) {
 
 void Truck::setregistered(bool foo) {
     registered = foo;
-}
-
-void Congelation::setprice(float newval) {
-    pricePerKG = newval;
-}
-void HazardousMat::setprice(float newval) {
-    pricePerKG = newval;
-}
-void Animal::setprice(float newval) {
-    pricePerKG = newval;
-}
-void Normal::setprice(float newval) {
-    pricePerKG = newval;
 }
 
 void Truck::info() {
@@ -176,6 +153,13 @@ void Truck::loadFromFile(vector<Truck*>* trucks) {
     Congelation::tempMul[Temperature_enum::_200] = stoi(auxVec[1]);
     Congelation::tempMul[Temperature_enum::_300] = stoi(auxVec[2]);
     Congelation::tempMul[Temperature_enum::_400] = stoi(auxVec[3]);
+	//load price per KG of each truck
+	getline(truckfile, aux);
+	auxVec = vectorString(aux, separator);
+	Congelation::pricePerKG = stoi(auxVec[0]);
+	HazardousMat::pricePerKG = stoi(auxVec[1]);
+	Animal::pricePerKG = stoi(auxVec[2]);
+	Normal::pricePerKG = stoi(auxVec[3]);
     while (getline(truckfile, aux)) {
         getline(truckfile, lic);
         getline(truckfile, aux);
@@ -193,21 +177,25 @@ void Truck::loadFromFile(vector<Truck*>* trucks) {
 
             Truck *temp= new Animal(lic, avai, regist, cap, carg);
             trucks->push_back(temp);
+			(Animal::CapDist[cap] == 0) ? Animal::CapDist[cap] == 1 : Animal::CapDist[cap] += 1;
             break;
         }
         case 'C':{
             Truck *temp = new Congelation(lic, avai, regist, cap, carg);
             trucks->push_back(temp);
+			(Congelation::CapDist[cap] == 0) ? Congelation::CapDist[cap] == 1 : Congelation::CapDist[cap] += 1;
             break;
         }
         case 'H':{
             Truck *temp = new HazardousMat(lic, avai, regist, cap, carg);
             trucks->push_back(temp);
+			(HazardousMat::CapDist[cap] == 0) ? HazardousMat::CapDist[cap] == 1 : HazardousMat::CapDist[cap] += 1;
             break;
         }
         case 'N':{
-            Truck *temp = new HazardousMat(lic, avai, regist, cap, carg);
+            Truck *temp = new Normal(lic, avai, regist, cap, carg);
             trucks->push_back(temp);
+			(Normal::CapDist[cap] == 0) ? Normal::CapDist[cap] == 1 : Normal::CapDist[cap] += 1;
             break;
         }
         }
@@ -234,6 +222,10 @@ void Truck::saveToFile(vector<Truck*>* trucks) {
     truckfile << Congelation::tempMul[Temperature_enum::_200] << "; ";
     truckfile << Congelation::tempMul[Temperature_enum::_300] << "; ";
     truckfile << Congelation::tempMul[Temperature_enum::_400] << endl;
+	truckfile << Congelation::pricePerKG << "; ";
+	truckfile << HazardousMat::pricePerKG << "; ";
+	truckfile << Animal::pricePerKG << "; ";
+	truckfile << Normal::pricePerKG << endl;
     for (auto it : *trucks) {
         truckfile << "::::::::::::::::::::::::::::" << endl;
         truckfile << it->getlicense() << endl;
@@ -447,34 +439,3 @@ void Truck::removeTruck(vector<Truck*>* trucks) {
 
 }
 
-void Truck::showTruck(vector<Truck*>* trucks) {
-	string license;
-	bool invalidInput;
-	vector<string> auxVec;
-	do {
-		clearScreen();
-		invalidInput = false;
-		cout << "What's the license of the truck you wish to see (XX-YY-ZZ)? "; getline(cin, license);
-		if (license == "!q") return;
-
-		//verifies if the license is valid or if it already exists.
-		if (!checkLicenseV2(license)) {
-			invalidInput = true;
-		}
-		else {
-			for (vector<Truck*>::iterator it = trucks->begin(); it != trucks->end(); it++) {
-				if ((*it)->getlicense() == license) {
-					clearScreen();
-					cout << "Truck found!!!" << endl;
-					(*it)->info();
-					enter_to_exit();
-					return;
-				}
-			}
-			invalidInput = true;
-			cout << "Truck with license " << license << " is not a part of the company's database" << endl;
-			enter_to_exit();
-		}
-	} while (invalidInput);
-	clearScreen();
-}

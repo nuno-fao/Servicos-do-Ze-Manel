@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['service',['Service',['../class_service.html',1,'']]],
-  ['servicedonotexist',['ServiceDoNotExist',['../class_service_do_not_exist.html',1,'']]]
+  ['registered',['registered',['../class_truck.html#a80b8405cf7a15b236fef70116f99c4fb',1,'Truck']]]
 ];

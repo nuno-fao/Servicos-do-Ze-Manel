@@ -13,8 +13,8 @@ Inheritance diagram for Truck\+:\nopagebreak
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\Hypertarget{class_truck_a310563b5c12feb94c1e1f8f855c1ee05}\label{class_truck_a310563b5c12feb94c1e1f8f855c1ee05}} 
-{\bfseries Truck} (string license, bool available, bool registered, unsigned short capacity, unsigned short cargo)
-\item 
+\hyperlink{class_truck_a310563b5c12feb94c1e1f8f855c1ee05}{Truck} (string license, bool available, bool \hyperlink{class_truck_a80b8405cf7a15b236fef70116f99c4fb}{registered}, unsigned short \hyperlink{class_truck_a14541fad6d47c606ce4e1bd150a68a23}{capacity}, unsigned short \hyperlink{class_truck_a968fc6b1a6171a03e4254d6615da4ecd}{cargo})
+\begin{DoxyCompactList}\small\item\em if in transit this holds the weight it transports, if not it is 0 \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{class_truck_a2f11c2039060bcc94ce5d6784035f1bc}\label{class_truck_a2f11c2039060bcc94ce5d6784035f1bc}} 
 virtual float {\bfseries getprice} (\hyperlink{class_service}{Service} $\ast$service) const
 \item 
@@ -52,7 +52,7 @@ void {\bfseries add\+\_\+service} (\hyperlink{class_service}{Service} $\ast$serv
 void {\bfseries remove\+\_\+service} (unsigned int id)
 \item 
 \mbox{\Hypertarget{class_truck_aca68ecb83bcdc73de6bd381dccb70e4d}\label{class_truck_aca68ecb83bcdc73de6bd381dccb70e4d}} 
-void {\bfseries start\+\_\+transport} (unsigned short cargo)
+void {\bfseries start\+\_\+transport} (unsigned short \hyperlink{class_truck_a968fc6b1a6171a03e4254d6615da4ecd}{cargo})
 \end{DoxyCompactItemize}
 \subsection*{Static Public Member Functions}
 \begin{DoxyCompactItemize}
@@ -68,6 +68,9 @@ static void {\bfseries create\+Truck} (vector$<$ \hyperlink{class_truck}{Truck} 
 \item 
 \mbox{\Hypertarget{class_truck_acb3e375dfa4ba812de7e65f0b3e37ded}\label{class_truck_acb3e375dfa4ba812de7e65f0b3e37ded}} 
 static void {\bfseries remove\+Truck} (vector$<$ \hyperlink{class_truck}{Truck} $\ast$$>$ $\ast$trucks)
+\item 
+\mbox{\Hypertarget{class_truck_a093fa621d8576a61352648799920c8a2}\label{class_truck_a093fa621d8576a61352648799920c8a2}} 
+static void {\bfseries show\+Truck} (vector$<$ \hyperlink{class_truck}{Truck} $\ast$$>$ $\ast$trucks)
 \end{DoxyCompactItemize}
 \subsection*{Protected Attributes}
 \begin{DoxyCompactItemize}
@@ -76,20 +79,20 @@ static void {\bfseries remove\+Truck} (vector$<$ \hyperlink{class_truck}{Truck} 
 string {\bfseries license}
 \item 
 \mbox{\Hypertarget{class_truck_aba72f1b27aee018c99f2fd8f06858390}\label{class_truck_aba72f1b27aee018c99f2fd8f06858390}} 
-bool {\bfseries availabe}
-\item 
+bool \hyperlink{class_truck_aba72f1b27aee018c99f2fd8f06858390}{availabe}
+\begin{DoxyCompactList}\small\item\em format X\+X-\/\+Y\+Y-\/\+ZZ \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{class_truck_a80b8405cf7a15b236fef70116f99c4fb}\label{class_truck_a80b8405cf7a15b236fef70116f99c4fb}} 
-bool {\bfseries registered}
-\item 
+bool \hyperlink{class_truck_a80b8405cf7a15b236fef70116f99c4fb}{registered}
+\begin{DoxyCompactList}\small\item\em is the truck available right now? \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{class_truck_a3b153477458e5c93c1521ee2f4741638}\label{class_truck_a3b153477458e5c93c1521ee2f4741638}} 
-vector$<$ \hyperlink{class_service}{Service} $\ast$ $>$ {\bfseries assigned\+Services}
-\item 
+vector$<$ \hyperlink{class_service}{Service} $\ast$ $>$ \hyperlink{class_truck_a3b153477458e5c93c1521ee2f4741638}{assigned\+Services}
+\begin{DoxyCompactList}\small\item\em is the truck registered to a service in the future? \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{class_truck_a14541fad6d47c606ce4e1bd150a68a23}\label{class_truck_a14541fad6d47c606ce4e1bd150a68a23}} 
-unsigned short {\bfseries capacity}
-\item 
+unsigned short \hyperlink{class_truck_a14541fad6d47c606ce4e1bd150a68a23}{capacity}
+\begin{DoxyCompactList}\small\item\em services the truck is registered to \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{class_truck_a968fc6b1a6171a03e4254d6615da4ecd}\label{class_truck_a968fc6b1a6171a03e4254d6615da4ecd}} 
-unsigned short {\bfseries cargo}
-\end{DoxyCompactItemize}
+unsigned short \hyperlink{class_truck_a968fc6b1a6171a03e4254d6615da4ecd}{cargo}
+\begin{DoxyCompactList}\small\item\em in KG \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}

@@ -68,7 +68,6 @@ public:
     void setMaterial(string material);
 
     void addTruck(Truck *truck);
-    void calcPrice();
 
     //file methods
     static void saveToFile(list<Service*>*services_finished, vector<Service *> *services_on_transit, vector<Service *> *services_on_queue);

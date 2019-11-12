@@ -15,7 +15,6 @@ Service::Service(string material, Address origin, Address destination, Date *arr
     setOrigin(Address(origin));
     setDestination(Address(destination));
     setClient(client);
-    calcPrice();
     
 }
 
@@ -117,11 +116,6 @@ void Service::setQuantity(float quantity){
 // other methods
 void Service::addTruck(Truck *truck){
     this->trucks.push_back(truck);
-}
-void Service::calcPrice(){
-    total_price=0;
-    for(auto i:trucks)
-        total_price+=i->getprice(this);
 }
 
 
@@ -466,16 +460,16 @@ void Service::loadFromFile(list<Service*> *services_finished,vector<Service*> *s
             switch (tempState) {
             case on_transit:
                 services_on_transit->push_back(temp);
+                temp_client->addService(temp);
                 break;
             case on_queue:
                 services_on_queue->push_back(temp);
+                temp_client->addService(temp);
                 break;
             case finished:
                 services_finished->push_back(temp);
                 break;
             }
-
-            temp_client->addService(temp);
 
         } catch (NotAClient &e) {
             cout<<e.erro<<" "<<to_string(e.getNif())<<endl;
@@ -530,7 +524,7 @@ void Service::saveToFile(list<Service*> *services_finished,vector<Service*>*serv
         servicesFile << (x->getDistance())<<endl;
         servicesFile << (x->getType())<<endl;
 
-        servicesFile << endl << (x->getState())<<endl;
+        servicesFile << (x->getState())<<endl;
         servicesFile << x->getIDate()->getDate() <<endl;
         servicesFile << x->getClient()->getNif() << endl;
         servicesFile << x->getQuantity() <<endl;
@@ -1528,7 +1522,7 @@ bool Service::removeService(vector<Service *> *services, unsigned id){
 //constructor
 HazardousService::HazardousService(string material_h, Address origin_h, Address destination_h, Date *arrivalDate_h, unsigned distance_h, enum type type_h, enum state state_h, Date *date_h, Client *client_h,float quantity_h,Hazard_enum type): Service(material_h,origin_h,destination_h,arrivalDate_h,distance_h,type_h,state_h,date_h,client_h,quantity_h),type(type)
 {
-    calcPrice();
+    
     
 }
 HazardousService::HazardousService(string material_h, string origin_h, string destination_h, Date *arrivalDate_h, unsigned distance_h, enum type type_h, enum state state_h, Date *date_h, Client *client_h,float quantity_h,Hazard_enum type,float total_price_h,unsigned id_h): Service(material_h,origin_h,destination_h,arrivalDate_h,distance_h,type_h,state_h,date_h,client_h,quantity_h,total_price_h,id_h),type(type)
@@ -1544,7 +1538,7 @@ TemperatureService::TemperatureService(string material_s, string origin_s, strin
 }
 TemperatureService::TemperatureService(string material_s, Address origin_s, Address destination_s, Date *arrivalDate_s, unsigned distance_s, enum type type_s, enum state state_s, Date *date_s, Client *client_s,float quantity_s,Temperature_enum type): Service(material_s,origin_s,destination_s,arrivalDate_s,distance_s,type_s,state_s,date_s,client_s,quantity_s) ,type(type)
 {
-    calcPrice();
+    
 }
 
 

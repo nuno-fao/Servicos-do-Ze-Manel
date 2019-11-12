@@ -26,14 +26,13 @@ public:
     Truck(string license, bool available,bool registered,unsigned short capacity, unsigned short cargo);
     virtual ~Truck();
 	//get methods
-    virtual float getprice(Service* service) const;
     unsigned short getcapacity() const;
     bool getavailable() const;
     string getlicense() const;
     bool getregistered() const;
     unsigned short getcargo() const;
+	vector<Service*> getServices() const;
 	//set methods
-    virtual void setprice(float newval){availabe=(bool(newval) && availabe);}
     void setregistered(bool foo);
     void setavailable(bool foo);
 	//load and save to file
@@ -46,7 +45,6 @@ public:
 	void start_transport(unsigned short cargo); //sets the needed variables so the truck is in transport
 	static void createTruck(vector<Truck*>* trucks); //creates a new truck from scratch and adds to the vector
 	static void removeTruck(vector<Truck*>* trucks); //removes a truck, searches by license. iterative
-	static void showTruck(vector<Truck*>* trucks); //searches truck by license and prints its info
 };
 
 bool operator<(Truck &a,Truck &b);
@@ -58,12 +56,8 @@ public:
 	~Congelation() {}
 
 	void info();
-	float getprice(Service* service) const;
-	void setprice(float newval);
-    static unordered_map<Temperature_enum, float> tempMul;
-
-
-private:
+    static unordered_map<Temperature_enum, float> tempMul;	//will hold price multipliers depending on the service
+	static unordered_map<unsigned short, unsigned short> CapDist; //holds how many trucks of this have x capacity being that the latter is the key
 	static float pricePerKG;
 };
 
@@ -75,11 +69,10 @@ public:
 
 
 	void info();
-	float getprice(Service* service)const;
-	void setprice(float newval);
-	static unordered_map<Hazard_enum, float> hazardMul;
-private:
-    static float pricePerKG;
+	static float pricePerKG;
+	static unordered_map<Hazard_enum, float> hazardMul;	//will hold price multipliers depending on the service
+	static unordered_map<unsigned short, unsigned short> CapDist; //holds how many trucks of this have x capacity being that the latter is the key
+
 };
 
 class Animal : public Truck
@@ -89,11 +82,8 @@ public:
     ~Animal(){}
 
 	void info();
-	float getprice(Service* service)const;
-	void setprice(float newval);
-
-private:
 	static float pricePerKG;
+	static unordered_map<unsigned short, unsigned short> CapDist; //holds how many trucks of this have x capacity being that the latter is the key
 };
 
 class Normal : public Truck
@@ -103,11 +93,9 @@ public:
     ~Normal(){}
 
 	void info();
-	float getprice(Service* service)const;
-	void setprice(float newval);
-
-private:
 	static float pricePerKG;
+	static unordered_map<unsigned short, unsigned short> CapDist; //holds how many trucks of this have x capacity being that the latter is the key
+
 };
 
 class FailedToOpenTrucks {

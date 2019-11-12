@@ -59,7 +59,7 @@ class NotAClient: public Client{
 public:
     ~NotAClient();
     string erro;
-    NotAClient(unsigned nif_n, string erro): Client(), erro(erro){
+    NotAClient(unsigned nif_n, string erro): erro(erro){
         this->nif=nif_n;
     }
 	unsigned int getNif() const {
