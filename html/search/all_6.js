@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['normal',['Normal',['../class_normal.html',1,'']]],
-  ['notaclient',['NotAClient',['../class_not_a_client.html',1,'']]],
-  ['notatruck',['NotATruck',['../class_not_a_truck.html',1,'']]]
+  ['hazardousmat',['HazardousMat',['../class_hazardous_mat.html',1,'']]],
+  ['hazardousservice',['HazardousService',['../class_hazardous_service.html',1,'']]]
 ];

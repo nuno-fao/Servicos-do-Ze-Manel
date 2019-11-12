@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['hazardousmat',['HazardousMat',['../class_hazardous_mat.html',1,'']]],
-  ['hazardousservice',['HazardousService',['../class_hazardous_service.html',1,'']]]
+  ['getorigin',['getOrigin',['../class_service.html#a186e0115cc0197181b4e060bfe4cd502',1,'Service']]]
 ];
