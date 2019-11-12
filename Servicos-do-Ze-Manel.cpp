@@ -38,8 +38,12 @@ void manage_client(Client *client){
 				break;
 			}
             case 2:{
-				clearBuffer();
-				client->removeClient(*Company::getCompany()->getVectorClients());
+				try {
+					clearBuffer();
+					client->removeClient(*Company::getCompany()->getVectorClients());
+				}
+				catch (...) {
+				}				
 				return;
             }
             case 0:{
@@ -403,7 +407,7 @@ void information(){
                 clientsInformation();
                 break;
             case 2:{
-                //Client::removeClient();
+                // Adicionar info dos servicos
                 break;
             }
             case 3:
