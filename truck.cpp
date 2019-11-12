@@ -137,29 +137,29 @@ void Truck::loadFromFile(vector<Truck*>* trucks) {
     //load hazard multipliers for hazardous cargo trucks
     getline(truckfile, aux);
     auxVec = vectorString(aux, separator);
-    HazardousMat::hazardMul[Hazard_enum::explosives] = stoi(auxVec[0]);
-    HazardousMat::hazardMul[Hazard_enum::gases] = stoi(auxVec[1]);
-    HazardousMat::hazardMul[Hazard_enum::flammableliq] = stoi(auxVec[2]);
-    HazardousMat::hazardMul[Hazard_enum::flammablesolid] = stoi(auxVec[3]);
-    HazardousMat::hazardMul[Hazard_enum::oxidizer] = stoi(auxVec[4]);
-    HazardousMat::hazardMul[Hazard_enum::poisons] = stoi(auxVec[5]);
-    HazardousMat::hazardMul[Hazard_enum::radioactive] = stoi(auxVec[6]);
-    HazardousMat::hazardMul[Hazard_enum::corrosives] = stoi(auxVec[7]);
-    HazardousMat::hazardMul[Hazard_enum::other] = stoi(auxVec[8]);
+    HazardousMat::hazardMul[Hazard_enum::explosives] = stof(auxVec[0]);
+    HazardousMat::hazardMul[Hazard_enum::gases] = stof(auxVec[1]);
+    HazardousMat::hazardMul[Hazard_enum::flammableliq] = stof(auxVec[2]);
+    HazardousMat::hazardMul[Hazard_enum::flammablesolid] = stof(auxVec[3]);
+    HazardousMat::hazardMul[Hazard_enum::oxidizer] = stof(auxVec[4]);
+    HazardousMat::hazardMul[Hazard_enum::poisons] = stof(auxVec[5]);
+    HazardousMat::hazardMul[Hazard_enum::radioactive] = stof(auxVec[6]);
+    HazardousMat::hazardMul[Hazard_enum::corrosives] = stof(auxVec[7]);
+    HazardousMat::hazardMul[Hazard_enum::other] = stof(auxVec[8]);
     //load temperature multipliers for congelation trucks
     getline(truckfile, aux);
     auxVec = vectorString(aux, separator);
-    Congelation::tempMul[Temperature_enum::_100] = stoi(auxVec[0]);
-    Congelation::tempMul[Temperature_enum::_200] = stoi(auxVec[1]);
-    Congelation::tempMul[Temperature_enum::_300] = stoi(auxVec[2]);
-    Congelation::tempMul[Temperature_enum::_400] = stoi(auxVec[3]);
+    Congelation::tempMul[Temperature_enum::_100] = stof(auxVec[0]);
+    Congelation::tempMul[Temperature_enum::_200] = stof(auxVec[1]);
+    Congelation::tempMul[Temperature_enum::_300] = stof(auxVec[2]);
+    Congelation::tempMul[Temperature_enum::_400] = stof(auxVec[3]);
 	//load price per KG of each truck
 	getline(truckfile, aux);
 	auxVec = vectorString(aux, separator);
-	Congelation::pricePerKG = stoi(auxVec[0]);
-	HazardousMat::pricePerKG = stoi(auxVec[1]);
-	Animal::pricePerKG = stoi(auxVec[2]);
-	Normal::pricePerKG = stoi(auxVec[3]);
+	Congelation::pricePerKG = stof(auxVec[0]);
+	HazardousMat::pricePerKG = stof(auxVec[1]);
+	Animal::pricePerKG = stof(auxVec[2]);
+	Normal::pricePerKG = stof(auxVec[3]);
     while (getline(truckfile, aux)) {
         getline(truckfile, lic);
         getline(truckfile, aux);
