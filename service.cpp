@@ -1741,7 +1741,7 @@ bool Service::removeService(vector<Service *> *services, unsigned id){
             return true;
         }
         else if((*i)->getState()!=on_queue){
-            cout<<"couldn't remove service, already finished or or route"<<endl;
+            cout<<"couldn't remove service, already finished or on route"<<endl;
             return  false;
         }
     }
@@ -1810,19 +1810,62 @@ ostream& operator <<(ostream& os,Service *a){
 void Service::autoAddTrucks(){
     switch (this->getType()) {
     case type::ordinary:{
+        vector<Truck*> tempTruck;
         float remaining=quantity;
-        bool notCompleted=true;
+        bool notCompleted=true,forward=false;
+        auto it=Normal::CapDist.end()--;
         while(notCompleted){
-            int max=Normal::CapDist.begin()->second;
-            for(auto i: *Company::getCompany()->getVectorTrucks()){
-                bool available_on_time=true;
-                if(i->getType()==this->getType()){
-                    for(auto c:*i->getServices()){
-                        continue;
+            if(!forward){
+                for(auto i: *Company::getCompany()->getVectorTrucks()){
+                    bool available_on_time=true;
+                    if(i->getType()==this->getType() && it->first==i->getcapacity()){
+                        for(auto c:*i->getServices()){
+                            if((c->initialDate<arrivalDate || initialDate<c->arrivalDate)){
+                                available_on_time=false;
+                                break;
+                            }
+                        }
+                    }
+                    if(remaining-i->getcapacity()>0){
+                        remaining-=quantity;
+                        tempTruck.push_back(i);
+                    }
+                    else if(double(remaining-i->getcapacity())==0.0){
+                        tempTruck.push_back(i);
+                        notCompleted=false;
+                        break;
+                    }
+                    else{
+                        it=Normal::CapDist.begin();
+                        break;
+                    }
+                }
+                it--;
+            }
+            else{
+                for(auto i: *Company::getCompany()->getVectorTrucks()){
+                    bool available_on_time=true;
+                    if(i->getType()==this->getType() && it->first==i->getcapacity()){
+                        for(auto c:*i->getServices()){
+                            if((c->initialDate<arrivalDate || initialDate<c->arrivalDate)){
+                                available_on_time=false;
+                                break;
+                            }
+                        }
+                    }
+                    if(remaining-i->getcapacity()<=0){
+                        remaining-=quantity;
+                        tempTruck.push_back(i);
                     }
                 }
             }
+            it++;
         }
+        for(auto i:tempTruck){
+            i->info();
+        }
+        enter_to_exit();
+        enter_to_exit();
         break;
     }
     case type::animal:{
