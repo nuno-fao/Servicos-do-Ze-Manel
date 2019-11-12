@@ -196,7 +196,7 @@ void mainMenu(){
                 break;
             }
             case 2:{
-				menu_trucks();
+                menu_trucks();
                 break;
             }
 
@@ -284,46 +284,46 @@ void menu_clients(){
 }
 
 void menu_trucks() {
-	unsigned opt = 1;
-	while (opt != 0) {
-		clearScreen();
-		cout << "[1] Add Truck" << endl;
-		cout << "[2] Edit Truck Prices" << endl;
-		cout << "[3] Remove Truck" << endl;
-		cout << "[0] Return to Main Menu" << endl;
-		if (cin >> opt && opt <= 3)
-		{
-			clearScreen();
-			switch (opt) {
-			case 0:
-				break;
-			case 1: {
-				clearBuffer();
-				Truck::createTruck(Company::getCompany()->getVectorTrucks());
-				break;
-			}
-			case 2: {
-				clearBuffer();
-				menu_editprices();
-				break;
-			}
-			case 3: {
-				clearBuffer();
-				Truck::removeTruck(Company::getCompany()->getVectorTrucks());
-				break;
-			}
+    unsigned opt = 1;
+    while (opt != 0) {
+        clearScreen();
+        cout << "[1] Add Truck" << endl;
+        cout << "[2] Edit Truck Prices" << endl;
+        cout << "[3] Remove Truck" << endl;
+        cout << "[0] Return to Main Menu" << endl;
+        if (cin >> opt && opt <= 3)
+        {
+            clearScreen();
+            switch (opt) {
+            case 0:
+                break;
+            case 1: {
+                clearBuffer();
+                Truck::createTruck(Company::getCompany()->getVectorTrucks());
+                break;
+            }
+            case 2: {
+                clearBuffer();
+                menu_editprices();
+                break;
+            }
+            case 3: {
+                clearBuffer();
+                Truck::removeTruck(Company::getCompany()->getVectorTrucks());
+                break;
+            }
 
-			default:
-				opt = 1;
-			}
-		}
-		else {
-			opt = 1;
-			clearBuffer();
-			clearScreen();
-			cout << "Not a valid option, please try again" << endl;
-		}
-	}
+            default:
+                opt = 1;
+            }
+        }
+        else {
+            opt = 1;
+            clearBuffer();
+            clearScreen();
+            cout << "Not a valid option, please try again" << endl;
+        }
+    }
 }
 
 void menu_services(){
@@ -396,9 +396,9 @@ void information(){
                 //Client::removeClient();
                 break;
             }
-			case 3:
-				trucksInformation();
-				break;
+            case 3:
+                trucksInformation();
+                break;
 
             default:
                 opt=1;
@@ -582,709 +582,709 @@ void clientsInformation(){
 }
 
 void trucksInformation() {
-	unsigned opt = 1;
-	clearScreen();
-	while (opt != 0) {
-		cout << "[1] See all" << endl;	
-		cout << "[2] See Congelation trucks" << endl;
-		cout << "[3] See Hazardous Material trucks" << endl; // Não funciona
-		cout << "[4] See Animal Material trucks" << endl;
-		cout << "[5] See Normal Material trucks" << endl;
-		cout << "[6] Show Trucks with Services on queue" << endl;
-		cout << "[7] Show Trucks on Transit" << endl;
-		cout << "[8] Show Specific Truck" << endl;
-		cout << "[9] Show Multipliers and Standart Prices" << endl;
-		cout << "[0] Return" << endl;
-		if (cin >> opt && opt <= 9)
-		{
-			clearScreen();
-			switch (opt) {
-			case 0: {
-				return;
-			}
-			case 1:
-				if (Company::getCompany()->getVectorTrucks()->size())
-					for (auto i : *Company::getCompany()->getVectorTrucks()) {
-						i->info();
-					}
-				else
-					cout << "There is no Information to show" << endl;
-				clearBuffer();
-				enter_to_exit();
-				break;
-			case 2: {
-				if (Company::getCompany()->getVectorTrucks()->size())
-					for (auto i : *Company::getCompany()->getVectorTrucks()) {
-						if (typeid(*i)==typeid(Congelation)) {
-							i->info();
-						}
-					}
-				else
-					cout << "There is no Information to show" << endl;
-				clearBuffer();
-				enter_to_exit();
-				break;
-			}
-			case 3: {
-				if (Company::getCompany()->getVectorTrucks()->size())
-					for (auto i : *Company::getCompany()->getVectorTrucks()) {
-						if (typeid(*i) == typeid(HazardousMat)) {
-							i->info();
-						}
-					}
-				else
-					cout << "There is no Information to show" << endl;
-				clearBuffer();
-				enter_to_exit();
-				break;
-			}
-			case 4: {
-				if (Company::getCompany()->getVectorTrucks()->size())
-					for (auto i : *Company::getCompany()->getVectorTrucks()) {
-						if (typeid(*i) == typeid(Animal)) {
-							i->info();
-						}
-					}
-				else
-					cout << "There is no Information to show" << endl;
-				clearBuffer();
-				enter_to_exit();
-				break;
-			}
-			case 5: {
-				if (Company::getCompany()->getVectorTrucks()->size())
-					for (auto i : *Company::getCompany()->getVectorTrucks()) {
-						if (typeid(*i) == typeid(Normal)) {
-							i->info();
-						}
-					}
-				else
-					cout << "There is no Information to show" << endl;
-				clearBuffer();
-				enter_to_exit();
-				break;
-			}
-			case 6: {
-				if (Company::getCompany()->getVectorTrucks()->size())
-					for (auto i : *Company::getCompany()->getVectorTrucks()) {
-						if ((!(i->getavailable()) && i->getServices().size()>1) || (i->getavailable() && i->getregistered())) {
-							i->info();
-						}
-					}
-				else
-					cout << "There is no Information to show" << endl;
-				clearBuffer();
-				enter_to_exit();
-				break;
-			}
-			case 7: {
-				if (Company::getCompany()->getVectorTrucks()->size())
-					for (auto i : *Company::getCompany()->getVectorTrucks()) {
-						if (!(i->getavailable())) {
-							i->info();
-						}
-					}
-				else
-					cout << "There is no Information to show" << endl;
-				clearBuffer();
-				enter_to_exit();
-				break;
-			}
-			case 8: {
-				string license;
-				bool invalidInput;
-				vector<string> auxVec;
-				if (Company::getCompany()->getVectorTrucks()->size()) {
+    unsigned opt = 1;
+    clearScreen();
+    while (opt != 0) {
+        cout << "[1] See all" << endl;
+        cout << "[2] See Congelation trucks" << endl;
+        cout << "[3] See Hazardous Material trucks" << endl; // Não funciona
+        cout << "[4] See Animal Material trucks" << endl;
+        cout << "[5] See Normal Material trucks" << endl;
+        cout << "[6] Show Trucks with Services on queue" << endl;
+        cout << "[7] Show Trucks on Transit" << endl;
+        cout << "[8] Show Specific Truck" << endl;
+        cout << "[9] Show Multipliers and Standart Prices" << endl;
+        cout << "[0] Return" << endl;
+        if (cin >> opt && opt <= 9)
+        {
+            clearScreen();
+            switch (opt) {
+            case 0: {
+                return;
+            }
+            case 1:
+                if (Company::getCompany()->getVectorTrucks()->size())
+                    for (auto i : *Company::getCompany()->getVectorTrucks()) {
+                        i->info();
+                    }
+                else
+                    cout << "There is no Information to show" << endl;
+                clearBuffer();
+                enter_to_exit();
+                break;
+            case 2: {
+                if (Company::getCompany()->getVectorTrucks()->size())
+                    for (auto i : *Company::getCompany()->getVectorTrucks()) {
+                        if (typeid(*i)==typeid(Congelation)) {
+                            i->info();
+                        }
+                    }
+                else
+                    cout << "There is no Information to show" << endl;
+                clearBuffer();
+                enter_to_exit();
+                break;
+            }
+            case 3: {
+                if (Company::getCompany()->getVectorTrucks()->size())
+                    for (auto i : *Company::getCompany()->getVectorTrucks()) {
+                        if (typeid(*i) == typeid(HazardousMat)) {
+                            i->info();
+                        }
+                    }
+                else
+                    cout << "There is no Information to show" << endl;
+                clearBuffer();
+                enter_to_exit();
+                break;
+            }
+            case 4: {
+                if (Company::getCompany()->getVectorTrucks()->size())
+                    for (auto i : *Company::getCompany()->getVectorTrucks()) {
+                        if (typeid(*i) == typeid(Animal)) {
+                            i->info();
+                        }
+                    }
+                else
+                    cout << "There is no Information to show" << endl;
+                clearBuffer();
+                enter_to_exit();
+                break;
+            }
+            case 5: {
+                if (Company::getCompany()->getVectorTrucks()->size())
+                    for (auto i : *Company::getCompany()->getVectorTrucks()) {
+                        if (typeid(*i) == typeid(Normal)) {
+                            i->info();
+                        }
+                    }
+                else
+                    cout << "There is no Information to show" << endl;
+                clearBuffer();
+                enter_to_exit();
+                break;
+            }
+            case 6: {
+                if (Company::getCompany()->getVectorTrucks()->size())
+                    for (auto i : *Company::getCompany()->getVectorTrucks()) {
+                        if ((!(i->getavailable()) && i->getServices().size()>1) || (i->getavailable() && i->getregistered())) {
+                            i->info();
+                        }
+                    }
+                else
+                    cout << "There is no Information to show" << endl;
+                clearBuffer();
+                enter_to_exit();
+                break;
+            }
+            case 7: {
+                if (Company::getCompany()->getVectorTrucks()->size())
+                    for (auto i : *Company::getCompany()->getVectorTrucks()) {
+                        if (!(i->getavailable())) {
+                            i->info();
+                        }
+                    }
+                else
+                    cout << "There is no Information to show" << endl;
+                clearBuffer();
+                enter_to_exit();
+                break;
+            }
+            case 8: {
+                string license;
+                bool invalidInput;
+                vector<string> auxVec;
+                if (Company::getCompany()->getVectorTrucks()->size()) {
                     clearBuffer();
 
-					do {
+                    do {
                         clearScreen();
-						invalidInput = false;
-						cout << "What's the license of the truck you wish to see (XX-YY-ZZ)? "; getline(cin, license);
-						if (license == "!q") return;
+                        invalidInput = false;
+                        cout << "What's the license of the truck you wish to see (XX-YY-ZZ)? "; getline(cin, license);
+                        if (license == "!q") break;
 
-						//verifies if the license is valid or if it already exists.
-						if (!checkLicenseV2(license)) {
-							invalidInput = true;
-						}
-						else {
-							for (vector<Truck*>::iterator it = Company::getCompany()->getVectorTrucks()->begin(); it != Company::getCompany()->getVectorTrucks()->end(); it++) {
-								if ((*it)->getlicense() == license) {
-									clearScreen();
-									cout << "Truck found!!!" << endl;
-									(*it)->info();
-									enter_to_exit();
-									return;
-								}
-							}
-							invalidInput = true;
-							cout << "Truck with license " << license << " is not a part of the company's database" << endl;
-							enter_to_exit();
-						}
-					} while (invalidInput);
-					clearScreen();
-				}
-				else
-					cout << "There is no Information to show" << endl;
-				clearBuffer();
-				enter_to_exit();
-				break;
-			}
-			
-			case 9:
-				clearScreen();
+                        //verifies if the license is valid or if it already exists.
+                        if (!checkLicenseV2(license)) {
+                            invalidInput = true;
+                        }
+                        else {
+                            invalidInput = true;
+                            for (vector<Truck*>::iterator it = Company::getCompany()->getVectorTrucks()->begin(); it != Company::getCompany()->getVectorTrucks()->end(); it++) {
+                                if ((*it)->getlicense() == license) {
+                                    clearScreen();
+                                    cout << "Truck found!!!" << endl;
+                                    (*it)->info();
+                                    invalidInput=false;
+                                    break;
+                                }
+                            }
+                            if(invalidInput){
+                                cout << "Truck with license " << license << " is not a part of the company's database" << endl;
+                                enter_to_exit();
+                            }
+                        }
+                    } while (invalidInput);
+                }
+                else
+                    cout << "There is no Information to show" << endl;
+                enter_to_exit();
+                break;
+            }
+
+            case 9:
+                clearScreen();
                 clearBuffer();
-				cout << "---Hazards---" << endl;
-				cout << "Explosives multiplier: " << HazardousMat::hazardMul[Hazard_enum::explosives] << endl;
-				cout << "Flammable liquid multiplier: " << HazardousMat::hazardMul[Hazard_enum::flammableliq] << endl;
-				cout << "Flammable solid multiplier: " << HazardousMat::hazardMul[Hazard_enum::flammablesolid] << endl;
-				cout << "Gases multiplier: " << HazardousMat::hazardMul[Hazard_enum::gases] << endl;
-				cout << "Oxidizer multiplier: " << HazardousMat::hazardMul[Hazard_enum::oxidizer] << endl;
-				cout << "Poisons multiplier: " << HazardousMat::hazardMul[Hazard_enum::poisons] << endl;
-				cout << "Corrosives multiplier: " << HazardousMat::hazardMul[Hazard_enum::corrosives] << endl;
-				cout << "Radioactive multiplier: " << HazardousMat::hazardMul[Hazard_enum::radioactive] << endl;
-				cout << "'Other' multiplier: " << HazardousMat::hazardMul[Hazard_enum::other] << endl;
+                cout << "---Hazards---" << endl;
+                cout << "Explosives multiplier: " << HazardousMat::hazardMul[Hazard_enum::explosives] << endl;
+                cout << "Flammable liquid multiplier: " << HazardousMat::hazardMul[Hazard_enum::flammableliq] << endl;
+                cout << "Flammable solid multiplier: " << HazardousMat::hazardMul[Hazard_enum::flammablesolid] << endl;
+                cout << "Gases multiplier: " << HazardousMat::hazardMul[Hazard_enum::gases] << endl;
+                cout << "Oxidizer multiplier: " << HazardousMat::hazardMul[Hazard_enum::oxidizer] << endl;
+                cout << "Poisons multiplier: " << HazardousMat::hazardMul[Hazard_enum::poisons] << endl;
+                cout << "Corrosives multiplier: " << HazardousMat::hazardMul[Hazard_enum::corrosives] << endl;
+                cout << "Radioactive multiplier: " << HazardousMat::hazardMul[Hazard_enum::radioactive] << endl;
+                cout << "'Other' multiplier: " << HazardousMat::hazardMul[Hazard_enum::other] << endl;
                 cout <<endl<< "---Congelation---" << endl;
-				cout << "_100 multiplier: " << Congelation::tempMul[Temperature_enum::_100] << endl;
-				cout << "_200 multiplier: " << Congelation::tempMul[Temperature_enum::_200] << endl;
-				cout << "_300 multiplier: " << Congelation::tempMul[Temperature_enum::_300] << endl;
-				cout << "_400 multiplier: " << Congelation::tempMul[Temperature_enum::_400] << endl;
+                cout << "_100 multiplier: " << Congelation::tempMul[Temperature_enum::_100] << endl;
+                cout << "_200 multiplier: " << Congelation::tempMul[Temperature_enum::_200] << endl;
+                cout << "_300 multiplier: " << Congelation::tempMul[Temperature_enum::_300] << endl;
+                cout << "_400 multiplier: " << Congelation::tempMul[Temperature_enum::_400] << endl;
                 cout <<endl<< "---STD Prices---" << endl;
-				cout << "Congelation price per KG" << Congelation::pricePerKG << endl;
+                cout << "Congelation price per KG" << Congelation::pricePerKG << endl;
                 cout << "Hazard price per KG: " << HazardousMat::pricePerKG << endl;
                 cout << "Animal price per KG: " << Animal::pricePerKG << endl;
                 cout << "Normal price per KG: " << Normal::pricePerKG << endl;
-				enter_to_exit();
+                enter_to_exit();
                 break;
 
-			default:
-				opt = 1;
-			}
-		}
-		else {
-			opt = 1;
-			clearBuffer();
-			clearScreen();
-			cout << "Not a valid option, please try again" << endl;
-		}
-	}
+            default:
+                opt = 1;
+            }
+        }
+        else {
+            opt = 1;
+            clearBuffer();
+            clearScreen();
+            cout << "Not a valid option, please try again" << endl;
+        }
+    }
 }
 
 void menu_editprices() {
-	unsigned opt = 1;
-	while (opt != 0) {
-		clearScreen();
-		cout << "[1] Temperature Price Multipliers" << endl;
-		cout << "[2] Hazard Multipliers" << endl;
-		cout << "[3] Standart price per KG" << endl;
-		cout << "[0] Return to Main Menu" << endl;
-		if (cin >> opt && opt <= 3)
-		{
-			clearScreen();
-			switch (opt) {
-			case 0:
-				break;
-			case 2: {
-				clearBuffer();
-				unsigned opt1 = 1;
-				string aux;
-				while (opt1 != 0) {
-					clearScreen();
-					cout << "[1] Edit Explosives" << endl;
-					cout << "[2] Edit Gases" << endl;
-					cout << "[3] Edit Flammable Liquid" << endl;
-					cout << "[4] Edit Flammable Solid" << endl;
-					cout << "[5] Edit Oxidizer" << endl;
-					cout << "[6] Edit Poison" << endl;
-					cout << "[7] Edit Radioactive" << endl;
-					cout << "[8] Edit Corrosives" << endl;
-					cout << "[9] Edit 'Other'" << endl;
-					cout << "[0] Return to Main Menu" << endl;
-					if (cin >> opt1 && opt1 <= 9)
-					{
-						clearScreen();
-						switch (opt) {
-						case 0:
-							break;
-						case 1: {
-							clearBuffer();
-							clearScreen();
-							cout << "Current multiplier for explosives is: " << HazardousMat::hazardMul[Hazard_enum::explosives] << endl;
-							cout << "What will be the new value? "; cin >> aux;
-							clearBuffer();
-							if (strIsNumber(aux)) {
-								if (stoi(aux) > 0) {
-									HazardousMat::hazardMul[Hazard_enum::explosives] = stoi(aux);
-									cout << "Multiplier changed successfully!!!" << endl;
-									enter_to_exit();
-								}
-								else {
-									cout << endl << "The multiplier must be a positive number." << endl;
-									enter_to_exit();
-								}
-							}
-							else {
-								cout << endl << "The multiplier must be a positive number." << endl;
-								enter_to_exit();
-							}
-							break;
-						}
-						case 2: {
-							clearBuffer();
-							clearScreen();
-							cout << "Current multiplier for gases is: " << HazardousMat::hazardMul[Hazard_enum::gases] << endl;
-							cout << "What will be the new value? "; cin >> aux;
-							clearBuffer();
-							if (strIsNumber(aux)) {
-								if (stoi(aux) > 0) {
-									HazardousMat::hazardMul[Hazard_enum::gases] = stoi(aux);
-									cout << "Multiplier changed successfully!!!" << endl;
-									enter_to_exit();
-								}
-								else {
-									cout << endl << "The multiplier must be a positive number." << endl;
-									enter_to_exit();
-								}
-							}
-							else {
-								cout << endl << "The multiplier must be a positive number." << endl;
-								enter_to_exit();
-							}
-							break;
-						}
-						case 3: {
-							clearBuffer();
-							clearScreen();
-							cout << "Current multiplier for flammable liquid is: " << HazardousMat::hazardMul[Hazard_enum::flammableliq] << endl;
-							cout << "What will be the new value? "; cin >> aux;
-							clearBuffer();
-							if (strIsNumber(aux)) {
-								if (stoi(aux) > 0) {
-									HazardousMat::hazardMul[Hazard_enum::flammableliq] = stoi(aux);
-									cout << "Multiplier changed successfully!!!" << endl;
-									enter_to_exit();
-								}
-								else {
-									cout << endl << "The multiplier must be a positive number." << endl;
-									enter_to_exit();
-								}
-							}
-							else {
-								cout << endl << "The multiplier must be a positive number." << endl;
-								enter_to_exit();
-							}
-							break;
-						}
-						case 4: {
-							clearBuffer();
-							clearScreen();
-							cout << "Current multiplier for flammable solid is: " << HazardousMat::hazardMul[Hazard_enum::flammablesolid] << endl;
-							cout << "What will be the new value? "; cin >> aux;
-							clearBuffer();
-							if (strIsNumber(aux)) {
-								if (stoi(aux) > 0) {
-									HazardousMat::hazardMul[Hazard_enum::flammablesolid] = stoi(aux);
-									cout << "Multiplier changed successfully!!!" << endl;
-									enter_to_exit();
-								}
-								else {
-									cout << endl << "The multiplier must be a positive number." << endl;
-									enter_to_exit();
-								}
-							}
-							else {
-								cout << endl << "The multiplier must be a positive number." << endl;
-								enter_to_exit();
-							}
-							break;
-						}
-						case 5: {
-							clearBuffer();
-							clearScreen();
-							cout << "Current multiplier for oxidizer is: " << HazardousMat::hazardMul[Hazard_enum::oxidizer] << endl;
-							cout << "What will be the new value? "; cin >> aux;
-							clearBuffer();
-							if (strIsNumber(aux)) {
-								if (stoi(aux) > 0) {
-									HazardousMat::hazardMul[Hazard_enum::oxidizer] = stoi(aux);
-									cout << "Multiplier changed successfully!!!" << endl;
-									enter_to_exit();
-								}
-								else {
-									cout << endl << "The multiplier must be a positive number." << endl;
-									enter_to_exit();
-								}
-							}
-							else {
-								cout << endl << "The multiplier must be a positive number." << endl;
-								enter_to_exit();
-							}
-							break;
-						}
-						case 6: {
-							clearBuffer();
-							clearScreen();
-							cout << "Current multiplier for poisons is: " << HazardousMat::hazardMul[Hazard_enum::poisons] << endl;
-							cout << "What will be the new value? "; cin >> aux;
-							clearBuffer();
-							if (strIsNumber(aux)) {
-								if (stoi(aux) > 0) {
-									HazardousMat::hazardMul[Hazard_enum::poisons] = stoi(aux);
-									cout << "Multiplier changed successfully!!!" << endl;
-									enter_to_exit();
-								}
-								else {
-									cout << endl << "The multiplier must be a positive number." << endl;
-									enter_to_exit();
-								}
-							}
-							else {
-								cout << endl << "The multiplier must be a positive number." << endl;
-								enter_to_exit();
-							}
-							break;
-						}
-						case 7: {
-							clearBuffer();
-							clearScreen();
-							cout << "Current multiplier for radioactive is: " << HazardousMat::hazardMul[Hazard_enum::radioactive] << endl;
-							cout << "What will be the new value? "; cin >> aux;
-							clearBuffer();
-							if (strIsNumber(aux)) {
-								if (stoi(aux) > 0) {
-									HazardousMat::hazardMul[Hazard_enum::radioactive] = stoi(aux);
-									cout << "Multiplier changed successfully!!!" << endl;
-									enter_to_exit();
-								}
-								else {
-									cout << endl << "The multiplier must be a positive number." << endl;
-									enter_to_exit();
-								}
-							}
-							else {
-								cout << endl << "The multiplier must be a positive number." << endl;
-								enter_to_exit();
-							}
-							break;
-						}
-						case 8: {
-							clearBuffer();
-							clearScreen();
-							cout << "Current multiplier for corrosive is: " << HazardousMat::hazardMul[Hazard_enum::corrosives] << endl;
-							cout << "What will be the new value? "; cin >> aux;
-							clearBuffer();
-							if (strIsNumber(aux)) {
-								if (stoi(aux) > 0) {
-									HazardousMat::hazardMul[Hazard_enum::corrosives] = stoi(aux);
-									cout << "Multiplier changed successfully!!!" << endl;
-									enter_to_exit();
-								}
-								else {
-									cout << endl << "The multiplier must be a positive number." << endl;
-									enter_to_exit();
-								}
-							}
-							else {
-								cout << endl << "The multiplier must be a positive number." << endl;
-								enter_to_exit();
-							}
-							break;
-						}
-						case 9: {
-							clearBuffer();
-							clearScreen();
-							cout << "Current multiplier for 'other' is: " << HazardousMat::hazardMul[Hazard_enum::other] << endl;
-							cout << "What will be the new value? "; cin >> aux;
-							clearBuffer();
-							if (strIsNumber(aux)) {
-								if (stoi(aux) > 0) {
-									HazardousMat::hazardMul[Hazard_enum::other] = stoi(aux);
-									cout << "Multiplier changed successfully!!!" << endl;
-									enter_to_exit();
-								}
-								else {
-									cout << endl << "The multiplier must be a positive number." << endl;
-									enter_to_exit();
-								}
-							}
-							else {
-								cout << endl << "The multiplier must be a positive number." << endl;
-								enter_to_exit();
-							}
-							break;
-						}
+    unsigned opt = 1;
+    while (opt != 0) {
+        clearScreen();
+        cout << "[1] Temperature Price Multipliers" << endl;
+        cout << "[2] Hazard Multipliers" << endl;
+        cout << "[3] Standart price per KG" << endl;
+        cout << "[0] Return to Main Menu" << endl;
+        if (cin >> opt && opt <= 3)
+        {
+            clearScreen();
+            switch (opt) {
+            case 0:
+                break;
+            case 2: {
+                clearBuffer();
+                unsigned opt1 = 1;
+                string aux;
+                while (opt1 != 0) {
+                    clearScreen();
+                    cout << "[1] Edit Explosives" << endl;
+                    cout << "[2] Edit Gases" << endl;
+                    cout << "[3] Edit Flammable Liquid" << endl;
+                    cout << "[4] Edit Flammable Solid" << endl;
+                    cout << "[5] Edit Oxidizer" << endl;
+                    cout << "[6] Edit Poison" << endl;
+                    cout << "[7] Edit Radioactive" << endl;
+                    cout << "[8] Edit Corrosives" << endl;
+                    cout << "[9] Edit 'Other'" << endl;
+                    cout << "[0] Return to Main Menu" << endl;
+                    if (cin >> opt1 && opt1 <= 9)
+                    {
+                        clearScreen();
+                        switch (opt) {
+                        case 0:
+                            break;
+                        case 1: {
+                            clearBuffer();
+                            clearScreen();
+                            cout << "Current multiplier for explosives is: " << HazardousMat::hazardMul[Hazard_enum::explosives] << endl;
+                            cout << "What will be the new value? "; cin >> aux;
+                            clearBuffer();
+                            if (strIsNumber(aux)) {
+                                if (stoi(aux) > 0) {
+                                    HazardousMat::hazardMul[Hazard_enum::explosives] = stoi(aux);
+                                    cout << "Multiplier changed successfully!!!" << endl;
+                                    enter_to_exit();
+                                }
+                                else {
+                                    cout << endl << "The multiplier must be a positive number." << endl;
+                                    enter_to_exit();
+                                }
+                            }
+                            else {
+                                cout << endl << "The multiplier must be a positive number." << endl;
+                                enter_to_exit();
+                            }
+                            break;
+                        }
+                        case 2: {
+                            clearBuffer();
+                            clearScreen();
+                            cout << "Current multiplier for gases is: " << HazardousMat::hazardMul[Hazard_enum::gases] << endl;
+                            cout << "What will be the new value? "; cin >> aux;
+                            clearBuffer();
+                            if (strIsNumber(aux)) {
+                                if (stoi(aux) > 0) {
+                                    HazardousMat::hazardMul[Hazard_enum::gases] = stoi(aux);
+                                    cout << "Multiplier changed successfully!!!" << endl;
+                                    enter_to_exit();
+                                }
+                                else {
+                                    cout << endl << "The multiplier must be a positive number." << endl;
+                                    enter_to_exit();
+                                }
+                            }
+                            else {
+                                cout << endl << "The multiplier must be a positive number." << endl;
+                                enter_to_exit();
+                            }
+                            break;
+                        }
+                        case 3: {
+                            clearBuffer();
+                            clearScreen();
+                            cout << "Current multiplier for flammable liquid is: " << HazardousMat::hazardMul[Hazard_enum::flammableliq] << endl;
+                            cout << "What will be the new value? "; cin >> aux;
+                            clearBuffer();
+                            if (strIsNumber(aux)) {
+                                if (stoi(aux) > 0) {
+                                    HazardousMat::hazardMul[Hazard_enum::flammableliq] = stoi(aux);
+                                    cout << "Multiplier changed successfully!!!" << endl;
+                                    enter_to_exit();
+                                }
+                                else {
+                                    cout << endl << "The multiplier must be a positive number." << endl;
+                                    enter_to_exit();
+                                }
+                            }
+                            else {
+                                cout << endl << "The multiplier must be a positive number." << endl;
+                                enter_to_exit();
+                            }
+                            break;
+                        }
+                        case 4: {
+                            clearBuffer();
+                            clearScreen();
+                            cout << "Current multiplier for flammable solid is: " << HazardousMat::hazardMul[Hazard_enum::flammablesolid] << endl;
+                            cout << "What will be the new value? "; cin >> aux;
+                            clearBuffer();
+                            if (strIsNumber(aux)) {
+                                if (stoi(aux) > 0) {
+                                    HazardousMat::hazardMul[Hazard_enum::flammablesolid] = stoi(aux);
+                                    cout << "Multiplier changed successfully!!!" << endl;
+                                    enter_to_exit();
+                                }
+                                else {
+                                    cout << endl << "The multiplier must be a positive number." << endl;
+                                    enter_to_exit();
+                                }
+                            }
+                            else {
+                                cout << endl << "The multiplier must be a positive number." << endl;
+                                enter_to_exit();
+                            }
+                            break;
+                        }
+                        case 5: {
+                            clearBuffer();
+                            clearScreen();
+                            cout << "Current multiplier for oxidizer is: " << HazardousMat::hazardMul[Hazard_enum::oxidizer] << endl;
+                            cout << "What will be the new value? "; cin >> aux;
+                            clearBuffer();
+                            if (strIsNumber(aux)) {
+                                if (stoi(aux) > 0) {
+                                    HazardousMat::hazardMul[Hazard_enum::oxidizer] = stoi(aux);
+                                    cout << "Multiplier changed successfully!!!" << endl;
+                                    enter_to_exit();
+                                }
+                                else {
+                                    cout << endl << "The multiplier must be a positive number." << endl;
+                                    enter_to_exit();
+                                }
+                            }
+                            else {
+                                cout << endl << "The multiplier must be a positive number." << endl;
+                                enter_to_exit();
+                            }
+                            break;
+                        }
+                        case 6: {
+                            clearBuffer();
+                            clearScreen();
+                            cout << "Current multiplier for poisons is: " << HazardousMat::hazardMul[Hazard_enum::poisons] << endl;
+                            cout << "What will be the new value? "; cin >> aux;
+                            clearBuffer();
+                            if (strIsNumber(aux)) {
+                                if (stoi(aux) > 0) {
+                                    HazardousMat::hazardMul[Hazard_enum::poisons] = stoi(aux);
+                                    cout << "Multiplier changed successfully!!!" << endl;
+                                    enter_to_exit();
+                                }
+                                else {
+                                    cout << endl << "The multiplier must be a positive number." << endl;
+                                    enter_to_exit();
+                                }
+                            }
+                            else {
+                                cout << endl << "The multiplier must be a positive number." << endl;
+                                enter_to_exit();
+                            }
+                            break;
+                        }
+                        case 7: {
+                            clearBuffer();
+                            clearScreen();
+                            cout << "Current multiplier for radioactive is: " << HazardousMat::hazardMul[Hazard_enum::radioactive] << endl;
+                            cout << "What will be the new value? "; cin >> aux;
+                            clearBuffer();
+                            if (strIsNumber(aux)) {
+                                if (stoi(aux) > 0) {
+                                    HazardousMat::hazardMul[Hazard_enum::radioactive] = stoi(aux);
+                                    cout << "Multiplier changed successfully!!!" << endl;
+                                    enter_to_exit();
+                                }
+                                else {
+                                    cout << endl << "The multiplier must be a positive number." << endl;
+                                    enter_to_exit();
+                                }
+                            }
+                            else {
+                                cout << endl << "The multiplier must be a positive number." << endl;
+                                enter_to_exit();
+                            }
+                            break;
+                        }
+                        case 8: {
+                            clearBuffer();
+                            clearScreen();
+                            cout << "Current multiplier for corrosive is: " << HazardousMat::hazardMul[Hazard_enum::corrosives] << endl;
+                            cout << "What will be the new value? "; cin >> aux;
+                            clearBuffer();
+                            if (strIsNumber(aux)) {
+                                if (stoi(aux) > 0) {
+                                    HazardousMat::hazardMul[Hazard_enum::corrosives] = stoi(aux);
+                                    cout << "Multiplier changed successfully!!!" << endl;
+                                    enter_to_exit();
+                                }
+                                else {
+                                    cout << endl << "The multiplier must be a positive number." << endl;
+                                    enter_to_exit();
+                                }
+                            }
+                            else {
+                                cout << endl << "The multiplier must be a positive number." << endl;
+                                enter_to_exit();
+                            }
+                            break;
+                        }
+                        case 9: {
+                            clearBuffer();
+                            clearScreen();
+                            cout << "Current multiplier for 'other' is: " << HazardousMat::hazardMul[Hazard_enum::other] << endl;
+                            cout << "What will be the new value? "; cin >> aux;
+                            clearBuffer();
+                            if (strIsNumber(aux)) {
+                                if (stoi(aux) > 0) {
+                                    HazardousMat::hazardMul[Hazard_enum::other] = stoi(aux);
+                                    cout << "Multiplier changed successfully!!!" << endl;
+                                    enter_to_exit();
+                                }
+                                else {
+                                    cout << endl << "The multiplier must be a positive number." << endl;
+                                    enter_to_exit();
+                                }
+                            }
+                            else {
+                                cout << endl << "The multiplier must be a positive number." << endl;
+                                enter_to_exit();
+                            }
+                            break;
+                        }
 
-						default:
-							opt1 = 1;
-						}
-					}
-					else {
-						opt = 1;
-						clearBuffer();
-						clearScreen();
-						cout << "Not a valid option, please try again" << endl;
-					}
-				}
-				break;
-			}
-			case 1: {
-				clearBuffer();
-				unsigned opt1 = 1;
-				string aux;
-				while (opt1 != 0) {
-					clearScreen();
-					cout << "[1] Edit _100" << endl;
-					cout << "[2] Edit _200" << endl;
-					cout << "[3] Edit _300" << endl;
-					cout << "[4] Edit _400" << endl;
-					cout << "[0] Return to Main Menu" << endl;
-					if (cin >> opt1 && opt1 <= 4)
-					{
-						clearScreen();
-						switch (opt) {
-						case 0:
-							break;
-						case 1: {
-							clearBuffer();
-							clearScreen();
-							cout << "Current multiplier for _100 is: " << Congelation::tempMul[Temperature_enum::_100] << endl;
-							cout << "What will be the new value? "; cin >> aux;
-							clearBuffer();
-							if (strIsNumber(aux)) {
-								if (stoi(aux) > 0) {
-									Congelation::tempMul[Temperature_enum::_100] = stoi(aux);
-									cout << "Multiplier changed successfully!!!" << endl;
-									enter_to_exit();
-								}
-								else {
-									cout << endl << "The multiplier must be a positive number." << endl;
-									enter_to_exit();
-								}
-							}
-							else {
-								cout << endl << "The multiplier must be a positive number." << endl;
-								enter_to_exit();
-							}
-							break;
-						}
-						case 2: {
-							clearBuffer();
-							clearScreen();
-							cout << "Current multiplier for _200 is: " << Congelation::tempMul[Temperature_enum::_200] << endl;
-							cout << "What will be the new value? "; cin >> aux;
-							clearBuffer();
-							if (strIsNumber(aux)) {
-								if (stoi(aux) > 0) {
-									Congelation::tempMul[Temperature_enum::_200] = stoi(aux);
-									cout << "Multiplier changed successfully!!!" << endl;
-									enter_to_exit();
-								}
-								else {
-									cout << endl << "The multiplier must be a positive number." << endl;
-									enter_to_exit();
-								}
-							}
-							else {
-								cout << endl << "The multiplier must be a positive number." << endl;
-								enter_to_exit();
-							}
-							break;
-						}
-						case 3: {
-							clearBuffer();
-							clearScreen();
-							cout << "Current multiplier for _300 is: " << Congelation::tempMul[Temperature_enum::_300] << endl;
-							cout << "What will be the new value? "; cin >> aux;
-							clearBuffer();
-							if (strIsNumber(aux)) {
-								if (stoi(aux) > 0) {
-									Congelation::tempMul[Temperature_enum::_300] = stoi(aux);
-									cout << "Multiplier changed successfully!!!" << endl;
-									enter_to_exit();
-								}
-								else {
-									cout << endl << "The multiplier must be a positive number." << endl;
-									enter_to_exit();
-								}
-							}
-							else {
-								cout << endl << "The multiplier must be a positive number." << endl;
-								enter_to_exit();
-							}
-							break;
-						}
-						case 4: {
-							clearBuffer();
-							clearScreen();
-							cout << "Current multiplier for _400 is: " << Congelation::tempMul[Temperature_enum::_400] << endl;
-							cout << "What will be the new value? "; cin >> aux;
-							clearBuffer();
-							if (strIsNumber(aux)) {
-								if (stoi(aux) > 0) {
-									Congelation::tempMul[Temperature_enum::_400] = stoi(aux);
-									cout << "Multiplier changed successfully!!!" << endl;
-									enter_to_exit();
-								}
-								else {
-									cout << endl << "The multiplier must be a positive number." << endl;
-									enter_to_exit();
-								}
-							}
-							else {
-								cout << endl << "The multiplier must be a positive number." << endl;
-								enter_to_exit();
-							}
-							break;
-						}
+                        default:
+                            opt1 = 1;
+                        }
+                    }
+                    else {
+                        opt = 1;
+                        clearBuffer();
+                        clearScreen();
+                        cout << "Not a valid option, please try again" << endl;
+                    }
+                }
+                break;
+            }
+            case 1: {
+                clearBuffer();
+                unsigned opt1 = 1;
+                string aux;
+                while (opt1 != 0) {
+                    clearScreen();
+                    cout << "[1] Edit _100" << endl;
+                    cout << "[2] Edit _200" << endl;
+                    cout << "[3] Edit _300" << endl;
+                    cout << "[4] Edit _400" << endl;
+                    cout << "[0] Return to Main Menu" << endl;
+                    if (cin >> opt1 && opt1 <= 4)
+                    {
+                        clearScreen();
+                        switch (opt) {
+                        case 0:
+                            break;
+                        case 1: {
+                            clearBuffer();
+                            clearScreen();
+                            cout << "Current multiplier for _100 is: " << Congelation::tempMul[Temperature_enum::_100] << endl;
+                            cout << "What will be the new value? "; cin >> aux;
+                            clearBuffer();
+                            if (strIsNumber(aux)) {
+                                if (stoi(aux) > 0) {
+                                    Congelation::tempMul[Temperature_enum::_100] = stoi(aux);
+                                    cout << "Multiplier changed successfully!!!" << endl;
+                                    enter_to_exit();
+                                }
+                                else {
+                                    cout << endl << "The multiplier must be a positive number." << endl;
+                                    enter_to_exit();
+                                }
+                            }
+                            else {
+                                cout << endl << "The multiplier must be a positive number." << endl;
+                                enter_to_exit();
+                            }
+                            break;
+                        }
+                        case 2: {
+                            clearBuffer();
+                            clearScreen();
+                            cout << "Current multiplier for _200 is: " << Congelation::tempMul[Temperature_enum::_200] << endl;
+                            cout << "What will be the new value? "; cin >> aux;
+                            clearBuffer();
+                            if (strIsNumber(aux)) {
+                                if (stoi(aux) > 0) {
+                                    Congelation::tempMul[Temperature_enum::_200] = stoi(aux);
+                                    cout << "Multiplier changed successfully!!!" << endl;
+                                    enter_to_exit();
+                                }
+                                else {
+                                    cout << endl << "The multiplier must be a positive number." << endl;
+                                    enter_to_exit();
+                                }
+                            }
+                            else {
+                                cout << endl << "The multiplier must be a positive number." << endl;
+                                enter_to_exit();
+                            }
+                            break;
+                        }
+                        case 3: {
+                            clearBuffer();
+                            clearScreen();
+                            cout << "Current multiplier for _300 is: " << Congelation::tempMul[Temperature_enum::_300] << endl;
+                            cout << "What will be the new value? "; cin >> aux;
+                            clearBuffer();
+                            if (strIsNumber(aux)) {
+                                if (stoi(aux) > 0) {
+                                    Congelation::tempMul[Temperature_enum::_300] = stoi(aux);
+                                    cout << "Multiplier changed successfully!!!" << endl;
+                                    enter_to_exit();
+                                }
+                                else {
+                                    cout << endl << "The multiplier must be a positive number." << endl;
+                                    enter_to_exit();
+                                }
+                            }
+                            else {
+                                cout << endl << "The multiplier must be a positive number." << endl;
+                                enter_to_exit();
+                            }
+                            break;
+                        }
+                        case 4: {
+                            clearBuffer();
+                            clearScreen();
+                            cout << "Current multiplier for _400 is: " << Congelation::tempMul[Temperature_enum::_400] << endl;
+                            cout << "What will be the new value? "; cin >> aux;
+                            clearBuffer();
+                            if (strIsNumber(aux)) {
+                                if (stoi(aux) > 0) {
+                                    Congelation::tempMul[Temperature_enum::_400] = stoi(aux);
+                                    cout << "Multiplier changed successfully!!!" << endl;
+                                    enter_to_exit();
+                                }
+                                else {
+                                    cout << endl << "The multiplier must be a positive number." << endl;
+                                    enter_to_exit();
+                                }
+                            }
+                            else {
+                                cout << endl << "The multiplier must be a positive number." << endl;
+                                enter_to_exit();
+                            }
+                            break;
+                        }
 
-						default:
-							opt1 = 1;
-						}
-					}
-					else {
-						opt = 1;
-						clearBuffer();
-						clearScreen();
-						cout << "Not a valid option, please try again" << endl;
-					}
-				}
-				break;
-			}
-			case 3: {
-				clearBuffer();
-				unsigned opt1 = 1;
-				string aux;
-				while (opt1 != 0) {
-					clearScreen();
-					cout << "[1] Edit congelation trucks' price per KG" << endl;
-					cout << "[2] Edit hazardous material trucks' price per KG" << endl;
-					cout << "[3] Edit animal trucks' price per KG" << endl;
-					cout << "[4] Edit normal trucks' price per KG" << endl;
-					cout << "[0] Return to Main Menu" << endl;
-					if (cin >> opt1 && opt1 <= 4)
-					{
-						clearScreen();
-						switch (opt) {
-						case 0:
-							break;
-						case 1: {
-							clearBuffer();
-							clearScreen();
-							cout << "Current congelation trucks' price per KG: " << Congelation::pricePerKG << endl;
-							cout << "What will be the new value? "; cin >> aux;
-							clearBuffer();
-							if (strIsNumber(aux)) {
-								if (stoi(aux) > 0) {
-									Congelation::pricePerKG = stoi(aux);
-									cout << "Multiplier changed successfully!!!" << endl;
-									enter_to_exit();
-								}
-								else {
-									cout << endl << "The multiplier must be a positive number." << endl;
-									enter_to_exit();
-								}
-							}
-							else {
-								cout << endl << "The multiplier must be a positive number." << endl;
-								enter_to_exit();
-							}
-							break;
-						}
-						case 2: {
-							clearBuffer();
-							clearScreen();
-							cout << "Current hazardous material trucks' price per KG is: " << HazardousMat::pricePerKG << endl;
-							cout << "What will be the new value? "; cin >> aux;
-							clearBuffer();
-							if (strIsNumber(aux)) {
-								if (stoi(aux) > 0) {
-									HazardousMat::pricePerKG = stoi(aux);
-									cout << "Multiplier changed successfully!!!" << endl;
-									enter_to_exit();
-								}
-								else {
-									cout << endl << "The multiplier must be a positive number." << endl;
-									enter_to_exit();
-								}
-							}
-							else {
-								cout << endl << "The multiplier must be a positive number." << endl;
-								enter_to_exit();
-							}
-							break;
-						}
-						case 3: {
-							clearBuffer();
-							clearScreen();
-							cout << "Current animal trucks' price per KG is: " << Animal::pricePerKG << endl;
-							cout << "What will be the new value? "; cin >> aux;
-							clearBuffer();
-							if (strIsNumber(aux)) {
-								if (stoi(aux) > 0) {
-									Animal::pricePerKG = stoi(aux);
-									cout << "Multiplier changed successfully!!!" << endl;
-									enter_to_exit();
-								}
-								else {
-									cout << endl << "The multiplier must be a positive number." << endl;
-									enter_to_exit();
-								}
-							}
-							else {
-								cout << endl << "The multiplier must be a positive number." << endl;
-								enter_to_exit();
-							}
-							break;
-						}
-						case 4: {
-							clearBuffer();
-							clearScreen();
-							cout << "Current normal trucks' price per KG is: " << Normal::pricePerKG << endl;
-							cout << "What will be the new value? "; cin >> aux;
-							clearBuffer();
-							if (strIsNumber(aux)) {
-								if (stoi(aux) > 0) {
-									Normal::pricePerKG = stoi(aux);
-									cout << "Multiplier changed successfully!!!" << endl;
-									enter_to_exit();
-								}
-								else {
-									cout << endl << "The multiplier must be a positive number." << endl;
-									enter_to_exit();
-								}
-							}
-							else {
-								cout << endl << "The multiplier must be a positive number." << endl;
-								enter_to_exit();
-							}
-							break;
-						}
+                        default:
+                            opt1 = 1;
+                        }
+                    }
+                    else {
+                        opt = 1;
+                        clearBuffer();
+                        clearScreen();
+                        cout << "Not a valid option, please try again" << endl;
+                    }
+                }
+                break;
+            }
+            case 3: {
+                clearBuffer();
+                unsigned opt1 = 1;
+                string aux;
+                while (opt1 != 0) {
+                    clearScreen();
+                    cout << "[1] Edit congelation trucks' price per KG" << endl;
+                    cout << "[2] Edit hazardous material trucks' price per KG" << endl;
+                    cout << "[3] Edit animal trucks' price per KG" << endl;
+                    cout << "[4] Edit normal trucks' price per KG" << endl;
+                    cout << "[0] Return to Main Menu" << endl;
+                    if (cin >> opt1 && opt1 <= 4)
+                    {
+                        clearScreen();
+                        switch (opt) {
+                        case 0:
+                            break;
+                        case 1: {
+                            clearBuffer();
+                            clearScreen();
+                            cout << "Current congelation trucks' price per KG: " << Congelation::pricePerKG << endl;
+                            cout << "What will be the new value? "; cin >> aux;
+                            clearBuffer();
+                            if (strIsNumber(aux)) {
+                                if (stoi(aux) > 0) {
+                                    Congelation::pricePerKG = stoi(aux);
+                                    cout << "Multiplier changed successfully!!!" << endl;
+                                    enter_to_exit();
+                                }
+                                else {
+                                    cout << endl << "The multiplier must be a positive number." << endl;
+                                    enter_to_exit();
+                                }
+                            }
+                            else {
+                                cout << endl << "The multiplier must be a positive number." << endl;
+                                enter_to_exit();
+                            }
+                            break;
+                        }
+                        case 2: {
+                            clearBuffer();
+                            clearScreen();
+                            cout << "Current hazardous material trucks' price per KG is: " << HazardousMat::pricePerKG << endl;
+                            cout << "What will be the new value? "; cin >> aux;
+                            clearBuffer();
+                            if (strIsNumber(aux)) {
+                                if (stoi(aux) > 0) {
+                                    HazardousMat::pricePerKG = stoi(aux);
+                                    cout << "Multiplier changed successfully!!!" << endl;
+                                    enter_to_exit();
+                                }
+                                else {
+                                    cout << endl << "The multiplier must be a positive number." << endl;
+                                    enter_to_exit();
+                                }
+                            }
+                            else {
+                                cout << endl << "The multiplier must be a positive number." << endl;
+                                enter_to_exit();
+                            }
+                            break;
+                        }
+                        case 3: {
+                            clearBuffer();
+                            clearScreen();
+                            cout << "Current animal trucks' price per KG is: " << Animal::pricePerKG << endl;
+                            cout << "What will be the new value? "; cin >> aux;
+                            clearBuffer();
+                            if (strIsNumber(aux)) {
+                                if (stoi(aux) > 0) {
+                                    Animal::pricePerKG = stoi(aux);
+                                    cout << "Multiplier changed successfully!!!" << endl;
+                                    enter_to_exit();
+                                }
+                                else {
+                                    cout << endl << "The multiplier must be a positive number." << endl;
+                                    enter_to_exit();
+                                }
+                            }
+                            else {
+                                cout << endl << "The multiplier must be a positive number." << endl;
+                                enter_to_exit();
+                            }
+                            break;
+                        }
+                        case 4: {
+                            clearBuffer();
+                            clearScreen();
+                            cout << "Current normal trucks' price per KG is: " << Normal::pricePerKG << endl;
+                            cout << "What will be the new value? "; cin >> aux;
+                            clearBuffer();
+                            if (strIsNumber(aux)) {
+                                if (stoi(aux) > 0) {
+                                    Normal::pricePerKG = stoi(aux);
+                                    cout << "Multiplier changed successfully!!!" << endl;
+                                    enter_to_exit();
+                                }
+                                else {
+                                    cout << endl << "The multiplier must be a positive number." << endl;
+                                    enter_to_exit();
+                                }
+                            }
+                            else {
+                                cout << endl << "The multiplier must be a positive number." << endl;
+                                enter_to_exit();
+                            }
+                            break;
+                        }
 
-						default:
-							opt1 = 1;
-						}
-					}
-					else {
-						opt = 1;
-						clearBuffer();
-						clearScreen();
-						cout << "Not a valid option, please try again" << endl;
-					}
-				}
-				break;
-			}
+                        default:
+                            opt1 = 1;
+                        }
+                    }
+                    else {
+                        opt = 1;
+                        clearBuffer();
+                        clearScreen();
+                        cout << "Not a valid option, please try again" << endl;
+                    }
+                }
+                break;
+            }
 
-			default:
-				opt = 1;
-			}
-		}
-		else {
-			opt = 1;
-			clearBuffer();
-			clearScreen();
-			cout << "Not a valid option, please try again" << endl;
-		}
-	}
+            default:
+                opt = 1;
+            }
+        }
+        else {
+            opt = 1;
+            clearBuffer();
+            clearScreen();
+            cout << "Not a valid option, please try again" << endl;
+        }
+    }
 }
 void servicesInformation(){
     unsigned opt=1;
