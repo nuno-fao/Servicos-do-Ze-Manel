@@ -1,5 +1,8 @@
 #include "client.h"
 
+// Falta comentar removeService
+
+
 Client::Client() {}
 
 Client::Client(Client const &x){
@@ -97,8 +100,7 @@ void Client::addClient(vector<Client *> *clientsVector) {
 	cout << "Client added sucessfully" << endl;
 	enter_to_exit();
 
-	sort(*((Company::getCompany())->getVectorClients())->begin(), *((Company::getCompany())->getVectorClients())->end(), cmp_classes<Client>);
-
+	sort(Company::getCompany()->getVectorClients()->begin(), Company::getCompany()->getVectorClients()->end(), cmp_classes<Client>);
 }
 
 void Client::editClient()
@@ -131,6 +133,8 @@ void Client::editClient()
 				}
 
 				setName(tempName);
+				cout << "Client edited sucessfully" << endl;
+				enter_to_exit();
 				break;
 			}
 			case 2: {
@@ -151,6 +155,9 @@ void Client::editClient()
 				}
 
 				setNif(unsigned(stoi(tempNif)));
+
+				cout << "Client edited sucessfully" << endl;
+				enter_to_exit();
 				break;
 			}
 			case 0: {
@@ -167,10 +174,8 @@ void Client::editClient()
 			cout << "Not a valid option, please try again" << endl;
 		}
 	}
-	cout << "Client edited sucessfully" << endl;
-	enter_to_exit();
 
-	sort(*((Company::getCompany())->getVectorClients())->begin(), *((Company::getCompany())->getVectorClients())->end(), cmp_classes<Client>);
+	sort(Company::getCompany()->getVectorClients()->begin(), Company::getCompany()->getVectorClients()->end(), cmp_classes<Client>);
 
 }
 
