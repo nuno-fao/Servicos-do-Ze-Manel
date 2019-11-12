@@ -17,7 +17,7 @@ public:
  * Constructor with a Client Object as parameter
  * @param x Client data that is used to initialize the Client Object
  */
-    Client(Client const &);
+    Client(Client const &x);
 /**
  * Default Constructor
  */
@@ -27,11 +27,9 @@ public:
  *
  * Receives all the data it needs to construct a client properly
  * It is the most used constructor of the three
- * The vector pointer that is passed 
- *
  * @param name Name of the client
  * @param nif Identification number of the client
- * @param services - Pointer to the vector of Services the client has bought (none by default)
+ * @param services - Pointer to the vector of pointers to Services that the client has bought (none by default)
 
  */
 	Client(string name, unsigned int nif, vector<Service*> *services = nullptr);
@@ -43,15 +41,30 @@ public:
  * @brief Loads the clients
  *
  * Loads the clients into the program by pushing them to a vector
- * It does this by going line by line in the clients.txt (which is formatted) and  
- * @param name Name of the client
- * @param nif Identification number of the client
- * @param services - Pointer to the vector of Services the client has bought (none by default)
-
+ * It does this by going line by line in the clients.txt (which is formatted)
+ *
+ * @param clientsVector - Vector where the pointers to the Clients are stored
+ * @return Returns nothing
  */
   	static void loadClients(vector<Client*>& clientsVector);
+/**
+ * @brief Saves the clients
+ *
+ * Saves the clients the user has added by writing to the clients.txt file
+ * It does this by iterating through the clientsVector
+ *
+ * @param clientsVector - Vector where the pointers to the Clients are stored
+ * @return Returns nothing
+ */
 	static void saveToFile(vector<Client*>& clientsVector);
-
+	/**
+ * @brief Edits the information of a client
+ *
+ * Edits the information of a client by asking
+ *
+ * @param clientsVector - Vector where the pointers to the Clients are stored
+ * @return Returns nothing
+ */
 	void editClient();
 	void removeClient(vector<Client *> &clientsVector);
 	
