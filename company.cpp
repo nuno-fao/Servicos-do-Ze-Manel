@@ -14,8 +14,8 @@ Company::~Company(){
     if(getCompany()->services_on_queue_changed){
         Service::saveToFile(&services_finished,&services_on_transit,&services_on_queue);
     }
-    for(auto i:services_on_queue)
-        cout<<i;
+    Client::saveToFile(clients);
+    Truck::saveToFile(&trucks);
     cout<<"Salvo com sucesso"<<endl;
 }
 
