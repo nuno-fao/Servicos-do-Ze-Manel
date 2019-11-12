@@ -176,7 +176,7 @@ void Client::removeClient(vector<Client*>& clientsVector) {
 			}
 		}
 	}
-	//throw ClientNotInVector(nif, "Client doesn't exist");
+	throw ClientNotInVector(nif, "Client doesn't exist in the database");
 }
 
 
