@@ -1259,6 +1259,7 @@ Hour:
         temp_service=new Service(tempMaterial,origin,destination,temp_date_arrival,unsigned(stoi(tempDistance)),intToType(stoi(tempType)),on_queue,temp_date,client,stoi(temp_quantity));
     }
     services->push_back(temp_service);
+
     Company::getCompany()->services_on_queue_changed=true;
     return temp_service;
 }

@@ -177,25 +177,25 @@ void Truck::loadFromFile(vector<Truck*>* trucks) {
 
             Truck *temp= new Animal(lic, avai, regist, cap, carg);
             trucks->push_back(temp);
-			(Animal::CapDist[cap] == 0) ? Animal::CapDist[cap] == 1 : Animal::CapDist[cap] += 1;
+            (Animal::CapDist.count(cap)) ? Animal::CapDist[cap] == 1 : Animal::CapDist[cap] += 1;
             break;
         }
         case 'C':{
             Truck *temp = new Congelation(lic, avai, regist, cap, carg);
             trucks->push_back(temp);
-			(Congelation::CapDist[cap] == 0) ? Congelation::CapDist[cap] == 1 : Congelation::CapDist[cap] += 1;
+            (Congelation::CapDist.count(cap)) ? Congelation::CapDist[cap] == 1 : Congelation::CapDist[cap] += 1;
             break;
         }
         case 'H':{
             Truck *temp = new HazardousMat(lic, avai, regist, cap, carg);
             trucks->push_back(temp);
-			(HazardousMat::CapDist[cap] == 0) ? HazardousMat::CapDist[cap] == 1 : HazardousMat::CapDist[cap] += 1;
+            (HazardousMat::CapDist.count(cap)) ? HazardousMat::CapDist[cap] == 1 : HazardousMat::CapDist[cap] += 1;
             break;
         }
         case 'N':{
             Truck *temp = new Normal(lic, avai, regist, cap, carg);
             trucks->push_back(temp);
-			(Normal::CapDist[cap] == 0) ? Normal::CapDist[cap] == 1 : Normal::CapDist[cap] += 1;
+            (Normal::CapDist.count(cap)) ? Normal::CapDist[cap] == 1 : Normal::CapDist[cap] += 1;
             break;
         }
         }
