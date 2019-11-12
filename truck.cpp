@@ -315,7 +315,7 @@ void Truck::createTruck(vector<Truck*>* trucks) {
     do {
         invalidInput = false;
         cout << "What's the license of the new truck (XX-YY-ZZ)? " << license << endl;
-        cout << "What's the capacity of the new truck?" << capacity << endl;
+        cout << "What's the capacity of the new truck? " << capacity << endl;
         cout << "What's the truck type (A/N/C/H)? "; getline(cin, aux);
         if (aux == "!q") return;
 
