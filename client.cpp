@@ -11,9 +11,6 @@ Client::Client(Client const &x){
 Client::Client(string name, unsigned int nif, vector<Service*> *services): name(name), nif(nif){
 	if(services==nullptr)
         services=new vector<Service*>;
-
-    //if (!checkNif(nif))
-    //throw BadNif(nif, "NIF not allowed!");
 }
 
 

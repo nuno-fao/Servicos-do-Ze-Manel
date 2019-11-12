@@ -101,10 +101,3 @@ public:
 	string erro;
     CantOpenClientFile(string erro): erro(erro) {}
 };
-
-//class BadNif {
-//public:
-//	~BadNif;
-//	string erro;
-//	CantOpenClientFile(string erro) : erro(erro) {}
-//};
