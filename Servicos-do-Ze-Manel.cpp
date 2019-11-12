@@ -462,6 +462,7 @@ void clientsInformation(){
                 if(temp.size())
                     for(auto i: temp){
                         cout<<*i;
+                        cout<<i->getMoneySpent()<<endl;
                     }
                 else
                     cout<<"There is no Information to show"<<endl;
@@ -479,6 +480,7 @@ void clientsInformation(){
                 if(temp.size())
                     for(auto i: temp){
                         cout<<*i;
+                        cout<<i->getMoneySpent()<<endl;
                     }
                 else
                     cout<<"There is no Information to show"<<endl;
@@ -681,7 +683,7 @@ void trucksInformation() {
             case 6: {
                 if (Company::getCompany()->getVectorTrucks()->size())
                     for (auto i : *Company::getCompany()->getVectorTrucks()) {
-                        if ((!(i->getavailable()) && i->getServices().size()>1) || (i->getavailable() && i->getregistered())) {
+                        if ((!(i->getavailable()) && i->getServices()->size()>1) || (i->getavailable() && i->getregistered())) {
                             i->info();
                         }
                     }
@@ -764,7 +766,7 @@ void trucksInformation() {
                 cout << "_300 multiplier: " << Congelation::tempMul[Temperature_enum::_300] << endl;
                 cout << "_400 multiplier: " << Congelation::tempMul[Temperature_enum::_400] << endl;
                 cout <<endl<< "---STD Prices---" << endl;
-                cout << "Congelation price per KG" << Congelation::pricePerKG << endl;
+                cout << "Congelation price per KG: " << Congelation::pricePerKG << endl;
                 cout << "Hazard price per KG: " << HazardousMat::pricePerKG << endl;
                 cout << "Animal price per KG: " << Animal::pricePerKG << endl;
                 cout << "Normal price per KG: " << Normal::pricePerKG << endl;

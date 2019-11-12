@@ -58,8 +58,8 @@ unsigned short Truck::getcargo() const {
     return cargo;
 }
 
-vector<Service*> Truck::getServices() const {
-	return assignedServices;
+vector<Service*> *Truck::getServices(){
+    return &assignedServices;
 }
 
 

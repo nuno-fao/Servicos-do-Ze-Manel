@@ -1002,7 +1002,7 @@ Service *Service::addService(vector<Service *> *services,Client *client){
             cout<<"[7] Corrosives"<<endl;
             cout<<"[8] Other"<<endl;
 
-            if(cin>>tempType && strIsNumber(tempSpecType) && stoi(tempSpecType)<9){
+            if(cin>>tempSpecType && strIsNumber(tempSpecType) && stoi(tempSpecType)<9){
                 clearScreen();
                 variable_error=false;
             }
@@ -1029,7 +1029,7 @@ Service *Service::addService(vector<Service *> *services,Client *client){
             cout<<"[2] 300"<<endl;
             cout<<"[3] 400"<<endl;
 
-            if(cin>>tempType && strIsNumber(tempSpecType) && stoi(tempSpecType)<4){
+            if(cin>>tempSpecType && strIsNumber(tempSpecType) && stoi(tempSpecType)<4){
                 clearScreen();
                 temp_temperature=static_cast<Temperature_enum>(stoi(tempSpecType)) ;
                 variable_error=false;
@@ -1330,7 +1330,7 @@ Hour:
         break;
     }
     services->push_back(temp_service);
-
+    client->addService(temp_service);
     Company::getCompany()->services_on_queue_changed=true;
     return temp_service;
 }
