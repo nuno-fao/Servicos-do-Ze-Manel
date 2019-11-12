@@ -91,12 +91,6 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ab07463da3e9a5d3b8933d2b01332ed00"><td class="memItemLeft" align="right" valign="top"><a id="ab07463da3e9a5d3b8933d2b01332ed00"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>info</b> ()</td></tr>
 <tr class="separator:ab07463da3e9a5d3b8933d2b01332ed00"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a73278c12e87de90d34a59be50129c714"><td class="memItemLeft" align="right" valign="top"><a id="a73278c12e87de90d34a59be50129c714"></a>
-float&#160;</td><td class="memItemRight" valign="bottom"><b>getprice</b> (<a class="el" href="class_service.html">Service</a> *service) const</td></tr>
-<tr class="separator:a73278c12e87de90d34a59be50129c714"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad4b608a3cf000d1c13f01d8d34f1d6fc"><td class="memItemLeft" align="right" valign="top"><a id="ad4b608a3cf000d1c13f01d8d34f1d6fc"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>setprice</b> (float newval)</td></tr>
-<tr class="separator:ad4b608a3cf000d1c13f01d8d34f1d6fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_class_truck"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_truck')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_truck.html">Truck</a></td></tr>
 <tr class="memitem:a310563b5c12feb94c1e1f8f855c1ee05 inherit pub_methods_class_truck"><td class="memItemLeft" align="right" valign="top"><a id="a310563b5c12feb94c1e1f8f855c1ee05"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_truck.html#a310563b5c12feb94c1e1f8f855c1ee05">Truck</a> (string license, bool available, bool <a class="el" href="class_truck.html#a80b8405cf7a15b236fef70116f99c4fb">registered</a>, unsigned short <a class="el" href="class_truck.html#a14541fad6d47c606ce4e1bd150a68a23">capacity</a>, unsigned short <a class="el" href="class_truck.html#a968fc6b1a6171a03e4254d6615da4ecd">cargo</a>)</td></tr>
@@ -117,6 +111,12 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>getregistered</b> () 
 <tr class="memitem:a1bc18daed6fb7f0b900dac32013a250f inherit pub_methods_class_truck"><td class="memItemLeft" align="right" valign="top"><a id="a1bc18daed6fb7f0b900dac32013a250f"></a>
 unsigned short&#160;</td><td class="memItemRight" valign="bottom"><b>getcargo</b> () const</td></tr>
 <tr class="separator:a1bc18daed6fb7f0b900dac32013a250f inherit pub_methods_class_truck"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a207506f38e78d7a5f065893295a2c00d inherit pub_methods_class_truck"><td class="memItemLeft" align="right" valign="top"><a id="a207506f38e78d7a5f065893295a2c00d"></a>
+vector&lt; <a class="el" href="class_service.html">Service</a> * &gt; *&#160;</td><td class="memItemRight" valign="bottom"><b>getServices</b> ()</td></tr>
+<tr class="separator:a207506f38e78d7a5f065893295a2c00d inherit pub_methods_class_truck"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a22d2dc22b1c5b9652d463ec624442403 inherit pub_methods_class_truck"><td class="memItemLeft" align="right" valign="top"><a id="a22d2dc22b1c5b9652d463ec624442403"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>setprice</b> (float newval)</td></tr>
+<tr class="separator:a22d2dc22b1c5b9652d463ec624442403 inherit pub_methods_class_truck"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9268e17e1a967d1702b28c6940403aa4 inherit pub_methods_class_truck"><td class="memItemLeft" align="right" valign="top"><a id="a9268e17e1a967d1702b28c6940403aa4"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>setregistered</b> (bool foo)</td></tr>
 <tr class="separator:a9268e17e1a967d1702b28c6940403aa4 inherit pub_methods_class_truck"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -135,9 +135,15 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>start_transport</b> (
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
+<tr class="memitem:a9f71519edca3e72082720686781c34dc"><td class="memItemLeft" align="right" valign="top"><a id="a9f71519edca3e72082720686781c34dc"></a>
+static float&#160;</td><td class="memItemRight" valign="bottom"><b>pricePerKG</b></td></tr>
+<tr class="separator:a9f71519edca3e72082720686781c34dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0d695364bed729ddeca5851314281ad2"><td class="memItemLeft" align="right" valign="top"><a id="a0d695364bed729ddeca5851314281ad2"></a>
 static unordered_map&lt; Hazard_enum, float &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>hazardMul</b></td></tr>
 <tr class="separator:a0d695364bed729ddeca5851314281ad2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab67d8b349d8035e402482116d64bf41c"><td class="memItemLeft" align="right" valign="top"><a id="ab67d8b349d8035e402482116d64bf41c"></a>
+static unordered_map&lt; unsigned short, unsigned short &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>CapDist</b></td></tr>
+<tr class="separator:ab67d8b349d8035e402482116d64bf41c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
@@ -154,9 +160,9 @@ static void&#160;</td><td class="memItemRight" valign="bottom"><b>createTruck</b
 <tr class="memitem:acb3e375dfa4ba812de7e65f0b3e37ded inherit pub_static_methods_class_truck"><td class="memItemLeft" align="right" valign="top"><a id="acb3e375dfa4ba812de7e65f0b3e37ded"></a>
 static void&#160;</td><td class="memItemRight" valign="bottom"><b>removeTruck</b> (vector&lt; <a class="el" href="class_truck.html">Truck</a> *&gt; *trucks)</td></tr>
 <tr class="separator:acb3e375dfa4ba812de7e65f0b3e37ded inherit pub_static_methods_class_truck"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a093fa621d8576a61352648799920c8a2 inherit pub_static_methods_class_truck"><td class="memItemLeft" align="right" valign="top"><a id="a093fa621d8576a61352648799920c8a2"></a>
+<tr class="memitem:a61f38539157cdc6879a15e0a02255edc inherit pub_static_methods_class_truck"><td class="memItemLeft" align="right" valign="top"><a id="a61f38539157cdc6879a15e0a02255edc"></a>
 static void&#160;</td><td class="memItemRight" valign="bottom"><b>showTruck</b> (vector&lt; <a class="el" href="class_truck.html">Truck</a> *&gt; *trucks)</td></tr>
-<tr class="separator:a093fa621d8576a61352648799920c8a2 inherit pub_static_methods_class_truck"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="separator:a61f38539157cdc6879a15e0a02255edc inherit pub_static_methods_class_truck"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_attribs_class_truck"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_class_truck')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="class_truck.html">Truck</a></td></tr>
 <tr class="memitem:a3dd293529f462f3a21838f9a6bc5a7d2 inherit pro_attribs_class_truck"><td class="memItemLeft" align="right" valign="top"><a id="a3dd293529f462f3a21838f9a6bc5a7d2"></a>
 string&#160;</td><td class="memItemRight" valign="bottom"><b>license</b></td></tr>
