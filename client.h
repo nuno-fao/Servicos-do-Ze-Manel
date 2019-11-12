@@ -5,7 +5,6 @@
 #include "service.h"
 #include "misc.h"
 
-
 using namespace std;
 
 class Service;
@@ -14,11 +13,42 @@ class Truck;
 class Client
 {
 public:
+/**
+ * Constructor with a Client Object as parameter
+ * @param x Client data that is used to initialize the Client Object
+ */
     Client(Client const &);
-    Client();
-	Client(string name, unsigned int nif, vector<Service*> *services = nullptr);
-    virtual ~Client();
+/**
+ * Default Constructor
+ */
+	Client();
+/**
+ * @brief Constructor with all data necessary
+ *
+ * Receives all the data it needs to construct a client properly
+ * It is the most used constructor of the three
+ * The vector pointer that is passed 
+ *
+ * @param name Name of the client
+ * @param nif Identification number of the client
+ * @param services - Pointer to the vector of Services the client has bought (none by default)
 
+ */
+	Client(string name, unsigned int nif, vector<Service*> *services = nullptr);
+/**
+ * Default Destructor
+ */
+    virtual ~Client();
+/**
+ * @brief Loads the clients
+ *
+ * Loads the clients into the program by pushing them to a vector
+ * It does this by going line by line in the clients.txt (which is formatted) and  
+ * @param name Name of the client
+ * @param nif Identification number of the client
+ * @param services - Pointer to the vector of Services the client has bought (none by default)
+
+ */
   	static void loadClients(vector<Client*>& clientsVector);
 	static void saveToFile(vector<Client*>& clientsVector);
 
@@ -46,11 +76,9 @@ public:
     bool operator<(const Client &a) const;
     bool operator== (const Client& client1) const;
 protected:
-    //tive q comentar para testar!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!11
-    //Client(){};
-    float money_spent=0;
+    float money_spent=0; /*!< Total money spent in services - used  */
     string name;
-    unsigned int nif;
+    unsigned int nif; /*!< Client's Identification - used whenever comparing and verifying clients */
     vector<Service*> services;
 
 };

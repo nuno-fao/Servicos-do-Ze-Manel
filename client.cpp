@@ -1,6 +1,5 @@
 #include "client.h"
 
-// TODO: excecoes, verificacoes, hipotese de cancelar com !q, usar enter_to_exit() nos menus
 Client::Client() {}
 
 Client::Client(Client const &x){
