@@ -38,6 +38,19 @@ void Client::setNif(unsigned nif){
 //other methods	
 void Client::addService(Service *service){
     services.push_back(service);
+    money_spent+=service->getTotalPrice();
+}
+
+
+void Client::removeService(Service *service){
+    for(auto c=services.begin();c!=services.end();c++){
+        if((*c)->getId()==service->getId()){
+            c=services.erase(c);
+            c--;
+            break;
+        }
+    }
+    money_spent-=service->getTotalPrice();
 }
 
 void Client::addClient(vector<Client *> *clientsVector) {

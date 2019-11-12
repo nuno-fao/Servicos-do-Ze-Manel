@@ -32,19 +32,19 @@ void manage_client(Client *client){
         {
             clearScreen();
             switch (opt) {
-			case 1: {
-				clearBuffer();
-				client->editClient();
-				break;
-			}
+            case 1: {
+                clearBuffer();
+                client->editClient();
+                break;
+            }
             case 2:{
-				try {
-					clearBuffer();
-					client->removeClient(*Company::getCompany()->getVectorClients());
-				}
-				catch (...) {
-				}				
-				return;
+                try {
+                    clearBuffer();
+                    client->removeClient(*Company::getCompany()->getVectorClients());
+                }
+                catch (...) {
+                }
+                return;
             }
             case 0:{
                 return;
@@ -125,14 +125,14 @@ void manage_client(Client *client){
 
             }
             case 5:{
-				clearBuffer();
-				cout << "Services: " << endl;
-				for (auto it = client->getServicesVector()->begin(); it != client->getServicesVector()->end(); it++)
-				{
-					cout << (*it) << endl;
-				}
-				enter_to_exit();
-				break;
+                clearBuffer();
+                cout << "Services: " << endl;
+                for (auto it = client->getServicesVector()->begin(); it != client->getServicesVector()->end(); it++)
+                {
+                    cout << (*it) << endl;
+                }
+                enter_to_exit();
+                break;
             }
 
             default:
@@ -184,7 +184,7 @@ int main()
     //vector<Truck*> a(*Ze_Manel->getVectorTrucks());
     string temp;
     mainMenu();
-	Client::saveToFile(*Ze_Manel->getVectorClients());
+    Client::saveToFile(*Ze_Manel->getVectorClients());
     delete Ze_Manel;
 
 
@@ -618,89 +618,104 @@ void trucksInformation() {
             case 0: {
                 return;
             }
-            case 1:
+            case 1:{
+                bool nInfo=true;
                 if (Company::getCompany()->getVectorTrucks()->size())
                     for (auto i : *Company::getCompany()->getVectorTrucks()) {
                         i->info();
+                        nInfo=false;
                     }
-                else
+                if(nInfo)
                     cout << "There is no Information to show" << endl;
                 clearBuffer();
                 enter_to_exit();
                 break;
+            }
             case 2: {
+                bool nInfo=true;
                 if (Company::getCompany()->getVectorTrucks()->size())
                     for (auto i : *Company::getCompany()->getVectorTrucks()) {
                         if (typeid(*i)==typeid(Congelation)) {
                             i->info();
+                            nInfo=false;
                         }
                     }
-                else
+                if(nInfo)
                     cout << "There is no Information to show" << endl;
                 clearBuffer();
                 enter_to_exit();
                 break;
             }
             case 3: {
+                bool nInfo=true;
                 if (Company::getCompany()->getVectorTrucks()->size())
                     for (auto i : *Company::getCompany()->getVectorTrucks()) {
                         if (typeid(*i) == typeid(HazardousMat)) {
                             i->info();
+                            nInfo=false;
                         }
                     }
-                else
+                if(nInfo)
                     cout << "There is no Information to show" << endl;
                 clearBuffer();
                 enter_to_exit();
                 break;
             }
             case 4: {
+                bool nInfo=true;
                 if (Company::getCompany()->getVectorTrucks()->size())
                     for (auto i : *Company::getCompany()->getVectorTrucks()) {
                         if (typeid(*i) == typeid(Animal)) {
                             i->info();
+                            nInfo=false;
                         }
                     }
-                else
+                if(nInfo)
                     cout << "There is no Information to show" << endl;
                 clearBuffer();
                 enter_to_exit();
                 break;
             }
             case 5: {
+                bool nInfo=true;
                 if (Company::getCompany()->getVectorTrucks()->size())
                     for (auto i : *Company::getCompany()->getVectorTrucks()) {
                         if (typeid(*i) == typeid(Normal)) {
                             i->info();
+                            nInfo=false;
                         }
                     }
-                else
+                if(nInfo)
                     cout << "There is no Information to show" << endl;
                 clearBuffer();
                 enter_to_exit();
                 break;
             }
             case 6: {
+                bool nInfo=true;
                 if (Company::getCompany()->getVectorTrucks()->size())
                     for (auto i : *Company::getCompany()->getVectorTrucks()) {
                         if ((!(i->getavailable()) && i->getServices()->size()>1) || (i->getavailable() && i->getregistered())) {
                             i->info();
+                            nInfo=false;
                         }
                     }
-                else
+                if(nInfo)
                     cout << "There is no Information to show" << endl;
                 clearBuffer();
                 enter_to_exit();
                 break;
             }
             case 7: {
+                bool nInfo=true;
                 if (Company::getCompany()->getVectorTrucks()->size())
                     for (auto i : *Company::getCompany()->getVectorTrucks()) {
                         if (!(i->getavailable())) {
                             i->info();
+                            nInfo=true;
                         }
                     }
-                else
+                if(nInfo)
                     cout << "There is no Information to show" << endl;
                 clearBuffer();
                 enter_to_exit();
