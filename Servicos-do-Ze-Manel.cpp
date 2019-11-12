@@ -32,12 +32,15 @@ void manage_client(Client *client){
         {
             clearScreen();
             switch (opt) {
-            case 1:
-                //client->editClient(Company::getCompany()->getVectorClients());
-                break;
+			case 1: {
+				clearBuffer();
+				client->editClient();
+				break
+			}
             case 2:{
-                //Client::removeClient();
-                break;
+				clearBuffer();
+				client->removeClient(*Company::getCompany()->getVectorClients());
+				return;
             }
             case 0:{
                 return;
@@ -118,8 +121,14 @@ void manage_client(Client *client){
 
             }
             case 5:{
-                cout<<*client;
-                break;
+				clearBuffer();
+				cout << "Services: " << endl;
+				for (auto it = client->getServicesVector()->begin(); it != client->getServicesVector()->end(); it++)
+				{
+					cout << (*it) << endl;
+				}
+				enter_to_exit();
+				break;
             }
 
             default:
@@ -168,6 +177,7 @@ int main()
     //vector<Truck*> a(*Ze_Manel->getVectorTrucks());
     string temp;
     mainMenu();
+	Client::saveToFile(*Ze_Manel->getVectorClients());
     delete Ze_Manel;
 
 
