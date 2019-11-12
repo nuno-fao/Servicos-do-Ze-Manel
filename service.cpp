@@ -66,7 +66,7 @@ Date *Service::getIDate() const{
 Client *Service::getClient() const{
     return client;
 }
-vector<Truck*> *Service::getTrucks(){
+map<Truck*,float> *Service::getTrucks(){
     return &trucks;
 }
 float Service::getTotalPrice() const{
@@ -114,20 +114,18 @@ void Service::setQuantity(float quantity){
 }
 
 // other methods
-void Service::addTruck(Truck *truck){
-    this->trucks.push_back(truck);
+void Service::addTruck(Truck *truck,float cargo){
+    this->trucks[truck]=cargo;
 }
-
-
 
 //help methods
 type intToType(int a){
     switch (a) {
-    case 0: return ordinary;
-    case 1: return hazardous;
-    case 2: return animal;
-    case 3: return lowTemperature;
-    default: return ordinary;
+    case 0: return type::ordinary;
+    case 1: return type::hazardous;
+    case 2: return type::animal;
+    case 3: return type::lowTemperature;
+    default: return type::ordinary;
     }
 }
 state intToState(int a){
@@ -141,13 +139,13 @@ state intToState(int a){
 
 string typeToString(type a){
     switch (a) {
-    case ordinary:
+    case type::ordinary:
         return "ordinary";
-    case hazardous:
+    case type::hazardous:
         return "hazardous";
-    case animal:
+    case type::animal:
         return "animal";
-    case lowTemperature:
+    case type::lowTemperature:
         return "Low Temperature";
     }
 }
@@ -223,21 +221,26 @@ void Service::loadFromFile(list<Service*> *services_finished,vector<Service*> *s
                 throw NotAClient(unsigned(stoi(tempNif)),"Not a valid NIF");
             Client *temp_client=Company::getCompany()->getClient(unsigned(stoi(tempNif)));
 
-            if(tempType==3)
+            if(tempType==type::lowTemperature)
                 temp= new TemperatureService(tempMaterial, tempOrigin,tempDestination,tempA,unsigned(tempDistance),tempType,tempState,tempI,temp_client,tempQuantity,Temperature_enum::_200,tempPrice,tempId);
-            if(tempType==1)
+            if(tempType==type::hazardous)
                 temp= new HazardousService(tempMaterial, tempOrigin,tempDestination,tempA,unsigned(tempDistance),tempType,tempState,tempI,temp_client,tempQuantity,Hazard_enum::corrosives,tempPrice,tempId);
             else
                 temp= new Service(tempMaterial,tempOrigin,tempDestination,tempA,unsigned(tempDistance),tempType,tempState,tempI,temp_client,tempQuantity,tempPrice,tempId);
 
             for(auto i:tempVectorTruckS){
                 try{
-                    Truck *temp_truck=Company::getCompany()->getTruck(i);
-                    temp->addTruck(temp_truck);
+                    vector<string> tempTruckMap=vectorString(i,":");
+                    Truck *temp_truck=Company::getCompany()->getTruck(tempTruckMap.at(0));
+                    temp->addTruck(temp_truck,stof(tempTruckMap.at(1)));
                     temp_truck->add_service(temp);
                 }
                 catch(TruckDoNotExist e){
                     cout<<e.erro+" "<<e.license<<endl;
+                }
+                catch(...)
+                {
+                    cout<<"Someone Messed with the files..."<<endl;
                 }
             }
 
@@ -259,9 +262,9 @@ void Service::loadFromFile(list<Service*> *services_finished,vector<Service*> *s
             string temp_error;
             Client *tempC= new NotAClient(e);
             //getline(cin,temp_error);
-            if(tempType==3)
+            if(tempType==type::lowTemperature)
                 temp= new TemperatureService(tempMaterial, tempOrigin,tempDestination,tempA,unsigned(tempDistance),tempType,tempState,tempI,tempC,tempQuantity,Temperature_enum::_200,tempPrice,tempId);
-            if(tempType==1)
+            if(tempType==type::hazardous)
                 temp= new HazardousService(tempMaterial, tempOrigin,tempDestination,tempA,unsigned(tempDistance),tempType,tempState,tempI,tempC,tempQuantity,Hazard_enum::corrosives,tempPrice,tempId);
             else
                 temp= new Service(tempMaterial,tempOrigin,tempDestination,tempA,unsigned(tempDistance),tempType,tempState,tempI,tempC,tempQuantity,tempPrice,tempId);
@@ -269,13 +272,17 @@ void Service::loadFromFile(list<Service*> *services_finished,vector<Service*> *s
 
             for(auto i:tempVectorTruckS){
                 try{
-                    Truck *temp_truck=Company::getCompany()->getTruck(i);
-                    temp->addTruck(temp_truck);
+                    vector<string> tempTruckMap=vectorString(i,":");
+                    Truck *temp_truck=Company::getCompany()->getTruck(tempTruckMap.at(0));
+                    temp->addTruck(temp_truck,stof(tempTruckMap.at(1)));
                     temp_truck->add_service(temp);
-
                 }
                 catch(TruckDoNotExist e){
                     cout<<e.erro+" "<<e.license<<endl;
+                }
+                catch(...)
+                {
+                    cout<<"Someone Messed with the files..."<<endl;
                 }
             }
 
@@ -296,7 +303,6 @@ void Service::loadFromFile(list<Service*> *services_finished,vector<Service*> *s
         catch(...){
             cout<<"Not a valid Nif "+tempNif<<endl;
         }
-
         getline(servicesFile,tempGeneral);
     }
 
@@ -339,21 +345,26 @@ void Service::loadFromFile(list<Service*> *services_finished,vector<Service*> *s
             if(tempNif.size()!=9)
                 throw NotAClient(unsigned(stoi(tempNif)),"Not a valid NIF");
             Client *temp_client=Company::getCompany()->getClient(unsigned(stoi(tempNif)));
-            if(tempType==3)
+            if(tempType==type::lowTemperature)
                 temp= new TemperatureService(tempMaterial, tempOrigin,tempDestination,tempA,unsigned(tempDistance),tempType,tempState,tempD,temp_client,tempQuantity,Temperature_enum::_200,tempPrice,tempId);
-            if(tempType==1)
+            if(tempType==type::hazardous)
                 temp= new HazardousService(tempMaterial, tempOrigin,tempDestination,tempA,unsigned(tempDistance),tempType,tempState,tempD,temp_client,tempQuantity,Hazard_enum::corrosives,tempPrice,tempId);
             else
                 temp= new Service(tempMaterial,tempOrigin,tempDestination,tempA,unsigned(tempDistance),tempType,tempState,tempD,temp_client,tempQuantity,tempPrice,tempId);
 
             for(auto i:tempVectorTruckS){
                 try{
-                    Truck *temp_truck=Company::getCompany()->getTruck(i);
-                    temp->addTruck(temp_truck);
+                    vector<string> tempTruckMap=vectorString(i,":");
+                    Truck *temp_truck=Company::getCompany()->getTruck(tempTruckMap.at(0));
+                    temp->addTruck(temp_truck,stof(tempTruckMap.at(1)));
                     temp_truck->add_service(temp);
                 }
                 catch(TruckDoNotExist e){
                     cout<<e.erro+" "<<e.license<<endl;
+                }
+                catch(...)
+                {
+                    cout<<"Someone Messed with the files..."<<endl;
                 }
             }
 
@@ -376,21 +387,26 @@ void Service::loadFromFile(list<Service*> *services_finished,vector<Service*> *s
             string temp_error;
             Client *tempC= new NotAClient(e);
             //getline(cin,temp_error);
-            if(tempType==3)
+            if(tempType==type::lowTemperature)
                 temp= new TemperatureService(tempMaterial, tempOrigin,tempDestination,tempA,unsigned(tempDistance),tempType,tempState,tempD,tempC,tempQuantity,Temperature_enum::_200,tempPrice,tempId);
-            if(tempType==1)
+            if(tempType==type::hazardous)
                 temp= new HazardousService(tempMaterial, tempOrigin,tempDestination,tempA,unsigned(tempDistance),tempType,tempState,tempD,tempC,tempQuantity,Hazard_enum::corrosives,tempPrice,tempId);
             else
                 temp= new Service(tempMaterial,tempOrigin,tempDestination,tempA,unsigned(tempDistance),tempType,tempState,tempD,tempC,tempQuantity,tempPrice,tempId);
 
             for(auto i:tempVectorTruckS){
                 try{
-                    Truck *temp_truck=Company::getCompany()->getTruck(i);
-                    temp->addTruck(temp_truck);
+                    vector<string> tempTruckMap=vectorString(i,":");
+                    Truck *temp_truck=Company::getCompany()->getTruck(tempTruckMap.at(0));
+                    temp->addTruck(temp_truck,stof(tempTruckMap.at(1)));
                     temp_truck->add_service(temp);
                 }
                 catch(TruckDoNotExist e){
                     cout<<e.erro+" "<<e.license<<endl;
+                }
+                catch(...)
+                {
+                    cout<<"Someone Messed with the files..."<<endl;
                 }
             }
 
@@ -409,7 +425,6 @@ void Service::loadFromFile(list<Service*> *services_finished,vector<Service*> *s
         catch(...){
             cout<<"Not a valid Nif "+tempNif<<endl;
         }
-
         getline(servicesFile,tempGeneral);
     }
 
@@ -449,13 +464,30 @@ void Service::loadFromFile(list<Service*> *services_finished,vector<Service*> *s
             if(tempNif.size()!=9)
                 throw NotAClient(unsigned(stoi(tempNif)),"Not a valid NIF");
             Client *temp_client=Company::getCompany()->getClient(unsigned(stoi(tempNif)));
-            if(tempType==3)
+            if(tempType==type::lowTemperature)
                 temp= new TemperatureService(tempMaterial, tempOrigin,tempDestination,tempA,unsigned(tempDistance),tempType,tempState,tempD,temp_client,tempQuantity,Temperature_enum::_200,tempPrice,tempId);
-            if(tempType==1)
+            if(tempType==type::hazardous)
                 temp= new HazardousService(tempMaterial, tempOrigin,tempDestination,tempA,unsigned(tempDistance),tempType,tempState,tempD,temp_client,tempQuantity,Hazard_enum::corrosives,tempPrice,tempId);
             else
                 temp= new Service(tempMaterial,tempOrigin,tempDestination,tempA,unsigned(tempDistance),tempType,tempState,tempD,temp_client,tempQuantity,tempPrice,tempId);
 
+            for(auto i:tempVectorTruckS){
+                try{
+                    vector<string> tempTruckMap=vectorString(i,":");
+                    Truck *temp_truck=Company::getCompany()->getTruck(tempTruckMap.at(0));
+                    temp->addTruck(temp_truck,stof(tempTruckMap.at(1)));
+                    temp_truck->add_service(temp);
+                }
+                catch(TruckDoNotExist e){
+                    vector<string> tempTruckMap=vectorString(i,":");
+                    Truck *temp_t=new Truck(tempTruckMap.at(0),0,0,0,0);
+                    temp->addTruck(temp_t,stof(tempTruckMap.at(1)));
+                }
+                catch(...)
+                {
+                    cout<<"Someone Messed with the files..."<<endl;
+                }
+            }
 
             switch (tempState) {
             case on_transit:
@@ -476,19 +508,29 @@ void Service::loadFromFile(list<Service*> *services_finished,vector<Service*> *s
             string temp_error;
             Client *tempC= new NotAClient(e);
             //getline(cin,temp_error);
-            if(tempType==3)
+            if(tempType==type::lowTemperature)
                 temp= new TemperatureService(tempMaterial, tempOrigin,tempDestination,tempA,unsigned(tempDistance),tempType,tempState,tempD,tempC,tempQuantity,Temperature_enum::_200,tempPrice,tempId);
-            if(tempType==1)
+            if(tempType==type::hazardous)
                 temp= new HazardousService(tempMaterial, tempOrigin,tempDestination,tempA,unsigned(tempDistance),tempType,tempState,tempD,tempC,tempQuantity,Hazard_enum::corrosives,tempPrice,tempId);
             else
                 temp= new Service(tempMaterial,tempOrigin,tempDestination,tempA,unsigned(tempDistance),tempType,tempState,tempD,tempC,tempQuantity,tempPrice,tempId);
 
+
             for(auto i:tempVectorTruckS){
                 try{
-                    temp->addTruck(Company::getCompany()->getTruck(i));
+                    vector<string> tempTruckMap=vectorString(i,":");
+                    Truck *temp_truck=Company::getCompany()->getTruck(tempTruckMap.at(0));
+                    temp->addTruck(temp_truck,stof(tempTruckMap.at(1)));
+                    temp_truck->add_service(temp);
                 }
                 catch(TruckDoNotExist e){
-                    cout<<e.erro+" "<<e.license<<endl;
+                    vector<string> tempTruckMap=vectorString(i,":");
+                    Truck *temp_t=new Truck(tempTruckMap.at(0),0,0,0,0);
+                    temp->addTruck(temp_t,stof(tempTruckMap.at(1)));
+                }
+                catch(...)
+                {
+                    cout<<"Someone Messed with the files..."<<endl;
                 }
             }
 
@@ -522,7 +564,34 @@ void Service::saveToFile(list<Service*> *services_finished,vector<Service*>*serv
         servicesFile << x->getDestination().getFullAdress()<<endl;
         servicesFile << (x->getADate()->getDate())<<endl;
         servicesFile << (x->getDistance())<<endl;
-        servicesFile << (x->getType())<<endl;
+        switch (x->getType()) {
+        case type::lowTemperature:{
+            cout<<3<<endl;
+            break;
+        }
+        case type::ordinary:{
+            cout<<0<<endl;
+            break;
+        }
+        case type::hazardous:{
+            cout<<1<<endl;
+            break;
+        }
+        case type::animal:{
+            cout<<2<<endl;
+            break;
+        }
+        }
+
+        for(auto i: *x->getTrucks()){
+            try{
+                servicesFile << i.first->getlicense() <<":";
+            }
+            catch(...){
+                servicesFile << "" <<":";
+            }
+            servicesFile << i.second <<";";
+        }
 
         servicesFile << (x->getState())<<endl;
         servicesFile << x->getIDate()->getDate() <<endl;
@@ -540,10 +609,33 @@ void Service::saveToFile(list<Service*> *services_finished,vector<Service*>*serv
         servicesFile << x->getDestination().getFullAdress() <<endl;
         servicesFile << (x->getADate()->getDate())<<endl;
         servicesFile << (x->getDistance())<<endl;
-        servicesFile << (x->getType())<<endl;
+        switch (x->getType()) {
+        case type::lowTemperature:{
+            cout<<3<<endl;
+            break;
+        }
+        case type::ordinary:{
+            cout<<0<<endl;
+            break;
+        }
+        case type::hazardous:{
+            cout<<1<<endl;
+            break;
+        }
+        case type::animal:{
+            cout<<2<<endl;
+            break;
+        }
+        }
 
         for(auto i: *x->getTrucks()){
-            servicesFile << i->getlicense() <<";";
+            try{
+                servicesFile << i.first->getlicense() <<":";
+            }
+            catch(...){
+                servicesFile << "" <<":";
+            }
+            servicesFile << i.second <<";";
         }
 
         servicesFile << endl << (x->getState())<<endl;
@@ -562,10 +654,33 @@ void Service::saveToFile(list<Service*> *services_finished,vector<Service*>*serv
         servicesFile << x->getDestination().getFullAdress() <<endl;
         servicesFile << (x->getADate()->getDate())<<endl;
         servicesFile << (x->getDistance())<<endl;
-        servicesFile << (x->getType())<<endl;
+        switch (x->getType()) {
+        case type::lowTemperature:{
+            cout<<3<<endl;
+            break;
+        }
+        case type::ordinary:{
+            cout<<0<<endl;
+            break;
+        }
+        case type::hazardous:{
+            cout<<1<<endl;
+            break;
+        }
+        case type::animal:{
+            cout<<2<<endl;
+            break;
+        }
+        }
 
         for(auto i: *x->getTrucks()){
-            servicesFile << i->getlicense() <<";";
+            try{
+                servicesFile << i.first->getlicense() <<":";
+            }
+            catch(...){
+                servicesFile << "" <<":";
+            }
+            servicesFile << i.second <<";";
         }
 
         servicesFile << endl << (x->getState())<<endl;
@@ -1295,21 +1410,21 @@ Hour:
             cout<<"Quantity not acceptable, please try again"<<endl;
         }
     }
-
+    clearScreen();
     print.push_back(temp_quantity);
     printClassVector(&print);
 
     Service *temp_service;
     switch (stoi(tempType)) {
-    case hazardous:
+    case 1:
         temp_service=new  HazardousService(tempMaterial,origin,destination,temp_date_arrival,unsigned(stoi(tempDistance)),intToType(stoi(tempType)),on_queue,temp_date,client,stoi(temp_quantity),temp_hazard);
         temp_service->total_price=stoi(temp_quantity)*HazardousMat::pricePerKG*HazardousMat::hazardMul[temp_hazard]*temp_service->getDistance();
         break;
-    case lowTemperature:
+    case 3:
         temp_service=new TemperatureService(tempMaterial, origin,destination,temp_date_arrival,unsigned(stoi(tempDistance)),intToType(stoi(tempType)),on_queue,temp_date,client,stoi(temp_quantity),temp_temperature);
         temp_service->total_price=stoi(temp_quantity)*Congelation::pricePerKG*Congelation::tempMul[temp_temperature]*temp_service->getDistance();
         break;
-    case animal:
+    case 2:
         temp_service=new Service(tempMaterial,origin,destination,temp_date_arrival,unsigned(stoi(tempDistance)),intToType(stoi(tempType)),on_queue,temp_date,client,stoi(temp_quantity));
         temp_service->total_price=stoi(temp_quantity)*Animal::pricePerKG*temp_service->getDistance();
         break;
@@ -1336,6 +1451,7 @@ Hour:
     services->push_back(temp_service);
     client->addService(temp_service);
     Company::getCompany()->services_on_queue_changed=true;
+    temp_service->autoAddTrucks();
     return temp_service;
 }
 
@@ -1679,7 +1795,7 @@ ostream& operator <<(ostream& os,Service *a){
     float x=a->getQuantity();
     os<<endl<<"Trucks: ";
     for(auto i:a->trucks){
-        os<<i->getlicense()<<" ";
+        os<<i.first->getlicense()<<": "<<i.second<<"kg"<<endl;
     }
     os<<endl<<endl;
     os<<"State: "<<a->getState()<<endl;
@@ -1688,4 +1804,46 @@ ostream& operator <<(ostream& os,Service *a){
     os<<"Price : "<<setprecision(prec_p)<<fixed<<y<<endl;
     os<<endl;
     return os;
+}
+
+void Service::autoAddTrucks(){
+    switch (this->getType()) {
+    case type::ordinary:{
+        float remaining=quantity;
+        bool notCompleted=true;
+        while(notCompleted){
+            int max=Normal::CapDist.begin()->second;
+            for(auto i: *Company::getCompany()->getVectorTrucks()){
+                bool available_on_time=true;
+                if(i->getType()==this->getType()){
+                    for(auto c:*i->getServices()){
+                        continue;
+                    }
+                }
+            }
+        }
+        break;
+    }
+    case type::animal:{
+
+        break;
+    }
+    case type::lowTemperature:{
+
+        break;
+    }
+    case type::hazardous:{
+
+        break;
+    }
+
+    }
+    float cargo_capacity=0;
+    for(auto i:trucks){
+        cargo_capacity+=i.first->getcapacity();
+    }
+    float cargo_percentage= quantity/cargo_capacity;
+    for(auto i:trucks){
+        i.second=i.first->getcapacity()*cargo_percentage;
+    }
 }
