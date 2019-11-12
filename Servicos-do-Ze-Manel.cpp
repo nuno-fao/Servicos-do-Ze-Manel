@@ -1335,17 +1335,21 @@ void servicesInformation(){
             }
             case 1:
                 infoEveryServices();
+				enter_to_exit();
                 break;
             case 2:{
                 infoOnQueueServices();
+				enter_to_exit();
                 break;
             }
             case 3:{
                 infoOnTransitServices();
+				enter_to_exit();
                 break;
             }
             case 4:{
                 infoFinishedServices();
+				enter_to_exit();
                 break;
             }
 
@@ -1364,57 +1368,48 @@ void servicesInformation(){
 }
 
 void infoEveryServices(){
-    unsigned opt=1;
-    clearScreen();
-    while (opt!=0) {
-        cout<<"[1] Every Service"<<endl;
-        cout<<"[2] Services On Queue"<<endl;
-        cout<<"[3] Services On Transit"<<endl;
-        cout<<"[4] Services Finished"<<endl;
-        cout<<"[0] Return"<<endl;
-        if(cin>>opt && opt<=4)
-        {
-            clearScreen();
-            switch (opt) {
-            case 0:{
-                return;
-            }
-            case 1:
-                infoEveryServices();
-                break;
-            case 2:{
-                infoOnQueueServices();
-                break;
-            }
-            case 3:{
-                infoOnTransitServices();
-                break;
-            }
-            case 4:{
-                infoFinishedServices();
-                break;
-            }
-
-
-            default:
-                opt=1;
-            }
-        }
-        else{
-            opt=1;
-            clearBuffer();
-            clearScreen();
-            cout<<"Not a valid option, please try again"<<endl;
-        }
-    }
+	cout << "---On Queue---" << endl;
+	infoOnQueueServices();
+	cout << "---On Transit---" << endl;
+	infoOnTransitServices();
+	cout << "---Finished---" << endl;
+	infoFinishedServices();
 }
 void infoOnQueueServices(){
+	bool nInfo = true;
+	if (Company::getCompany()->getVectorServicesOnQueue()->size()) {
+		for (auto i : *Company::getCompany()->getVectorServicesOnQueue()) {
+			cout<<i;
+			nInfo = false;
+		}
+	}
+	if (nInfo)
+		cout << "There is no queued service" << endl;
+	clearBuffer();
 
 }
 void infoOnTransitServices(){
-
+	bool nInfo = true;
+	if (Company::getCompany()->getVectorServicesOnTransit()->size()) {
+		for (auto i : *Company::getCompany()->getVectorServicesOnTransit()) {
+			cout << i;
+			nInfo = false;
+		}
+	}
+	if (nInfo)
+		cout << "There is no service on transit" << endl;
+	clearBuffer();	
 }
 void infoFinishedServices(){
-
+	bool nInfo = true;
+	if (Company::getCompany()->getVectorServicesFinished()->size()) {
+		for (auto i : *Company::getCompany()->getVectorServicesFinished()) {
+			cout << i;
+			nInfo = false;
+		}
+	}
+	if (nInfo)
+		cout << "There is no service on transit" << endl;
+	clearBuffer();
 }
 
