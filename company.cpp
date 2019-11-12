@@ -86,16 +86,29 @@ Truck *Company::getTruck(string license){
 //}
 
 void Company::updateTruckSituation(){
-    time_t rawtime;struct tm *now;std::time( &rawtime );now = localtime( &rawtime );
+    time_t rawtime;
+    struct tm *now;
+    time( &rawtime );
+    now = localtime( &rawtime );
     Date f(unsigned(now->tm_year-100),1+date_u_short(now->tm_mon),date_u_short(now->tm_mday),date_u_short(now->tm_hour),date_u_short(now->tm_min));
 
     if(services_on_transit.size()){
         for(auto it=services_on_transit.begin(); it!= services_on_transit.end();it++){
             if(*(*it)->getADate()<f){
 
-                for(auto x:*(*it)->getTrucks())
+                for(auto x =(*it)->getTrucks()->begin();x!=(*it)->getTrucks()->end();x++)
                 {
-                    x->setavailable(true);
+                    x->first->setavailable(true);
+                    for(auto o = x->first->getServices()->begin();o!=x->first->getServices()->end();o++){
+                        if((*o)->getId()==(*it)->getId()){
+                            o=x->first->getServices()->erase(o);
+                            o--;
+                            break;
+                        }
+                    }
+                    if(!x->first->getServices()->size()){
+                        x->first->setregistered(false);
+                    }
                 }
                 services_finished.push_back(*it);
                 it=services_on_transit.erase(it);
@@ -113,7 +126,7 @@ void Company::updateTruckSituation(){
 
                 for(auto x:*(*it)->getTrucks())
                 {
-                    x->setavailable(false);
+                    x.first->setavailable(false);
                 }
                 services_on_transit.push_back(*it);
                 it=services_on_queue.erase(it);
@@ -137,7 +150,6 @@ void Company::updateServicesSituation(){
     if(services_on_transit.size()){
         for(auto it=services_on_transit.begin(); it!= services_on_transit.end();it++){
             if(*(*it)->getADate()<f){
-
                 (*it)->setState(finished);
                 Company::getCompany()->services_on_queue_changed=true;
             }
@@ -150,7 +162,6 @@ void Company::updateServicesSituation(){
     if(services_on_queue.size()){
         for(auto it=services_on_queue.begin(); it!= services_on_queue.end();it++){
             if(*(*it)->getIDate()<f){
-
                 (*it)->setState(on_transit);
                 Company::getCompany()->services_on_queue_changed=true;
             }

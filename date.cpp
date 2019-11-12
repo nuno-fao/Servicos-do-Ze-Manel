@@ -161,7 +161,7 @@ bool operator < (Date const& date1, Date const& data2) {
 
             }
             else {
-                return false;
+                return date1.getDay() < data2.getDay();
             }
         }
         else

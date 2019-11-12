@@ -6,11 +6,27 @@ float HazardousMat::pricePerKG;
 float Congelation::pricePerKG;
 float Normal::pricePerKG;
 float Animal::pricePerKG;
-unordered_map<unsigned short, unsigned short> HazardousMat::CapDist;
-unordered_map<unsigned short, unsigned short> Congelation::CapDist;
-unordered_map<unsigned short, unsigned short> Normal::CapDist;
-unordered_map<unsigned short, unsigned short> Animal::CapDist;
+map<unsigned short, unsigned short> HazardousMat::CapDist;
+map<unsigned short, unsigned short> Congelation::CapDist;
+map<unsigned short, unsigned short> Normal::CapDist;
+map<unsigned short, unsigned short> Animal::CapDist;
 
+type Normal::getType(){
+    return type::ordinary;
+}
+
+type Animal::getType(){
+    return type::animal;
+}
+type HazardousMat::getType(){
+    return type::hazardous;
+}
+type Congelation::getType(){
+    return type::lowTemperature;
+}
+type Truck::getType(){
+    return type::ordinary;
+}
 
 Truck::~Truck(){
 
@@ -19,7 +35,7 @@ Truck::~Truck(){
 
 Truck::Truck(string license, bool available, bool registered, unsigned short capacity, unsigned short cargo) {
     this->license=license;
-    this->availabe = available;
+    this->available = available;
     this->registered = registered;
     this->capacity = capacity;
     this->cargo = cargo;
@@ -43,7 +59,7 @@ unsigned short Truck::getcapacity() const {
 }
 
 bool Truck::getavailable() const {
-    return availabe;
+    return available;
 }
 
 bool Truck::getregistered() const{
@@ -64,7 +80,7 @@ vector<Service*> *Truck::getServices(){
 
 
 void Truck::setavailable(bool foo) {
-    availabe = foo;
+    available = foo;
 }
 
 void Truck::setregistered(bool foo) {
@@ -75,7 +91,7 @@ void Truck::info() {
     cout << "License: " << license << endl;
     cout << "Capacity: " << capacity << endl;
     cout << "Available: ";
-    (availabe) ? cout << "true" << endl : cout << "false" << endl << "\tCurrently transporting " << cargo << "KG of cargo" << endl;
+    (available) ? cout << "true" << endl : cout << "false" << endl << "\tCurrently transporting " << cargo << "KG of cargo" << endl;
     cout << "Registered: ";
     (registered) ? cout << "true" << endl : cout << "false" << endl;
     if (registered) {
@@ -119,7 +135,7 @@ void Truck::remove_service(unsigned int id) {
 }
 
 void Truck::start_transport(unsigned short cargo) {
-    availabe = false;
+    available = false;
     this->cargo = cargo;
 }
 
@@ -153,13 +169,13 @@ void Truck::loadFromFile(vector<Truck*>* trucks) {
     Congelation::tempMul[Temperature_enum::_200] = stof(auxVec[1]);
     Congelation::tempMul[Temperature_enum::_300] = stof(auxVec[2]);
     Congelation::tempMul[Temperature_enum::_400] = stof(auxVec[3]);
-	//load price per KG of each truck
-	getline(truckfile, aux);
-	auxVec = vectorString(aux, separator);
-	Congelation::pricePerKG = stof(auxVec[0]);
-	HazardousMat::pricePerKG = stof(auxVec[1]);
-	Animal::pricePerKG = stof(auxVec[2]);
-	Normal::pricePerKG = stof(auxVec[3]);
+    //load price per KG of each truck
+    getline(truckfile, aux);
+    auxVec = vectorString(aux, separator);
+    Congelation::pricePerKG = stof(auxVec[0]);
+    HazardousMat::pricePerKG = stof(auxVec[1]);
+    Animal::pricePerKG = stof(auxVec[2]);
+    Normal::pricePerKG = stof(auxVec[3]);
     while (getline(truckfile, aux)) {
         getline(truckfile, lic);
         getline(truckfile, aux);
@@ -222,10 +238,10 @@ void Truck::saveToFile(vector<Truck*>* trucks) {
     truckfile << Congelation::tempMul[Temperature_enum::_200] << "; ";
     truckfile << Congelation::tempMul[Temperature_enum::_300] << "; ";
     truckfile << Congelation::tempMul[Temperature_enum::_400] << endl;
-	truckfile << Congelation::pricePerKG << "; ";
-	truckfile << HazardousMat::pricePerKG << "; ";
-	truckfile << Animal::pricePerKG << "; ";
-	truckfile << Normal::pricePerKG << endl;
+    truckfile << Congelation::pricePerKG << "; ";
+    truckfile << HazardousMat::pricePerKG << "; ";
+    truckfile << Animal::pricePerKG << "; ";
+    truckfile << Normal::pricePerKG << endl;
     for (auto it : *trucks) {
         truckfile << "::::::::::::::::::::::::::::" << endl;
         truckfile << it->getlicense() << endl;
@@ -369,73 +385,73 @@ void Truck::createTruck(vector<Truck*>* trucks) {
             break;
         }
         }
-		cout << "Truck with license " << license << " removed successfully!" << endl;
-		enter_to_exit();
+        cout << "Truck with license " << license << " removed successfully!" << endl;
+        enter_to_exit();
     }
-	else {
-		cout << "Operation cancelled!" << endl;
-		enter_to_exit();
-	}
-	clearScreen();
+    else {
+        cout << "Operation cancelled!" << endl;
+        enter_to_exit();
+    }
+    clearScreen();
 }
 
 void Truck::removeTruck(vector<Truck*>* trucks) {
     
     string license, confirmstr;
-	bool invalidInput, found=false;
+    bool invalidInput, found=false;
     vector<string> auxVec;
-	do {
-		clearScreen();
-		invalidInput = false;
-		cout << "What's the license of the truck you wish to remove (XX-YY-ZZ)? "; getline(cin, license);
-		if (license == "!q") return;
+    do {
+        clearScreen();
+        invalidInput = false;
+        cout << "What's the license of the truck you wish to remove (XX-YY-ZZ)? "; getline(cin, license);
+        if (license == "!q") return;
 
-		//verifies if the license is valid or if it already exists.
-		if (!checkLicenseV2(license)) {
-			invalidInput = true;
-		}
-		else {
-			for (vector<Truck*>::iterator it = trucks->begin(); it != trucks->end();it++) {
-				if ((*it)->getlicense() == license) {
-					found = true;
-					if ((*it)->getavailable() && !((*it)->getregistered())) {
-						do {
-							clearScreen();
-							cout << "Truck found!!!" << endl;
-							(*it)->info();
-							cout << "Do you wish to proceed with the removal of this truck (Y/N)? ";
-							cin >> confirmstr;
-							clearBuffer();
-						} while (confirmstr != "Y" && confirmstr != "N" && confirmstr != "y" && confirmstr != "n" && confirmstr != "!q");	//confirmation
-						if (confirmstr == "Y" || confirmstr == "y") {
-							clearScreen();
-							delete *it;
-							trucks->erase(it);
-							cout << "Truck with license " << license << " removed successfully!" << endl;
-							enter_to_exit();
-						}
-						else{
-							cout << "Operation cancelled!" << endl;
-							enter_to_exit();
-							clearScreen();
-							return;
-						}
-					}
-					else {
-						cout << "The truck with license " << license << " cannot be removed because it either on transit or registered to a future service" << endl;
-						enter_to_exit();
-					}
-					break;
-				}
-			}
-			if (!found) {
-				invalidInput = true;
-				cout<< "Truck with license " << license << " is not a part of the company's database" << endl;
-				enter_to_exit();
-			}
-		}
-	} while (invalidInput);
-	clearScreen();
+        //verifies if the license is valid or if it already exists.
+        if (!checkLicenseV2(license)) {
+            invalidInput = true;
+        }
+        else {
+            for (vector<Truck*>::iterator it = trucks->begin(); it != trucks->end();it++) {
+                if ((*it)->getlicense() == license) {
+                    found = true;
+                    if ((*it)->getavailable() && !((*it)->getregistered())) {
+                        do {
+                            clearScreen();
+                            cout << "Truck found!!!" << endl;
+                            (*it)->info();
+                            cout << "Do you wish to proceed with the removal of this truck (Y/N)? ";
+                            cin >> confirmstr;
+                            clearBuffer();
+                        } while (confirmstr != "Y" && confirmstr != "N" && confirmstr != "y" && confirmstr != "n" && confirmstr != "!q");	//confirmation
+                        if (confirmstr == "Y" || confirmstr == "y") {
+                            clearScreen();
+                            delete *it;
+                            trucks->erase(it);
+                            cout << "Truck with license " << license << " removed successfully!" << endl;
+                            enter_to_exit();
+                        }
+                        else{
+                            cout << "Operation cancelled!" << endl;
+                            enter_to_exit();
+                            clearScreen();
+                            return;
+                        }
+                    }
+                    else {
+                        cout << "The truck with license " << license << " cannot be removed because it either on transit or registered to a future service" << endl;
+                        enter_to_exit();
+                    }
+                    break;
+                }
+            }
+            if (!found) {
+                invalidInput = true;
+                cout<< "Truck with license " << license << " is not a part of the company's database" << endl;
+                enter_to_exit();
+            }
+        }
+    } while (invalidInput);
+    clearScreen();
 
 }
 
