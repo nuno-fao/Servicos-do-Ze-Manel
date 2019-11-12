@@ -834,7 +834,7 @@ void menu_editprices() {
                     if (cin >> opt1 && opt1 <= 9)
                     {
                         clearScreen();
-                        switch (opt) {
+                        switch (opt1) {
                         case 0:
                             break;
                         case 1: {
@@ -1072,7 +1072,7 @@ void menu_editprices() {
                     if (cin >> opt1 && opt1 <= 4)
                     {
                         clearScreen();
-                        switch (opt) {
+                        switch (opt1) {
                         case 0:
                             break;
                         case 1: {
@@ -1195,7 +1195,7 @@ void menu_editprices() {
                     if (cin >> opt1 && opt1 <= 4)
                     {
                         clearScreen();
-                        switch (opt) {
+                        switch (opt1) {
                         case 0:
                             break;
                         case 1: {
