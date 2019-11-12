@@ -27,8 +27,9 @@ public:
  *
  * Receives all the data it needs to construct a client properly
  * It is the most used constructor of the three
- * @param name Name of the client
- * @param nif Identification number of the client
+ *
+ * @param name - Name of the client
+ * @param nif - Identification number of the client
  * @param services - Pointer to the vector of pointers to Services that the client has bought (none by default)
 
  */
@@ -41,7 +42,6 @@ public:
  * @brief Loads the clients
  *
  * Loads the clients into the program by pushing them to a vector
- * It does this by going line by line in the clients.txt (which is formatted)
  *
  * @param clientsVector - Vector where the pointers to the Clients are stored
  * @return Returns nothing
@@ -50,49 +50,133 @@ public:
 /**
  * @brief Saves the clients
  *
- * Saves the clients the user has added by writing to the clients.txt file
- * It does this by iterating through the clientsVector
+ * Saves the clients the user has added by writing to the clients.txt file in the specified format
  *
  * @param clientsVector - Vector where the pointers to the Clients are stored
  * @return Returns nothing
  */
 	static void saveToFile(vector<Client*>& clientsVector);
-	/**
+/**
  * @brief Edits the information of a client
  *
  * Edits the information of a client by asking
  *
- * @param clientsVector - Vector where the pointers to the Clients are stored
  * @return Returns nothing
  */
 	void editClient();
+/**
+ * @brief Removes a client
+ *
+ * Removes a client from the vector of Clients if the client has no services bought
+ * Throws an exception if the specified client is not found in the vector
+ *
+ * @param clientsVector - Vector where the pointers to the Clients are stored
+ * @return Returns nothing
+ */
 	void removeClient(vector<Client *> &clientsVector);
 	
-    //get methods
+    // GET METHODS
+
+/**
+ * @brief Gets the Client's name
+ *
+ * @return Returns a string containing the Client's name
+ */
     string getName() const;
+/**
+ * @brief Gets the money spent in services
+ *
+ * @return Returns a float representing the money spent in services by the client
+ */
     float getMoneySpent() const;
+/**
+ * @brief Gets the Client's identification number
+ *
+ * @return Returns an unsigned 9-digit integer containing the Client's identification number
+ */
     unsigned getNif() const;
+/**
+ * @brief Gets the Client's bought services
+ *
+ * @return Returns an a vector containing pointers to the Client's bought services
+ */
     vector<Service*> *getServicesVector();
 
-    //set methods
+    // SET METHODS
+
+/**
+ * @brief Sets a Client's name
+ * 
+ * Updates the Client's name
+ *
+ * @param name - String containing the Client's name to be updated
+ * @return Returns nothing
+ */
     void setName(string name);
+/**
+ * @brief Sets a Client's identification number
+ *
+ * Updates the Client's identification number
+ *
+ * @param nif - an unsigned integer containing the Client's identification number to be updated
+ * @return Returns nothing
+ */
     void setNif(unsigned nif);
+/**
+ * @brief Calculates the Client's money spent
+ *
+ * Computes the money spent by a Client in services and updates it
+ *
+ * @return Returns nothing
+ */
     void calcMoneySpent();
 
-    //add methods
+    // ADD METHODS
+
+/**
+ * @brief Adds a Service bought by a Client
+ *
+ * Adds a Service bought by a Client to the vector of Services 
+ *
+ * @param service - Pointer to the Service to he added to the vector of Services
+ * @return Returns nothing
+ */
     void addService(Service *service);
+/**
+ * @brief Adds a Client
+ *
+ * Adds a Client to the vector of Clients
+ *
+ * @param clientsVector - Pointer to the vector of pointers to Clients
+ * @return Returns nothing
+ */
     static void addClient(vector<Client*> *clientsVector);
 
-
+/**
+ * @brief Operator << overloading
+ *
+ * Overload of << operator to allow a Client's information to be printed
+ *
+ * @param out - ostream to allow the chain of ostreams
+ * @param client - Client Object containing the data to be printed
+ * @return Returns the ostream containing the information to be printed
+ */
     friend ostream& operator<<(ostream& out, const Client& client);
-
+/**
+* @brief Operator < overloading
+*
+* Overload of < operator for comparisons. A Client is < if his identification number is smaller (as a normal, decimal interpretation)
+*
+* @param a - Client Object containing the nif to be compared
+* @return Returns true if the Client has a smaller nif
+*/
     bool operator<(const Client &a) const;
     bool operator== (const Client& client1) const;
 protected:
     float money_spent=0; /*!< Total money spent in services - used  */
     string name;
     unsigned int nif; /*!< Client's Identification - used whenever comparing and verifying clients */
-    vector<Service*> services;
+    vector<Service*> services;/*!< Client's vector of bought Services */
 
 };
 
