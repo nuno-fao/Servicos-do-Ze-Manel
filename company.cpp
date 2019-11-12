@@ -96,9 +96,19 @@ void Company::updateTruckSituation(){
         for(auto it=services_on_transit.begin(); it!= services_on_transit.end();it++){
             if(*(*it)->getADate()<f){
 
-                for(auto x:*(*it)->getTrucks())
+                for(auto x =(*it)->getTrucks()->begin();x!=(*it)->getTrucks()->end();x++)
                 {
-                    x->setavailable(true);
+                    x->first->setavailable(true);
+                    for(auto o = x->first->getServices()->begin();o!=x->first->getServices()->end();o++){
+                        if((*o)->getId()==(*it)->getId()){
+                            o=x->first->getServices()->erase(o);
+                            o--;
+                            break;
+                        }
+                    }
+                    if(!x->first->getServices()->size()){
+                        x->first->setregistered(false);
+                    }
                 }
                 services_finished.push_back(*it);
                 it=services_on_transit.erase(it);
@@ -116,7 +126,7 @@ void Company::updateTruckSituation(){
 
                 for(auto x:*(*it)->getTrucks())
                 {
-                    x->setavailable(false);
+                    x.first->setavailable(false);
                 }
                 services_on_transit.push_back(*it);
                 it=services_on_queue.erase(it);
