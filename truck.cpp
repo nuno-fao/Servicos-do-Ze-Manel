@@ -6,6 +6,11 @@ float HazardousMat::pricePerKG;
 float Congelation::pricePerKG;
 float Normal::pricePerKG;
 float Animal::pricePerKG;
+unordered_map<unsigned short, unsigned short> HazardousMat::CapDist;
+unordered_map<unsigned short, unsigned short> Congelation::CapDist;
+unordered_map<unsigned short, unsigned short> Normal::CapDist;
+unordered_map<unsigned short, unsigned short> Animal::CapDist;
+
 
 Truck::~Truck(){
 
@@ -51,6 +56,10 @@ string Truck::getlicense() const {
 
 unsigned short Truck::getcargo() const {
     return cargo;
+}
+
+vector<Service*> Truck::getServices() const {
+	return assignedServices;
 }
 
 
@@ -430,34 +439,3 @@ void Truck::removeTruck(vector<Truck*>* trucks) {
 
 }
 
-void Truck::showTruck(vector<Truck*>* trucks) {
-	string license;
-	bool invalidInput;
-	vector<string> auxVec;
-	do {
-		clearScreen();
-		invalidInput = false;
-		cout << "What's the license of the truck you wish to see (XX-YY-ZZ)? "; getline(cin, license);
-		if (license == "!q") return;
-
-		//verifies if the license is valid or if it already exists.
-		if (!checkLicenseV2(license)) {
-			invalidInput = true;
-		}
-		else {
-			for (vector<Truck*>::iterator it = trucks->begin(); it != trucks->end(); it++) {
-				if ((*it)->getlicense() == license) {
-					clearScreen();
-					cout << "Truck found!!!" << endl;
-					(*it)->info();
-					enter_to_exit();
-					return;
-				}
-			}
-			invalidInput = true;
-			cout << "Truck with license " << license << " is not a part of the company's database" << endl;
-			enter_to_exit();
-		}
-	} while (invalidInput);
-	clearScreen();
-}
