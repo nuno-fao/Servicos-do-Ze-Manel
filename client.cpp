@@ -281,7 +281,7 @@ CantOpenClientFile::~CantOpenClientFile(){
 
 NotAClient::~NotAClient(){
 
-}
+}	
 
 float Client::getMoneySpent() const{
     return money_spent;
