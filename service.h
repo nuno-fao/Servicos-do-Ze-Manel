@@ -30,7 +30,7 @@ enum type {
 };
 
 enum state {
-    on_queue,on_transit,finished
+    on_queue=0,on_transit=1,finished=2
 };
 
 class Service

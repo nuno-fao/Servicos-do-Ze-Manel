@@ -89,30 +89,39 @@ void Company::updateTruckSituation(){
     time_t rawtime;struct tm *now;std::time( &rawtime );now = localtime( &rawtime );
     Date f(unsigned(now->tm_year-100),1+date_u_short(now->tm_mon),date_u_short(now->tm_mday),date_u_short(now->tm_hour),date_u_short(now->tm_min));
 
-    for(auto it=services_on_transit.begin(); it!= services_on_transit.end();it++){
-        if(*(*it)->getADate()<=f){
-            break;
-        }
-        else{
-            for(auto x:*(*it)->getTrucks())
-            {
-                x->setavailable(true);
+    if(services_on_transit.size()){
+        for(auto it=services_on_transit.begin(); it!= services_on_transit.end();it++){
+            if(*(*it)->getADate()<f){
+
+                for(auto x:*(*it)->getTrucks())
+                {
+                    x->setavailable(true);
+                }
                 services_finished.push_back(*it);
                 it=services_on_transit.erase(it);
+                it--;
+                Company::getCompany()->services_on_queue_changed=true;
+            }
+            else{
+                continue;
             }
         }
     }
+    if(services_on_queue.size()){
+        for(auto it=services_on_queue.begin(); it!= services_on_queue.end();it++){
+            if(*(*it)->getIDate()<f){
 
-    for(auto it=services_on_queue.begin(); it!= services_on_queue.end();it++){
-        if(*(*it)->getIDate()<=f){
-            break;
-        }
-        else{
-            for(auto x:*(*it)->getTrucks())
-            {
-                x->setavailable(false);
+                for(auto x:*(*it)->getTrucks())
+                {
+                    x->setavailable(false);
+                }
                 services_on_transit.push_back(*it);
                 it=services_on_queue.erase(it);
+                it--;
+                Company::getCompany()->services_on_queue_changed=true;
+            }
+            else{
+                continue;
             }
         }
     }
@@ -125,22 +134,29 @@ void Company::updateTruckSituation(){
 void Company::updateServicesSituation(){
     time_t rawtime;struct tm *now;std::time( &rawtime );now = localtime( &rawtime );
     Date f(unsigned(now->tm_year-100),1+date_u_short(now->tm_mon),date_u_short(now->tm_mday),date_u_short(now->tm_hour),date_u_short(now->tm_min));
+    if(services_on_transit.size()){
+        for(auto it=services_on_transit.begin(); it!= services_on_transit.end();it++){
+            if(*(*it)->getADate()<f){
 
-    for(auto it=services_on_transit.begin(); it!= services_on_transit.end();it++){
-        if(*(*it)->getADate()<=f){
-            break;
-        }
-        else{
-            (*it)->setState(finished);
+                (*it)->setState(finished);
+                Company::getCompany()->services_on_queue_changed=true;
+            }
+            else{
+                continue;
+            }
         }
     }
 
-    for(auto it=services_on_queue.begin(); it!= services_on_queue.end();it++){
-        if(*(*it)->getIDate()<=f){
-            break;
-        }
-        else{
-            (*it)->setState(on_transit);
+    if(services_on_queue.size()){
+        for(auto it=services_on_queue.begin(); it!= services_on_queue.end();it++){
+            if(*(*it)->getIDate()<f){
+
+                (*it)->setState(on_transit);
+                Company::getCompany()->services_on_queue_changed=true;
+            }
+            else{
+                continue;
+            }
         }
     }
 
