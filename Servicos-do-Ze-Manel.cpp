@@ -695,9 +695,10 @@ void trucksInformation() {
 				bool invalidInput;
 				vector<string> auxVec;
 				if (Company::getCompany()->getVectorTrucks()->size()) {
+                    clearBuffer();
 
 					do {
-						clearScreen();
+                        clearScreen();
 						invalidInput = false;
 						cout << "What's the license of the truck you wish to see (XX-YY-ZZ)? "; getline(cin, license);
 						if (license == "!q") return;
@@ -732,6 +733,7 @@ void trucksInformation() {
 			
 			case 9:
 				clearScreen();
+                clearBuffer();
 				cout << "---Hazards---" << endl;
 				cout << "Explosives multiplier: " << HazardousMat::hazardMul[Hazard_enum::explosives] << endl;
 				cout << "Flammable liquid multiplier: " << HazardousMat::hazardMul[Hazard_enum::flammableliq] << endl;
@@ -742,17 +744,18 @@ void trucksInformation() {
 				cout << "Corrosives multiplier: " << HazardousMat::hazardMul[Hazard_enum::corrosives] << endl;
 				cout << "Radioactive multiplier: " << HazardousMat::hazardMul[Hazard_enum::radioactive] << endl;
 				cout << "'Other' multiplier: " << HazardousMat::hazardMul[Hazard_enum::other] << endl;
-				cout << "---Congelation---" << endl;
+                cout <<endl<< "---Congelation---" << endl;
 				cout << "_100 multiplier: " << Congelation::tempMul[Temperature_enum::_100] << endl;
 				cout << "_200 multiplier: " << Congelation::tempMul[Temperature_enum::_200] << endl;
 				cout << "_300 multiplier: " << Congelation::tempMul[Temperature_enum::_300] << endl;
 				cout << "_400 multiplier: " << Congelation::tempMul[Temperature_enum::_400] << endl;
-				cout << "---STD Prices---" << endl;
+                cout <<endl<< "---STD Prices---" << endl;
 				cout << "Congelation price per KG" << Congelation::pricePerKG << endl;
-				cout << "Hazard price per KG" << HazardousMat::pricePerKG << endl;
-				cout << "Animal price per KG" << Animal::pricePerKG << endl;
-				cout << "Normal price per KG" << Normal::pricePerKG << endl;
+                cout << "Hazard price per KG: " << HazardousMat::pricePerKG << endl;
+                cout << "Animal price per KG: " << Animal::pricePerKG << endl;
+                cout << "Normal price per KG: " << Normal::pricePerKG << endl;
 				enter_to_exit();
+                break;
 
 			default:
 				opt = 1;
