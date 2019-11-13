@@ -3,7 +3,7 @@
 // Falta comentar removeService
 
 
-Client::Client() {}
+Client::Client():nif(000000000) {}
 
 Client::Client(Client const &x){
     this->nif=x.getNif();

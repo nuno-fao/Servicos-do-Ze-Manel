@@ -1,7 +1,7 @@
 #include "service.h"
 
 unsigned int Service::lastId=0;
-
+using namespace std;
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!SERVICE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 //constructors
@@ -21,6 +21,7 @@ Service::Service(string material, Address origin, Address destination, Date *arr
 Service::Service(string material, string origin, string destination, Date *arrivalDate, unsigned distance, enum type type, enum state state, Date *date, Client *client, float quantity, float total_price, unsigned id)
     : material(material), distance(distance), quantity(quantity),  ser_type(type),id(id), ser_state(state),total_price(total_price)
 {
+	lastId = id+1;
     setIDate(date);
     setADate(arrivalDate);
     setOrigin(Address(origin));
@@ -1861,24 +1862,26 @@ int Service::autoAddTrucks(){
 
     bool available_on_time=true;
     vector<Truck*> tempVectorIterate=*Company::getCompany()->getVectorTrucks();
-    for(auto i= tempVectorIterate.begin();i!=tempVectorIterate.end();i++){
+    for(auto i= tempVectorIterate.begin();i!=tempVectorIterate.end();i){
         if(ser_type==(*i)->getType()){
             for(auto c:*(*i)->getServices()){
                 if((*c->initialDate<*arrivalDate || *initialDate<*c->arrivalDate)){
                     available_on_time=false;
                     i=tempVectorIterate.erase(i);
-                    i--;
                     break;
                 }
+				else {
+					i++;
+				}
             }
             if(available_on_time){
                 temp_map.at((*i)->getcapacity())++;
                 available_on_time=true;
+				i++;
             }
         }
         else{
             i=tempVectorIterate.erase(i);
-            i--;
         }
     }
 
@@ -1905,18 +1908,16 @@ int Service::autoAddTrucks(){
     }
     while(notCompleted){
         if(!forward && r_it!=temp_map.rend()){
-            for(auto i= tempVectorIterate.begin();i!=tempVectorIterate.end();i++){
+            for(auto i= tempVectorIterate.begin();i!=tempVectorIterate.end();i){
                 if((*i)->getType()==this->getType() && r_it->first==(*i)->getcapacity()){
                     if(remaining-(*i)->getcapacity()>0){
                         remaining-=(*i)->getcapacity();
                         tempTruck.push_back((*i));
-                        i=tempVectorIterate.erase(i);
-                        i--;
+                        i=tempVectorIterate.erase(i); 
                     }
                     else if(double(remaining-(*i)->getcapacity())==0.0){
                         tempTruck.push_back((*i));
                         i=tempVectorIterate.erase(i);
-                        i--;
                         remaining=0;
                         notCompleted=false;
                         forward=true;
@@ -1924,6 +1925,7 @@ int Service::autoAddTrucks(){
                     }
                     else {
                         forward=true;
+						i++;
                         break;
                     }
 
@@ -1934,15 +1936,18 @@ int Service::autoAddTrucks(){
             r_it++;
         }
         else if(it!=temp_map.end()){
-            for(auto i= tempVectorIterate.begin();i!=tempVectorIterate.end();i++){
+            for(auto i= tempVectorIterate.begin();i!=tempVectorIterate.end();i){
                 if(remaining-(*i)->getcapacity()<=0 && (*it).first==(*i)->getcapacity()){
                     remaining-=(*i)->getcapacity();
                     tempTruck.push_back((*i));
                     i=tempVectorIterate.erase(i);
-                    i--;
                     notCompleted=false;
                     break;
                 }
+				else
+				{
+					i++;
+				}
 
             }
             it++;
@@ -1960,13 +1965,6 @@ int Service::autoAddTrucks(){
             //cout<<remaining<<endl;
             return int(remaining);
         }
-        if(remaining<0){
-            break;
-        }
-    }
-    if(it==temp_map.end() && r_it==temp_map.rend()){
-        cout<<remaining<<endl;
-        return int(remaining);
     }
     float cargo_capacity=0;
     for(auto i:tempTruck){
@@ -1984,15 +1982,4 @@ int Service::autoAddTrucks(){
         cout<<endl;
     }
     return  int(remaining);
-}
-
-void Service::test(){
-    Address x;
-    Date y;
-    Service *u=new HazardousService("qw",x,x,&y,67,type::hazardous,on_queue,&y,Company::getCompany()->getVectorClients()->at(0),159,Hazard_enum::gases);
-    if(u->autoAddTrucks()>0)
-        cout<<"merda"<<endl;
-    for(auto i:HazardousMat::CapDist){
-        cout<<i.first<<": "<<i.second<<endl;
-    }
 }

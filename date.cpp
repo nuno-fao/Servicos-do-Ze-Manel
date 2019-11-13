@@ -8,6 +8,8 @@ Date::Date() {
     day = date_u_short((now->tm_mday));
     month = date_u_short(now->tm_mon + 1);
     year = date_u_short(now->tm_year + 1900);
+	hour = date_u_short(now->tm_hour);
+	minute = date_u_short(now->tm_min);
 }
 
 Date::Date(string date) {
@@ -196,6 +198,6 @@ float operator - (Date  &dt1, Date  &dt2){
         n2 += monthDays[i];
     n2 += countLeapYears(&dt2);
 
-    float t=((n1*365*24+dt1.getDay()*24+dt1.getHour())*60+dt1.getMinute())-((n2*365*24+dt2.getDay()*24+dt2.getHour())*60+dt2.getMinute());
+	float t = ((n1 - n2) * 24 * 60 + (dt1.getHour() - dt2.getHour()) * 60 + (dt1.getMinute() - dt2.getMinute()));
     return  t;
 }
