@@ -250,14 +250,13 @@ public:
     }
 };
 
-class ClientNotInVector {
+class ClientNotInVector : public Client{
 public:
     /**
 * Default destructor
 */
     ~ClientNotInVector();
     string erro; /*!< Message describing error */
-    unsigned nif;
     /**
  * @brief Constructor with all data necessary
  *
@@ -283,7 +282,7 @@ public:
 
 
 
-class CantOpenClientFile{
+class CantOpenClientFile : public Client{
 public:
     /**
 * Default destructor
