@@ -213,6 +213,6 @@ void Company::loadStats() {
 	string aux, separator = " - ";
 }
 
-void Company::loadStats() {
+/*void Company::loadStats() {
 
-}
+}*/

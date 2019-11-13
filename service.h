@@ -118,10 +118,28 @@ public:
     Temperature_enum type;
 };
 
-class ServiceDoNotExist{
+class ServiceDoNotExist//: public Service
+{
 public:
     string erro;
     ServiceDoNotExist(string erro):erro(erro){}
 };
 
+class ServiceFinishedFileError//: public Service
+{
+public:
+    ServiceFinishedFileError(){}
+};
+class ServiceOnQueueFileError//: public Service
+{
+public:
+    ServiceOnQueueFileError(){}
+
+};
+class ServiceOnTransitFileError//: public Service
+{
+public:
+    ServiceOnTransitFileError(){}
+
+};
 
