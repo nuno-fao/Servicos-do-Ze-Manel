@@ -134,7 +134,7 @@ public:
 
     // ADD METHODS
 
-    /**
+/**
  * @brief Adds a Service bought by a Client
  *
  * Adds a Service bought by a Client to the vector of Services
@@ -143,7 +143,7 @@ public:
  * @return Returns nothing
  */
     void addService(Service *service);
-    /**
+   /**
  * @brief Adds a Client
  *
  * Adds a Client to the vector of Clients
@@ -152,7 +152,16 @@ public:
  * @return Returns nothing
  */
     static void addClient(vector<Client*> *clientsVector);
+	/**
+* @brief Removes a service
+*
+* Removes a bought service from a Client
+*
+* @param service - Pointer to the service to be removed
+* @return Returns nothing
+*/
     void removeService(Service *service);
+
     /**
  * @brief Operator << overloading
  *
@@ -172,6 +181,9 @@ public:
 * @return Returns true if the Client has a smaller nif
 */
     bool operator<(const Client &a) const;
+
+	bool operator>(const Client& a) const;
+
     /**
 * @brief Operator == overloading
 *

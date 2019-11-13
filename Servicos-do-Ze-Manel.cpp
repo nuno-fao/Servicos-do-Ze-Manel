@@ -403,22 +403,20 @@ void clientsInformation(){
                 break;
             }
             case 3:{
-                vector<Client*> temp(*Company::getCompany()->getVectorClients());
-                sort(temp.begin(),temp.end(),[](Client *a, Client *b)
-                {
-                    return !(a->getMoneySpent() < b->getMoneySpent());
-                }
-                );
-                if(temp.size())
-                    for(auto i: temp){
-                        cout<<*i;
-                        cout<<i->getMoneySpent()<<endl;
-                    }
-                else
-                    cout<<"There is no Information to show"<<endl;
-                clearBuffer();
-                enter_to_exit();
-                break;
+				vector<Client*> temp(*Company::getCompany()->getVectorClients());
+				sort(temp.begin(), temp.end(), cmp_classes <Client>);
+				if (temp.size())
+					for (auto it = temp.rbegin(); it != temp.rend(); it++) {
+						cout << *(*it);
+						cout << (*it)->getMoneySpent() << endl;
+					}
+				else
+					cout << "There is no Information to show" << endl;
+				
+				clearBuffer();
+				enter_to_exit();
+				break;
+
             }
             case 4:{
                 vector<Client*> temp(*Company::getCompany()->getVectorClients());

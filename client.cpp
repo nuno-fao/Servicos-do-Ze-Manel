@@ -56,6 +56,7 @@ void Client::removeService(Service *service){
     money_spent-=service->getTotalPrice();
 }
 
+
 void Client::addClient(vector<Client *> *clientsVector) {
     clearScreen();
     string tempName;
@@ -270,6 +271,10 @@ bool Client::operator==(const Client& client1) const {
 
 bool Client::operator<(const Client &a) const{
     return nif < a.getNif();
+}
+
+bool Client::operator>(const Client& a) const {
+	return nif < a.getNif();
 }
 
 ostream& operator<<(ostream& out, const Client& client) {
