@@ -181,7 +181,6 @@ void Client::editClient()
 
 // Removes client from the vector
 void Client::removeClient(vector<Client*>& clientsVector) {
-	Client *client;
 
 	for (auto it = clientsVector.begin(); it != clientsVector.end(); it++)
 	{

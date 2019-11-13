@@ -68,5 +68,5 @@ bool operator > (Date const& date1, Date const& data2);
 bool operator >= (Date const& date1, Date const& data2);
 bool operator <= (Date const& date1, Date const& data2);
 bool operator == (Date const& date1, Date const& data2);
-double operator - (Date &date1, Date &data2);
+float operator - (Date &date1, Date &data2);
 unsigned total_days(unsigned year, unsigned short month);

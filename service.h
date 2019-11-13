@@ -76,6 +76,8 @@ public:
     static bool removeService(vector<Service *> *services,unsigned id);
     friend ostream& operator<<(ostream& os, Service *a);
 
+    static void test();
+
 protected:
     Service(string material,Address origin, Address destination, Date *arrivalDate, unsigned distance, type type, state state, Date *date,Client *client,float quantity);
     Service(string material, string origin, string destination, Date *arrivalDate, unsigned distance, type type, state state, Date *date, Client *client, float quantity, float total_price,unsigned id);
@@ -93,7 +95,7 @@ protected:
     Client *client;
     float total_price;
     static unsigned int lastId;
-    void autoAddTrucks();
+    int autoAddTrucks();
 
 
 

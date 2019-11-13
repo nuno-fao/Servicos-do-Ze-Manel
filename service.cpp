@@ -21,7 +21,6 @@ Service::Service(string material, Address origin, Address destination, Date *arr
 Service::Service(string material, string origin, string destination, Date *arrivalDate, unsigned distance, enum type type, enum state state, Date *date, Client *client, float quantity, float total_price, unsigned id)
     : material(material), distance(distance), quantity(quantity),  ser_type(type),id(id), ser_state(state),total_price(total_price)
 {
-    lastId++;
     setIDate(date);
     setADate(arrivalDate);
     setOrigin(Address(origin));
@@ -148,6 +147,7 @@ string typeToString(type a){
     case type::lowTemperature:
         return "Low Temperature";
     }
+    return "ordinary";
 }
 string stateToString(state a){
     return  to_string(a);
@@ -180,7 +180,7 @@ void Service::loadFromFile(list<Service*> *services_finished,vector<Service*> *s
     string tempGeneral;
     float tempQuantity;
     float tempPrice;
-    unsigned tempId;
+    unsigned tempId = 0;
     vector<string> tempVectorTruckS;
 
     while(getline(servicesFile,tempMaterial)){
@@ -552,6 +552,7 @@ void Service::loadFromFile(list<Service*> *services_finished,vector<Service*> *s
 
         getline(servicesFile,tempGeneral);
     }
+    Service::lastId+=tempId;
     servicesFile.close();
 }
 void Service::saveToFile(list<Service*> *services_finished,vector<Service*>*services_on_transit,vector<Service*>*services_on_queue){
@@ -718,8 +719,8 @@ Service *Service::addService(vector<Service *> *services,Client *client){
             cout<<"Material name not acceptable, please try again."<<endl;
         }
     }
+    print.push_back("What: "+tempMaterial);
 
-    print.push_back(tempMaterial);
     // set origin
     variable_error=true;
     clearScreen();
@@ -737,9 +738,15 @@ Service *Service::addService(vector<Service *> *services,Client *client){
                 cout<<"Enter the Origin postal code (xxxx-yyy)"<<endl;
                 while(true){
                     string postal_code;
-                    cin>>postal_code;
+                    getline(cin,postal_code);
+                    checkIfOut(postal_code);
                     vector<string> temp_postal_code= vectorString(postal_code,"-");
-                    if(temp_postal_code.size()==2 && strIsNumber(temp_postal_code.at(0)) && strIsNumber(temp_postal_code.at(1)) && temp_postal_code.at(0).size()==4 && temp_postal_code.at(1).size()==3){
+                    if(postal_code==""){
+                        origin=Address(temp_address_no_pc.at(0),date_u_short(stoi(temp_address_no_pc.at(1))),"0000-000",temp_address_no_pc.at(2));
+                        variable_error=false;
+                        break;
+                    }
+                    else if(temp_postal_code.size()==2 && strIsNumber(temp_postal_code.at(0)) && strIsNumber(temp_postal_code.at(1)) && temp_postal_code.at(0).size()==4 && temp_postal_code.at(1).size()==3){
                         origin=Address(temp_address_no_pc.at(0),date_u_short(stoi(temp_address_no_pc.at(1))),postal_code,temp_address_no_pc.at(2));
                         variable_error=false;
                         break;
@@ -759,9 +766,15 @@ Service *Service::addService(vector<Service *> *services,Client *client){
                 cout<<"Enter the Origin postal code (xxxx-yyy)"<<endl;
                 while(true){
                     string postal_code;
-                    cin>>postal_code;
+                    getline(cin,postal_code);
+                    checkIfOut(postal_code);
                     vector<string> temp_postal_code= vectorString(postal_code,"-");
-                    if(temp_postal_code.size()==2 && strIsNumber(temp_postal_code.at(0)) && strIsNumber(temp_postal_code.at(1)) && temp_postal_code.at(0).size()==4 && temp_postal_code.at(1).size()==3){
+                    if(postal_code==""){
+                        origin=Address("",0,"0000-000",temp_address_no_pc.at(0));
+                        variable_error=false;
+                        break;
+                    }
+                    else if(temp_postal_code.size()==2 && strIsNumber(temp_postal_code.at(0)) && strIsNumber(temp_postal_code.at(1)) && temp_postal_code.at(0).size()==4 && temp_postal_code.at(1).size()==3){
                         origin=Address("",0,postal_code,temp_address_no_pc.at(0));
                         variable_error=false;
                         break;
@@ -783,10 +796,9 @@ Service *Service::addService(vector<Service *> *services,Client *client){
         }
 
     }
-
     clearScreen();
-    clearBuffer();
-    print.push_back(tempOrigin);
+    print.push_back("Origin: "+tempOrigin);
+
     //set destination
     variable_error=true;
     while (variable_error) {
@@ -801,9 +813,15 @@ Service *Service::addService(vector<Service *> *services,Client *client){
                 cout<<"Enter the Destination postal code (xxxx-yyy)"<<endl;
                 while(true){
                     string postal_code;
-                    cin>>postal_code;
+                    getline(cin,postal_code);
+                    checkIfOut(postal_code);
                     vector<string> temp_postal_code= vectorString(postal_code,"-");
-                    if(temp_postal_code.size()==2 && strIsNumber(temp_postal_code.at(0)) && strIsNumber(temp_postal_code.at(1)) && temp_postal_code.at(0).size()==4 && temp_postal_code.at(1).size()==3){
+                    if(postal_code==""){
+                        origin=Address(temp_address_no_pc.at(0),date_u_short(stoi(temp_address_no_pc.at(1))),"0000-000",temp_address_no_pc.at(2));
+                        variable_error=false;
+                        break;
+                    }
+                    else if(temp_postal_code.size()==2 && strIsNumber(temp_postal_code.at(0)) && strIsNumber(temp_postal_code.at(1)) && temp_postal_code.at(0).size()==4 && temp_postal_code.at(1).size()==3){
                         destination=Address(temp_address_no_pc.at(0),date_u_short(stoi(temp_address_no_pc.at(1))),postal_code,temp_address_no_pc.at(2));
                         variable_error=false;
                         break;
@@ -823,9 +841,15 @@ Service *Service::addService(vector<Service *> *services,Client *client){
                 cout<<"Enter the Destination postal code (xxxx-yyy)"<<endl;
                 while(true){
                     string postal_code;
-                    cin>>postal_code;
+                    getline(cin,postal_code);
+                    checkIfOut(postal_code);
                     vector<string> temp_postal_code= vectorString(postal_code,"-");
-                    if(temp_postal_code.size()==2 && strIsNumber(temp_postal_code.at(0)) && strIsNumber(temp_postal_code.at(1)) && temp_postal_code.at(0).size()==4 && temp_postal_code.at(1).size()==3){
+                    if(postal_code==""){
+                        origin=Address("",0,"0000-000",temp_address_no_pc.at(0));
+                        variable_error=false;
+                        break;
+                    }
+                    else if(temp_postal_code.size()==2 && strIsNumber(temp_postal_code.at(0)) && strIsNumber(temp_postal_code.at(1)) && temp_postal_code.at(0).size()==4 && temp_postal_code.at(1).size()==3){
                         origin=Address("",0,postal_code,temp_address_no_pc.at(0));
 
                         variable_error=false;
@@ -846,12 +870,10 @@ Service *Service::addService(vector<Service *> *services,Client *client){
             cout<<"Destination Input not acceptable, please try again"<<endl;
         }
     }
-    print.push_back(tempDestination);
-    //set yy/mm/dd
+    print.push_back("Destination: "+tempDestination);
 
-
-
-    clearBuffer();
+    //set initial date
+    clearScreen();
     variable_error=true;
     string tempString;
     vector<string> tempVector;
@@ -876,7 +898,7 @@ Service *Service::addService(vector<Service *> *services,Client *client){
                     Date i(date_u_short(stoi(tempVector.at(0))),date_u_short(stoi(tempVector.at(1))),date_u_short(stoi(tempVector.at(2))),23,59);
                     int t=now->tm_year;
                     Date f(unsigned(t-100),1+date_u_short(now->tm_mon),date_u_short(now->tm_mday),date_u_short(now->tm_hour),date_u_short(now->tm_min));
-                    if((f-i)<0){
+                    if(i<f){
                         variable_error=true;
                         clearScreen();
                         cout<<"Date Input not Aceptable, should not be prior to current date, please try again"<<endl;
@@ -900,7 +922,6 @@ Service *Service::addService(vector<Service *> *services,Client *client){
             cout<<i.error<<endl;
         }
     }
-
     variable_error=true;
     vector<string> tempVector_h;
     while (variable_error) {
@@ -924,7 +945,7 @@ Service *Service::addService(vector<Service *> *services,Client *client){
                     Date i(date_u_short(stoi(tempVector.at(0))),date_u_short(stoi(tempVector.at(1))),date_u_short(stoi(tempVector.at(2))),date_u_short(stoi(tempVector_h.at(0))),date_u_short(stoi(tempVector_h.at(1))));
                     int t=now->tm_year;
                     Date f(unsigned(t-100),1+date_u_short(now->tm_mon),date_u_short(now->tm_mday),date_u_short(now->tm_hour),date_u_short(now->tm_min));
-                    if((f-i)<0){
+                    if(i<f){
                         variable_error=true;
                         clearScreen();
                         cout<<"Input not Aceptable, should not be prior to current date, please try again"<<endl;
@@ -949,19 +970,12 @@ Service *Service::addService(vector<Service *> *services,Client *client){
         }
     }
     Date *temp_date=new Date(date_u_short(stoi(tempVector.at(0))),date_u_short(stoi(tempVector.at(1))),date_u_short(stoi(tempVector.at(2))),date_u_short(stoi(tempVector_h.at(0))),date_u_short(stoi(tempVector_h.at(1))));
-    print.push_back(temp_date->getDateWHour());
+    print.push_back("Initial Date: "+temp_date->getDateWHour());
 
-
-
-
-
-
-
-
-
+    //set arrival date
+    clearScreen();
     variable_error=true;
     tempVector.clear();
-
     while (variable_error) {
         printClassVector(&print);
         try {
@@ -980,12 +994,11 @@ Service *Service::addService(vector<Service *> *services,Client *client){
                     }
                 }
                 if(tempVector.size()==3){
-                    int t=now->tm_year;
                     Date i(unsigned(stoi(tempVector.at(0))),date_u_short(stoi(tempVector.at(1))),date_u_short(stoi(tempVector.at(2))),23,59);
-                    if((*temp_date-i)<0){
+                    if(i<*temp_date){
                         variable_error=true;
                         clearScreen();
-                        cout<<"Date Input not Aceptable, should not be prior to current date, please try again"<<endl;
+                        cout<<"Date Input not Aceptable, should not be prior to initial date, please try again"<<endl;
                     }
                     else
                         variable_error=false;
@@ -1006,7 +1019,6 @@ Service *Service::addService(vector<Service *> *services,Client *client){
             cout<<i.error<<endl;
         }
     }
-
     variable_error=true;
     tempVector_h.clear();
     while (variable_error) {
@@ -1028,9 +1040,7 @@ Service *Service::addService(vector<Service *> *services,Client *client){
                 }
                 if(tempVector_h.size()==2){
                     Date i(date_u_short(stoi(tempVector.at(0))),date_u_short(stoi(tempVector.at(1))),date_u_short(stoi(tempVector.at(2))),date_u_short(stoi(tempVector_h.at(0))),date_u_short(stoi(tempVector_h.at(1))));
-                    int t=now->tm_year;
-                    Date f(unsigned(t-100),1+date_u_short(now->tm_mon),date_u_short(now->tm_mday),date_u_short(now->tm_hour),date_u_short(now->tm_min));
-                    if((*temp_date-i)<0){
+                    if(i<*temp_date){
                         variable_error=true;
                         clearScreen();
                         cout<<"Input not Aceptable, should not be prior to current date, please try again"<<endl;
@@ -1055,9 +1065,10 @@ Service *Service::addService(vector<Service *> *services,Client *client){
         }
     }
     Date *temp_date_arrival=new Date(date_u_short(stoi(tempVector.at(0))),date_u_short(stoi(tempVector.at(1))),date_u_short(stoi(tempVector.at(2))),date_u_short(stoi(tempVector_h.at(0))),date_u_short(stoi(tempVector_h.at(1))));
-    print.push_back(temp_date_arrival->getDateWHour());
+    print.push_back("Arrival Date: "+temp_date_arrival->getDateWHour());
 
     //set distance
+    clearScreen();
     variable_error=true;
     while (variable_error) {
         printClassVector(&print);
@@ -1073,9 +1084,10 @@ Service *Service::addService(vector<Service *> *services,Client *client){
             cout<<"Distance not acceptable, please try again"<<endl;
         }
     }
+    print.push_back("Distance:"+tempDistance);
 
-    print.push_back(tempDistance);
     // set type of service
+    clearScreen();
     variable_error=true;
     while (variable_error) {
         printClassVector(&print);
@@ -1099,7 +1111,7 @@ Service *Service::addService(vector<Service *> *services,Client *client){
         }
         clearBuffer();
     }
-    print.push_back(typeToString(intToType(stoi(tempType))));// set type of service
+    print.push_back("Type of Service:"+typeToString(intToType(stoi(tempType))));// set type of service
 
     if(stoi(tempType)==1){
         variable_error=true;
@@ -1162,9 +1174,6 @@ Service *Service::addService(vector<Service *> *services,Client *client){
     }
 
     //set yy/mm/dd
-
-
-
     /*
     variable_error=true;
     while (variable_error) {
@@ -1394,7 +1403,9 @@ Hour:
         }
     }*/
     clearScreen();
+
     //set quantity
+    clearScreen();
     variable_error=true;
     while (variable_error) {
         printClassVector(&print);
@@ -1411,9 +1422,10 @@ Hour:
         }
     }
     clearScreen();
-    print.push_back(temp_quantity);
-    printClassVector(&print);
+    print.push_back("Quantity: "+temp_quantity);
 
+
+    printClassVector(&print);
     Service *temp_service;
     switch (stoi(tempType)) {
     case 1:
@@ -1433,8 +1445,7 @@ Hour:
         temp_service->total_price=stoi(temp_quantity)*Normal::pricePerKG*temp_service->getDistance();
         break;
     }
-	cout << "Total price: " << endl;
-    print.push_back(to_string(temp_service->getTotalPrice()));
+    print.push_back("total Price: "+to_string(temp_service->getTotalPrice()));
     printClassVector(&print);
 
     string t="p";
@@ -1446,13 +1457,23 @@ Hour:
             delete temp_service;
             throw exception();
         }
+        else
+            break;
+    }
+
+    if(temp_service->autoAddTrucks()>0){
+        cout<<"Couldn't assign enough truck to service"<<endl;
+        throw exception();
+    }
+    else {
+        cout<<"Service successfully created\n";
     }
 
     clearBuffer();
     services->push_back(temp_service);
     client->addService(temp_service);
     Company::getCompany()->services_on_queue_changed=true;
-    temp_service->autoAddTrucks();
+    //enter_to_exit();
     return temp_service;
 }
 
@@ -1684,6 +1705,12 @@ void Service::editService(){
                             getline(cin,temp_quantity);
                             if(strIsNumber(temp_quantity)){
                                 clearScreen();
+                                for(auto i:trucks){
+                                    i.first->remove_service(this->getId());
+                                }
+                                if(autoAddTrucks()<0){
+                                    throw  exception();
+                                }
                                 variable_error=false;
                                 try {
                                     string t="p";
@@ -1784,7 +1811,7 @@ ostream& operator <<(ostream& os,Service *a){
     os<<endl;
     os<<"Initial Date: "+a->getIDate()->getDateWHour()<<endl;
     os<<"Arrival Date: "+a->getADate()->getDateWHour()<<endl;
-    os<<"Time :"<<*a->getIDate()-*a->getADate()<<" h"<<endl;
+    os<<"Time :"<<*a->getADate()-*a->getIDate()<<" min"<<endl;
     os<<endl;
     os<<"Type of Transport: "+typeToString(a->getType())<<endl;
     int prec_q=0,prec_p=0;
@@ -1807,87 +1834,162 @@ ostream& operator <<(ostream& os,Service *a){
     return os;
 }
 
-void Service::autoAddTrucks(){
+int Service::autoAddTrucks(){
+    vector<Truck*> tempTruck;
+    float remaining=quantity;
+    bool notCompleted=true,forward=false;
+    map<unsigned,unsigned> temp_map;
     switch (this->getType()) {
     case type::ordinary:{
-        vector<Truck*> tempTruck;
-        float remaining=quantity;
-        bool notCompleted=true,forward=false;
-        auto it=Normal::CapDist.end()--;
-        while(notCompleted){
-            if(!forward){
-                for(auto i: *Company::getCompany()->getVectorTrucks()){
-                    bool available_on_time=true;
-                    if(i->getType()==this->getType() && it->first==i->getcapacity()){
-                        for(auto c:*i->getServices()){
-                            if((c->initialDate<arrivalDate || initialDate<c->arrivalDate)){
-                                available_on_time=false;
-                                break;
-                            }
-                        }
-                    }
-                    if(remaining-i->getcapacity()>0){
-                        remaining-=quantity;
-                        tempTruck.push_back(i);
-                    }
-                    else if(double(remaining-i->getcapacity())==0.0){
-                        tempTruck.push_back(i);
-                        notCompleted=false;
-                        break;
-                    }
-                    else{
-                        it=Normal::CapDist.begin();
-                        break;
-                    }
-                }
-                it--;
-            }
-            else{
-                for(auto i: *Company::getCompany()->getVectorTrucks()){
-                    bool available_on_time=true;
-                    if(i->getType()==this->getType() && it->first==i->getcapacity()){
-                        for(auto c:*i->getServices()){
-                            if((c->initialDate<arrivalDate || initialDate<c->arrivalDate)){
-                                available_on_time=false;
-                                break;
-                            }
-                        }
-                    }
-                    if(remaining-i->getcapacity()<=0){
-                        remaining-=quantity;
-                        tempTruck.push_back(i);
-                    }
-                }
-            }
-            it++;
-        }
-        for(auto i:tempTruck){
-            i->info();
-        }
-        enter_to_exit();
-        enter_to_exit();
+        temp_map=Normal::CapDist;
         break;
     }
     case type::animal:{
-
-        break;
-    }
-    case type::lowTemperature:{
-
+        temp_map=Animal::CapDist;
         break;
     }
     case type::hazardous:{
-
+        temp_map=HazardousMat::CapDist;
+        break;
+    }
+    case type::lowTemperature:{
+        temp_map=Congelation::CapDist;
         break;
     }
 
     }
-    float cargo_capacity=0;
-    for(auto i:trucks){
-        cargo_capacity+=i.first->getcapacity();
+
+    bool available_on_time=true;
+    vector<Truck*> tempVectorIterate=*Company::getCompany()->getVectorTrucks();
+    for(auto i= tempVectorIterate.begin();i!=tempVectorIterate.end();i++){
+        if(ser_type==(*i)->getType()){
+            for(auto c:*(*i)->getServices()){
+                if((*c->initialDate<*arrivalDate || *initialDate<*c->arrivalDate)){
+                    available_on_time=false;
+                    i=tempVectorIterate.erase(i);
+                    i--;
+                    break;
+                }
+            }
+            if(available_on_time){
+                temp_map.at((*i)->getcapacity())++;
+                available_on_time=true;
+            }
+        }
+        else{
+            i=tempVectorIterate.erase(i);
+            i--;
+        }
     }
+
+    auto r_it=temp_map.rbegin();
+    auto it=temp_map.begin();
+    enter_to_exit();
+    unsigned maxTrucks;
+    bool all=false;
+    unsigned numb=unsigned(quantity/temp_map.rbegin()->first);
+    if(temp_map.rbegin()->first*(numb)<quantity){
+        numb++;
+    }
+    maxTrucks=numb;
+    for(auto i=++temp_map.rbegin();i!=temp_map.rend();i++){
+        unsigned numb=unsigned(quantity/i->first);
+        if(i->first*numb<quantity){
+            numb++;
+        }
+        if(numb<=maxTrucks  && numb<=i->second){
+            r_it++;
+            maxTrucks=numb;
+            break;
+        }
+    }
+    while(notCompleted){
+        if(!forward && r_it!=temp_map.rend()){
+            for(auto i= tempVectorIterate.begin();i!=tempVectorIterate.end();i++){
+                if((*i)->getType()==this->getType() && r_it->first==(*i)->getcapacity()){
+                    if(remaining-(*i)->getcapacity()>0){
+                        remaining-=(*i)->getcapacity();
+                        tempTruck.push_back((*i));
+                        i=tempVectorIterate.erase(i);
+                        i--;
+                    }
+                    else if(double(remaining-(*i)->getcapacity())==0.0){
+                        tempTruck.push_back((*i));
+                        i=tempVectorIterate.erase(i);
+                        i--;
+                        remaining=0;
+                        notCompleted=false;
+                        forward=true;
+                        break;
+                    }
+                    else {
+                        forward=true;
+                        break;
+                    }
+
+                }
+                if(forward)
+                    break;
+            }
+            r_it++;
+        }
+        else if(it!=temp_map.end()){
+            for(auto i= tempVectorIterate.begin();i!=tempVectorIterate.end();i++){
+                if(remaining-(*i)->getcapacity()<=0 && (*it).first==(*i)->getcapacity()){
+                    remaining-=(*i)->getcapacity();
+                    tempTruck.push_back((*i));
+                    i=tempVectorIterate.erase(i);
+                    i--;
+                    notCompleted=false;
+                    break;
+                }
+
+            }
+            it++;
+        }
+        else{
+            if(all)
+                break;
+            else {
+                r_it=temp_map.rbegin();
+                it=temp_map.begin();
+                all=false;
+            }
+        }
+        if(tempVectorIterate.size()==0 && remaining>0){
+            //cout<<remaining<<endl;
+            return int(remaining);
+        }
+    }
+    if(it==temp_map.end() && r_it==temp_map.rend()){
+        cout<<remaining<<endl;
+        return int(remaining);
+    }
+    float cargo_capacity=0;
+    for(auto i:tempTruck){
+        cargo_capacity+=i->getcapacity();
+    }
+
     float cargo_percentage= quantity/cargo_capacity;
-    for(auto i:trucks){
-        i.second=i.first->getcapacity()*cargo_percentage;
+    clearScreen();
+    cout<<"Trucks Assigned"<<endl;
+    for(auto i:tempTruck){
+        trucks[i]=i->getcapacity()*cargo_percentage;
+        i->add_service(this);
+        i->setregistered(true);
+        i->info();
+        cout<<endl;
+    }
+    return  int(remaining);
+}
+
+void Service::test(){
+    Address x;
+    Date y;
+    Service *u=new HazardousService("qw",x,x,&y,67,type::hazardous,on_queue,&y,Company::getCompany()->getVectorClients()->at(0),159,Hazard_enum::gases);
+    if(u->autoAddTrucks()>0)
+        cout<<"merda"<<endl;
+    for(auto i:HazardousMat::CapDist){
+        cout<<i.first<<": "<<i.second<<endl;
     }
 }

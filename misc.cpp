@@ -174,9 +174,9 @@ bool checkNif(int nif) {
 void checkIfOut(string &temp){
     if(temp=="!q"){
         string t;
-        cout<<"Are u sure you want to exit?"<<endl;
-        cin>>t;
-        if(t=="y"){
+        cout<<"Are u sure you want to exit? ((\"y\"/enter) to exit)"<<endl;
+        int x=cin.get();
+        if(x=='y'|| x=='\n'){
             clearScreen();
             throw exception();
         }
@@ -205,7 +205,7 @@ bool checkLicense(string license, vector<Truck*>* trucks) {
         auxVec=vectorString(license, "-");
         if (auxVec.size() == 3) {
             unsigned short num=0, letters=0;
-            for (int i = 0; i != auxVec.size();i++) {
+            for (size_t i = 0; i != auxVec.size();i++) {
                 if (strIsNumber(auxVec[i])) {
                     if (stoi(auxVec[i]) < 100 && stoi(auxVec[i])>0) {
                         num++;
@@ -253,7 +253,7 @@ bool checkLicenseV2(string license) {
         auxVec = vectorString(license, "-");
         if (auxVec.size() == 3) {
             unsigned short num = 0, letters = 0;
-            for (int i = 0; i != auxVec.size(); i++) {
+            for (size_t i = 0; i != auxVec.size(); i++) {
                 if (strIsNumber(auxVec[i])) {
                     if (stoi(auxVec[i]) < 100 && stoi(auxVec[i]) > 0) {
                         num++;
