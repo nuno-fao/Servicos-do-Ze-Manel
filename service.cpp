@@ -1,15 +1,20 @@
 #include "service.h"
 
-unsigned int Service::lastId=0;
 using namespace std;
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!SERVICE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
+ set<unsigned> Service::idList={};
 //constructors
 Service::Service(string material, Address origin, Address destination, Date *arrivalDate, unsigned distance, enum type type, enum state state, Date *date, Client *client, float quantity)
     : material(material), distance(distance), quantity(quantity), ser_type(type), ser_state(state)
 {
     
-    id=lastId++;
+    for(unsigned x=0;;x++){
+        if(idList.find(x)==idList.end()){
+            this->id=x;
+            break;
+        }
+    }
     setIDate(date);
     setADate(arrivalDate);
     setOrigin(Address(origin));
@@ -21,7 +26,9 @@ Service::Service(string material, Address origin, Address destination, Date *arr
 Service::Service(string material, string origin, string destination, Date *arrivalDate, unsigned distance, enum type type, enum state state, Date *date, Client *client, float quantity, float total_price, unsigned id)
     : material(material), distance(distance), quantity(quantity),  ser_type(type),id(id), ser_state(state),total_price(total_price)
 {
-	lastId = id+1;
+
+    idList.insert(id);
+    this->id=id;
     setIDate(date);
     setADate(arrivalDate);
     setOrigin(Address(origin));
@@ -195,10 +202,11 @@ void Service::loadFromFile(list<Service*> *services_finished,vector<Service*> *s
         
         getline(servicesFile,tempGeneral);
         tempDistance=stoi(tempGeneral);
-        
+
+        //
         getline(servicesFile,tempGeneral);
         tempType=intToType(stoi(tempGeneral));
-        
+
         getline(servicesFile,temptrucks);
         tempVectorTruckS=vectorString(temptrucks,";");
         
@@ -324,11 +332,11 @@ void Service::loadFromFile(list<Service*> *services_finished,vector<Service*> *s
         getline(servicesFile,tempGeneral);
         tempType=intToType(stoi(tempGeneral));
 
-        getline(servicesFile,temptrucks);
-        tempVectorTruckS=vectorString(temptrucks,";");
-
         getline(servicesFile,tempGeneral);
         tempState=intToState(stoi(tempGeneral));
+
+        getline(servicesFile,temptrucks);
+        tempVectorTruckS=vectorString(temptrucks,";");
 
         getline(servicesFile,tempIDate);
 
@@ -553,7 +561,6 @@ void Service::loadFromFile(list<Service*> *services_finished,vector<Service*> *s
 
         getline(servicesFile,tempGeneral);
     }
-    Service::lastId+=tempId;
     servicesFile.close();
 }
 void Service::saveToFile(list<Service*> *services_finished,vector<Service*>*services_on_transit,vector<Service*>*services_on_queue){
@@ -568,19 +575,19 @@ void Service::saveToFile(list<Service*> *services_finished,vector<Service*>*serv
         servicesFile << (x->getDistance())<<endl;
         switch (x->getType()) {
         case type::lowTemperature:{
-            cout<<3<<endl;
+            servicesFile<<3<<endl;
             break;
         }
         case type::ordinary:{
-            cout<<0<<endl;
+            servicesFile<<0<<endl;
             break;
         }
         case type::hazardous:{
-            cout<<1<<endl;
+            servicesFile<<1<<endl;
             break;
         }
         case type::animal:{
-            cout<<2<<endl;
+            servicesFile<<2<<endl;
             break;
         }
         }
@@ -846,12 +853,12 @@ Service *Service::addService(vector<Service *> *services,Client *client){
                     checkIfOut(postal_code);
                     vector<string> temp_postal_code= vectorString(postal_code,"-");
                     if(postal_code==""){
-                        origin=Address("",0,"0000-000",temp_address_no_pc.at(0));
+                        destination=Address("",0,"0000-000",temp_address_no_pc.at(0));
                         variable_error=false;
                         break;
                     }
                     else if(temp_postal_code.size()==2 && strIsNumber(temp_postal_code.at(0)) && strIsNumber(temp_postal_code.at(1)) && temp_postal_code.at(0).size()==4 && temp_postal_code.at(1).size()==3){
-                        origin=Address("",0,postal_code,temp_address_no_pc.at(0));
+                        destination=Address("",0,postal_code,temp_address_no_pc.at(0));
 
                         variable_error=false;
                         break;
@@ -1862,17 +1869,14 @@ int Service::autoAddTrucks(){
 
     bool available_on_time=true;
     vector<Truck*> tempVectorIterate=*Company::getCompany()->getVectorTrucks();
-    for(auto i= tempVectorIterate.begin();i!=tempVectorIterate.end();i){
+    for(auto i= tempVectorIterate.begin();i!=tempVectorIterate.end();){
         if(ser_type==(*i)->getType()){
             for(auto c:*(*i)->getServices()){
-                if((*c->initialDate<*arrivalDate || *initialDate<*c->arrivalDate)){
+                if(((*c->initialDate<*arrivalDate && *arrivalDate<*c->arrivalDate) || (*initialDate<*c->arrivalDate && *c->initialDate<*initialDate))){
                     available_on_time=false;
                     i=tempVectorIterate.erase(i);
                     break;
                 }
-				else {
-					i++;
-				}
             }
             if(available_on_time){
                 temp_map.at((*i)->getcapacity())++;
