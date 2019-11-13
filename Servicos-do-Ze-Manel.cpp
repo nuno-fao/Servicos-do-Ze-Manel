@@ -253,7 +253,7 @@ void menu_services(){
                 }
                 catch(...){
                     //clearBuffer();
-					cout << "Stopped operation!" << endl;
+                    cout << "Stopped operation!" << endl;
                     enter_to_exit();
                 }
 
@@ -1477,9 +1477,12 @@ void moneyInformation(){
     while (opt!=0) {
         clearScreen();
         cout<<"[1] View General Financial Reports"<<endl;
-        cout<<"[2] View Specific Financial Reports"<<endl;
+        cout<<"[2] View Low Temperature Trucks Financial Reports"<<endl;
+        cout<<"[3] View Hazardous Trucks Financial Reports"<<endl;
+        cout<<"[4] View Normal Temperature Trucks Financial Reports"<<endl;
+        cout<<"[5] View Animal Temperature Trucks Financial Reports"<<endl;
         cout<<"[0] Return"<<endl;
-        if(cin>>opt && opt<=4)
+        if(cin>>opt && opt<=5)
         {
             clearScreen();
             switch (opt) {
@@ -1492,6 +1495,19 @@ void moneyInformation(){
             }
             case 2:{
 
+                break;
+            }
+            case 3:{
+
+                break;
+            }
+            case 4:{
+
+                break;
+            }
+            case 5:{
+
+                break;
             }
             }
         }
