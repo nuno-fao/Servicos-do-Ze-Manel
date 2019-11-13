@@ -34,6 +34,10 @@ public:
     void updateServicesSituation();
     void loadStats();
     void saveStats();
+	vector<pair<int, float>> getStatCong() { return statCong; }
+	vector<pair<int, float>> getStatHaz() { return statHaz; }
+	vector<pair<int, float>> getStatAnim() { return statAnim; }
+	vector<pair<int, float>> getStatNorm() { return statNorm; }
 
 private:
     static Company *company;
