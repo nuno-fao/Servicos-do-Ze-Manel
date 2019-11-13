@@ -1960,6 +1960,9 @@ int Service::autoAddTrucks(){
             //cout<<remaining<<endl;
             return int(remaining);
         }
+        if(remaining<0){
+            break;
+        }
     }
     if(it==temp_map.end() && r_it==temp_map.rend()){
         cout<<remaining<<endl;
