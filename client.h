@@ -153,6 +153,7 @@ public:
  */
     static void addClient(vector<Client*> *clientsVector);
     void removeService(Service *service);
+
     /**
  * @brief Operator << overloading
  *
@@ -172,6 +173,9 @@ public:
 * @return Returns true if the Client has a smaller nif
 */
     bool operator<(const Client &a) const;
+
+	bool operator>(const Client& a) const;
+
     /**
 * @brief Operator == overloading
 *
