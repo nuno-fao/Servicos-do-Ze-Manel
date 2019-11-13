@@ -32,7 +32,8 @@ public:
     Service *getService(unsigned id);
     void updateTruckSituation();
     void updateServicesSituation();
-
+	void loadStats();
+	void saveStats();
 
 private:
     static Company *company;
@@ -44,6 +45,8 @@ private:
     vector<Service*> services_on_transit,services_on_queue;
     vector<Client*> clients;
     vector<Truck*> trucks;
-
-
+	list<pair<int, float>> statCong;
+	list<pair<int, float>> statHaz;
+	list<pair<int, float>> statNorm;
+	list<pair<int, float>> statAnim;
 };

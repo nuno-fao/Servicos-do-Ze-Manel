@@ -108,6 +108,41 @@ void Company::updateTruckSituation(){
                         x->first->setregistered(false);
                     }
                 }
+				//adicionar á lista
+				switch ((*it)->getType()) {
+				case type::ordinary:
+					if ((*it)->getADate()->getMonth() == f.getMonth() && (*it)->getADate()->getYear() == f.getYear()) {
+						statNorm.back().second += (*it)->getTotalPrice();
+					}
+					else {
+						statNorm.push_back(make_pair((*it)->getADate()->getMonth() + (*it)->getADate()->getYear() * 2, (*it)->getTotalPrice()));
+					}
+					break;
+				case type::hazardous:
+					if ((*it)->getADate()->getMonth() == f.getMonth() && (*it)->getADate()->getYear() == f.getYear()) {
+						statHaz.back().second += (*it)->getTotalPrice();
+					}
+					else {
+						statHaz.push_back(make_pair((*it)->getADate()->getMonth() + (*it)->getADate()->getYear() * 2, (*it)->getTotalPrice()));
+					}
+					break;
+				case type::animal:
+					if ((*it)->getADate()->getMonth() == f.getMonth() && (*it)->getADate()->getYear() == f.getYear()) {
+						statAnim.back().second += (*it)->getTotalPrice();
+					}
+					else {
+						statAnim.push_back(make_pair((*it)->getADate()->getMonth() + (*it)->getADate()->getYear() * 2, (*it)->getTotalPrice()));
+					}
+					break;
+				case type::lowTemperature:
+					if ((*it)->getADate()->getMonth() == f.getMonth() && (*it)->getADate()->getYear() == f.getYear()) {
+						statCong.back().second += (*it)->getTotalPrice();
+					}
+					else {
+						statCong.push_back(make_pair((*it)->getADate()->getMonth() + (*it)->getADate()->getYear() * 2, (*it)->getTotalPrice()));
+					}
+					break;
+				}
                 services_finished.push_back(*it);
                 it=services_on_transit.erase(it);
                 it--;
@@ -170,5 +205,14 @@ void Company::updateServicesSituation(){
         }
     }
 
+
+}
+
+void Company::loadStats() {
+	ifstream statfile;
+	string aux, separator = " - ";
+}
+
+void Company::loadStats() {
 
 }
