@@ -793,7 +793,7 @@ Service *Service::addService(vector<Service *> *services,Client *client){
 
         else{
             variable_error=true;
-            cout<<"ORigin Input not acceptable, please try again"<<endl;
+            cout<<"Origin Input not acceptable, please try again"<<endl;
         }
 
     }
@@ -1468,9 +1468,10 @@ Hour:
     }
     else {
         cout<<"Service successfully created\n";
+		enter_to_exit();
     }
 
-    clearBuffer();
+    //clearBuffer();
     services->push_back(temp_service);
     client->addService(temp_service);
     Company::getCompany()->services_on_queue_changed=true;
@@ -1563,7 +1564,7 @@ void Service::editService(){
                                     break;
                                 variable_error=true;
                                 clearScreen();
-                                cout<<"ORigin Input not acceptable, please try again"<<endl;
+                                cout<<"Origin Input not acceptable, please try again"<<endl;
                             }
 
                         }

@@ -252,7 +252,7 @@ void menu_services(){
                 }
                 catch(...){
                     //clearBuffer();
-					cout << "Stopped opertation!" << endl;
+					cout << "Stopped operation!" << endl;
                     enter_to_exit();
                 }
 
