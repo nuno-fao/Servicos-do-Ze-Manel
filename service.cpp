@@ -825,7 +825,7 @@ Service *Service::addService(vector<Service *> *services,Client *client){
                     checkIfOut(postal_code);
                     vector<string> temp_postal_code= vectorString(postal_code,"-");
                     if(postal_code==""){
-                        origin=Address(temp_address_no_pc.at(0),date_u_short(stoi(temp_address_no_pc.at(1))),"0000-000",temp_address_no_pc.at(2));
+                        destination=Address(temp_address_no_pc.at(0),date_u_short(stoi(temp_address_no_pc.at(1))),"0000-000",temp_address_no_pc.at(2));
                         variable_error=false;
                         break;
                     }
