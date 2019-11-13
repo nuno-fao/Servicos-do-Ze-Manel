@@ -20,21 +20,22 @@ protected:
     bool available;	///is the truck available right now?
     bool registered;	///is the truck registered to a service in the future?
     vector<Service*> assignedServices;	///services the truck is registered to
-    unsigned short capacity; //in KG
-    unsigned short cargo; ///if in transit this holds the weight it transports, if not it is 0
+    unsigned capacity; //in KG
+    float cargo; ///if in transit this holds the weight it transports, if not it is 0
 
 public:
     Truck(string license, bool available,bool registered,unsigned short capacity, unsigned short cargo);
     virtual ~Truck();
     //get methods
-    unsigned short getcapacity() const;
+    unsigned getcapacity() const;
     bool getavailable() const;
     string getlicense() const;
     bool getregistered() const;
-    unsigned short getcargo() const;
+    float getcargo() const;
     vector<Service*> *getServices();
     //set methods
     virtual void setprice(float newval){available=(bool(newval) && available);}
+    void setCargo(float cargo);
     void setregistered(bool foo);
     void setavailable(bool foo);
     //load and save to file
@@ -60,7 +61,7 @@ public:
 
     void info();
     static unordered_map<Temperature_enum, float> tempMul;	//will hold price multipliers depending on the service
-    static map<unsigned short, unsigned short> CapDist; //holds how many trucks of this have x capacity being that the latter is the key
+    static map<unsigned , unsigned > CapDist; //holds how many trucks of this have x capacity being that the latter is the key
     static float pricePerKG;
     type getType();
 };
@@ -76,7 +77,7 @@ public:
     static float pricePerKG;
     type getType();
     static unordered_map<Hazard_enum, float> hazardMul;	//will hold price multipliers depending on the service
-    static map<unsigned short, unsigned short> CapDist; //holds how many trucks of this have x capacity being that the latter is the key
+    static map<unsigned , unsigned > CapDist; //holds how many trucks of this have x capacity being that the latter is the key
 
 };
 
@@ -89,7 +90,7 @@ public:
     void info();
     static float pricePerKG;
     type getType();
-    static map<unsigned short, unsigned short> CapDist; //holds how many trucks of this have x capacity being that the latter is the key
+    static map<unsigned , unsigned > CapDist; //holds how many trucks of this have x capacity being that the latter is the key
 };
 
 class Normal : public Truck
@@ -101,7 +102,7 @@ public:
     void info();
     static float pricePerKG;
     type getType();
-    static map<unsigned short, unsigned short> CapDist; //holds how many trucks of this have x capacity being that the latter is the key
+    static map<unsigned , unsigned > CapDist; //holds how many trucks of this have x capacity being that the latter is the key
 
 };
 

@@ -170,92 +170,6 @@ bool operator < (Date const& date1, Date const& data2) {
     return (date1.getYear() < data2.getYear());
 }
 
-bool operator > (Date const& date1, Date const& data2) {
-
-    if (date1.getYear() == data2.getYear()) {
-        if (date1.getMonth() == data2.getMonth()) {
-            if (date1.getDay() > data2.getDay()) {
-                return true;
-            }
-            else {
-                return false;
-            }
-        }
-        else if (date1.getMonth() > data2.getMonth()) {
-            return true;
-        }
-        else {
-            return false;
-        }
-    }
-    else if (date1.getYear() > data2.getYear()) {
-        return true;
-    }
-    return false;
-}
-bool operator >= (Date const& date1, Date const& data2) {
-
-    if (date1.getYear() == data2.getYear()) {
-        if (date1.getMonth() == data2.getMonth()) {
-            if (date1.getDay() < data2.getDay()) {
-                return false;
-            }
-            else {
-                return true;
-            }
-        }
-        else if (date1.getMonth() < data2.getMonth()) {
-            return false;
-        }
-        else {
-            return true;
-        }
-    }
-    else if (date1.getYear() < data2.getYear()) {
-        return false;
-    }
-    return true;
-}
-bool operator <= (Date const& date1, Date const& data2) {
-    if (date1.getYear() == data2.getYear()) {
-        if (date1.getMonth() == data2.getMonth()) {
-            if (date1.getDay() > data2.getDay()) {
-                return false;
-            }
-        }
-        else if (date1.getMonth() > data2.getMonth()) {
-            return false;
-        }
-    }
-    else if (date1.getYear() > data2.getYear()) {
-        return false;
-    }
-    return true;
-}
-bool operator == (Date const& date1, Date const& data2) {
-
-    if (date1.getYear() == data2.getYear()) {
-        if (date1.getMonth() == data2.getMonth()) {
-            if (date1.getDay() == data2.getDay()) {
-                return true;
-            }
-        }
-    }
-    return false;
-}
-bool operator != (Date const& date1, Date const& data2) {
-
-    if (date1.getYear() == data2.getYear()) {
-        if (date1.getMonth() == data2.getMonth()) {
-            if (date1.getDay() == data2.getDay()) {
-                return false;
-            }
-        }
-    }
-    return true;
-}
-
-
 
 const int monthDays[12] = {31, 28, 31, 30, 31, 30,31, 31, 30, 31, 30, 31};
 
@@ -268,23 +182,7 @@ int countLeapYears(Date *d)
     return years / 4 - years / 100 + years / 400;
 }
 
-int getDifference(Date dt1, Date dt2)
-{
-
-    long int n1 = dt1.getYear()*365 + dt1.getDay();
-    for (int i=0; i<dt1.getMonth() - 1; i++)
-        n1 += monthDays[i];
-    n1 += countLeapYears(&dt1);
-
-    long int n2 = dt2.getYear()*365 + dt2.getDay();
-    for (int i=0; i<dt2.getMonth() - 1; i++)
-        n2 += monthDays[i];
-    n2 += countLeapYears(&dt2);
-
-    return int(n2 - n1);
-}
-
-double operator - (Date  &dt1, Date  &dt2){
+float operator - (Date  &dt1, Date  &dt2){
 
     float n1 = dt1.getYear()*365 + dt1.getDay();
 
@@ -298,6 +196,6 @@ double operator - (Date  &dt1, Date  &dt2){
         n2 += monthDays[i];
     n2 += countLeapYears(&dt2);
 
-    double t=double((n2*24+dt2.getHour()+double(dt2.getMinute()/60.0)) - (n1*24+dt1.getHour()+double(dt1.getMinute()/60.0)));
+    float t=((n1*365*24+dt1.getDay()*24+dt1.getHour())*60+dt1.getMinute())-((n2*365*24+dt2.getDay()*24+dt2.getHour())*60+dt2.getMinute());
     return  t;
 }

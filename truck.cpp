@@ -6,10 +6,10 @@ float HazardousMat::pricePerKG;
 float Congelation::pricePerKG;
 float Normal::pricePerKG;
 float Animal::pricePerKG;
-map<unsigned short, unsigned short> HazardousMat::CapDist;
-map<unsigned short, unsigned short> Congelation::CapDist;
-map<unsigned short, unsigned short> Normal::CapDist;
-map<unsigned short, unsigned short> Animal::CapDist;
+map<unsigned,unsigned> HazardousMat::CapDist;
+map<unsigned,unsigned> Congelation::CapDist;
+map<unsigned,unsigned> Normal::CapDist;
+map<unsigned,unsigned> Animal::CapDist;
 
 type Normal::getType(){
     return type::ordinary;
@@ -54,7 +54,7 @@ Normal::Normal(string license_n, bool available_n, bool registered_n, unsigned s
 
 }
 
-unsigned short Truck::getcapacity() const {
+unsigned Truck::getcapacity() const {
     return capacity;
 }
 
@@ -70,8 +70,12 @@ string Truck::getlicense() const {
     return license;
 }
 
-unsigned short Truck::getcargo() const {
+float Truck::getcargo() const {
     return cargo;
+}
+
+void Truck::setCargo(float cargo){
+    this->cargo=cargo;
 }
 
 vector<Service*> *Truck::getServices(){

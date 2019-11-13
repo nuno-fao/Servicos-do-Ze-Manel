@@ -127,6 +127,7 @@ void Company::updateTruckSituation(){
                 for(auto x:*(*it)->getTrucks())
                 {
                     x.first->setavailable(false);
+                    x.first->setCargo(x.second);
                 }
                 services_on_transit.push_back(*it);
                 it=services_on_queue.erase(it);

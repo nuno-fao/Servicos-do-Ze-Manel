@@ -43,10 +43,10 @@ void manage_client(Client *client){
                     client->removeClient(*Company::getCompany()->getVectorClients());
                 }
                 catch (ClientNotInVector e) {
-					clearScreen();
-					clearBuffer();
-					cout << e.erro << endl;
-					enter_to_exit();
+                    clearScreen();
+                    clearBuffer();
+                    cout << e.erro << endl;
+                    enter_to_exit();
                 }
                 return;
             }
@@ -185,18 +185,11 @@ int main()
     sort(((*Ze_Manel).getVectorServicesOnQueue())->begin(),((*Ze_Manel).getVectorServicesOnQueue())->end(),cmpOnQueue);
     sort(((*Ze_Manel).getVectorServicesOnTransit())->begin(),((*Ze_Manel).getVectorServicesOnTransit())->end(),cmpOnTransit);
     Service::loadFromFile(Ze_Manel->getVectorServicesFinished(),Ze_Manel->getVectorServicesOnTransit(),Ze_Manel->getVectorServicesOnQueue());
-    enter_to_exit();
-    //vector<Truck*> a(*Ze_Manel->getVectorTrucks());
     string temp;
+
+    //Service::test();
     mainMenu();
-	try
-	{
-		Client::saveToFile(*Ze_Manel->getVectorClients());
-	}
-	catch (CantOpenClientFile e)
-	{
-		cout << e.erro << endl;
-	}
+
     delete Ze_Manel;
 
 
@@ -206,9 +199,9 @@ int main()
 void mainMenu(){
     unsigned opt=1;
     while (opt != 0) {
-		cout << "****************************" << endl;
-		cout << "TRANSPORTES SML" << endl;
-		cout << "****************************" << endl;
+        cout << "****************************" << endl;
+        cout << "TRANSPORTES SML" << endl;
+        cout << "****************************" << endl;
         cout<<"[0] Exit program"<<endl;
         cout<<"[1] Clients"<<endl;
         cout<<"[2] Trucks"<<endl;
@@ -270,10 +263,10 @@ void menu_clients(){
                     Client::addClient(Company::getCompany()->getVectorClients());
                 }
                 catch(ClientInVector e){
-					clearScreen();
-					clearBuffer();
-					cout << e.erro << endl;
-					enter_to_exit();
+                    clearScreen();
+                    clearBuffer();
+                    cout << e.erro << endl;
+                    enter_to_exit();
                 }
 
                 break;
@@ -383,13 +376,17 @@ void menu_services(){
                     clearBuffer();
                     clearScreen();
                     Service::addService(Company::getCompany()->getVectorServicesOnQueue(),tempClient);
-                    enter_to_exit();
                 }
                 catch(NotAClient e){
                     clearBuffer();
                     cout<<e.erro<<endl;
                     enter_to_exit();
                 }
+                catch(...){
+                    clearBuffer();
+                    enter_to_exit();
+                }
+
                 break;
             }
 
@@ -425,7 +422,7 @@ void information(){
                 clientsInformation();
                 break;
             case 2:{
-				servicesInformation();
+                servicesInformation();
                 break;
             }
             case 3:
@@ -668,7 +665,7 @@ void trucksInformation() {
                 if (Company::getCompany()->getVectorTrucks()->size())
                     for (auto i : *Company::getCompany()->getVectorTrucks()) {
                         i->info();
-						cout << endl;
+                        cout << endl;
                         nInfo=false;
                     }
                 if(nInfo)
@@ -683,7 +680,7 @@ void trucksInformation() {
                     for (auto i : *Company::getCompany()->getVectorTrucks()) {
                         if (typeid(*i)==typeid(Congelation)) {
                             i->info();
-							cout << endl;
+                            cout << endl;
                             nInfo=false;
                         }
                     }
@@ -699,7 +696,7 @@ void trucksInformation() {
                     for (auto i : *Company::getCompany()->getVectorTrucks()) {
                         if (typeid(*i) == typeid(HazardousMat)) {
                             i->info();
-							cout << endl;
+                            cout << endl;
                             nInfo=false;
                         }
                     }
@@ -715,7 +712,7 @@ void trucksInformation() {
                     for (auto i : *Company::getCompany()->getVectorTrucks()) {
                         if (typeid(*i) == typeid(Animal)) {
                             i->info();
-							cout << endl;
+                            cout << endl;
                             nInfo=false;
                         }
                     }
@@ -731,7 +728,7 @@ void trucksInformation() {
                     for (auto i : *Company::getCompany()->getVectorTrucks()) {
                         if (typeid(*i) == typeid(Normal)) {
                             i->info();
-							cout << endl;
+                            cout << endl;
                             nInfo=false;
                         }
                     }
@@ -747,7 +744,7 @@ void trucksInformation() {
                     for (auto i : *Company::getCompany()->getVectorTrucks()) {
                         if ((!(i->getavailable()) && i->getServices()->size()>1) || (i->getavailable() && i->getregistered())) {
                             i->info();
-							cout << endl;
+                            cout << endl;
                             nInfo=false;
                         }
                     }
@@ -763,7 +760,7 @@ void trucksInformation() {
                     for (auto i : *Company::getCompany()->getVectorTrucks()) {
                         if (!(i->getavailable())) {
                             i->info();
-							cout << endl;
+                            cout << endl;
                             nInfo=true;
                         }
                     }
@@ -1381,28 +1378,28 @@ void servicesInformation(){
         if(cin>>opt && opt<=4)
         {
             clearScreen();
-			clearBuffer();
+            clearBuffer();
             switch (opt) {
             case 0:{
                 return;
             }
             case 1:
                 infoEveryServices();
-				enter_to_exit();
+                enter_to_exit();
                 break;
             case 2:{
                 infoOnQueueServices();
-				enter_to_exit();
+                enter_to_exit();
                 break;
             }
             case 3:{
                 infoOnTransitServices();
-				enter_to_exit();
+                enter_to_exit();
                 break;
             }
             case 4:{
                 infoFinishedServices();
-				enter_to_exit();
+                enter_to_exit();
                 break;
             }
 
@@ -1422,48 +1419,48 @@ void servicesInformation(){
 
 void infoEveryServices(){
 
-	cout << "---On Queue---" << endl;
-	infoOnQueueServices();
-	cout << "---On Transit---" << endl;
-	infoOnTransitServices();
-	cout << "---Finished---" << endl;
-	infoFinishedServices();
+    cout << "---On Queue---" << endl;
+    infoOnQueueServices();
+    cout << "---On Transit---" << endl;
+    infoOnTransitServices();
+    cout << "---Finished---" << endl;
+    infoFinishedServices();
 }
 void infoOnQueueServices(){
-	bool nInfo = true;
-	if (Company::getCompany()->getVectorServicesOnQueue()->size()) {
-		for (auto i : *Company::getCompany()->getVectorServicesOnQueue()) {
-			cout<<i;
-			cout << endl;
-			nInfo = false;
-		}
-	}
-	if (nInfo)
-		cout << "There is no queued service" << endl;
+    bool nInfo = true;
+    if (Company::getCompany()->getVectorServicesOnQueue()->size()) {
+        for (auto i : *Company::getCompany()->getVectorServicesOnQueue()) {
+            cout<<i;
+            cout << endl;
+            nInfo = false;
+        }
+    }
+    if (nInfo)
+        cout << "There is no queued service" << endl;
 
 }
 void infoOnTransitServices(){
-	bool nInfo = true;
-	if (Company::getCompany()->getVectorServicesOnTransit()->size()) {
-		for (auto i : *Company::getCompany()->getVectorServicesOnTransit()) {
-			cout << i;
-			cout << endl;
-			nInfo = false;
-		}
-	}
-	if (nInfo)
-		cout << "There is no service on transit" << endl;
+    bool nInfo = true;
+    if (Company::getCompany()->getVectorServicesOnTransit()->size()) {
+        for (auto i : *Company::getCompany()->getVectorServicesOnTransit()) {
+            cout << i;
+            cout << endl;
+            nInfo = false;
+        }
+    }
+    if (nInfo)
+        cout << "There is no service on transit" << endl;
 }
 void infoFinishedServices(){
-	bool nInfo = true;
-	if (Company::getCompany()->getVectorServicesFinished()->size()) {
-		for (auto i : *Company::getCompany()->getVectorServicesFinished()) {
-			cout << i;
-			cout << endl;
-			nInfo = false;
-		}
-	}
-	if (nInfo)
-		cout << "There is no service on transit" << endl;
+    bool nInfo = true;
+    if (Company::getCompany()->getVectorServicesFinished()->size()) {
+        for (auto i : *Company::getCompany()->getVectorServicesFinished()) {
+            cout << i;
+            cout << endl;
+            nInfo = false;
+        }
+    }
+    if (nInfo)
+        cout << "There is no service on transit" << endl;
 }
 
