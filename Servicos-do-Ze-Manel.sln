@@ -11,6 +11,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		files\finished_services.txt = files\finished_services.txt
 		files\on_queue_services.txt = files\on_queue_services.txt
 		files\on_transit_services.txt = files\on_transit_services.txt
+		files\stats.txt = files\stats.txt
 		files\todolist.txt = files\todolist.txt
 		files\trucks.txt = files\trucks.txt
 	EndProjectSection

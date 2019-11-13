@@ -115,7 +115,10 @@ void Company::updateTruckSituation(){
 						statNorm.back().second += (*it)->getTotalPrice();
 					}
 					else {
-						statNorm.push_back(make_pair((*it)->getADate()->getMonth() + (*it)->getADate()->getYear() * 2, (*it)->getTotalPrice()));
+						statNorm.push_back(make_pair((*it)->getADate()->getMonth() + (*it)->getADate()->getYear() * 12, (*it)->getTotalPrice()));
+						statHaz.push_back(make_pair((*it)->getADate()->getMonth() + (*it)->getADate()->getYear() * 12, 0));
+						statAnim.push_back(make_pair((*it)->getADate()->getMonth() + (*it)->getADate()->getYear() * 12, 0));
+						statCong.push_back(make_pair((*it)->getADate()->getMonth() + (*it)->getADate()->getYear() * 12, 0));
 					}
 					break;
 				case type::hazardous:
@@ -123,7 +126,10 @@ void Company::updateTruckSituation(){
 						statHaz.back().second += (*it)->getTotalPrice();
 					}
 					else {
-						statHaz.push_back(make_pair((*it)->getADate()->getMonth() + (*it)->getADate()->getYear() * 2, (*it)->getTotalPrice()));
+						statNorm.push_back(make_pair((*it)->getADate()->getMonth() + (*it)->getADate()->getYear() * 12, 0));
+						statHaz.push_back(make_pair((*it)->getADate()->getMonth() + (*it)->getADate()->getYear() * 12, (*it)->getTotalPrice()));
+						statAnim.push_back(make_pair((*it)->getADate()->getMonth() + (*it)->getADate()->getYear() * 12, 0));
+						statCong.push_back(make_pair((*it)->getADate()->getMonth() + (*it)->getADate()->getYear() * 12, 0));
 					}
 					break;
 				case type::animal:
@@ -131,7 +137,10 @@ void Company::updateTruckSituation(){
 						statAnim.back().second += (*it)->getTotalPrice();
 					}
 					else {
-						statAnim.push_back(make_pair((*it)->getADate()->getMonth() + (*it)->getADate()->getYear() * 2, (*it)->getTotalPrice()));
+						statNorm.push_back(make_pair((*it)->getADate()->getMonth() + (*it)->getADate()->getYear() * 12, 0));
+						statHaz.push_back(make_pair((*it)->getADate()->getMonth() + (*it)->getADate()->getYear() * 12, 0));
+						statAnim.push_back(make_pair((*it)->getADate()->getMonth() + (*it)->getADate()->getYear() * 12, (*it)->getTotalPrice()));
+						statCong.push_back(make_pair((*it)->getADate()->getMonth() + (*it)->getADate()->getYear() * 12, 0));
 					}
 					break;
 				case type::lowTemperature:
@@ -139,7 +148,10 @@ void Company::updateTruckSituation(){
 						statCong.back().second += (*it)->getTotalPrice();
 					}
 					else {
-						statCong.push_back(make_pair((*it)->getADate()->getMonth() + (*it)->getADate()->getYear() * 2, (*it)->getTotalPrice()));
+						statNorm.push_back(make_pair((*it)->getADate()->getMonth() + (*it)->getADate()->getYear() * 12, 0));
+						statHaz.push_back(make_pair((*it)->getADate()->getMonth() + (*it)->getADate()->getYear() * 12, 0));
+						statAnim.push_back(make_pair((*it)->getADate()->getMonth() + (*it)->getADate()->getYear() * 12, 0));
+						statCong.push_back(make_pair((*it)->getADate()->getMonth() + (*it)->getADate()->getYear() * 12, (*it)->getTotalPrice()));
 					}
 					break;
 				}
@@ -210,9 +222,32 @@ void Company::updateServicesSituation(){
 
 void Company::loadStats() {
 	ifstream statfile;
-	string aux, separator = " - ";
+	string aux, separator = "; ";
+	int ano_mes;
+	vector<string> auxVec;
+	statfile.open("files//stats.txt");
+	while (getline(statfile, aux)) {
+		getline(statfile, aux);
+		ano_mes = stoi(aux);
+		getline(statfile, aux);
+		auxVec = vectorString(aux,separator);
+		statHaz.push_back(make_pair(ano_mes,stof(auxVec[0])));
+		statCong.push_back(make_pair(ano_mes, stof(auxVec[1])));
+		statAnim.push_back(make_pair(ano_mes, stof(auxVec[2])));
+		statNorm.push_back(make_pair(ano_mes, stof(auxVec[3])));
+	}
 }
 
-//void Company::loadStats() {
-//
-//}
+void Company::saveStats() {
+	ofstream statfile;
+	string aux, separator = "; ";
+	int ano_mes;
+	vector<string> auxVec;
+	statfile.open("files//stats.txt");
+	for (unsigned i = 0; i < statCong.size(); i++) {
+		statfile << ":::::::::::::::::::" << endl;
+		statfile << statHaz[i].first << endl;
+		statfile << statHaz[i].second << "; " << statCong[i].second << "; " << statAnim[i].second << "; " << statNorm[i].second << endl;
+		statfile.close();
+	}
+}

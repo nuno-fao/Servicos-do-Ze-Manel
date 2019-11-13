@@ -3,7 +3,7 @@
 using namespace std;
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!SERVICE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
- set<unsigned> Service::idList={};
+set<unsigned> Service::idList={};
 //constructors
 Service::Service(string material, Address origin, Address destination, Date *arrivalDate, unsigned distance, enum type type, enum state state, Date *date, Client *client, float quantity)
     : material(material), distance(distance), quantity(quantity), ser_type(type), ser_state(state)
@@ -174,7 +174,18 @@ Client *findClient(int nif){
 
 void Service::loadFromFile(list<Service*> *services_finished,vector<Service*> *services_on_transit,vector<Service*> *services_on_queue){
     ifstream servicesFile;
+    servicesFile.open("./files/on_transit_services.txt");
+    if(!servicesFile.is_open()){throw ServiceOnTransitFileError();}
+    servicesFile.close();
+
+    servicesFile.open("./files/finished_services.txt");
+    if(!servicesFile.is_open()){throw ServiceFinishedFileError();}
+    servicesFile.close();
+
+
     servicesFile.open("./files/on_queue_services.txt");
+    if(!servicesFile.is_open()){throw ServiceOnQueueFileError();}
+
     string tempOrigin;
     string tempDestination;
     string tempADate;
@@ -1475,7 +1486,7 @@ Hour:
     }
     else {
         cout<<"Service successfully created\n";
-		enter_to_exit();
+        enter_to_exit();
     }
 
     //clearBuffer();
@@ -1882,7 +1893,7 @@ int Service::autoAddTrucks(){
             if(available_on_time){
                 temp_map.at((*i)->getcapacity())++;
                 available_on_time=true;
-				i++;
+                i++;
             }
         }
         else{
@@ -1922,7 +1933,7 @@ int Service::autoAddTrucks(){
                     if(remaining-(*i)->getcapacity()>0){
                         remaining-=(*i)->getcapacity();
                         tempTruck.push_back((*i));
-                        i=tempVectorIterate.erase(i); 
+                        i=tempVectorIterate.erase(i);
                     }
                     else if(double(remaining-(*i)->getcapacity())==0.0){
                         tempTruck.push_back((*i));
@@ -1934,7 +1945,7 @@ int Service::autoAddTrucks(){
                     }
                     else {
                         forward=true;
-						i++;
+                        i++;
                         break;
                     }
 
@@ -1956,10 +1967,10 @@ int Service::autoAddTrucks(){
                     notCompleted=false;
                     break;
                 }
-				else
-				{
-					i++;
-				}
+                else
+                {
+                    i++;
+                }
 
             }
             it++;
@@ -1998,3 +2009,18 @@ void Service::test(){
     i.autoAddTrucks();
 
 }
+
+/*
+ServiceDoNotExist::ServiceDoNotExist(string erro): erro(erro){
+
+};
+ServiceFinishedFileError::ServiceFinishedFileError(){}
+
+
+ServiceOnQueueFileError::ServiceOnQueueFileError(){}
+
+
+ServiceOnTransitFileError::ServiceOnTransitFileError(){}
+*/
+
+

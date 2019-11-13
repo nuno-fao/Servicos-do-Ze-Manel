@@ -45,13 +45,56 @@ int main()
     clearScreen();
     Company *Ze_Manel = nullptr;
     Ze_Manel=Company::getCompany();
-    Truck::loadFromFile(Ze_Manel->getVectorTrucks());
-    Client::loadClients(*Ze_Manel->getVectorClients());
+
+    try{
+        Truck::loadFromFile(Ze_Manel->getVectorTrucks());
+    }
+    catch(const FailedToOpenTrucks &){
+        cout<<"Can't open trucks.txt, program is ending with error"<<endl;
+    }
+
+    try{
+        Client::loadClients(*Ze_Manel->getVectorClients());
+    }
+    catch(const CantOpenClientFile &){
+        ofstream r;
+        r.open("./files/clients.txt");
+        r.close();
+        Client::loadClients(*Ze_Manel->getVectorClients());
+    }
+    Ze_Manel->loadStats();
+    Ze_Manel->saveStats();
+
     sort(((*Ze_Manel).getVectorTrucks())->begin(),((*Ze_Manel).getVectorTrucks())->end(),cmp_classes<Truck>);
     sort(((*Ze_Manel).getVectorClients())->begin(),((*Ze_Manel).getVectorClients())->end(),cmp_classes<Client>);
     sort(((*Ze_Manel).getVectorServicesOnQueue())->begin(),((*Ze_Manel).getVectorServicesOnQueue())->end(),cmpOnQueue);
     sort(((*Ze_Manel).getVectorServicesOnTransit())->begin(),((*Ze_Manel).getVectorServicesOnTransit())->end(),cmpOnTransit);
-    Service::loadFromFile(Ze_Manel->getVectorServicesFinished(),Ze_Manel->getVectorServicesOnTransit(),Ze_Manel->getVectorServicesOnQueue());
+
+
+    try{
+        Service::loadFromFile(Ze_Manel->getVectorServicesFinished(),Ze_Manel->getVectorServicesOnTransit(),Ze_Manel->getVectorServicesOnQueue());
+    }
+    catch(const ServiceOnQueueFileError){
+        ofstream r;
+        r.open("./files/on_queue_services.txt");
+        r.close();
+        Service::loadFromFile(Ze_Manel->getVectorServicesFinished(),Ze_Manel->getVectorServicesOnTransit(),Ze_Manel->getVectorServicesOnQueue());
+
+    }
+    catch(const ServiceOnTransitFileError){
+        ofstream r;
+        r.open("./files/on_transit_services.txt");
+        r.close();
+        Service::loadFromFile(Ze_Manel->getVectorServicesFinished(),Ze_Manel->getVectorServicesOnTransit(),Ze_Manel->getVectorServicesOnQueue());
+
+    }
+    catch(const ServiceFinishedFileError){
+        ofstream r;
+        r.open("./files/finished_services.txt");
+        r.close();
+        Service::loadFromFile(Ze_Manel->getVectorServicesFinished(),Ze_Manel->getVectorServicesOnTransit(),Ze_Manel->getVectorServicesOnQueue());
+
+    }
 
     //Service::test();
     mainMenu();
@@ -253,7 +296,7 @@ void menu_services(){
                 }
                 catch(...){
                     //clearBuffer();
-					cout << "Stopped operation!" << endl;
+                    cout << "Stopped operation!" << endl;
                     enter_to_exit();
                 }
 
@@ -1475,21 +1518,43 @@ void moneyInformation(){
     while (opt!=0) {
         clearScreen();
         cout<<"[1] View General Financial Reports"<<endl;
-        cout<<"[2] View Specific Financial Reports"<<endl;
+        cout<<"[2] View Low Temperature Trucks Financial Reports"<<endl;
+        cout<<"[3] View Hazardous Trucks Financial Reports"<<endl;
+        cout<<"[4] View Normal Temperature Trucks Financial Reports"<<endl;
+        cout<<"[5] View Animal Temperature Trucks Financial Reports"<<endl;
         cout<<"[0] Return"<<endl;
-        if(cin>>opt && opt<=4)
+        if(cin>>opt && opt<=5)
         {
             clearScreen();
             switch (opt) {
             case 0:{
+
                 return;
             }
             case 1:{
 
+                enter_to_exit();
                 break;
             }
             case 2:{
 
+                enter_to_exit();
+                break;
+            }
+            case 3:{
+
+                enter_to_exit();
+                break;
+            }
+            case 4:{
+
+                enter_to_exit();
+                break;
+            }
+            case 5:{
+
+                enter_to_exit();
+                break;
             }
             }
         }

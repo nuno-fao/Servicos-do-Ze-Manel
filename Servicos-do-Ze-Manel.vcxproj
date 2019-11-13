@@ -116,6 +116,9 @@
     <ClInclude Include="service.h" />
     <ClInclude Include="truck.h" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="files\stats.txt" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
