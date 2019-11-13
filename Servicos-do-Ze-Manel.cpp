@@ -45,6 +45,8 @@ int main()
     clearScreen();
     Company *Ze_Manel = nullptr;
     Ze_Manel=Company::getCompany();
+	Ze_Manel->loadStats();
+	Ze_Manel->saveStats();
     Truck::loadFromFile(Ze_Manel->getVectorTrucks());
     Client::loadClients(*Ze_Manel->getVectorClients());
     sort(((*Ze_Manel).getVectorTrucks())->begin(),((*Ze_Manel).getVectorTrucks())->end(),cmp_classes<Truck>);

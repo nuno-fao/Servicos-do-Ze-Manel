@@ -229,11 +229,12 @@ void Company::loadStats() {
 	while (getline(statfile, aux)) {
 		getline(statfile, aux);
 		ano_mes = stoi(aux);
+		getline(statfile, aux);
 		auxVec = vectorString(aux,separator);
 		statHaz.push_back(make_pair(ano_mes,stof(auxVec[0])));
-		statCong.push_back(make_pair(ano_mes, stof(auxVec[0])));
-		statAnim.push_back(make_pair(ano_mes, stof(auxVec[0])));
-		statNorm.push_back(make_pair(ano_mes, stof(auxVec[0])));
+		statCong.push_back(make_pair(ano_mes, stof(auxVec[1])));
+		statAnim.push_back(make_pair(ano_mes, stof(auxVec[2])));
+		statNorm.push_back(make_pair(ano_mes, stof(auxVec[3])));
 	}
 }
 
@@ -248,4 +249,5 @@ void Company::saveStats() {
 		statfile << statHaz[i].first << endl;
 		statfile << statHaz[i].second << "; " << statCong[i].second << "; " << statAnim[i].second << "; " << statNorm[i].second << endl;
 		statfile.close();
+	}
 }
