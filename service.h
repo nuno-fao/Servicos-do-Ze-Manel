@@ -4,6 +4,7 @@
 #include <ctime>
 #include <map>
 #include <fstream>
+#include <set>
 
 #include "truck.h"
 #include "date.h"
@@ -77,6 +78,7 @@ public:
     friend ostream& operator<<(ostream& os, Service *a);
 
     static void test();
+    static set<unsigned> idList;
 
 protected:
     Service(string material,Address origin, Address destination, Date *arrivalDate, unsigned distance, type type, state state, Date *date,Client *client,float quantity);
@@ -94,7 +96,6 @@ protected:
     Date *initialDate;
     Client *client;
     float total_price;
-    static unsigned int lastId;
     int autoAddTrucks();
 
 
@@ -122,3 +123,5 @@ public:
     string erro;
     ServiceDoNotExist(string erro):erro(erro){}
 };
+
+
