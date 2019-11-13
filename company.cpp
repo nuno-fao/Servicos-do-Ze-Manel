@@ -16,6 +16,7 @@ Company::~Company(){
     }
     Client::saveToFile(clients);
     Truck::saveToFile(&trucks);
+	saveStats();
     cout<<"Salvo com sucesso"<<endl;
 }
 
