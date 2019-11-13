@@ -1912,9 +1912,13 @@ int Service::autoAddTrucks(){
         }
     }
     while(notCompleted){
+        if(tempVectorIterate.size()==0 && remaining>0){
+            //cout<<remaining<<endl;
+            return int(remaining);
+        }
         if(!forward && r_it!=temp_map.rend()){
-            for(auto i= tempVectorIterate.begin();i!=tempVectorIterate.end();i){
-                if((*i)->getType()==this->getType() && r_it->first==(*i)->getcapacity()){
+            for(auto i= tempVectorIterate.begin();i!=tempVectorIterate.end();){
+                if(r_it->first==(*i)->getcapacity()){
                     if(remaining-(*i)->getcapacity()>0){
                         remaining-=(*i)->getcapacity();
                         tempTruck.push_back((*i));
@@ -1935,13 +1939,16 @@ int Service::autoAddTrucks(){
                     }
 
                 }
+                else{
+                    i++;
+                }
                 if(forward)
                     break;
             }
             r_it++;
         }
         else if(it!=temp_map.end()){
-            for(auto i= tempVectorIterate.begin();i!=tempVectorIterate.end();i){
+            for(auto i= tempVectorIterate.begin();i!=tempVectorIterate.end();){
                 if(remaining-(*i)->getcapacity()<=0 && (*it).first==(*i)->getcapacity()){
                     remaining-=(*i)->getcapacity();
                     tempTruck.push_back((*i));
@@ -1966,10 +1973,6 @@ int Service::autoAddTrucks(){
                 all=false;
             }
         }
-        if(tempVectorIterate.size()==0 && remaining>0){
-            //cout<<remaining<<endl;
-            return int(remaining);
-        }
     }
     float cargo_capacity=0;
     for(auto i:tempTruck){
@@ -1987,4 +1990,11 @@ int Service::autoAddTrucks(){
         cout<<endl;
     }
     return  int(remaining);
+}
+
+void Service::test(){
+    Date *x=new Date();
+    Service i("pilas",Address(),Address(),x,300,type::hazardous,on_queue,x,Company::getCompany()->getVectorClients()->at(0),69000);
+    i.autoAddTrucks();
+
 }
