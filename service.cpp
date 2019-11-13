@@ -147,6 +147,7 @@ string typeToString(type a){
     case type::lowTemperature:
         return "Low Temperature";
     }
+    return "ordinary";
 }
 string stateToString(state a){
     return  to_string(a);
@@ -1810,7 +1811,7 @@ ostream& operator <<(ostream& os,Service *a){
     os<<endl;
     os<<"Initial Date: "+a->getIDate()->getDateWHour()<<endl;
     os<<"Arrival Date: "+a->getADate()->getDateWHour()<<endl;
-    os<<"Time :"<<*a->getIDate()-*a->getADate()<<" h"<<endl;
+    os<<"Time :"<<*a->getADate()-*a->getIDate()<<" min"<<endl;
     os<<endl;
     os<<"Type of Transport: "+typeToString(a->getType())<<endl;
     int prec_q=0,prec_p=0;
@@ -1856,9 +1857,6 @@ int Service::autoAddTrucks(){
         break;
     }
 
-    }
-    for(auto u: temp_map){
-        u.second=0;
     }
 
     bool available_on_time=true;

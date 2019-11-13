@@ -17,141 +17,7 @@
 using namespace std;
 
 
-void manage_client(Client *client){
-    unsigned opt=1;
-    while (opt!=0) {
-        clearScreen();
-        cout <<*client<<endl;
-        cout<<"[1] Edit Client"<<endl;
-        cout<<"[2] Remove Client"<<endl;
-        cout<<"[3] Edit Services"<<endl;
-        cout<<"[4] Cancel Service"<<endl;
-        cout<<"[5] See Service"<<endl;
-        cout<<"[0] Return"<<endl;
-        if(cin>>opt && opt<=5)
-        {
-            clearScreen();
-            switch (opt) {
-            case 1: {
-                clearBuffer();
-                client->editClient();
-                break;
-            }
-            case 2:{
-                try {
-                    clearBuffer();
-                    client->removeClient(*Company::getCompany()->getVectorClients());
-                }
-                catch (ClientNotInVector e) {
-                    clearScreen();
-                    clearBuffer();
-                    cout << e.erro << endl;
-                    enter_to_exit();
-                }
-                return;
-            }
-            case 0:{
-                return;
-            }
-
-            case 3:{
-
-                long id=long(0);
-                if(Company::getCompany()->getVectorServicesOnQueue()->size()){
-                    Service *temp_client = nullptr;
-                    do{
-                        for(auto i: *Company::getCompany()->getVectorServicesOnQueue()){
-                            cout<<"("<<i->getId()<<") "<<i->getMaterial()<<"   "<<i->getIDate()->getYear()<<"/"<<i->getIDate()->getMonth()<<"/"<<i->getIDate()->getDay()<<", "<<i->getIDate()->getHour()<<":"<<i->getIDate()->getMinute()<<endl;
-                        }
-                    }while((id=askForId("Service","Edit","Id"))==-2);
-                    clearScreen();
-                    for(auto i: *Company::getCompany()->getVectorServicesOnQueue()){
-                        if(i->getId()==long(id)){
-                            temp_client=i;
-                            break;
-                        }
-                    }
-                    if(temp_client==nullptr){
-                        cout<<"couldn't find the specified service"<<endl;
-                        clearBuffer();
-                        enter_to_exit();
-                    }
-                    else{
-
-                        temp_client->editService();
-                        cout<<"Successfully Edited"<<endl;
-                    }
-                }
-                else{
-                    cout<<"No Service can be Edited"<<endl;
-                    clearBuffer();
-                    enter_to_exit();
-                }
-                break;
-
-            }
-            case 4:{
-
-                long id=long(0);
-                if(Company::getCompany()->getVectorServicesOnQueue()->size()){
-                    Service *temp_client = nullptr;
-                    do{
-                        for(auto i: *Company::getCompany()->getVectorServicesOnQueue()){
-                            cout<<"("<<i->getId()<<") "<<i->getMaterial()<<"   "<<i->getIDate()->getYear()<<"/"<<i->getIDate()->getMonth()<<"/"<<i->getIDate()->getDay()<<", "<<i->getIDate()->getHour()<<":"<<i->getIDate()->getMinute()<<endl;
-                        }
-                    }while((id=askForId("Service","Remove","Id"))==-2);
-                    clearScreen();
-                    for(auto i: *Company::getCompany()->getVectorServicesOnQueue()){
-                        if(i->getId()==long(id)){
-                            temp_client=i;
-                            break;
-                        }
-                    }
-                    if(temp_client==nullptr){
-                        cout<<"couldn't find the specified service"<<endl;
-                    }
-                    else{
-                        try{
-                            Service::removeService(Company::getCompany()->getVectorServicesOnQueue(),unsigned(id));
-                            cout<<"Successfully Removed"<<endl;
-                        }
-                        catch(ServiceDoNotExist e){
-                            cout<<e.erro<<endl;
-                        }
-                    }
-                }
-                else{
-                    cout<<"No Service can be Canceled"<<endl;
-                }
-                clearBuffer();
-                enter_to_exit();
-                break;
-
-            }
-            case 5:{
-                clearBuffer();
-                cout << "Services: " << endl;
-                for (auto it = client->getServicesVector()->begin(); it != client->getServicesVector()->end(); it++)
-                {
-                    cout << (*it) << endl;
-                }
-                enter_to_exit();
-                break;
-            }
-
-            default:
-                opt=1;
-            }
-        }
-        else{
-            opt=1;
-            clearBuffer();
-            clearScreen();
-            cout<<"Not a valid option, please try again"<<endl;
-        }
-    }
-}
-
+void manage_client(Client *client);
 void menu_services();
 void menu_editprices();
 void mainMenu();
@@ -162,6 +28,7 @@ void clientsInformation();
 void trucksInformation();
 void infoEveryServices(),infoOnQueueServices(),infoOnTransitServices(),infoFinishedServices();
 void servicesInformation();
+void moneyInformation();
 
 
 /*
@@ -268,6 +135,9 @@ void menu_clients(){
                     cout << e.erro << endl;
                     enter_to_exit();
                 }
+                catch(...){
+
+                }
 
                 break;
             }
@@ -285,7 +155,7 @@ void menu_clients(){
                         temp_client=Company::getCompany()->getClient(unsigned(nif));
                         manage_client(temp_client);
 
-                    } catch (NotAClient e) {
+                    } catch (const NotAClient &e) {
                         clearScreen();
                         clearBuffer();
                         cout << e.erro << endl;
@@ -377,7 +247,7 @@ void menu_services(){
                     clearScreen();
                     Service::addService(Company::getCompany()->getVectorServicesOnQueue(),tempClient);
                 }
-                catch(NotAClient e){
+                catch(const NotAClient &e){
                     clearBuffer();
                     cout<<e.erro<<endl;
                     enter_to_exit();
@@ -410,8 +280,9 @@ void information(){
         cout<<"[1] Clients"<<endl;
         cout<<"[2] Services"<<endl;
         cout<<"[3] Trucks"<<endl;
+        cout<<"[4] Revenue"<<endl;
         cout<<"[0] Return"<<endl;
-        if(cin>>opt && opt<=3)
+        if(cin>>opt && opt<=4)
         {
             clearScreen();
             switch (opt) {
@@ -429,6 +300,10 @@ void information(){
                 trucksInformation();
                 break;
 
+            case 4:{
+                moneyInformation();
+                break;
+            }
             default:
                 opt=1;
             }
@@ -619,7 +494,7 @@ void clientsInformation(){
                             }
                         }
                     }
-                    catch (NotAClient e) {
+                    catch (const NotAClient &e) {
                         cout << e.erro << endl;
                     }
                 }
@@ -1463,4 +1338,162 @@ void infoFinishedServices(){
     if (nInfo)
         cout << "There is no service on transit" << endl;
 }
+void manage_client(Client *client){
+    unsigned opt=1;
+    while (opt!=0) {
+        clearScreen();
+        cout <<*client<<endl;
+        cout<<"[1] Edit Client"<<endl;
+        cout<<"[2] Remove Client"<<endl;
+        cout<<"[3] Edit Services"<<endl;
+        cout<<"[4] Cancel Service"<<endl;
+        cout<<"[5] See Service"<<endl;
+        cout<<"[0] Return"<<endl;
+        if(cin>>opt && opt<=5)
+        {
+            clearScreen();
+            switch (opt) {
+            case 1: {
+                clearBuffer();
+                client->editClient();
+                break;
+            }
+            case 2:{
+                try {
+                    clearBuffer();
+                    client->removeClient(*Company::getCompany()->getVectorClients());
+                }
+                catch (const ClientNotInVector &e) {
+                    clearScreen();
+                    clearBuffer();
+                    cout << e.erro << endl;
+                    enter_to_exit();
+                }
+                return;
+            }
+            case 0:{
+                return;
+            }
 
+            case 3:{
+
+                long id=long(0);
+                if(Company::getCompany()->getVectorServicesOnQueue()->size()){
+                    Service *temp_client = nullptr;
+                    do{
+                        for(auto i: *Company::getCompany()->getVectorServicesOnQueue()){
+                            cout<<"("<<i->getId()<<") "<<i->getMaterial()<<"   "<<i->getIDate()->getYear()<<"/"<<i->getIDate()->getMonth()<<"/"<<i->getIDate()->getDay()<<", "<<i->getIDate()->getHour()<<":"<<i->getIDate()->getMinute()<<endl;
+                        }
+                    }while((id=askForId("Service","Edit","Id"))==-2);
+                    clearScreen();
+                    for(auto i: *Company::getCompany()->getVectorServicesOnQueue()){
+                        if(i->getId()==long(id)){
+                            temp_client=i;
+                            break;
+                        }
+                    }
+                    if(temp_client==nullptr){
+                        cout<<"couldn't find the specified service"<<endl;
+                        clearBuffer();
+                        enter_to_exit();
+                    }
+                    else{
+
+                        temp_client->editService();
+                        cout<<"Successfully Edited"<<endl;
+                    }
+                }
+                else{
+                    cout<<"No Service can be Edited"<<endl;
+                    clearBuffer();
+                    enter_to_exit();
+                }
+                break;
+
+            }
+            case 4:{
+
+                long id=long(0);
+                if(Company::getCompany()->getVectorServicesOnQueue()->size()){
+                    Service *temp_client = nullptr;
+                    do{
+                        for(auto i: *Company::getCompany()->getVectorServicesOnQueue()){
+                            cout<<"("<<i->getId()<<") "<<i->getMaterial()<<"   "<<i->getIDate()->getYear()<<"/"<<i->getIDate()->getMonth()<<"/"<<i->getIDate()->getDay()<<", "<<i->getIDate()->getHour()<<":"<<i->getIDate()->getMinute()<<endl;
+                        }
+                    }while((id=askForId("Service","Remove","Id"))==-2);
+                    clearScreen();
+                    for(auto i: *Company::getCompany()->getVectorServicesOnQueue()){
+                        if(i->getId()==long(id)){
+                            temp_client=i;
+                            break;
+                        }
+                    }
+                    if(temp_client==nullptr){
+                        cout<<"couldn't find the specified service"<<endl;
+                    }
+                    else{
+                        try{
+                            Service::removeService(Company::getCompany()->getVectorServicesOnQueue(),unsigned(id));
+                            cout<<"Successfully Removed"<<endl;
+                        }
+                        catch(ServiceDoNotExist e){
+                            cout<<e.erro<<endl;
+                        }
+                    }
+                }
+                else{
+                    cout<<"No Service can be Canceled"<<endl;
+                }
+                clearBuffer();
+                enter_to_exit();
+                break;
+
+            }
+            case 5:{
+                clearBuffer();
+                cout << "Services: " << endl;
+                for (auto it = client->getServicesVector()->begin(); it != client->getServicesVector()->end(); it++)
+                {
+                    cout << (*it) << endl;
+                }
+                enter_to_exit();
+                break;
+            }
+
+            default:
+                opt=1;
+            }
+        }
+        else{
+            opt=1;
+            clearBuffer();
+            clearScreen();
+            cout<<"Not a valid option, please try again"<<endl;
+        }
+    }
+}
+void moneyInformation(){
+    unsigned opt=1;
+    while (opt!=0) {
+        clearScreen();
+        cout<<"[1] View General Financial Reports"<<endl;
+        cout<<"[2] View Specific Financial Reports"<<endl;
+        cout<<"[0] Return"<<endl;
+        if(cin>>opt && opt<=4)
+        {
+            clearScreen();
+            switch (opt) {
+            case 0:{
+                return;
+            }
+            case 1:{
+
+                break;
+            }
+            case 2:{
+
+            }
+            }
+        }
+    }
+}

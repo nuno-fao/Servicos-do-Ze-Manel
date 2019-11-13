@@ -38,14 +38,12 @@ vector<Truck*> *Company::getVectorTrucks(){
 
 Client *Company::getClient(unsigned nif){
     size_t l=0;
-    unsigned t;
     vector<Client*> *temp(Company::getCompany()->getVectorClients());
     if(!temp->size())
         throw NotAClient(nif,"Couldn't find the client");
     size_t r=(*temp).size()-1;
     while (l <= r) {
         size_t m = l + (r - l) / 2;
-        t=temp->at(m)->getNif();
         if (temp->at(m)->getNif() == nif)
             return Company::getCompany()->getVectorClients()->at(m);
         if (temp->at(m)->getNif() < nif)
