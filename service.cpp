@@ -1586,35 +1586,38 @@ void Service::editService(){
                             }
 
                         }
-                        string tempDistance;
-                        variable_error=true;
-                        while (variable_error) {
-                            cout<<"Enter the distance to go"<<endl;
-                            if(cin>>tempDistance && strIsNumber(tempDistance)){
-                                clearScreen();
-                                variable_error=false;
+                        if(tempOrigin!=""){
+                            string tempDistance;
+                            variable_error=true;
+                            while (variable_error) {
+                                cout<<"Enter the distance to go"<<endl;
+                                if(cin>>tempDistance && strIsNumber(tempDistance)){
+                                    clearScreen();
+                                    variable_error=false;
+                                }
+                                else
+                                {
+                                    checkIfOut(tempDistance);
+                                    clearScreen();
+                                    cout<<"Distance not acceptable, please try again"<<endl;
+                                }
                             }
-                            else
-                            {
-                                checkIfOut(tempDistance);
-                                clearScreen();
-                                cout<<"Distance not acceptable, please try again"<<endl;
+                            string t="p";
+                            while(t!="y" && t!="n"){
+                                cout<<"Are u sure you want to Edit Service?"<<endl;
+                                cin>>t;
+                                if(t!="y"){
+                                    clearScreen();
+                                    throw exception();
+                                }
+                                total_price=total_price/distance;
+                                total_price=total_price*stof(tempDistance);
                             }
+                            Company::getCompany()->services_on_queue_changed=true;
+                            this->setOrigin(temp_origin);
+                            this->setDistance(unsigned(stoi(tempDistance)));
+                            break;
                         }
-                        string t="p";
-                        while(t!="y" && t!="n"){
-                            cout<<"Are u sure you want to Edit Service?"<<endl;
-                            cin>>t;
-                            if(t!="y"){
-                                clearScreen();
-                                throw exception();
-                            }
-                            total_price=total_price/distance;
-                            total_price=total_price*stof(tempDistance);
-                        }
-                        Company::getCompany()->services_on_queue_changed=true;
-                        this->setOrigin(temp_origin);
-                        this->setDistance(unsigned(stoi(tempDistance)));
                         break;
                     }
 
@@ -1714,6 +1717,7 @@ void Service::editService(){
                         }
                         Company::getCompany()->services_on_queue_changed=true;
                         this->setDestination(temp_origin);
+                        setDistance(unsigned(stoi(tempDistance)));
                         break;
                     }
                     case 3:{
@@ -1728,9 +1732,6 @@ void Service::editService(){
                                 for(auto i:trucks){
                                     i.first->remove_service(this->getId());
                                 }
-                                if(autoAddTrucks()<0){
-                                    throw  exception();
-                                }
                                 variable_error=false;
                                 try {
                                     string t="p";
@@ -1739,13 +1740,18 @@ void Service::editService(){
                                         cin>>t;
                                         if(t!="y"){
                                             clearScreen();
-                                            throw exception();
+                                            return;
                                         }
                                         total_price/=quantity;
                                         total_price*=stof(temp_quantity);
+                                        quantity=stof(temp_quantity);
+                                        if(autoAddTrucks()>0){
+                                            clearScreen();
+                                            cout<<"Quantity not acceptable, please try again"<<endl;
+                                            enter_to_exit();
+                                        }
                                     }
                                     Company::getCompany()->services_on_queue_changed=true;
-                                    setQuantity(stof(temp_quantity));
                                 } catch (...) {
                                     variable_error=true;
                                     clearScreen();
@@ -2005,7 +2011,7 @@ int Service::autoAddTrucks(){
 
 void Service::test(){
     Date *x=new Date();
-    Service i("pilas",Address(),Address(),x,300,type::hazardous,on_queue,x,Company::getCompany()->getVectorClients()->at(0),69000);
+    Service i("pilas",Address(),Address(),x,300,type::ordinary,on_queue,x,Company::getCompany()->getVectorClients()->at(0),81000);
     i.autoAddTrucks();
 
 }
