@@ -62,6 +62,9 @@ int main()
         r.close();
         Client::loadClients(*Ze_Manel->getVectorClients());
     }
+    Ze_Manel->loadStats();
+    Ze_Manel->saveStats();
+
     sort(((*Ze_Manel).getVectorTrucks())->begin(),((*Ze_Manel).getVectorTrucks())->end(),cmp_classes<Truck>);
     sort(((*Ze_Manel).getVectorClients())->begin(),((*Ze_Manel).getVectorClients())->end(),cmp_classes<Client>);
     sort(((*Ze_Manel).getVectorServicesOnQueue())->begin(),((*Ze_Manel).getVectorServicesOnQueue())->end(),cmpOnQueue);
