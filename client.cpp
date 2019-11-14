@@ -1,8 +1,5 @@
 #include "client.h"
 
-// Falta comentar removeService
-
-
 Client::Client():nif(000000000) {}
 
 Client::Client(Client const &x){
@@ -271,10 +268,6 @@ bool Client::operator==(const Client& client1) const {
 
 bool Client::operator<(const Client &a) const{
     return nif < a.getNif();
-}
-
-bool Client::operator>(const Client& a) const {
-	return nif < a.getNif();
 }
 
 ostream& operator<<(ostream& out, const Client& client) {
