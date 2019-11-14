@@ -8,7 +8,6 @@
 #include "service.h"
 #include "truck.h"
 
-
 class Truck;
 class Service;
 class Client;
@@ -17,7 +16,18 @@ using namespace std;
 class Company
 {
 public:
+/**
+* @brief Gets Company
+*
+* Retrieves the Company instance
+*
+* @return Returns a pointer to the company
+*/
     static Company *getCompany();
+/**
+*
+* Default Destructor
+*/
     ~Company();
     bool services_finished_changed=false,services_on_transit_changed=false,services_on_queue_changed=false;
     bool clients_changed=false;

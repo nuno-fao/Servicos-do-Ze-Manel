@@ -32,7 +32,6 @@ public:
  * @param name - Name of the client
  * @param nif - Identification number of the client
  * @param services - Pointer to the vector of pointers to Services that the client has bought (none by default)
-
  */
     Client(string name, unsigned int nif, vector<Service*> *services = nullptr);
     /**
@@ -194,7 +193,7 @@ public:
     bool operator== (const Client& client1) const;
 
 protected:
-    float money_spent=0; /*!< Total money spent in services - used  */
+    float money_spent=0; /*!< Total money spent in services*/
     string name;
     unsigned int nif; /*!< Client's Identification - used whenever comparing and verifying clients */
     vector<Service*> services;/*!< Client's vector of bought Services */
