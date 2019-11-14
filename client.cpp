@@ -1,8 +1,5 @@
 #include "client.h"
 
-// Falta comentar removeService
-
-
 Client::Client():nif(000000000) {}
 
 Client::Client(Client const &x){
