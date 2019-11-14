@@ -14,8 +14,20 @@ typedef unsigned short date_u_short;
 
 class DateInvalid{
 public:
-    DateInvalid(string error,unsigned year,unsigned short month,unsigned short day,unsigned short hour,unsigned short minute):error(error),year(year), month(month), day(day) ,hour(hour),minute(minute){}
-    string error;
+	/**
+* @brief Constructor with all data necessary
+*
+* Receives all the data it needs to construct an invalid Date properly
+*
+* @param error - string describing error
+* @param year - year of the Date
+* @param month - month of the Date
+* @param day - day of the Date
+* @param hour - hour of the Date
+* @param minute - minutes of the Date
+*/
+    DateInvalid(string error, unsigned year,unsigned short month,unsigned short day,unsigned short hour,unsigned short minute):error(error),year(year), month(month), day(day) ,hour(hour),minute(minute){}
+    string error; /*!< String describing error*/
     unsigned year;
     unsigned short month;
     unsigned short day;

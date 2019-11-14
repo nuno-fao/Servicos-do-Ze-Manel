@@ -466,6 +466,8 @@ void Service::loadFromFile(list<Service*> *services_finished,vector<Service*> *s
         tempType=intToType(stoi(tempGeneral));
 
         getline(servicesFile,tempGeneral);
+
+        getline(servicesFile,tempGeneral);
         tempState=intToState(stoi(tempGeneral));
 
         getline(servicesFile,tempIDate);
@@ -612,6 +614,11 @@ void Service::saveToFile(list<Service*> *services_finished,vector<Service*>*serv
             }
             servicesFile << i.second <<";";
         }
+        servicesFile<<endl;
+
+        if(!x->getTrucks()->size()){
+            servicesFile << "" <<endl;
+        }
 
         servicesFile << (x->getState())<<endl;
         servicesFile << x->getIDate()->getDate() <<endl;
@@ -629,21 +636,22 @@ void Service::saveToFile(list<Service*> *services_finished,vector<Service*>*serv
         servicesFile << x->getDestination().getFullAdress() <<endl;
         servicesFile << (x->getADate()->getDate())<<endl;
         servicesFile << (x->getDistance())<<endl;
+        cout<<typeToString(x->getType())<<endl;
         switch (x->getType()) {
         case type::lowTemperature:{
-			servicesFile <<3<<endl;
+            servicesFile<<3<<endl;
             break;
         }
         case type::ordinary:{
-			servicesFile <<0<<endl;
+            servicesFile<<0<<endl;
             break;
         }
         case type::hazardous:{
-			servicesFile <<1<<endl;
+            servicesFile<<1<<endl;
             break;
         }
         case type::animal:{
-			servicesFile <<2<<endl;
+            servicesFile<<2<<endl;
             break;
         }
         }
@@ -676,19 +684,19 @@ void Service::saveToFile(list<Service*> *services_finished,vector<Service*>*serv
         servicesFile << (x->getDistance())<<endl;
         switch (x->getType()) {
         case type::lowTemperature:{
-			servicesFile <<3<<endl;
+            servicesFile<<3<<endl;
             break;
         }
         case type::ordinary:{
-			servicesFile <<0<<endl;
+            servicesFile<<0<<endl;
             break;
         }
         case type::hazardous:{
-			servicesFile <<1<<endl;
+            servicesFile<<1<<endl;
             break;
         }
         case type::animal:{
-			servicesFile <<2<<endl;
+            servicesFile<<2<<endl;
             break;
         }
         }
@@ -789,12 +797,12 @@ Service *Service::addService(vector<Service *> *services,Client *client){
                     checkIfOut(postal_code);
                     vector<string> temp_postal_code= vectorString(postal_code,"-");
                     if(postal_code==""){
-                        origin=Address("",0,"0000-000",temp_address_no_pc.at(0));
+                        origin=Address("unknown",0,"0000-000",temp_address_no_pc.at(0));
                         variable_error=false;
                         break;
                     }
                     else if(temp_postal_code.size()==2 && strIsNumber(temp_postal_code.at(0)) && strIsNumber(temp_postal_code.at(1)) && temp_postal_code.at(0).size()==4 && temp_postal_code.at(1).size()==3){
-                        origin=Address("",0,postal_code,temp_address_no_pc.at(0));
+                        origin=Address("unknown",0,postal_code,temp_address_no_pc.at(0));
                         variable_error=false;
                         break;
                     }
@@ -864,12 +872,12 @@ Service *Service::addService(vector<Service *> *services,Client *client){
                     checkIfOut(postal_code);
                     vector<string> temp_postal_code= vectorString(postal_code,"-");
                     if(postal_code==""){
-                        destination=Address("",0,"0000-000",temp_address_no_pc.at(0));
+                        destination=Address("unknown",0,"0000-000",temp_address_no_pc.at(0));
                         variable_error=false;
                         break;
                     }
                     else if(temp_postal_code.size()==2 && strIsNumber(temp_postal_code.at(0)) && strIsNumber(temp_postal_code.at(1)) && temp_postal_code.at(0).size()==4 && temp_postal_code.at(1).size()==3){
-                        destination=Address("",0,postal_code,temp_address_no_pc.at(0));
+                        destination=Address("unknown",0,postal_code,temp_address_no_pc.at(0));
 
                         variable_error=false;
                         break;
@@ -1561,7 +1569,7 @@ void Service::editService(){
                                         cin>>postal_code;
                                         vector<string> temp_postal_code= vectorString(postal_code,"-");
                                         if(temp_postal_code.size()==2 && strIsNumber(temp_postal_code.at(0)) && strIsNumber(temp_postal_code.at(1)) && temp_postal_code.at(0).size()==4 && temp_postal_code.at(1).size()==3){
-                                            temp_origin=Address("",0,postal_code,temp_address_no_pc.at(0));
+                                            temp_origin=Address("unknown",0,postal_code,temp_address_no_pc.at(0));
                                             variable_error=false;
                                             break;
                                         }
@@ -1665,7 +1673,7 @@ void Service::editService(){
                                         cin>>postal_code;
                                         vector<string> temp_postal_code= vectorString(postal_code,"-");
                                         if(temp_postal_code.size()==2 && strIsNumber(temp_postal_code.at(0)) && strIsNumber(temp_postal_code.at(1)) && temp_postal_code.at(0).size()==4 && temp_postal_code.at(1).size()==3){
-                                            temp_origin=Address("",0,postal_code,temp_address_no_pc.at(0));
+                                            temp_origin=Address("unknown",0,postal_code,temp_address_no_pc.at(0));
                                             variable_error=false;
                                             break;
                                         }
@@ -1900,6 +1908,9 @@ int Service::autoAddTrucks(){
                 temp_map.at((*i)->getcapacity())++;
                 available_on_time=true;
                 i++;
+            }
+            else{
+                i=tempVectorIterate.erase(i);
             }
         }
         else{
