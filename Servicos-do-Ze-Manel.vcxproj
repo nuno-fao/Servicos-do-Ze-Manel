@@ -113,7 +113,6 @@
     <ClInclude Include="company.h" />
     <ClInclude Include="date.h" />
     <ClInclude Include="misc.h" />
-    <ClInclude Include="resource.h" />
     <ClInclude Include="service.h" />
     <ClInclude Include="truck.h" />
   </ItemGroup>

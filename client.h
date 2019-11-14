@@ -172,7 +172,7 @@ public:
  * @return Returns the ostream containing the information to be printed
  */
     friend ostream& operator<<(ostream& out, const Client& client);
-    /**
+    /**	
 * @brief Operator < overloading
 *
 * Overload of < operator for comparisons. A Client is < if his identification number is smaller (as a normal, decimal interpretation)
@@ -182,7 +182,6 @@ public:
 */
     bool operator<(const Client &a) const;
 
-	bool operator>(const Client& a) const;
 
     /**
 * @brief Operator == overloading
@@ -193,6 +192,7 @@ public:
 * @return Returns true if the Client has an equal nif
 */
     bool operator== (const Client& client1) const;
+
 protected:
     float money_spent=0; /*!< Total money spent in services - used  */
     string name;
