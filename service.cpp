@@ -1473,7 +1473,7 @@ Hour:
         break;
     }
     print.push_back("total Price: "+to_string(temp_service->getTotalPrice()));
-    printClassVector(&print);
+    //printClassVector(&print);
 
     string t="p";
     while(t!="y" && t!="n"){

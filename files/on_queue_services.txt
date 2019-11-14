@@ -1,7 +1,7 @@
 Cattle
 0
- / 0 / 1234-123 / Porto
- / 0 / 8458-123 / Lisboa
+unknown / 0 / 1234-123 / Porto
+unknown / 0 / 8458-123 / Lisboa
 2020/2/24/5/45
 12
 0
