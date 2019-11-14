@@ -44,10 +44,10 @@ public:
     void updateServicesSituation();
     void loadStats();
     void saveStats();
-	vector<pair<int, float>> getStatCong() { return statCong; }
-	vector<pair<int, float>> getStatHaz() { return statHaz; }
-	vector<pair<int, float>> getStatAnim() { return statAnim; }
-	vector<pair<int, float>> getStatNorm() { return statNorm; }
+	vector<pair<int, double>> getStatCong() { return statCong; }
+	vector<pair<int, double>> getStatHaz() { return statHaz; }
+	vector<pair<int, double>> getStatAnim() { return statAnim; }
+	vector<pair<int, double>> getStatNorm() { return statNorm; }
 
 private:
     static Company *company;
@@ -59,8 +59,8 @@ private:
     vector<Service*> services_on_transit,services_on_queue;
     vector<Client*> clients;
     vector<Truck*> trucks;
-    vector<pair<int, float>> statCong;
-    vector<pair<int, float>> statHaz;
-    vector<pair<int, float>> statNorm;
-    vector<pair<int, float>> statAnim;
+    vector<pair<int, double>> statCong;
+    vector<pair<int, double>> statHaz;
+    vector<pair<int, double>> statNorm;
+    vector<pair<int, double>> statAnim;
 };

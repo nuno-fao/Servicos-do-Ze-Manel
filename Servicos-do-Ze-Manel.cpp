@@ -676,7 +676,7 @@ void trucksInformation() {
                         if (!(i->getavailable())) {
                             i->info();
                             cout << endl;
-                            nInfo=true;
+                            nInfo=false;
                         }
                     }
                 if(nInfo)
@@ -1376,7 +1376,7 @@ void infoFinishedServices(){
         }
     }
     if (nInfo)
-        cout << "There is no service on transit" << endl;
+        cout << "There is no finished service" << endl;
 }
 void manage_client(Client *client){
     unsigned opt=1;

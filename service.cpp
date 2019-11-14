@@ -636,7 +636,6 @@ void Service::saveToFile(list<Service*> *services_finished,vector<Service*>*serv
         servicesFile << x->getDestination().getFullAdress() <<endl;
         servicesFile << (x->getADate()->getDate())<<endl;
         servicesFile << (x->getDistance())<<endl;
-        cout<<typeToString(x->getType())<<endl;
         switch (x->getType()) {
         case type::lowTemperature:{
             servicesFile<<3<<endl;

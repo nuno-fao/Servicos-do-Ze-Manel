@@ -92,18 +92,23 @@ void Company::updateTruckSituation(){
     Date f(unsigned(now->tm_year-100),1+date_u_short(now->tm_mon),date_u_short(now->tm_mday),date_u_short(now->tm_hour),date_u_short(now->tm_min));
 
     if(services_on_transit.size()){
-        for(auto it=services_on_transit.begin(); it!= services_on_transit.end();it++){
+		auto it = services_on_transit.begin();
+        while(it!= services_on_transit.end()){
             if(*(*it)->getADate()<f){
 
                 for(auto x =(*it)->getTrucks()->begin();x!=(*it)->getTrucks()->end();x++)
                 {
                     x->first->setavailable(true);
-                    for(auto o = x->first->getServices()->begin();o!=x->first->getServices()->end();o++){
+					auto o = x->first->getServices()->begin();
+                    while(o!=x->first->getServices()->end()){
                         if((*o)->getId()==(*it)->getId()){
                             o=x->first->getServices()->erase(o);
-                            o--;
                             break;
                         }
+						else {
+							o++;
+							continue;
+						}
                     }
                     if(!x->first->getServices()->size()){
                         x->first->setregistered(false);
@@ -112,7 +117,7 @@ void Company::updateTruckSituation(){
 				//adicionar á lista
 				switch ((*it)->getType()) {
 				case type::ordinary:
-					if ((*it)->getADate()->getMonth() == f.getMonth() && (*it)->getADate()->getYear() == f.getYear()) {
+					if (((*it)->getADate()->getMonth() + (*it)->getADate()->getYear() * 12) == statNorm.back().first) {
 						statNorm.back().second += (*it)->getTotalPrice();
 					}
 					else {
@@ -123,7 +128,7 @@ void Company::updateTruckSituation(){
 					}
 					break;
 				case type::hazardous:
-					if ((*it)->getADate()->getMonth() == f.getMonth() && (*it)->getADate()->getYear() == f.getYear()) {
+					if (((*it)->getADate()->getMonth() + (*it)->getADate()->getYear()*12) == statHaz.back().first) {
 						statHaz.back().second += (*it)->getTotalPrice();
 					}
 					else {
@@ -134,7 +139,7 @@ void Company::updateTruckSituation(){
 					}
 					break;
 				case type::animal:
-					if ((*it)->getADate()->getMonth() == f.getMonth() && (*it)->getADate()->getYear() == f.getYear()) {
+					if (((*it)->getADate()->getMonth() + (*it)->getADate()->getYear() * 12) == statAnim.back().first) {
 						statAnim.back().second += (*it)->getTotalPrice();
 					}
 					else {
@@ -145,7 +150,7 @@ void Company::updateTruckSituation(){
 					}
 					break;
 				case type::lowTemperature:
-					if ((*it)->getADate()->getMonth() == f.getMonth() && (*it)->getADate()->getYear() == f.getYear()) {
+					if (((*it)->getADate()->getMonth() + (*it)->getADate()->getYear() * 12) == statHaz.back().first) {
 						statCong.back().second += (*it)->getTotalPrice();
 					}
 					else {
@@ -158,16 +163,17 @@ void Company::updateTruckSituation(){
 				}
                 services_finished.push_back(*it);
                 it=services_on_transit.erase(it);
-                it--;
                 Company::getCompany()->services_on_queue_changed=true;
             }
             else{
+				it++;
                 continue;
             }
         }
     }
     if(services_on_queue.size()){
-        for(auto it=services_on_queue.begin(); it!= services_on_queue.end();it++){
+		auto it = services_on_queue.begin();
+        while(it!= services_on_queue.end()){
             if(*(*it)->getIDate()<f){
 
                 for(auto x:*(*it)->getTrucks())
@@ -177,10 +183,10 @@ void Company::updateTruckSituation(){
                 }
                 services_on_transit.push_back(*it);
                 it=services_on_queue.erase(it);
-                it--;
                 Company::getCompany()->services_on_queue_changed=true;
             }
             else{
+				it++;
                 continue;
             }
         }
@@ -232,10 +238,10 @@ void Company::loadStats() {
 		ano_mes = stoi(aux);
 		getline(statfile, aux);
 		auxVec = vectorString(aux,separator);
-		statHaz.push_back(make_pair(ano_mes,stof(auxVec[0])));
-		statCong.push_back(make_pair(ano_mes, stof(auxVec[1])));
-		statAnim.push_back(make_pair(ano_mes, stof(auxVec[2])));
-		statNorm.push_back(make_pair(ano_mes, stof(auxVec[3])));
+		statHaz.push_back(make_pair(ano_mes,stod(auxVec[0])));
+		statCong.push_back(make_pair(ano_mes, stod(auxVec[1])));
+		statAnim.push_back(make_pair(ano_mes, stod(auxVec[2])));
+		statNorm.push_back(make_pair(ano_mes, stod(auxVec[3])));
 	}
 }
 
