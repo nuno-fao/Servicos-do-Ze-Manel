@@ -466,6 +466,8 @@ void Service::loadFromFile(list<Service*> *services_finished,vector<Service*> *s
         tempType=intToType(stoi(tempGeneral));
 
         getline(servicesFile,tempGeneral);
+
+        getline(servicesFile,tempGeneral);
         tempState=intToState(stoi(tempGeneral));
 
         getline(servicesFile,tempIDate);
@@ -612,6 +614,11 @@ void Service::saveToFile(list<Service*> *services_finished,vector<Service*>*serv
             }
             servicesFile << i.second <<";";
         }
+        servicesFile<<endl;
+
+        if(!x->getTrucks()->size()){
+            servicesFile << "" <<endl;
+        }
 
         servicesFile << (x->getState())<<endl;
         servicesFile << x->getIDate()->getDate() <<endl;
@@ -629,21 +636,22 @@ void Service::saveToFile(list<Service*> *services_finished,vector<Service*>*serv
         servicesFile << x->getDestination().getFullAdress() <<endl;
         servicesFile << (x->getADate()->getDate())<<endl;
         servicesFile << (x->getDistance())<<endl;
+        cout<<typeToString(x->getType())<<endl;
         switch (x->getType()) {
         case type::lowTemperature:{
-            cout<<3<<endl;
+            servicesFile<<3<<endl;
             break;
         }
         case type::ordinary:{
-            cout<<0<<endl;
+            servicesFile<<0<<endl;
             break;
         }
         case type::hazardous:{
-            cout<<1<<endl;
+            servicesFile<<1<<endl;
             break;
         }
         case type::animal:{
-            cout<<2<<endl;
+            servicesFile<<2<<endl;
             break;
         }
         }
@@ -676,19 +684,19 @@ void Service::saveToFile(list<Service*> *services_finished,vector<Service*>*serv
         servicesFile << (x->getDistance())<<endl;
         switch (x->getType()) {
         case type::lowTemperature:{
-            cout<<3<<endl;
+            servicesFile<<3<<endl;
             break;
         }
         case type::ordinary:{
-            cout<<0<<endl;
+            servicesFile<<0<<endl;
             break;
         }
         case type::hazardous:{
-            cout<<1<<endl;
+            servicesFile<<1<<endl;
             break;
         }
         case type::animal:{
-            cout<<2<<endl;
+            servicesFile<<2<<endl;
             break;
         }
         }
