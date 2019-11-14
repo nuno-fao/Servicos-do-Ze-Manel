@@ -1909,6 +1909,9 @@ int Service::autoAddTrucks(){
                 available_on_time=true;
                 i++;
             }
+            else{
+                i=tempVectorIterate.erase(i);
+            }
         }
         else{
             i=tempVectorIterate.erase(i);
