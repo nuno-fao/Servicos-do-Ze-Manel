@@ -255,6 +255,6 @@ void Company::saveStats() {
 		statfile << ":::::::::::::::::::" << endl;
 		statfile << statHaz[i].first << endl;
 		statfile << statHaz[i].second << "; " << statCong[i].second << "; " << statAnim[i].second << "; " << statNorm[i].second << endl;
-		statfile.close();
 	}
+	statfile.close();
 }
