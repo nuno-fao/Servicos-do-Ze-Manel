@@ -567,20 +567,47 @@ void clientsInformation(){
                 if (nif > 0) {
                     try {
                         temp_client = Company::getCompany()->getClient(unsigned(nif));
-                        cout << endl << *temp_client << endl;
-                        cout << "Services: " << endl;
-                        for(auto it = temp_client->getServicesVector()->begin(); it != temp_client->getServicesVector()->end(); it++)
-                        {
-                            cout << (*it) << endl;
+
+                        while(true){
+                            cout << endl << *temp_client << endl;
+                            cout<<"[1] See services"<<endl;
+                            cout<<"[0] Return"<<endl;
+                            unsigned temp_opt=3;
+                            if(cin>>temp_opt){
+                                if(temp_opt==1){
+                                    clearScreen();
+                                    cout << "Services: " << endl;
+                                    for(auto it = temp_client->getServicesVector()->begin(); it != temp_client->getServicesVector()->end(); it++)
+                                    {
+                                        cout << (*it) << endl;
+                                    }
+                                    clearBuffer();
+                                    enter_to_exit();
+                                    clearScreen();
+                                    break;
+                                }
+                                else if (temp_opt==0) {
+                                    clearBuffer();
+                                    clearScreen();
+                                    break;
+                                }
+                                else{
+                                    clearScreen();
+                                    cout<<"Input not acceptable"<<endl;
+                                    clearBuffer();
+                                }
+                            }
+                            else{
+                                clearScreen();
+                                cout<<"Input not acceptable"<<endl;
+                                clearBuffer();
+                            }
                         }
                     }
                     catch (NotAClient e) {
                         cout << e.erro << endl;
                     }
                 }
-                //clearBuffer(); Tem de estar comentado senão não apresenta o menu no ecrã
-                string temp;
-                getline(cin, temp);
                 break;
             }
 
