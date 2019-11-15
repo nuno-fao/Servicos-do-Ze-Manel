@@ -55,8 +55,8 @@ public:
     float getMultiplier(){return  1;}
     string getMaterial() const;
 
-    //set methods
-    void setOrigin(Address origin);
+	// SET METHODS
+	void setOrigin(Address origin);
     void setDestination(Address destination);
     void setTime(double time);
     void setDistance(unsigned distance);
@@ -70,8 +70,8 @@ public:
 
     void addTruck(Truck *truck,float cargo);
 
-    //file methods
-    static void saveToFile(list<Service*>*services_finished, vector<Service *> *services_on_transit, vector<Service *> *services_on_queue);
+	// FILE METHODS
+	static void saveToFile(list<Service*>*services_finished, vector<Service *> *services_on_transit, vector<Service *> *services_on_queue);
     static void loadFromFile(list<Service *> *services_finished, vector<Service *> *services_on_transit, vector<Service *> *services_on_queue);
     static Service *addService(vector<Service *> *services, Client *client=nullptr);
     void editService();
