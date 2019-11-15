@@ -230,7 +230,7 @@ public:
     }
 };
 
-class ClientInVector{
+class ClientInVector: public Client{
 public:
     /**
 * Default destructor
