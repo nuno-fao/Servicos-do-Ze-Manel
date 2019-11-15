@@ -740,10 +740,10 @@ void trucksInformation() {
                 cout << "Radioactive multiplier: " << HazardousMat::hazardMul[Hazard_enum::radioactive] << endl;
                 cout << "'Other' multiplier: " << HazardousMat::hazardMul[Hazard_enum::other] << endl;
                 cout <<endl<< "---Congelation---" << endl;
-                cout << "_100 multiplier: " << Congelation::tempMul[Temperature_enum::_100] << endl;
-                cout << "_200 multiplier: " << Congelation::tempMul[Temperature_enum::_200] << endl;
-                cout << "_300 multiplier: " << Congelation::tempMul[Temperature_enum::_300] << endl;
-                cout << "_400 multiplier: " << Congelation::tempMul[Temperature_enum::_400] << endl;
+                cout << "[1,20] multiplier: " << Congelation::tempMul[Temperature_enum::p1_20] << endl;
+                cout << "[-20,0] multiplier: " << Congelation::tempMul[Temperature_enum::n20_0] << endl;
+                cout << "[-50,-21] multiplier: " << Congelation::tempMul[Temperature_enum::n50_n21] << endl;
+                cout << "[-100,-51] multiplier: " << Congelation::tempMul[Temperature_enum::n100_n51] << endl;
                 cout <<endl<< "---STD Prices---" << endl;
                 cout << "Congelation price per KG: " << Congelation::pricePerKG << endl;
                 cout << "Hazard price per KG: " << HazardousMat::pricePerKG << endl;
@@ -1028,10 +1028,10 @@ void menu_editprices() {
                 string aux;
                 while (opt1 != 0) {
                     clearScreen();
-                    cout << "[1] Edit _100" << endl;
-                    cout << "[2] Edit _200" << endl;
-                    cout << "[3] Edit _300" << endl;
-                    cout << "[4] Edit _400" << endl;
+                    cout << "[1] Edit [1,20]" << endl;
+                    cout << "[2] Edit [-20,0]" << endl;
+                    cout << "[3] Edit [-50,-21]" << endl;
+                    cout << "[4] Edit [-100,-51]" << endl;
                     cout << "[0] Return to Main Menu" << endl;
                     if (cin >> opt1 && opt1 <= 4)
                     {
@@ -1042,12 +1042,12 @@ void menu_editprices() {
                         case 1: {
                             clearBuffer();
                             clearScreen();
-                            cout << "Current multiplier for _100 is: " << Congelation::tempMul[Temperature_enum::_100] << endl;
+                            cout << "Current multiplier for [1,20] is: " << Congelation::tempMul[Temperature_enum::p1_20] << endl;
                             cout << "What will be the new value? "; cin >> aux;
                             clearBuffer();
                             if (strIsNumber(aux)) {
                                 if (stof(aux) > 0) {
-                                    Congelation::tempMul[Temperature_enum::_100] = stof(aux);
+                                    Congelation::tempMul[Temperature_enum::p1_20] = stof(aux);
                                     cout << "Multiplier changed successfully!!!" << endl;
                                     enter_to_exit();
                                 }
@@ -1065,12 +1065,12 @@ void menu_editprices() {
                         case 2: {
                             clearBuffer();
                             clearScreen();
-                            cout << "Current multiplier for _200 is: " << Congelation::tempMul[Temperature_enum::_200] << endl;
+                            cout << "Current multiplier for [-20,0] is: " << Congelation::tempMul[Temperature_enum::n20_0] << endl;
                             cout << "What will be the new value? "; cin >> aux;
                             clearBuffer();
                             if (strIsNumber(aux)) {
                                 if (stof(aux) > 0) {
-                                    Congelation::tempMul[Temperature_enum::_200] = stof(aux);
+                                    Congelation::tempMul[Temperature_enum::n20_0] = stof(aux);
                                     cout << "Multiplier changed successfully!!!" << endl;
                                     enter_to_exit();
                                 }
@@ -1088,12 +1088,12 @@ void menu_editprices() {
                         case 3: {
                             clearBuffer();
                             clearScreen();
-                            cout << "Current multiplier for _300 is: " << Congelation::tempMul[Temperature_enum::_300] << endl;
+                            cout << "Current multiplier for [-50,-21] is: " << Congelation::tempMul[Temperature_enum::n50_n21] << endl;
                             cout << "What will be the new value? "; cin >> aux;
                             clearBuffer();
                             if (strIsNumber(aux)) {
                                 if (stof(aux) > 0) {
-                                    Congelation::tempMul[Temperature_enum::_300] = stof(aux);
+                                    Congelation::tempMul[Temperature_enum::n50_n21] = stof(aux);
                                     cout << "Multiplier changed successfully!!!" << endl;
                                     enter_to_exit();
                                 }
@@ -1111,12 +1111,12 @@ void menu_editprices() {
                         case 4: {
                             clearBuffer();
                             clearScreen();
-                            cout << "Current multiplier for _400 is: " << Congelation::tempMul[Temperature_enum::_400] << endl;
+                            cout << "Current multiplier for [-100,-51] is: " << Congelation::tempMul[Temperature_enum::n100_n51] << endl;
                             cout << "What will be the new value? "; cin >> aux;
                             clearBuffer();
                             if (strIsNumber(aux)) {
                                 if (stof(aux) > 0) {
-                                    Congelation::tempMul[Temperature_enum::_400] = stof(aux);
+                                    Congelation::tempMul[Temperature_enum::n100_n51] = stof(aux);
                                     cout << "Multiplier changed successfully!!!" << endl;
                                     enter_to_exit();
                                 }
@@ -1484,7 +1484,6 @@ void manage_client(Client *client){
                 else{
                     cout<<"No Service can be Canceled"<<endl;
                 }
-                clearBuffer();
                 enter_to_exit();
                 break;
 
