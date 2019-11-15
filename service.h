@@ -36,22 +36,115 @@ enum state {
 class Service
 {
 public:
+	/**
+* Default destructor
+*/
     ~Service();
+	/**
+* Default constructor
+*/
     Service();
     //get methods
-    Address getOrigin() const; /*!< @return string #origin  */
+		/**
+* @brief Gets origin
+*
+* Returns the origin of the service
+*
+* @return Returns the origin of the service as Address data type
+*/
+    Address getOrigin() const; 
+	/**
+* @brief Gets destiny
+*
+* Returns the destiny of the service
+*
+* @return Returns the destiny of the service as Address data type
+*/
     Address getDestination() const;
+	/**
+* @brief Gets distance
+*
+* Returns the distance from origin to destiny
+*
+* @return Returns the distance from origin to destiny
+*/
     unsigned getDistance() const;
+	/**
+* @brief Gets type
+*
+* Returns the type of service
+*
+* @return Returns the type of service
+*/
     type getType() const;
+	/**
+* @brief Gets id
+*
+* Returns the id of service
+*
+* @return Returns the id of service
+*/
     unsigned int getId() const;
+	/**
+* @brief Gets state
+*
+* Returns the state of service
+*
+* @return Returns the state of service as a state data type
+*/
     state getState() const;
+	/**
+* @brief Gets starting date
+*
+* Returns the starting date of service
+*
+* @return Returns the starting date of the service
+*/
     Date *getIDate() const;
+	/**
+* @brief Gets arrival date
+*
+* Returns the arrival date of service
+*
+* @return Returns the arrival date of the service
+*/
     Date *getADate() const;
+	/**
+* @brief Gets the client that bought the service
+*
+*
+* @return Returns a pointer to the client that bought the service
+*/
     Client *getClient() const;
+	/**
+* @brief Gets the trucks associated to the service and respective cargo in a map
+*
+*
+* @return Returns a map to the trucks associated to the service and respective cargo
+*/
     map<Truck *, float> *getTrucks();
+	/**
+* @brief Gets full price of the service
+*
+*
+* @return Returns full price of the service
+*/
     float getTotalPrice() const;
+	/**
+* @brief Gets quantity of the material to transport
+* Gets quantity of the material to transport
+*
+* @return Returns quantity of the material to transport
+*/
     float getQuantity() const;
+	
     float getMultiplier(){return  1;}
+	/**
+* @brief Gets  material to transport
+* Gets material to transport
+*
+* @return Returns a string with the material to transport
+*/
     string getMaterial() const;
 
     //set methods

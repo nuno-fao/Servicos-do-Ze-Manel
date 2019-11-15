@@ -52,9 +52,6 @@ public:
 private:
     static Company *company;
     Company();
-    int generalRevenue; // lucro geral
-    int dangerousRevenue; //lucro caminhao perigoso
-    int freezeRevenue;
     list<Service*> services_finished;
     vector<Service*> services_on_transit,services_on_queue;
     vector<Client*> clients;
