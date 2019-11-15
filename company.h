@@ -52,15 +52,15 @@ public:
 private:
     static Company *company;
     Company();
-    int generalRevenue; // lucro geral
-    int dangerousRevenue; //lucro caminhao perigoso
-    int freezeRevenue;
+    int generalRevenue;
+    int dangerousRevenue; /// Total revenue of the trucks that carry dangerous cargo
+    int freezeRevenue; /// Total revenue of the trucks that carry cargo to be conserved frozen
     list<Service*> services_finished;
     vector<Service*> services_on_transit,services_on_queue;
     vector<Client*> clients;
     vector<Truck*> trucks;
     vector<pair<int, double>> statCong;
     vector<pair<int, double>> statHaz;
-    vector<pair<int, double>> statNorm;
+    vector<pair<int, double>> statNorm; /// Vector containing amount of trucks that can carry a given quantity
     vector<pair<int, double>> statAnim;
 };
