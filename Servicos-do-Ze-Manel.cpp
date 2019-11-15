@@ -1474,6 +1474,7 @@ void manage_client(Client *client){
                     else{
                         try{
                             Service::removeService(Company::getCompany()->getVectorServicesOnQueue(),unsigned(id));
+
                             cout<<"Successfully Removed"<<endl;
                         }
                         catch(ServiceDoNotExist e){
