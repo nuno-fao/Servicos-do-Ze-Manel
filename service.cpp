@@ -1701,7 +1701,9 @@ int Service::autoAddTrucks(){
     }
 
     }
-
+    for(auto i: temp_map){
+        temp_map.at(i.first)=0;
+    }
     bool available_on_time=true;
     vector<Truck*> tempVectorIterate=*Company::getCompany()->getVectorTrucks();
     for(auto i= tempVectorIterate.begin();i!=tempVectorIterate.end();){
@@ -1742,9 +1744,13 @@ int Service::autoAddTrucks(){
         if(i->first*numb<quantity){
             numb++;
         }
-        if(numb<=maxTrucks  && numb<=i->second){
-            r_it++;
+        r_it++;
+        if(r_it!=temp_map.rend() && numb<=maxTrucks  && numb<=i->second ){
             maxTrucks=numb;
+            break;
+        }
+        if(numb>i->second){
+            r_it--;
             break;
         }
     }
@@ -1755,6 +1761,7 @@ int Service::autoAddTrucks(){
         }
         if(!forward && r_it!=temp_map.rend()){
             for(auto i= tempVectorIterate.begin();i!=tempVectorIterate.end();){
+                cout<<r_it->first<<endl;
                 if(r_it->first==(*i)->getcapacity()){
                     if(remaining-(*i)->getcapacity()>0){
                         remaining-=(*i)->getcapacity();
