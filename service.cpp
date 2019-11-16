@@ -1768,7 +1768,7 @@ int Service::autoAddTrucks(){
                         tempTruck.push_back((*i));
                         i=tempVectorIterate.erase(i);
                     }
-                    else if(((double)remaining - ((*i)->getcapacity()))==0.0){
+                    else if((double(remaining) - ((*i)->getcapacity()))==0.0){
                         tempTruck.push_back((*i));
                         i=tempVectorIterate.erase(i);
                         remaining=0;
