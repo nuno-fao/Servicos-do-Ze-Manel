@@ -39,7 +39,7 @@ public:
 	/**
 * Default destructor
 */
-    ~Service();
+    virtual ~Service();
 	/**
 * Default constructor
 */
@@ -307,6 +307,8 @@ public:
  * @param a - service to 'print' the info
  * @return Returns nothing
  */
+
+    virtual string getSpecificType(){return "non correct";}
     friend ostream& operator<<(ostream& os, Service *a);
 
     static void test();
@@ -344,17 +346,21 @@ protected:
 class HazardousService: public Service
 {
 public:
+    ~HazardousService();
     HazardousService(string material,Address origin, Address destination, Date *arrivalDate, unsigned distance, type type, state state, Date *date,Client *client,float quantity,Hazard_enum hazard);
     HazardousService(string material,string origin, string destination, Date *arrivalDate, unsigned distance, type type, state state, Date *date,Client *client,float quantity,Hazard_enum hazard,float total_price,unsigned id);
     Hazard_enum type;
+    string getSpecificType();
 };
 
 class TemperatureService: public Service
 {
 public:
+    ~TemperatureService();
     TemperatureService(string material,Address origin, Address destination, Date *arrivalDate, unsigned distance, type type, state state, Date *date,Client *client,float quantity,Temperature_enum hazard);
     TemperatureService(string material, string origin, string destination, Date *arrivalDate, unsigned distance, type type, state state, Date *date, Client *client, float quantity, Temperature_enum hazard, float total_price, unsigned id_s);
     Temperature_enum type;
+    string getSpecificType();
 };
 /**
  * @brief Constructor with all data necessary

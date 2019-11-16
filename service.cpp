@@ -157,6 +157,83 @@ string typeToString(type a){
     }
     return "ordinary";
 }
+
+
+string hazardToString(Hazard_enum a){
+    switch (a) {
+    case Hazard_enum::gases:
+        return "gases";
+    case Hazard_enum::other:
+        return "other";
+    case Hazard_enum::poisons:
+        return "poisons";
+    case Hazard_enum::oxidizer:
+        return "oxidizer";
+    case Hazard_enum::corrosives:
+        return "corrosives";
+    case Hazard_enum::explosives:
+        return "explosives";
+    case Hazard_enum::radioactive:
+        return "radioactive";
+    case Hazard_enum::flammableliq:
+        return "flammable liquid";
+    case Hazard_enum::flammablesolid:
+        return "flammable solid";
+    }
+    return "other";
+}
+
+Hazard_enum strToHazard(string a){
+    if(a=="gases")
+        return  Hazard_enum::gases;
+    if(a=="other")
+        return Hazard_enum::other;
+    if(a=="poisons")
+        return Hazard_enum::poisons;
+    if(a=="oxidizer")
+        return Hazard_enum::oxidizer;
+    if(a== "corrosives")
+        return Hazard_enum::corrosives;
+    if(a== "explosives")
+        return Hazard_enum::explosives;
+    if(a=="radioactive")
+        return  Hazard_enum::radioactive;
+    if(a== "flammable liquid")
+        return Hazard_enum::flammableliq;
+    if(a== "flammable solid")
+        return Hazard_enum::flammablesolid;
+    else
+        return Hazard_enum::other;
+}
+
+Temperature_enum strToTemp(string a){
+    if(a=="0->20"){
+        return Temperature_enum::p1_20;
+    }
+    if(a=="-20->0")
+        return Temperature_enum::n20_0;
+    if(a=="-50->21")
+        return Temperature_enum::n50_n21;
+    if(a=="100->51")
+        return Temperature_enum::n100_n51;
+    else
+        return Temperature_enum::p1_20;
+}
+
+
+string tempToString(Temperature_enum a){
+    switch (a) {
+    case Temperature_enum::p1_20:
+        return "0->20";
+    case Temperature_enum::n20_0:
+        return "-20->0";
+    case Temperature_enum::n50_n21:
+        return "-50->21";
+    case Temperature_enum::n100_n51:
+        return "100->51";
+    }
+    return "not in range";
+}
 string stateToString(state a){
     return  to_string(a);
 }
@@ -191,6 +268,8 @@ void Service::loadFromFile(list<Service*> *services_finished,vector<Service*> *s
     string tempADate;
     double tempDistance;
     string tempMaterial;
+    Hazard_enum tempSpecHazar=Hazard_enum::other;
+    Temperature_enum tempSpecTemp=Temperature_enum::p1_20;
     type tempType;
     string temptrucks;
     state tempState;
@@ -208,24 +287,30 @@ void Service::loadFromFile(list<Service*> *services_finished,vector<Service*> *s
         tempId=unsigned(stoi(tempGeneral));
         getline(servicesFile,tempOrigin);
         getline(servicesFile,tempDestination);
-        
+
         getline(servicesFile,tempADate);
-        
+
         getline(servicesFile,tempGeneral);
         tempDistance=stoi(tempGeneral);
 
         //
         getline(servicesFile,tempGeneral);
-        tempType=intToType(stoi(tempGeneral));
+        vector<string> tt=vectorString(tempGeneral,":");
+        if(tt.size()>1){
+            tempSpecHazar=strToHazard(tt.at(1));
+            tempSpecTemp=strToTemp(tt.at(1));
+        }
+
+        tempType=intToType(stoi(tt.at(0)));
 
         getline(servicesFile,temptrucks);
         tempVectorTruckS=vectorString(temptrucks,";");
-        
+
         getline(servicesFile,tempGeneral);
         tempState=intToState(stoi(tempGeneral));
-        
+
         getline(servicesFile,tempIDate);
-        
+
         getline(servicesFile,tempNif);
 
         getline(servicesFile,tempGeneral);
@@ -242,9 +327,9 @@ void Service::loadFromFile(list<Service*> *services_finished,vector<Service*> *s
             Client *temp_client=Company::getCompany()->getClient(unsigned(stoi(tempNif)));
 
             if(tempType==type::lowTemperature)
-                temp= new TemperatureService(tempMaterial, tempOrigin,tempDestination,tempA,unsigned(tempDistance),tempType,tempState,tempI,temp_client,tempQuantity,Temperature_enum::n20_0,tempPrice,tempId);
+                temp= new TemperatureService(tempMaterial, tempOrigin,tempDestination,tempA,unsigned(tempDistance),tempType,tempState,tempI,temp_client,tempQuantity,tempSpecTemp,tempPrice,tempId);
             if(tempType==type::hazardous)
-                temp= new HazardousService(tempMaterial, tempOrigin,tempDestination,tempA,unsigned(tempDistance),tempType,tempState,tempI,temp_client,tempQuantity,Hazard_enum::corrosives,tempPrice,tempId);
+                temp= new HazardousService(tempMaterial, tempOrigin,tempDestination,tempA,unsigned(tempDistance),tempType,tempState,tempI,temp_client,tempQuantity,tempSpecHazar,tempPrice,tempId);
             else
                 temp= new Service(tempMaterial,tempOrigin,tempDestination,tempA,unsigned(tempDistance),tempType,tempState,tempI,temp_client,tempQuantity,tempPrice,tempId);
 
@@ -283,9 +368,9 @@ void Service::loadFromFile(list<Service*> *services_finished,vector<Service*> *s
             Client *tempC= new NotAClient(e);
             //getline(cin,temp_error);
             if(tempType==type::lowTemperature)
-                temp= new TemperatureService(tempMaterial, tempOrigin,tempDestination,tempA,unsigned(tempDistance),tempType,tempState,tempI,tempC,tempQuantity,Temperature_enum::n20_0,tempPrice,tempId);
+                temp= new TemperatureService(tempMaterial, tempOrigin,tempDestination,tempA,unsigned(tempDistance),tempType,tempState,tempI,tempC,tempQuantity,tempSpecTemp,tempPrice,tempId);
             if(tempType==type::hazardous)
-                temp= new HazardousService(tempMaterial, tempOrigin,tempDestination,tempA,unsigned(tempDistance),tempType,tempState,tempI,tempC,tempQuantity,Hazard_enum::corrosives,tempPrice,tempId);
+                temp= new HazardousService(tempMaterial, tempOrigin,tempDestination,tempA,unsigned(tempDistance),tempType,tempState,tempI,tempC,tempQuantity,tempSpecHazar,tempPrice,tempId);
             else
                 temp= new Service(tempMaterial,tempOrigin,tempDestination,tempA,unsigned(tempDistance),tempType,tempState,tempI,tempC,tempQuantity,tempPrice,tempId);
 
@@ -341,7 +426,12 @@ void Service::loadFromFile(list<Service*> *services_finished,vector<Service*> *s
         tempDistance=stoi(tempGeneral);
 
         getline(servicesFile,tempGeneral);
-        tempType=intToType(stoi(tempGeneral));
+        vector<string> tt=vectorString(tempGeneral,":");
+        if(tt.size()>1){
+            tempSpecHazar=strToHazard(tt.at(1));
+            tempSpecTemp=strToTemp(tt.at(1));
+        }
+        tempType=intToType(stoi(tt.at(0)));
 
         getline(servicesFile,tempGeneral);
         tempState=intToState(stoi(tempGeneral));
@@ -365,10 +455,12 @@ void Service::loadFromFile(list<Service*> *services_finished,vector<Service*> *s
             if(tempNif.size()!=9)
                 throw NotAClient(unsigned(stoi(tempNif)),"Not a valid NIF");
             Client *temp_client=Company::getCompany()->getClient(unsigned(stoi(tempNif)));
-            if(tempType==type::lowTemperature)
-                temp= new TemperatureService(tempMaterial, tempOrigin,tempDestination,tempA,unsigned(tempDistance),tempType,tempState,tempD,temp_client,tempQuantity,Temperature_enum::n20_0,tempPrice,tempId);
-            if(tempType==type::hazardous)
-                temp= new HazardousService(tempMaterial, tempOrigin,tempDestination,tempA,unsigned(tempDistance),tempType,tempState,tempD,temp_client,tempQuantity,Hazard_enum::corrosives,tempPrice,tempId);
+            if(tempType==type::lowTemperature){
+                temp= new TemperatureService(tempMaterial, tempOrigin,tempDestination,tempA,unsigned(tempDistance),tempType,tempState,tempD,temp_client,tempQuantity,tempSpecTemp,tempPrice,tempId);
+            }
+            if(tempType==type::hazardous){
+                temp= new HazardousService(tempMaterial, tempOrigin,tempDestination,tempA,unsigned(tempDistance),tempType,tempState,tempD,temp_client,tempQuantity,tempSpecHazar,tempPrice,tempId);
+            }
             else
                 temp= new Service(tempMaterial,tempOrigin,tempDestination,tempA,unsigned(tempDistance),tempType,tempState,tempD,temp_client,tempQuantity,tempPrice,tempId);
 
@@ -408,9 +500,9 @@ void Service::loadFromFile(list<Service*> *services_finished,vector<Service*> *s
             Client *tempC= new NotAClient(e);
             //getline(cin,temp_error);
             if(tempType==type::lowTemperature)
-                temp= new TemperatureService(tempMaterial, tempOrigin,tempDestination,tempA,unsigned(tempDistance),tempType,tempState,tempD,tempC,tempQuantity,Temperature_enum::n20_0,tempPrice,tempId);
+                temp= new TemperatureService(tempMaterial, tempOrigin,tempDestination,tempA,unsigned(tempDistance),tempType,tempState,tempD,tempC,tempQuantity,tempSpecTemp,tempPrice,tempId);
             if(tempType==type::hazardous)
-                temp= new HazardousService(tempMaterial, tempOrigin,tempDestination,tempA,unsigned(tempDistance),tempType,tempState,tempD,tempC,tempQuantity,Hazard_enum::corrosives,tempPrice,tempId);
+                temp= new HazardousService(tempMaterial, tempOrigin,tempDestination,tempA,unsigned(tempDistance),tempType,tempState,tempD,tempC,tempQuantity,tempSpecHazar,tempPrice,tempId);
             else
                 temp= new Service(tempMaterial,tempOrigin,tempDestination,tempA,unsigned(tempDistance),tempType,tempState,tempD,tempC,tempQuantity,tempPrice,tempId);
 
@@ -463,7 +555,13 @@ void Service::loadFromFile(list<Service*> *services_finished,vector<Service*> *s
         tempDistance=stoi(tempGeneral);
 
         getline(servicesFile,tempGeneral);
-        tempType=intToType(stoi(tempGeneral));
+        vector<string> tt=vectorString(tempGeneral,":");
+        if(tt.size()>1){
+            tempSpecHazar=strToHazard(tt.at(1));
+            tempSpecTemp=strToTemp(tt.at(1));
+        }
+
+        tempType=intToType(stoi(tt.at(0)));
 
         getline(servicesFile,temptrucks);
         Service *temp = nullptr;
@@ -487,9 +585,9 @@ void Service::loadFromFile(list<Service*> *services_finished,vector<Service*> *s
                 throw NotAClient(unsigned(stoi(tempNif)),"Not a valid NIF");
             Client *temp_client=Company::getCompany()->getClient(unsigned(stoi(tempNif)));
             if(tempType==type::lowTemperature)
-                temp= new TemperatureService(tempMaterial, tempOrigin,tempDestination,tempA,unsigned(tempDistance),tempType,tempState,tempD,temp_client,tempQuantity,Temperature_enum::n20_0,tempPrice,tempId);
+                temp= new TemperatureService(tempMaterial, tempOrigin,tempDestination,tempA,unsigned(tempDistance),tempType,tempState,tempD,temp_client,tempQuantity,tempSpecTemp,tempPrice,tempId);
             if(tempType==type::hazardous)
-                temp= new HazardousService(tempMaterial, tempOrigin,tempDestination,tempA,unsigned(tempDistance),tempType,tempState,tempD,temp_client,tempQuantity,Hazard_enum::corrosives,tempPrice,tempId);
+                temp= new HazardousService(tempMaterial, tempOrigin,tempDestination,tempA,unsigned(tempDistance),tempType,tempState,tempD,temp_client,tempQuantity,tempSpecHazar,tempPrice,tempId);
             else
                 temp= new Service(tempMaterial,tempOrigin,tempDestination,tempA,unsigned(tempDistance),tempType,tempState,tempD,temp_client,tempQuantity,tempPrice,tempId);
 
@@ -531,9 +629,9 @@ void Service::loadFromFile(list<Service*> *services_finished,vector<Service*> *s
             Client *tempC= new NotAClient(e);
             //getline(cin,temp_error);
             if(tempType==type::lowTemperature)
-                temp= new TemperatureService(tempMaterial, tempOrigin,tempDestination,tempA,unsigned(tempDistance),tempType,tempState,tempD,tempC,tempQuantity,Temperature_enum::n20_0,tempPrice,tempId);
+                temp= new TemperatureService(tempMaterial, tempOrigin,tempDestination,tempA,unsigned(tempDistance),tempType,tempState,tempD,tempC,tempQuantity,tempSpecTemp,tempPrice,tempId);
             if(tempType==type::hazardous)
-                temp= new HazardousService(tempMaterial, tempOrigin,tempDestination,tempA,unsigned(tempDistance),tempType,tempState,tempD,tempC,tempQuantity,Hazard_enum::corrosives,tempPrice,tempId);
+                temp= new HazardousService(tempMaterial, tempOrigin,tempDestination,tempA,unsigned(tempDistance),tempType,tempState,tempD,tempC,tempQuantity,tempSpecHazar,tempPrice,tempId);
             else
                 temp= new Service(tempMaterial,tempOrigin,tempDestination,tempA,unsigned(tempDistance),tempType,tempState,tempD,tempC,tempQuantity,tempPrice,tempId);
 
@@ -588,7 +686,7 @@ void Service::saveToFile(list<Service*> *services_finished,vector<Service*>*serv
         servicesFile << (x->getDistance())<<endl;
         switch (x->getType()) {
         case type::lowTemperature:{
-            servicesFile<<3<<endl;
+            servicesFile<<3<<":"<<x->getSpecificType()<<endl;
             break;
         }
         case type::ordinary:{
@@ -596,7 +694,7 @@ void Service::saveToFile(list<Service*> *services_finished,vector<Service*>*serv
             break;
         }
         case type::hazardous:{
-            servicesFile<<1<<endl;
+            servicesFile<<1<<":"<<x->getSpecificType()<<endl;
             break;
         }
         case type::animal:{
@@ -638,7 +736,7 @@ void Service::saveToFile(list<Service*> *services_finished,vector<Service*>*serv
         servicesFile << (x->getDistance())<<endl;
         switch (x->getType()) {
         case type::lowTemperature:{
-            servicesFile<<3<<endl;
+            servicesFile<<3<<":"<<x->getSpecificType()<<endl;
             break;
         }
         case type::ordinary:{
@@ -646,7 +744,7 @@ void Service::saveToFile(list<Service*> *services_finished,vector<Service*>*serv
             break;
         }
         case type::hazardous:{
-            servicesFile<<1<<endl;
+            servicesFile<<1<<":"<<x->getSpecificType()<<endl;
             break;
         }
         case type::animal:{
@@ -654,7 +752,6 @@ void Service::saveToFile(list<Service*> *services_finished,vector<Service*>*serv
             break;
         }
         }
-
         for(auto i: *x->getTrucks()){
             try{
                 servicesFile << i.first->getlicense() <<":";
@@ -683,7 +780,7 @@ void Service::saveToFile(list<Service*> *services_finished,vector<Service*>*serv
         servicesFile << (x->getDistance())<<endl;
         switch (x->getType()) {
         case type::lowTemperature:{
-            servicesFile<<3<<endl;
+            servicesFile<<3<<":"<<x->getSpecificType()<<endl;
             break;
         }
         case type::ordinary:{
@@ -691,7 +788,7 @@ void Service::saveToFile(list<Service*> *services_finished,vector<Service*>*serv
             break;
         }
         case type::hazardous:{
-            servicesFile<<1<<endl;
+            servicesFile<<1<<":"<<x->getSpecificType()<<endl;
             break;
         }
         case type::animal:{
@@ -1619,10 +1716,18 @@ bool Service::removeService(vector<Service *> *services, unsigned id){
 }
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!Hazardous
 //constructor
+
+HazardousService::~HazardousService(){
+
+}
+
+TemperatureService::~TemperatureService(){
+
+}
 HazardousService::HazardousService(string material_h, Address origin_h, Address destination_h, Date *arrivalDate_h, unsigned distance_h, enum type type_h, enum state state_h, Date *date_h, Client *client_h,float quantity_h,Hazard_enum type): Service(material_h,origin_h,destination_h,arrivalDate_h,distance_h,type_h,state_h,date_h,client_h,quantity_h),type(type)
 {
-    
-    
+
+
 }
 HazardousService::HazardousService(string material_h, string origin_h, string destination_h, Date *arrivalDate_h, unsigned distance_h, enum type type_h, enum state state_h, Date *date_h, Client *client_h,float quantity_h,Hazard_enum type,float total_price_h,unsigned id_h): Service(material_h,origin_h,destination_h,arrivalDate_h,distance_h,type_h,state_h,date_h,client_h,quantity_h,total_price_h,id_h),type(type)
 {
@@ -1631,13 +1736,13 @@ HazardousService::HazardousService(string material_h, string origin_h, string de
 
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!Temperature
 //constructor
-TemperatureService::TemperatureService(string material_s, string origin_s, string destination_s, Date *arrivalDate_s, unsigned distance_s, enum type type_s, enum state state_s, Date *date_s, Client *client_s, float quantity_s, Temperature_enum type, float total_price_s,unsigned id_s): Service(material_s,origin_s,destination_s,arrivalDate_s,distance_s,type_s,state_s,date_s,client_s,quantity_s,total_price_s,id_s) ,type(type)
+TemperatureService::TemperatureService(string material_s, string origin_s, string destination_s, Date *arrivalDate_s, unsigned distance_s, enum type type_s, enum state state_s, Date *date_s, Client *client_s, float quantity_s, Temperature_enum type, float total_price_s, unsigned id_s): Service(material_s,origin_s,destination_s,arrivalDate_s,distance_s,type_s,state_s,date_s,client_s,quantity_s,total_price_s,id_s) ,type(type)
 {
 
 }
 TemperatureService::TemperatureService(string material_s, Address origin_s, Address destination_s, Date *arrivalDate_s, unsigned distance_s, enum type type_s, enum state state_s, Date *date_s, Client *client_s,float quantity_s,Temperature_enum type): Service(material_s,origin_s,destination_s,arrivalDate_s,distance_s,type_s,state_s,date_s,client_s,quantity_s) ,type(type)
 {
-    
+
 }
 
 
@@ -1657,6 +1762,12 @@ ostream& operator <<(ostream& os,Service *a){
     os<<"Time :"<<*a->getADate()-*a->getIDate()<<" min"<<endl;
     os<<endl;
     os<<"Type of Transport: "+typeToString(a->getType())<<endl;
+    if(a->getType()==type::hazardous){
+        os<<"Hazardous Type: "<<a->getSpecificType()<<endl;
+    }
+    if(a->getType()==type::lowTemperature){
+        os<<"Temperature Range: "<<a->getSpecificType()<<endl;
+    }
     int prec_q=0,prec_p=0;
     if((a->getTotalPrice()-int(a->getTotalPrice())>0))
         prec_p=2;
@@ -1856,4 +1967,11 @@ ServiceOnQueueFileError::ServiceOnQueueFileError(){}
 ServiceOnTransitFileError::ServiceOnTransitFileError(){}
 */
 
+string HazardousService::getSpecificType(){
+    return hazardToString(this->type);
+}
+
+string TemperatureService::getSpecificType(){
+    return tempToString(this->type);
+}
 

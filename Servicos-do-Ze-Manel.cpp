@@ -167,7 +167,7 @@ void menu_clients(){
                     clearBuffer();
                     Client::addClient(Company::getCompany()->getVectorClients());
                 }
-                catch(ClientInVector e){
+                catch(const ClientInVector &e){
                     clearScreen();
                     clearBuffer();
                     cout << e.erro << endl;
