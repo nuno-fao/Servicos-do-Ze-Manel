@@ -362,51 +362,54 @@ public:
     Temperature_enum type;
     string getSpecificType();
 };
-/**
+
+class ServiceDoNotExist//: public Service
+{
+public:
+    string erro;
+	/**
  * @brief Constructor with all data necessary
  *
  * This exception is thrown if the program is unable to find a service
  *
  * @param erro - Message describing error
- */
-class ServiceDoNotExist//: public Service
-{
-public:
-    string erro;
+ */s
     ServiceDoNotExist(string erro):erro(erro){}
 };
-/**
+
+class ServiceFinishedFileError//: public Service
+{
+public:
+	/**
  * @brief Constructor with all data necessary
  *
  * This exception is thrown if the program is unable to open the associated file containing the finished services
  *
  */
-class ServiceFinishedFileError//: public Service
-{
-public:
     ServiceFinishedFileError(){}
 };
-/**
+
+class ServiceOnQueueFileError//: public Service
+{
+public:
+	/**
  * @brief Constructor with all data necessary
  *
  * This exception is thrown if the program is unable to open the associated file containing the on queue services
  *
  */
-class ServiceOnQueueFileError//: public Service
-{
-public:
     ServiceOnQueueFileError(){}
 
 };
-/**
+class ServiceOnTransitFileError//: public Service
+{
+public:
+	/**
  * @brief Constructor with all data necessary
  *
  * This exception is thrown if the program is unable to open the associated file containing the on transit services
  *
  */
-class ServiceOnTransitFileError//: public Service
-{
-public:
     ServiceOnTransitFileError(){}
 
 };
