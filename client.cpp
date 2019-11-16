@@ -43,12 +43,16 @@ void Client::addService(Service *service){
 
 
 void Client::removeService(Service *service){
-    for(auto c=services.begin();c!=services.end();c++){
+	auto c = services.begin();
+    while(c!=services.end()){
         if((*c)->getId()==service->getId()){
             c=services.erase(c);
-            c--;
             break;
         }
+		else {
+			c++;
+			continue;
+		}
     }
     money_spent-=service->getTotalPrice();
 }

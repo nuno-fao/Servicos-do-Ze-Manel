@@ -129,10 +129,9 @@ void Truck::add_service(Service* service) {
 }
 
 void Truck::remove_service(unsigned int id) {
-    short index = -1;
     for (vector<Service*>::iterator it = assignedServices.begin(); it != assignedServices.end();it++) {
         if ((*it)->getId() == id) {
-            assignedServices.erase(assignedServices.begin()+index);
+            assignedServices.erase(it);
             return;
         }
     }
@@ -169,10 +168,10 @@ void Truck::loadFromFile(vector<Truck*>* trucks) {
     //load temperature multipliers for congelation trucks
     getline(truckfile, aux);
     auxVec = vectorString(aux, separator);
-    Congelation::tempMul[Temperature_enum::_100] = stof(auxVec[0]);
-    Congelation::tempMul[Temperature_enum::_200] = stof(auxVec[1]);
-    Congelation::tempMul[Temperature_enum::_300] = stof(auxVec[2]);
-    Congelation::tempMul[Temperature_enum::_400] = stof(auxVec[3]);
+    Congelation::tempMul[Temperature_enum::p1_20] = stof(auxVec[0]);
+    Congelation::tempMul[Temperature_enum::n20_0] = stof(auxVec[1]);
+    Congelation::tempMul[Temperature_enum::n50_n21] = stof(auxVec[2]);
+    Congelation::tempMul[Temperature_enum::n100_n51] = stof(auxVec[3]);
     //load price per KG of each truck
     getline(truckfile, aux);
     auxVec = vectorString(aux, separator);
@@ -238,10 +237,10 @@ void Truck::saveToFile(vector<Truck*>* trucks) {
     truckfile << HazardousMat::hazardMul[Hazard_enum::radioactive] << "; ";
     truckfile << HazardousMat::hazardMul[Hazard_enum::corrosives] << "; ";
     truckfile << HazardousMat::hazardMul[Hazard_enum::other] << endl;
-    truckfile << Congelation::tempMul[Temperature_enum::_100] << "; ";
-    truckfile << Congelation::tempMul[Temperature_enum::_200] << "; ";
-    truckfile << Congelation::tempMul[Temperature_enum::_300] << "; ";
-    truckfile << Congelation::tempMul[Temperature_enum::_400] << endl;
+    truckfile << Congelation::tempMul[Temperature_enum::p1_20] << "; ";
+    truckfile << Congelation::tempMul[Temperature_enum::n20_0] << "; ";
+    truckfile << Congelation::tempMul[Temperature_enum::n50_n21] << "; ";
+    truckfile << Congelation::tempMul[Temperature_enum::n100_n51] << endl;
     truckfile << Congelation::pricePerKG << "; ";
     truckfile << HazardousMat::pricePerKG << "; ";
     truckfile << Animal::pricePerKG << "; ";
