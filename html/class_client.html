@@ -73,7 +73,10 @@ Inheritance diagram for Client:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_client__inherit__graph.png" border="0" usemap="#_client_inherit__map" alt="Inheritance graph"/></div>
 <map name="_client_inherit__map" id="_client_inherit__map">
-<area shape="rect" id="node2" href="class_not_a_client.html" title="NotAClient" alt="" coords="5,80,92,107"/>
+<area shape="rect" id="node2" href="class_cant_open_client_file.html" title="CantOpenClientFile" alt="" coords="5,80,141,107"/>
+<area shape="rect" id="node3" href="class_client_in_vector.html" title="ClientInVector" alt="" coords="166,80,271,107"/>
+<area shape="rect" id="node4" href="class_client_not_in_vector.html" title="ClientNotInVector" alt="" coords="295,80,422,107"/>
+<area shape="rect" id="node5" href="class_not_a_client.html" title="NotAClient" alt="" coords="446,80,533,107"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -83,7 +86,7 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:ab3079953a67493b5da6ffb32d4f14ac7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae51af7aa6b8f591496a8f6a4a87a14bf"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_client.html#ae51af7aa6b8f591496a8f6a4a87a14bf">Client</a> ()</td></tr>
 <tr class="separator:ae51af7aa6b8f591496a8f6a4a87a14bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3cdfb856b1cccd81052f589c850ab86f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_client.html#a3cdfb856b1cccd81052f589c850ab86f">Client</a> (string name, unsigned int <a class="el" href="class_client.html#a1c94dc96a56cb5032573fb1d528517c2">nif</a>, vector&lt; <a class="el" href="class_service.html">Service</a> *&gt; *services=nullptr)</td></tr>
+<tr class="memitem:a3cdfb856b1cccd81052f589c850ab86f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_client.html#a3cdfb856b1cccd81052f589c850ab86f">Client</a> (string name, unsigned int <a class="el" href="class_client.html#a1c94dc96a56cb5032573fb1d528517c2">nif</a>, vector&lt; <a class="el" href="class_service.html">Service</a> *&gt; *<a class="el" href="class_client.html#a02b601f12b9905edae7e64ded9bde912">services</a>=nullptr)</td></tr>
 <tr class="memdesc:a3cdfb856b1cccd81052f589c850ab86f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor with all data necessary.  <a href="#a3cdfb856b1cccd81052f589c850ab86f">More...</a><br /></td></tr>
 <tr class="separator:a3cdfb856b1cccd81052f589c850ab86f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a840e519ca781888cbd54181572ebe3a7"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_client.html#a840e519ca781888cbd54181572ebe3a7">~Client</a> ()</td></tr>
@@ -91,41 +94,41 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:afe8b004559fd1480fb8747c352f167db"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_client.html#afe8b004559fd1480fb8747c352f167db">editClient</a> ()</td></tr>
 <tr class="memdesc:afe8b004559fd1480fb8747c352f167db"><td class="mdescLeft">&#160;</td><td class="mdescRight">Edits the information of a client.  <a href="#afe8b004559fd1480fb8747c352f167db">More...</a><br /></td></tr>
 <tr class="separator:afe8b004559fd1480fb8747c352f167db"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7f845c33f4aa7b7081ae72d9a16c2d3f"><td class="memItemLeft" align="right" valign="top"><a id="a7f845c33f4aa7b7081ae72d9a16c2d3f"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>removeClient</b> (vector&lt; <a class="el" href="class_client.html">Client</a> *&gt; &amp;clientsVector)</td></tr>
+<tr class="memitem:a7f845c33f4aa7b7081ae72d9a16c2d3f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_client.html#a7f845c33f4aa7b7081ae72d9a16c2d3f">removeClient</a> (vector&lt; <a class="el" href="class_client.html">Client</a> *&gt; &amp;clientsVector)</td></tr>
+<tr class="memdesc:a7f845c33f4aa7b7081ae72d9a16c2d3f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes a client.  <a href="#a7f845c33f4aa7b7081ae72d9a16c2d3f">More...</a><br /></td></tr>
 <tr class="separator:a7f845c33f4aa7b7081ae72d9a16c2d3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5c473ba52d7678744edec9e51052c947"><td class="memItemLeft" align="right" valign="top"><a id="a5c473ba52d7678744edec9e51052c947"></a>
-string&#160;</td><td class="memItemRight" valign="bottom"><b>getName</b> () const</td></tr>
+<tr class="memitem:a5c473ba52d7678744edec9e51052c947"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_client.html#a5c473ba52d7678744edec9e51052c947">getName</a> () const</td></tr>
+<tr class="memdesc:a5c473ba52d7678744edec9e51052c947"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the <a class="el" href="class_client.html">Client</a>'s name.  <a href="#a5c473ba52d7678744edec9e51052c947">More...</a><br /></td></tr>
 <tr class="separator:a5c473ba52d7678744edec9e51052c947"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a226ff919591e7fdfa6c386e9aa5300a5"><td class="memItemLeft" align="right" valign="top"><a id="a226ff919591e7fdfa6c386e9aa5300a5"></a>
-float&#160;</td><td class="memItemRight" valign="bottom"><b>getMoneySpent</b> () const</td></tr>
+<tr class="memitem:a226ff919591e7fdfa6c386e9aa5300a5"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_client.html#a226ff919591e7fdfa6c386e9aa5300a5">getMoneySpent</a> () const</td></tr>
+<tr class="memdesc:a226ff919591e7fdfa6c386e9aa5300a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the money spent in services.  <a href="#a226ff919591e7fdfa6c386e9aa5300a5">More...</a><br /></td></tr>
 <tr class="separator:a226ff919591e7fdfa6c386e9aa5300a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a35c9fed8cdb36d28fd5e51bd2aee852e"><td class="memItemLeft" align="right" valign="top"><a id="a35c9fed8cdb36d28fd5e51bd2aee852e"></a>
-unsigned&#160;</td><td class="memItemRight" valign="bottom"><b>getNif</b> () const</td></tr>
+<tr class="memitem:a35c9fed8cdb36d28fd5e51bd2aee852e"><td class="memItemLeft" align="right" valign="top">unsigned&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_client.html#a35c9fed8cdb36d28fd5e51bd2aee852e">getNif</a> () const</td></tr>
+<tr class="memdesc:a35c9fed8cdb36d28fd5e51bd2aee852e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the <a class="el" href="class_client.html">Client</a>'s identification number.  <a href="#a35c9fed8cdb36d28fd5e51bd2aee852e">More...</a><br /></td></tr>
 <tr class="separator:a35c9fed8cdb36d28fd5e51bd2aee852e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a13ab3e2d37fde2de5b6a40d4523bb999"><td class="memItemLeft" align="right" valign="top"><a id="a13ab3e2d37fde2de5b6a40d4523bb999"></a>
-vector&lt; <a class="el" href="class_service.html">Service</a> * &gt; *&#160;</td><td class="memItemRight" valign="bottom"><b>getServicesVector</b> ()</td></tr>
+<tr class="memitem:a13ab3e2d37fde2de5b6a40d4523bb999"><td class="memItemLeft" align="right" valign="top">vector&lt; <a class="el" href="class_service.html">Service</a> * &gt; *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_client.html#a13ab3e2d37fde2de5b6a40d4523bb999">getServicesVector</a> ()</td></tr>
+<tr class="memdesc:a13ab3e2d37fde2de5b6a40d4523bb999"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the <a class="el" href="class_client.html">Client</a>'s bought services.  <a href="#a13ab3e2d37fde2de5b6a40d4523bb999">More...</a><br /></td></tr>
 <tr class="separator:a13ab3e2d37fde2de5b6a40d4523bb999"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1c7f938360e23b3e0e52d17965f88725"><td class="memItemLeft" align="right" valign="top"><a id="a1c7f938360e23b3e0e52d17965f88725"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>setName</b> (string name)</td></tr>
+<tr class="memitem:a1c7f938360e23b3e0e52d17965f88725"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_client.html#a1c7f938360e23b3e0e52d17965f88725">setName</a> (string name)</td></tr>
+<tr class="memdesc:a1c7f938360e23b3e0e52d17965f88725"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets a <a class="el" href="class_client.html">Client</a>'s name.  <a href="#a1c7f938360e23b3e0e52d17965f88725">More...</a><br /></td></tr>
 <tr class="separator:a1c7f938360e23b3e0e52d17965f88725"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8d0ab1a3c654d361dacde7e1d2b92c94"><td class="memItemLeft" align="right" valign="top"><a id="a8d0ab1a3c654d361dacde7e1d2b92c94"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>setNif</b> (unsigned <a class="el" href="class_client.html#a1c94dc96a56cb5032573fb1d528517c2">nif</a>)</td></tr>
+<tr class="memitem:a8d0ab1a3c654d361dacde7e1d2b92c94"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_client.html#a8d0ab1a3c654d361dacde7e1d2b92c94">setNif</a> (unsigned <a class="el" href="class_client.html#a1c94dc96a56cb5032573fb1d528517c2">nif</a>)</td></tr>
+<tr class="memdesc:a8d0ab1a3c654d361dacde7e1d2b92c94"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets a <a class="el" href="class_client.html">Client</a>'s identification number.  <a href="#a8d0ab1a3c654d361dacde7e1d2b92c94">More...</a><br /></td></tr>
 <tr class="separator:a8d0ab1a3c654d361dacde7e1d2b92c94"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a65027bc2da365dfdbbf0393ee2697586"><td class="memItemLeft" align="right" valign="top"><a id="a65027bc2da365dfdbbf0393ee2697586"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>calcMoneySpent</b> ()</td></tr>
+<tr class="memitem:a65027bc2da365dfdbbf0393ee2697586"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_client.html#a65027bc2da365dfdbbf0393ee2697586">calcMoneySpent</a> ()</td></tr>
+<tr class="memdesc:a65027bc2da365dfdbbf0393ee2697586"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates the <a class="el" href="class_client.html">Client</a>'s money spent.  <a href="#a65027bc2da365dfdbbf0393ee2697586">More...</a><br /></td></tr>
 <tr class="separator:a65027bc2da365dfdbbf0393ee2697586"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abf36aa7168464608e917fa40f1ba52db"><td class="memItemLeft" align="right" valign="top"><a id="abf36aa7168464608e917fa40f1ba52db"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>addService</b> (<a class="el" href="class_service.html">Service</a> *service)</td></tr>
+<tr class="memitem:abf36aa7168464608e917fa40f1ba52db"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_client.html#abf36aa7168464608e917fa40f1ba52db">addService</a> (<a class="el" href="class_service.html">Service</a> *service)</td></tr>
+<tr class="memdesc:abf36aa7168464608e917fa40f1ba52db"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a <a class="el" href="class_service.html">Service</a> bought by a <a class="el" href="class_client.html">Client</a>.  <a href="#abf36aa7168464608e917fa40f1ba52db">More...</a><br /></td></tr>
 <tr class="separator:abf36aa7168464608e917fa40f1ba52db"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a018c06770de617bb404151e499206355"><td class="memItemLeft" align="right" valign="top"><a id="a018c06770de617bb404151e499206355"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>removeService</b> (<a class="el" href="class_service.html">Service</a> *service)</td></tr>
+<tr class="memitem:a018c06770de617bb404151e499206355"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_client.html#a018c06770de617bb404151e499206355">removeService</a> (<a class="el" href="class_service.html">Service</a> *service)</td></tr>
+<tr class="memdesc:a018c06770de617bb404151e499206355"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes a service.  <a href="#a018c06770de617bb404151e499206355">More...</a><br /></td></tr>
 <tr class="separator:a018c06770de617bb404151e499206355"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1cbbbf2ea0d65791314b7640c053197b"><td class="memItemLeft" align="right" valign="top"><a id="a1cbbbf2ea0d65791314b7640c053197b"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>operator&lt;</b> (const <a class="el" href="class_client.html">Client</a> &amp;a) const</td></tr>
+<tr class="memitem:a1cbbbf2ea0d65791314b7640c053197b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_client.html#a1cbbbf2ea0d65791314b7640c053197b">operator&lt;</a> (const <a class="el" href="class_client.html">Client</a> &amp;a) const</td></tr>
+<tr class="memdesc:a1cbbbf2ea0d65791314b7640c053197b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Operator &lt; overloading.  <a href="#a1cbbbf2ea0d65791314b7640c053197b">More...</a><br /></td></tr>
 <tr class="separator:a1cbbbf2ea0d65791314b7640c053197b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5cc669077f776648216ae03461b8c178"><td class="memItemLeft" align="right" valign="top"><a id="a5cc669077f776648216ae03461b8c178"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>operator==</b> (const <a class="el" href="class_client.html">Client</a> &amp;client1) const</td></tr>
+<tr class="memitem:a5cc669077f776648216ae03461b8c178"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_client.html#a5cc669077f776648216ae03461b8c178">operator==</a> (const <a class="el" href="class_client.html">Client</a> &amp;client1) const</td></tr>
+<tr class="memdesc:a5cc669077f776648216ae03461b8c178"><td class="mdescLeft">&#160;</td><td class="mdescRight">Operator == overloading.  <a href="#a5cc669077f776648216ae03461b8c178">More...</a><br /></td></tr>
 <tr class="separator:a5cc669077f776648216ae03461b8c178"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
@@ -136,8 +139,8 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memitem:aceebaabb74ad1e3e5b30c168e5ef681b"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_client.html#aceebaabb74ad1e3e5b30c168e5ef681b">saveToFile</a> (vector&lt; <a class="el" href="class_client.html">Client</a> *&gt; &amp;clientsVector)</td></tr>
 <tr class="memdesc:aceebaabb74ad1e3e5b30c168e5ef681b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Saves the clients.  <a href="#aceebaabb74ad1e3e5b30c168e5ef681b">More...</a><br /></td></tr>
 <tr class="separator:aceebaabb74ad1e3e5b30c168e5ef681b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acd07078857cade36eee66b733de7bc38"><td class="memItemLeft" align="right" valign="top"><a id="acd07078857cade36eee66b733de7bc38"></a>
-static void&#160;</td><td class="memItemRight" valign="bottom"><b>addClient</b> (vector&lt; <a class="el" href="class_client.html">Client</a> *&gt; *clientsVector)</td></tr>
+<tr class="memitem:acd07078857cade36eee66b733de7bc38"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_client.html#acd07078857cade36eee66b733de7bc38">addClient</a> (vector&lt; <a class="el" href="class_client.html">Client</a> *&gt; *clientsVector)</td></tr>
+<tr class="memdesc:acd07078857cade36eee66b733de7bc38"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a <a class="el" href="class_client.html">Client</a>.  <a href="#acd07078857cade36eee66b733de7bc38">More...</a><br /></td></tr>
 <tr class="separator:acd07078857cade36eee66b733de7bc38"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
@@ -149,14 +152,13 @@ string&#160;</td><td class="memItemRight" valign="bottom"><b>name</b></td></tr>
 <tr class="separator:a456e36f9972a8bf3ecdb5f0e70b3bd5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1c94dc96a56cb5032573fb1d528517c2"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_client.html#a1c94dc96a56cb5032573fb1d528517c2">nif</a></td></tr>
 <tr class="separator:a1c94dc96a56cb5032573fb1d528517c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a02b601f12b9905edae7e64ded9bde912"><td class="memItemLeft" align="right" valign="top"><a id="a02b601f12b9905edae7e64ded9bde912"></a>
-vector&lt; <a class="el" href="class_service.html">Service</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>services</b></td></tr>
+<tr class="memitem:a02b601f12b9905edae7e64ded9bde912"><td class="memItemLeft" align="right" valign="top">vector&lt; <a class="el" href="class_service.html">Service</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_client.html#a02b601f12b9905edae7e64ded9bde912">services</a></td></tr>
 <tr class="separator:a02b601f12b9905edae7e64ded9bde912"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
 Friends</h2></td></tr>
-<tr class="memitem:a001b1071dc56da194d697f845bbc4b1b"><td class="memItemLeft" align="right" valign="top"><a id="a001b1071dc56da194d697f845bbc4b1b"></a>
-ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator&lt;&lt;</b> (ostream &amp;out, const <a class="el" href="class_client.html">Client</a> &amp;client)</td></tr>
+<tr class="memitem:a001b1071dc56da194d697f845bbc4b1b"><td class="memItemLeft" align="right" valign="top">ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_client.html#a001b1071dc56da194d697f845bbc4b1b">operator&lt;&lt;</a> (ostream &amp;out, const <a class="el" href="class_client.html">Client</a> &amp;client)</td></tr>
+<tr class="memdesc:a001b1071dc56da194d697f845bbc4b1b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Operator &lt;&lt; overloading.  <a href="#a001b1071dc56da194d697f845bbc4b1b">More...</a><br /></td></tr>
 <tr class="separator:a001b1071dc56da194d697f845bbc4b1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
@@ -235,10 +237,11 @@ ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator&lt;
 </div><div class="memdoc">
 
 <p>Constructor with all data necessary. </p>
-<p>Receives all the data it needs to construct a client properly It is the most used constructor of the three </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Receives all the data it needs to construct a client properly It is the most used constructor of the three</p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">name</td><td>Name of the client </td></tr>
-    <tr><td class="paramname">nif</td><td>Identification number of the client </td></tr>
+    <tr><td class="paramname">name</td><td>- Name of the client </td></tr>
+    <tr><td class="paramname">nif</td><td>- Identification number of the client </td></tr>
     <tr><td class="paramname">services</td><td>- Pointer to the vector of pointers to Services that the client has bought (none by default) </td></tr>
   </table>
   </dd>
@@ -273,6 +276,91 @@ ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator&lt;
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="acd07078857cade36eee66b733de7bc38"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acd07078857cade36eee66b733de7bc38">&#9670;&nbsp;</a></span>addClient()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Client::addClient </td>
+          <td>(</td>
+          <td class="paramtype">vector&lt; <a class="el" href="class_client.html">Client</a> *&gt; *&#160;</td>
+          <td class="paramname"><em>clientsVector</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Adds a <a class="el" href="class_client.html">Client</a>. </p>
+<p>Adds a <a class="el" href="class_client.html">Client</a> to the vector of Clients</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">clientsVector</td><td>- Pointer to the vector of pointers to Clients </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Returns nothing </dd></dl>
+
+</div>
+</div>
+<a id="abf36aa7168464608e917fa40f1ba52db"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abf36aa7168464608e917fa40f1ba52db">&#9670;&nbsp;</a></span>addService()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Client::addService </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_service.html">Service</a> *&#160;</td>
+          <td class="paramname"><em>service</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Adds a <a class="el" href="class_service.html">Service</a> bought by a <a class="el" href="class_client.html">Client</a>. </p>
+<p>Adds a <a class="el" href="class_service.html">Service</a> bought by a <a class="el" href="class_client.html">Client</a> to the vector of Services</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">service</td><td>- Pointer to the <a class="el" href="class_service.html">Service</a> to he added to the vector of Services </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Returns nothing </dd></dl>
+
+</div>
+</div>
+<a id="a65027bc2da365dfdbbf0393ee2697586"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a65027bc2da365dfdbbf0393ee2697586">&#9670;&nbsp;</a></span>calcMoneySpent()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Client::calcMoneySpent </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Calculates the <a class="el" href="class_client.html">Client</a>'s money spent. </p>
+<p>Computes the money spent by a <a class="el" href="class_client.html">Client</a> in services and updates it</p>
+<dl class="section return"><dt>Returns</dt><dd>Returns nothing </dd></dl>
+
+</div>
+</div>
 <a id="afe8b004559fd1480fb8747c352f167db"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#afe8b004559fd1480fb8747c352f167db">&#9670;&nbsp;</a></span>editClient()</h2>
 
@@ -290,13 +378,87 @@ ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator&lt;
 
 <p>Edits the information of a client. </p>
 <p>Edits the information of a client by asking</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">clientsVector</td><td>- Vector where the pointers to the Clients are stored </td></tr>
-  </table>
-  </dd>
-</dl>
 <dl class="section return"><dt>Returns</dt><dd>Returns nothing </dd></dl>
+
+</div>
+</div>
+<a id="a226ff919591e7fdfa6c386e9aa5300a5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a226ff919591e7fdfa6c386e9aa5300a5">&#9670;&nbsp;</a></span>getMoneySpent()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float Client::getMoneySpent </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Gets the money spent in services. </p>
+<dl class="section return"><dt>Returns</dt><dd>Returns a float representing the money spent in services by the client </dd></dl>
+
+</div>
+</div>
+<a id="a5c473ba52d7678744edec9e51052c947"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5c473ba52d7678744edec9e51052c947">&#9670;&nbsp;</a></span>getName()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">string Client::getName </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Gets the <a class="el" href="class_client.html">Client</a>'s name. </p>
+<dl class="section return"><dt>Returns</dt><dd>Returns a string containing the <a class="el" href="class_client.html">Client</a>'s name </dd></dl>
+
+</div>
+</div>
+<a id="a35c9fed8cdb36d28fd5e51bd2aee852e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a35c9fed8cdb36d28fd5e51bd2aee852e">&#9670;&nbsp;</a></span>getNif()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned Client::getNif </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Gets the <a class="el" href="class_client.html">Client</a>'s identification number. </p>
+<dl class="section return"><dt>Returns</dt><dd>Returns an unsigned 9-digit integer containing the <a class="el" href="class_client.html">Client</a>'s identification number </dd></dl>
+
+</div>
+</div>
+<a id="a13ab3e2d37fde2de5b6a40d4523bb999"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a13ab3e2d37fde2de5b6a40d4523bb999">&#9670;&nbsp;</a></span>getServicesVector()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">vector&lt; <a class="el" href="class_service.html">Service</a> * &gt; * Client::getServicesVector </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Gets the <a class="el" href="class_client.html">Client</a>'s bought services. </p>
+<dl class="section return"><dt>Returns</dt><dd>Returns an a vector containing pointers to the <a class="el" href="class_client.html">Client</a>'s bought services </dd></dl>
 
 </div>
 </div>
@@ -325,10 +487,122 @@ ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator&lt;
 </div><div class="memdoc">
 
 <p>Loads the clients. </p>
-<p>Loads the clients into the program by pushing them to a vector It does this by going line by line in the clients.txt (which is formatted)</p>
+<p>Loads the clients into the program by pushing them to a vector</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">clientsVector</td><td>- Vector where the pointers to the Clients are stored </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Returns nothing </dd></dl>
+
+</div>
+</div>
+<a id="a1cbbbf2ea0d65791314b7640c053197b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1cbbbf2ea0d65791314b7640c053197b">&#9670;&nbsp;</a></span>operator<()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Client::operator&lt; </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="class_client.html">Client</a> &amp;&#160;</td>
+          <td class="paramname"><em>a</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Operator &lt; overloading. </p>
+<p>Overload of &lt; operator for comparisons. A <a class="el" href="class_client.html">Client</a> is &lt; if his identification number is smaller (as a normal, decimal interpretation)</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">a</td><td>- <a class="el" href="class_client.html">Client</a> Object containing the nif to be compared </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Returns true if the <a class="el" href="class_client.html">Client</a> has a smaller nif </dd></dl>
+
+</div>
+</div>
+<a id="a5cc669077f776648216ae03461b8c178"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5cc669077f776648216ae03461b8c178">&#9670;&nbsp;</a></span>operator==()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Client::operator== </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="class_client.html">Client</a> &amp;&#160;</td>
+          <td class="paramname"><em>client1</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Operator == overloading. </p>
+<p>Overload of == operator for comparisons. A <a class="el" href="class_client.html">Client</a> is == if his identification number is the same</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">client1</td><td>- <a class="el" href="class_client.html">Client</a> Object containing the nif to be compared </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Returns true if the <a class="el" href="class_client.html">Client</a> has an equal nif </dd></dl>
+
+</div>
+</div>
+<a id="a7f845c33f4aa7b7081ae72d9a16c2d3f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7f845c33f4aa7b7081ae72d9a16c2d3f">&#9670;&nbsp;</a></span>removeClient()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Client::removeClient </td>
+          <td>(</td>
+          <td class="paramtype">vector&lt; <a class="el" href="class_client.html">Client</a> *&gt; &amp;&#160;</td>
+          <td class="paramname"><em>clientsVector</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Removes a client. </p>
+<p>Removes a client from the vector of Clients if the client has no services bought Throws an exception if the specified client is not found in the vector</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">clientsVector</td><td>- Vector where the pointers to the Clients are stored </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Returns nothing </dd></dl>
+
+</div>
+</div>
+<a id="a018c06770de617bb404151e499206355"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a018c06770de617bb404151e499206355">&#9670;&nbsp;</a></span>removeService()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Client::removeService </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_service.html">Service</a> *&#160;</td>
+          <td class="paramname"><em>service</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Removes a service. </p>
+<p>Removes a bought service from a <a class="el" href="class_client.html">Client</a></p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">service</td><td>- Pointer to the service to be removed </td></tr>
   </table>
   </dd>
 </dl>
@@ -361,7 +635,7 @@ ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator&lt;
 </div><div class="memdoc">
 
 <p>Saves the clients. </p>
-<p>Saves the clients the user has added by writing to the clients.txt file It does this by iterating through the clientsVector</p>
+<p>Saves the clients the user has added by writing to the clients.txt file in the specified format</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">clientsVector</td><td>- Vector where the pointers to the Clients are stored </td></tr>
@@ -369,6 +643,110 @@ ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator&lt;
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Returns nothing </dd></dl>
+
+</div>
+</div>
+<a id="a1c7f938360e23b3e0e52d17965f88725"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1c7f938360e23b3e0e52d17965f88725">&#9670;&nbsp;</a></span>setName()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Client::setName </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>name</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets a <a class="el" href="class_client.html">Client</a>'s name. </p>
+<p>Updates the <a class="el" href="class_client.html">Client</a>'s name</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">name</td><td>- String containing the <a class="el" href="class_client.html">Client</a>'s name to be updated </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Returns nothing </dd></dl>
+
+</div>
+</div>
+<a id="a8d0ab1a3c654d361dacde7e1d2b92c94"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8d0ab1a3c654d361dacde7e1d2b92c94">&#9670;&nbsp;</a></span>setNif()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Client::setNif </td>
+          <td>(</td>
+          <td class="paramtype">unsigned&#160;</td>
+          <td class="paramname"><em>nif</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets a <a class="el" href="class_client.html">Client</a>'s identification number. </p>
+<p>Updates the <a class="el" href="class_client.html">Client</a>'s identification number</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">nif</td><td>- an unsigned integer containing the <a class="el" href="class_client.html">Client</a>'s identification number to be updated </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Returns nothing </dd></dl>
+
+</div>
+</div>
+<h2 class="groupheader">Friends And Related Function Documentation</h2>
+<a id="a001b1071dc56da194d697f845bbc4b1b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a001b1071dc56da194d697f845bbc4b1b">&#9670;&nbsp;</a></span>operator<<</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">ostream&amp; operator&lt;&lt; </td>
+          <td>(</td>
+          <td class="paramtype">ostream &amp;&#160;</td>
+          <td class="paramname"><em>out</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="class_client.html">Client</a> &amp;&#160;</td>
+          <td class="paramname"><em>client</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Operator &lt;&lt; overloading. </p>
+<p>Overload of &lt;&lt; operator to allow a <a class="el" href="class_client.html">Client</a>'s information to be printed</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">out</td><td>- ostream to allow the chain of ostreams </td></tr>
+    <tr><td class="paramname">client</td><td>- <a class="el" href="class_client.html">Client</a> Object containing the data to be printed </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Returns the ostream containing the information to be printed </dd></dl>
 
 </div>
 </div>
@@ -392,7 +770,7 @@ ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator&lt;
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Total money spent in services - used </p>
+<p>Total money spent in services </p>
 
 </div>
 </div>
@@ -416,6 +794,29 @@ ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator&lt;
 </table>
 </div><div class="memdoc">
 <p><a class="el" href="class_client.html">Client</a>'s Identification - used whenever comparing and verifying clients </p>
+
+</div>
+</div>
+<a id="a02b601f12b9905edae7e64ded9bde912"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a02b601f12b9905edae7e64ded9bde912">&#9670;&nbsp;</a></span>services</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">vector&lt;<a class="el" href="class_service.html">Service</a>*&gt; Client::services</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p><a class="el" href="class_client.html">Client</a>'s vector of bought Services </p>
 
 </div>
 </div>

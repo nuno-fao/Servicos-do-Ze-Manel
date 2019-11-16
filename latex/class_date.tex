@@ -3,51 +3,319 @@
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{class_date_a5277264fbbce7f4ebfcbcc362d6d62e7}\label{class_date_a5277264fbbce7f4ebfcbcc362d6d62e7}} 
-{\bfseries Date} (unsigned year, unsigned short month, unsigned short day, unsigned short hour, unsigned short minute)
+\hyperlink{class_date_a4e59ed4ba66eec61c27460c5d09fa1bd}{Date} ()
 \item 
+\hyperlink{class_date_ade4b469433b7966cc034cbcc6799233b}{$\sim$\+Date} ()
+\item 
+\hyperlink{class_date_a5277264fbbce7f4ebfcbcc362d6d62e7}{Date} (unsigned year, unsigned short month, unsigned short day, unsigned short hour, unsigned short minute)
+\begin{DoxyCompactList}\small\item\em Constructor with data. \end{DoxyCompactList}\item 
+\hyperlink{class_date_a5532efafed41fd5f8e013a61313200dc}{Date} (string date)
+\begin{DoxyCompactList}\small\item\em Constructor with string. \end{DoxyCompactList}\item 
+unsigned int \hyperlink{class_date_aa1e4066bffc24af79f604dabce27e3cc}{get\+Year} () const
+\begin{DoxyCompactList}\small\item\em Gets year. \end{DoxyCompactList}\item 
+unsigned short \hyperlink{class_date_ad077bd6ae19462875a8bd10aed9a6233}{get\+Month} () const
+\begin{DoxyCompactList}\small\item\em Gets month. \end{DoxyCompactList}\item 
+unsigned short \hyperlink{class_date_af02c2f0b61b6e14efbc3ccb0f7f0d567}{get\+Day} () const
+\begin{DoxyCompactList}\small\item\em Gets day. \end{DoxyCompactList}\item 
+unsigned short \hyperlink{class_date_a49673a3830aada7b4b55616b5848c843}{get\+Hour} () const
+\begin{DoxyCompactList}\small\item\em Gets hour. \end{DoxyCompactList}\item 
+unsigned short \hyperlink{class_date_aa4d5c4e15ec04ff5fa18755d76acefe0}{get\+Minute} () const
+\begin{DoxyCompactList}\small\item\em Gets minutes. \end{DoxyCompactList}\item 
+string \hyperlink{class_date_ac33192f734973548e97e9b5d8da44a5b}{get\+Date} () const
+\begin{DoxyCompactList}\small\item\em Gets date as a string. \end{DoxyCompactList}\item 
+string \hyperlink{class_date_a1c481aea42a3a310364f9a97661bee14}{get\+Date\+W\+Hour} () const
+\begin{DoxyCompactList}\small\item\em Gets date as a string. \end{DoxyCompactList}\item 
+void \hyperlink{class_date_a262bd42a1ed4378fa115dab321096736}{set\+Year} (unsigned year)
+\begin{DoxyCompactList}\small\item\em Sets year. \end{DoxyCompactList}\item 
+void \hyperlink{class_date_a6f2ab890b1935488aaa604b77caac4ae}{set\+Month} (unsigned short month)
+\begin{DoxyCompactList}\small\item\em Sets month. \end{DoxyCompactList}\item 
+void \hyperlink{class_date_a61e8103c09406f067992e15f36a7f910}{set\+Day} (unsigned short day)
+\begin{DoxyCompactList}\small\item\em Sets day. \end{DoxyCompactList}\item 
+void \hyperlink{class_date_a8c5fc0dd7ecf3bae6a1de5146fc566e4}{set\+Date} (unsigned year, unsigned short month, unsigned short day)
+\begin{DoxyCompactList}\small\item\em Sets date. \end{DoxyCompactList}\item 
+bool \hyperlink{class_date_a7d9aaa9db591413e21c8b85fdae130ad}{is\+Valid} ()
+\begin{DoxyCompactList}\small\item\em Verifies \hyperlink{class_date}{Date}. \end{DoxyCompactList}\item 
+void \hyperlink{class_date_a37f8fc7ca1692df7a8b265099c061721}{show} () const
+\begin{DoxyCompactList}\small\item\em Prints \hyperlink{class_date}{Date}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_date_a4e59ed4ba66eec61c27460c5d09fa1bd}\label{class_date_a4e59ed4ba66eec61c27460c5d09fa1bd}} 
+\index{Date@{Date}!Date@{Date}}
+\index{Date@{Date}!Date@{Date}}
+\subsubsection{\texorpdfstring{Date()}{Date()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily Date\+::\+Date (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Default constructor \mbox{\Hypertarget{class_date_ade4b469433b7966cc034cbcc6799233b}\label{class_date_ade4b469433b7966cc034cbcc6799233b}} 
+\index{Date@{Date}!````~Date@{$\sim$\+Date}}
+\index{````~Date@{$\sim$\+Date}!Date@{Date}}
+\subsubsection{\texorpdfstring{$\sim$\+Date()}{~Date()}}
+{\footnotesize\ttfamily Date\+::$\sim$\+Date (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Default destructor \mbox{\Hypertarget{class_date_a5277264fbbce7f4ebfcbcc362d6d62e7}\label{class_date_a5277264fbbce7f4ebfcbcc362d6d62e7}} 
+\index{Date@{Date}!Date@{Date}}
+\index{Date@{Date}!Date@{Date}}
+\subsubsection{\texorpdfstring{Date()}{Date()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily Date\+::\+Date (\begin{DoxyParamCaption}\item[{unsigned}]{year,  }\item[{unsigned short}]{month,  }\item[{unsigned short}]{day,  }\item[{unsigned short}]{hour,  }\item[{unsigned short}]{minute }\end{DoxyParamCaption})}
+
+
+
+Constructor with data. 
+
+Constructs the object by receiving all the necessary information
+
+
+\begin{DoxyParams}{Parameters}
+{\em year} & -\/ year of the \hyperlink{class_date}{Date} \\
+\hline
+{\em month} & -\/ mpnth of the \hyperlink{class_date}{Date} \\
+\hline
+{\em day} & -\/ day of the \hyperlink{class_date}{Date} \\
+\hline
+{\em hour} & -\/ hour of the \hyperlink{class_date}{Date} \\
+\hline
+{\em minute} & -\/ minute of the \hyperlink{class_date}{Date} \\
+\hline
+\end{DoxyParams}
 \mbox{\Hypertarget{class_date_a5532efafed41fd5f8e013a61313200dc}\label{class_date_a5532efafed41fd5f8e013a61313200dc}} 
-{\bfseries Date} (string date)
-\item 
-\mbox{\Hypertarget{class_date_aa1e4066bffc24af79f604dabce27e3cc}\label{class_date_aa1e4066bffc24af79f604dabce27e3cc}} 
-unsigned int {\bfseries get\+Year} () const
-\item 
-\mbox{\Hypertarget{class_date_ad077bd6ae19462875a8bd10aed9a6233}\label{class_date_ad077bd6ae19462875a8bd10aed9a6233}} 
-unsigned short {\bfseries get\+Month} () const
-\item 
-\mbox{\Hypertarget{class_date_af02c2f0b61b6e14efbc3ccb0f7f0d567}\label{class_date_af02c2f0b61b6e14efbc3ccb0f7f0d567}} 
-unsigned short {\bfseries get\+Day} () const
-\item 
-\mbox{\Hypertarget{class_date_a49673a3830aada7b4b55616b5848c843}\label{class_date_a49673a3830aada7b4b55616b5848c843}} 
-unsigned short {\bfseries get\+Hour} () const
-\item 
-\mbox{\Hypertarget{class_date_aa4d5c4e15ec04ff5fa18755d76acefe0}\label{class_date_aa4d5c4e15ec04ff5fa18755d76acefe0}} 
-unsigned short {\bfseries get\+Minute} () const
-\item 
+\index{Date@{Date}!Date@{Date}}
+\index{Date@{Date}!Date@{Date}}
+\subsubsection{\texorpdfstring{Date()}{Date()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily Date\+::\+Date (\begin{DoxyParamCaption}\item[{string}]{date }\end{DoxyParamCaption})}
+
+
+
+Constructor with string. 
+
+Constructs the object by parsing the received string
+
+
+\begin{DoxyParams}{Parameters}
+{\em date} & -\/ string containing all the informatio in the format \char`\"{}yyyy/mm/dd\char`\"{} \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
 \mbox{\Hypertarget{class_date_ac33192f734973548e97e9b5d8da44a5b}\label{class_date_ac33192f734973548e97e9b5d8da44a5b}} 
-string {\bfseries get\+Date} () const
-\item 
+\index{Date@{Date}!get\+Date@{get\+Date}}
+\index{get\+Date@{get\+Date}!Date@{Date}}
+\subsubsection{\texorpdfstring{get\+Date()}{getDate()}}
+{\footnotesize\ttfamily string Date\+::get\+Date (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Gets date as a string. 
+
+Returns the date as a string in the format \char`\"{}yyyy/mm/dd/hh/mm\char`\"{} for file-\/writing purposes
+
+\begin{DoxyReturn}{Returns}
+the date as a string in the format \char`\"{}yyyy/mm/dd/hh/mm\char`\"{} 
+\end{DoxyReturn}
 \mbox{\Hypertarget{class_date_a1c481aea42a3a310364f9a97661bee14}\label{class_date_a1c481aea42a3a310364f9a97661bee14}} 
-string {\bfseries get\+Date\+W\+Hour} () const
-\item 
-\mbox{\Hypertarget{class_date_a262bd42a1ed4378fa115dab321096736}\label{class_date_a262bd42a1ed4378fa115dab321096736}} 
-void {\bfseries set\+Year} (unsigned year)
-\item 
-\mbox{\Hypertarget{class_date_a6f2ab890b1935488aaa604b77caac4ae}\label{class_date_a6f2ab890b1935488aaa604b77caac4ae}} 
-void {\bfseries set\+Month} (unsigned short month)
-\item 
-\mbox{\Hypertarget{class_date_a61e8103c09406f067992e15f36a7f910}\label{class_date_a61e8103c09406f067992e15f36a7f910}} 
-void {\bfseries set\+Day} (unsigned short day)
-\item 
-\mbox{\Hypertarget{class_date_a8c5fc0dd7ecf3bae6a1de5146fc566e4}\label{class_date_a8c5fc0dd7ecf3bae6a1de5146fc566e4}} 
-void {\bfseries set\+Date} (unsigned year, unsigned short month, unsigned short day)
-\item 
+\index{Date@{Date}!get\+Date\+W\+Hour@{get\+Date\+W\+Hour}}
+\index{get\+Date\+W\+Hour@{get\+Date\+W\+Hour}!Date@{Date}}
+\subsubsection{\texorpdfstring{get\+Date\+W\+Hour()}{getDateWHour()}}
+{\footnotesize\ttfamily string Date\+::get\+Date\+W\+Hour (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Gets date as a string. 
+
+Returns the date as a string in the format \char`\"{}yyyy/mm/dd/hh/mm\char`\"{} for printing purposes
+
+\begin{DoxyReturn}{Returns}
+the date as a string in the format \char`\"{}yyyy/mm/dd/hh/mm\char`\"{} 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_date_af02c2f0b61b6e14efbc3ccb0f7f0d567}\label{class_date_af02c2f0b61b6e14efbc3ccb0f7f0d567}} 
+\index{Date@{Date}!get\+Day@{get\+Day}}
+\index{get\+Day@{get\+Day}!Date@{Date}}
+\subsubsection{\texorpdfstring{get\+Day()}{getDay()}}
+{\footnotesize\ttfamily unsigned short Date\+::get\+Day (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Gets day. 
+
+Returns the day of the \hyperlink{class_date}{Date}
+
+\begin{DoxyReturn}{Returns}
+Returns the day of the \hyperlink{class_date}{Date} 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_date_a49673a3830aada7b4b55616b5848c843}\label{class_date_a49673a3830aada7b4b55616b5848c843}} 
+\index{Date@{Date}!get\+Hour@{get\+Hour}}
+\index{get\+Hour@{get\+Hour}!Date@{Date}}
+\subsubsection{\texorpdfstring{get\+Hour()}{getHour()}}
+{\footnotesize\ttfamily unsigned short Date\+::get\+Hour (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Gets hour. 
+
+Returns the hour of the \hyperlink{class_date}{Date}
+
+\begin{DoxyReturn}{Returns}
+Returns the hour of the \hyperlink{class_date}{Date} 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_date_aa4d5c4e15ec04ff5fa18755d76acefe0}\label{class_date_aa4d5c4e15ec04ff5fa18755d76acefe0}} 
+\index{Date@{Date}!get\+Minute@{get\+Minute}}
+\index{get\+Minute@{get\+Minute}!Date@{Date}}
+\subsubsection{\texorpdfstring{get\+Minute()}{getMinute()}}
+{\footnotesize\ttfamily unsigned short Date\+::get\+Minute (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Gets minutes. 
+
+Returns the minutes of the \hyperlink{class_date}{Date}
+
+\begin{DoxyReturn}{Returns}
+Returns the minutes of the \hyperlink{class_date}{Date} 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_date_ad077bd6ae19462875a8bd10aed9a6233}\label{class_date_ad077bd6ae19462875a8bd10aed9a6233}} 
+\index{Date@{Date}!get\+Month@{get\+Month}}
+\index{get\+Month@{get\+Month}!Date@{Date}}
+\subsubsection{\texorpdfstring{get\+Month()}{getMonth()}}
+{\footnotesize\ttfamily unsigned short Date\+::get\+Month (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Gets month. 
+
+Returns the month of the \hyperlink{class_date}{Date}
+
+\begin{DoxyReturn}{Returns}
+Returns the month of the \hyperlink{class_date}{Date} 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_date_aa1e4066bffc24af79f604dabce27e3cc}\label{class_date_aa1e4066bffc24af79f604dabce27e3cc}} 
+\index{Date@{Date}!get\+Year@{get\+Year}}
+\index{get\+Year@{get\+Year}!Date@{Date}}
+\subsubsection{\texorpdfstring{get\+Year()}{getYear()}}
+{\footnotesize\ttfamily unsigned Date\+::get\+Year (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Gets year. 
+
+Returns the year of the \hyperlink{class_date}{Date}
+
+\begin{DoxyReturn}{Returns}
+Returns the year of the \hyperlink{class_date}{Date} 
+\end{DoxyReturn}
 \mbox{\Hypertarget{class_date_a7d9aaa9db591413e21c8b85fdae130ad}\label{class_date_a7d9aaa9db591413e21c8b85fdae130ad}} 
-bool {\bfseries is\+Valid} ()
-\item 
+\index{Date@{Date}!is\+Valid@{is\+Valid}}
+\index{is\+Valid@{is\+Valid}!Date@{Date}}
+\subsubsection{\texorpdfstring{is\+Valid()}{isValid()}}
+{\footnotesize\ttfamily bool Date\+::is\+Valid (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Verifies \hyperlink{class_date}{Date}. 
+
+Verifies if the \hyperlink{class_date}{Date} is valid
+
+\begin{DoxyReturn}{Returns}
+Returns true if the \hyperlink{class_date}{Date} is valid 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_date_a8c5fc0dd7ecf3bae6a1de5146fc566e4}\label{class_date_a8c5fc0dd7ecf3bae6a1de5146fc566e4}} 
+\index{Date@{Date}!set\+Date@{set\+Date}}
+\index{set\+Date@{set\+Date}!Date@{Date}}
+\subsubsection{\texorpdfstring{set\+Date()}{setDate()}}
+{\footnotesize\ttfamily void Date\+::set\+Date (\begin{DoxyParamCaption}\item[{unsigned}]{year,  }\item[{unsigned short}]{month,  }\item[{unsigned short}]{day }\end{DoxyParamCaption})}
+
+
+
+Sets date. 
+
+Sets the date by receiving all the data necessary
+
+
+\begin{DoxyParams}{Parameters}
+{\em year} & -\/ year to be set \\
+\hline
+{\em month} & -\/ month to be set \\
+\hline
+{\em day} & -\/ day to be set \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns nothing 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_date_a61e8103c09406f067992e15f36a7f910}\label{class_date_a61e8103c09406f067992e15f36a7f910}} 
+\index{Date@{Date}!set\+Day@{set\+Day}}
+\index{set\+Day@{set\+Day}!Date@{Date}}
+\subsubsection{\texorpdfstring{set\+Day()}{setDay()}}
+{\footnotesize\ttfamily void Date\+::set\+Day (\begin{DoxyParamCaption}\item[{unsigned short}]{day }\end{DoxyParamCaption})}
+
+
+
+Sets day. 
+
+Sets the \hyperlink{class_date}{Date}\textquotesingle{}s day
+
+
+\begin{DoxyParams}{Parameters}
+{\em day} & -\/ day to be set \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns nothing 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_date_a6f2ab890b1935488aaa604b77caac4ae}\label{class_date_a6f2ab890b1935488aaa604b77caac4ae}} 
+\index{Date@{Date}!set\+Month@{set\+Month}}
+\index{set\+Month@{set\+Month}!Date@{Date}}
+\subsubsection{\texorpdfstring{set\+Month()}{setMonth()}}
+{\footnotesize\ttfamily void Date\+::set\+Month (\begin{DoxyParamCaption}\item[{unsigned short}]{month }\end{DoxyParamCaption})}
+
+
+
+Sets month. 
+
+Sets the \hyperlink{class_date}{Date}\textquotesingle{}s month
+
+
+\begin{DoxyParams}{Parameters}
+{\em month} & -\/ month to be set \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns nothing 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_date_a262bd42a1ed4378fa115dab321096736}\label{class_date_a262bd42a1ed4378fa115dab321096736}} 
+\index{Date@{Date}!set\+Year@{set\+Year}}
+\index{set\+Year@{set\+Year}!Date@{Date}}
+\subsubsection{\texorpdfstring{set\+Year()}{setYear()}}
+{\footnotesize\ttfamily void Date\+::set\+Year (\begin{DoxyParamCaption}\item[{unsigned}]{year }\end{DoxyParamCaption})}
+
+
+
+Sets year. 
+
+Sets the \hyperlink{class_date}{Date}\textquotesingle{}s year
+
+
+\begin{DoxyParams}{Parameters}
+{\em year} & -\/ year to be set \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns nothing 
+\end{DoxyReturn}
 \mbox{\Hypertarget{class_date_a37f8fc7ca1692df7a8b265099c061721}\label{class_date_a37f8fc7ca1692df7a8b265099c061721}} 
-void {\bfseries show} () const
-\end{DoxyCompactItemize}
+\index{Date@{Date}!show@{show}}
+\index{show@{show}!Date@{Date}}
+\subsubsection{\texorpdfstring{show()}{show()}}
+{\footnotesize\ttfamily void Date\+::show (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Prints \hyperlink{class_date}{Date}. 
+
+Prints the \hyperlink{class_date}{Date} by outputting to the screen in the format \char`\"{}yyyy/mm/dd\char`\"{}
+
+\begin{DoxyReturn}{Returns}
+Returns nothing 
+\end{DoxyReturn}
 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}

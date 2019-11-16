@@ -21,26 +21,107 @@ Collaboration diagram for Hazardous\+Mat\+:\nopagebreak
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{class_hazardous_mat_adff1b06ba4631c6b3f77168e4b792b1f}\label{class_hazardous_mat_adff1b06ba4631c6b3f77168e4b792b1f}} 
-{\bfseries Hazardous\+Mat} (string license, bool available, bool \hyperlink{class_truck_a80b8405cf7a15b236fef70116f99c4fb}{registered}, unsigned short \hyperlink{class_truck_a14541fad6d47c606ce4e1bd150a68a23}{capacity}, unsigned short \hyperlink{class_truck_a968fc6b1a6171a03e4254d6615da4ecd}{cargo})
-\item 
-\mbox{\Hypertarget{class_hazardous_mat_ab07463da3e9a5d3b8933d2b01332ed00}\label{class_hazardous_mat_ab07463da3e9a5d3b8933d2b01332ed00}} 
-void {\bfseries info} ()
-\end{DoxyCompactItemize}
+\hyperlink{class_hazardous_mat_adff1b06ba4631c6b3f77168e4b792b1f}{Hazardous\+Mat} (string license, bool \hyperlink{class_truck_a4189fe5ed32f6084459a9c5ae1eb7c2a}{available}, bool \hyperlink{class_truck_a80b8405cf7a15b236fef70116f99c4fb}{registered}, unsigned short \hyperlink{class_truck_ab004524786ae7aebf7c7bdb5e1599696}{capacity}, unsigned short cargo)
+\begin{DoxyCompactList}\small\item\em constructor for this subclass that calls the one from superclass \end{DoxyCompactList}\item 
+\hyperlink{class_hazardous_mat_aa4304419b08381d4aa46d240ca44738a}{$\sim$\+Hazardous\+Mat} ()
+\begin{DoxyCompactList}\small\item\em Default destructor. \end{DoxyCompactList}\item 
+void \hyperlink{class_hazardous_mat_ab07463da3e9a5d3b8933d2b01332ed00}{info} ()
+\begin{DoxyCompactList}\small\item\em Prints more specific information about this truck\textquotesingle{}s subclass. \end{DoxyCompactList}\item 
+type \hyperlink{class_hazardous_mat_aed587121cdff185be91ad9ec5ba4d380}{get\+Type} ()
+\begin{DoxyCompactList}\small\item\em return type of truck \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Static Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\Hypertarget{class_hazardous_mat_a9f71519edca3e72082720686781c34dc}\label{class_hazardous_mat_a9f71519edca3e72082720686781c34dc}} 
 static float {\bfseries price\+Per\+KG}
 \item 
-\mbox{\Hypertarget{class_hazardous_mat_a0d695364bed729ddeca5851314281ad2}\label{class_hazardous_mat_a0d695364bed729ddeca5851314281ad2}} 
-static unordered\+\_\+map$<$ Hazard\+\_\+enum, float $>$ {\bfseries hazard\+Mul}
+static unordered\+\_\+map$<$ Hazard\+\_\+enum, float $>$ \hyperlink{class_hazardous_mat_a0d695364bed729ddeca5851314281ad2}{hazard\+Mul}
 \item 
-\mbox{\Hypertarget{class_hazardous_mat_ab67d8b349d8035e402482116d64bf41c}\label{class_hazardous_mat_ab67d8b349d8035e402482116d64bf41c}} 
-static unordered\+\_\+map$<$ unsigned short, unsigned short $>$ {\bfseries Cap\+Dist}
+static map$<$ unsigned, unsigned $>$ \hyperlink{class_hazardous_mat_a5deebb5a87aa507f2a22065039a3dc2d}{Cap\+Dist}
 \end{DoxyCompactItemize}
 \subsection*{Additional Inherited Members}
 
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_hazardous_mat_adff1b06ba4631c6b3f77168e4b792b1f}\label{class_hazardous_mat_adff1b06ba4631c6b3f77168e4b792b1f}} 
+\index{Hazardous\+Mat@{Hazardous\+Mat}!Hazardous\+Mat@{Hazardous\+Mat}}
+\index{Hazardous\+Mat@{Hazardous\+Mat}!Hazardous\+Mat@{Hazardous\+Mat}}
+\subsubsection{\texorpdfstring{Hazardous\+Mat()}{HazardousMat()}}
+{\footnotesize\ttfamily Hazardous\+Mat\+::\+Hazardous\+Mat (\begin{DoxyParamCaption}\item[{string}]{license,  }\item[{bool}]{available,  }\item[{bool}]{registered,  }\item[{unsigned short}]{capacity,  }\item[{unsigned short}]{cargo }\end{DoxyParamCaption})}
+
+
+
+constructor for this subclass that calls the one from superclass 
+
+\begin{DoxyReturn}{Returns}
+Returns nothing 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_hazardous_mat_aa4304419b08381d4aa46d240ca44738a}\label{class_hazardous_mat_aa4304419b08381d4aa46d240ca44738a}} 
+\index{Hazardous\+Mat@{Hazardous\+Mat}!````~Hazardous\+Mat@{$\sim$\+Hazardous\+Mat}}
+\index{````~Hazardous\+Mat@{$\sim$\+Hazardous\+Mat}!Hazardous\+Mat@{Hazardous\+Mat}}
+\subsubsection{\texorpdfstring{$\sim$\+Hazardous\+Mat()}{~HazardousMat()}}
+{\footnotesize\ttfamily Hazardous\+Mat\+::$\sim$\+Hazardous\+Mat (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Default destructor. 
+
+\begin{DoxyReturn}{Returns}
+Returns nothing 
+\end{DoxyReturn}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_hazardous_mat_aed587121cdff185be91ad9ec5ba4d380}\label{class_hazardous_mat_aed587121cdff185be91ad9ec5ba4d380}} 
+\index{Hazardous\+Mat@{Hazardous\+Mat}!get\+Type@{get\+Type}}
+\index{get\+Type@{get\+Type}!Hazardous\+Mat@{Hazardous\+Mat}}
+\subsubsection{\texorpdfstring{get\+Type()}{getType()}}
+{\footnotesize\ttfamily type Hazardous\+Mat\+::get\+Type (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+return type of truck 
+
+\begin{DoxyReturn}{Returns}
+Returns type of truck 
+\end{DoxyReturn}
+
+
+Reimplemented from \hyperlink{class_truck_a24406caf4d09be7f3eff069ce6bc015b}{Truck}.
+
+\mbox{\Hypertarget{class_hazardous_mat_ab07463da3e9a5d3b8933d2b01332ed00}\label{class_hazardous_mat_ab07463da3e9a5d3b8933d2b01332ed00}} 
+\index{Hazardous\+Mat@{Hazardous\+Mat}!info@{info}}
+\index{info@{info}!Hazardous\+Mat@{Hazardous\+Mat}}
+\subsubsection{\texorpdfstring{info()}{info()}}
+{\footnotesize\ttfamily void Hazardous\+Mat\+::info (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Prints more specific information about this truck\textquotesingle{}s subclass. 
+
+\begin{DoxyReturn}{Returns}
+Returns nothing 
+\end{DoxyReturn}
+
+
+Reimplemented from \hyperlink{class_truck_a38f09eab2822524e355ecf6d0a13f7de}{Truck}.
+
+
+
+\subsection{Member Data Documentation}
+\mbox{\Hypertarget{class_hazardous_mat_a5deebb5a87aa507f2a22065039a3dc2d}\label{class_hazardous_mat_a5deebb5a87aa507f2a22065039a3dc2d}} 
+\index{Hazardous\+Mat@{Hazardous\+Mat}!Cap\+Dist@{Cap\+Dist}}
+\index{Cap\+Dist@{Cap\+Dist}!Hazardous\+Mat@{Hazardous\+Mat}}
+\subsubsection{\texorpdfstring{Cap\+Dist}{CapDist}}
+{\footnotesize\ttfamily map$<$ unsigned, unsigned $>$ Hazardous\+Mat\+::\+Cap\+Dist\hspace{0.3cm}{\ttfamily [static]}}
+
+holds how many trucks of this have x capacity being that the latter is the key \mbox{\Hypertarget{class_hazardous_mat_a0d695364bed729ddeca5851314281ad2}\label{class_hazardous_mat_a0d695364bed729ddeca5851314281ad2}} 
+\index{Hazardous\+Mat@{Hazardous\+Mat}!hazard\+Mul@{hazard\+Mul}}
+\index{hazard\+Mul@{hazard\+Mul}!Hazardous\+Mat@{Hazardous\+Mat}}
+\subsubsection{\texorpdfstring{hazard\+Mul}{hazardMul}}
+{\footnotesize\ttfamily unordered\+\_\+map$<$ Hazard\+\_\+enum, float $>$ Hazardous\+Mat\+::hazard\+Mul\hspace{0.3cm}{\ttfamily [static]}}
+
+will hold price multipliers depending on the service 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 

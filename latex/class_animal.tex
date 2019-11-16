@@ -21,23 +21,99 @@ Collaboration diagram for Animal\+:\nopagebreak
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{class_animal_afdae9b8c4716472196e8cd62c762f88a}\label{class_animal_afdae9b8c4716472196e8cd62c762f88a}} 
-{\bfseries Animal} (string license, bool available, bool \hyperlink{class_truck_a80b8405cf7a15b236fef70116f99c4fb}{registered}, unsigned short \hyperlink{class_truck_a14541fad6d47c606ce4e1bd150a68a23}{capacity}, unsigned short \hyperlink{class_truck_a968fc6b1a6171a03e4254d6615da4ecd}{cargo})
-\item 
-\mbox{\Hypertarget{class_animal_a1e99083943239209f4fbe79380ea5991}\label{class_animal_a1e99083943239209f4fbe79380ea5991}} 
-void {\bfseries info} ()
-\end{DoxyCompactItemize}
+\hyperlink{class_animal_afdae9b8c4716472196e8cd62c762f88a}{Animal} (string license, bool \hyperlink{class_truck_a4189fe5ed32f6084459a9c5ae1eb7c2a}{available}, bool \hyperlink{class_truck_a80b8405cf7a15b236fef70116f99c4fb}{registered}, unsigned short \hyperlink{class_truck_ab004524786ae7aebf7c7bdb5e1599696}{capacity}, unsigned short cargo)
+\begin{DoxyCompactList}\small\item\em constructor for this subclass that calls the one from superclass \end{DoxyCompactList}\item 
+\hyperlink{class_animal_a476af25adde5f0dfa688129c8f86fa5c}{$\sim$\+Animal} ()
+\begin{DoxyCompactList}\small\item\em Default destructor. \end{DoxyCompactList}\item 
+void \hyperlink{class_animal_a1e99083943239209f4fbe79380ea5991}{info} ()
+\begin{DoxyCompactList}\small\item\em Prints more specific information about this truck\textquotesingle{}s subclass. \end{DoxyCompactList}\item 
+type \hyperlink{class_animal_a6e7f8a4a7e8e9571218e3650a0803c03}{get\+Type} ()
+\begin{DoxyCompactList}\small\item\em return type of truck \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Static Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\Hypertarget{class_animal_aa421a3d5192279ca552a62ab3e0517c2}\label{class_animal_aa421a3d5192279ca552a62ab3e0517c2}} 
 static float {\bfseries price\+Per\+KG}
 \item 
-\mbox{\Hypertarget{class_animal_a49d5aaceba02edb1e887131cc596f8ac}\label{class_animal_a49d5aaceba02edb1e887131cc596f8ac}} 
-static unordered\+\_\+map$<$ unsigned short, unsigned short $>$ {\bfseries Cap\+Dist}
+static map$<$ unsigned, unsigned $>$ \hyperlink{class_animal_a6109c3aa008a556ed43318ae4bcf33a2}{Cap\+Dist}
 \end{DoxyCompactItemize}
 \subsection*{Additional Inherited Members}
 
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_animal_afdae9b8c4716472196e8cd62c762f88a}\label{class_animal_afdae9b8c4716472196e8cd62c762f88a}} 
+\index{Animal@{Animal}!Animal@{Animal}}
+\index{Animal@{Animal}!Animal@{Animal}}
+\subsubsection{\texorpdfstring{Animal()}{Animal()}}
+{\footnotesize\ttfamily Animal\+::\+Animal (\begin{DoxyParamCaption}\item[{string}]{license,  }\item[{bool}]{available,  }\item[{bool}]{registered,  }\item[{unsigned short}]{capacity,  }\item[{unsigned short}]{cargo }\end{DoxyParamCaption})}
+
+
+
+constructor for this subclass that calls the one from superclass 
+
+\begin{DoxyReturn}{Returns}
+Returns nothing 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_animal_a476af25adde5f0dfa688129c8f86fa5c}\label{class_animal_a476af25adde5f0dfa688129c8f86fa5c}} 
+\index{Animal@{Animal}!````~Animal@{$\sim$\+Animal}}
+\index{````~Animal@{$\sim$\+Animal}!Animal@{Animal}}
+\subsubsection{\texorpdfstring{$\sim$\+Animal()}{~Animal()}}
+{\footnotesize\ttfamily Animal\+::$\sim$\+Animal (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Default destructor. 
+
+\begin{DoxyReturn}{Returns}
+Returns nothing 
+\end{DoxyReturn}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_animal_a6e7f8a4a7e8e9571218e3650a0803c03}\label{class_animal_a6e7f8a4a7e8e9571218e3650a0803c03}} 
+\index{Animal@{Animal}!get\+Type@{get\+Type}}
+\index{get\+Type@{get\+Type}!Animal@{Animal}}
+\subsubsection{\texorpdfstring{get\+Type()}{getType()}}
+{\footnotesize\ttfamily type Animal\+::get\+Type (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+return type of truck 
+
+\begin{DoxyReturn}{Returns}
+Returns type of truck 
+\end{DoxyReturn}
+
+
+Reimplemented from \hyperlink{class_truck_a24406caf4d09be7f3eff069ce6bc015b}{Truck}.
+
+\mbox{\Hypertarget{class_animal_a1e99083943239209f4fbe79380ea5991}\label{class_animal_a1e99083943239209f4fbe79380ea5991}} 
+\index{Animal@{Animal}!info@{info}}
+\index{info@{info}!Animal@{Animal}}
+\subsubsection{\texorpdfstring{info()}{info()}}
+{\footnotesize\ttfamily void Animal\+::info (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Prints more specific information about this truck\textquotesingle{}s subclass. 
+
+\begin{DoxyReturn}{Returns}
+Returns nothing 
+\end{DoxyReturn}
+
+
+Reimplemented from \hyperlink{class_truck_a38f09eab2822524e355ecf6d0a13f7de}{Truck}.
+
+
+
+\subsection{Member Data Documentation}
+\mbox{\Hypertarget{class_animal_a6109c3aa008a556ed43318ae4bcf33a2}\label{class_animal_a6109c3aa008a556ed43318ae4bcf33a2}} 
+\index{Animal@{Animal}!Cap\+Dist@{Cap\+Dist}}
+\index{Cap\+Dist@{Cap\+Dist}!Animal@{Animal}}
+\subsubsection{\texorpdfstring{Cap\+Dist}{CapDist}}
+{\footnotesize\ttfamily map$<$ unsigned, unsigned $>$ Animal\+::\+Cap\+Dist\hspace{0.3cm}{\ttfamily [static]}}
+
+holds how many trucks of this have x capacity being that the latter is the key 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 

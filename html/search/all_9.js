@@ -1,7 +1,4 @@
 var searchData=
 [
-  ['nif',['nif',['../class_client.html#a1c94dc96a56cb5032573fb1d528517c2',1,'Client']]],
-  ['normal',['Normal',['../class_normal.html',1,'']]],
-  ['notaclient',['NotAClient',['../class_not_a_client.html',1,'']]],
-  ['notatruck',['NotATruck',['../class_not_a_truck.html',1,'']]]
+  ['money_5fspent',['money_spent',['../class_client.html#a9d5dc70a6eee2fded8217a7983fe5fd0',1,'Client']]]
 ];
