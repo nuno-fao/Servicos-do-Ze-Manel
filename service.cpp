@@ -466,24 +466,8 @@ void Service::loadFromFile(list<Service*> *services_finished,vector<Service*> *s
         tempType=intToType(stoi(tempGeneral));
 
         getline(servicesFile,temptrucks);
-        try{
-            tempVectorTruckS=vectorString(temptrucks,";");   
-            for(auto i:tempVectorTruckS){
-                try{
-                    vector<string> tempTruckMap=vectorString(i,":");
-                    Truck *temp_truck=Company::getCompany()->getTruck(tempTruckMap.at(0));
-                    temp->addTruck(temp_truck,stof(tempTruckMap.at(1)));
-                    temp_truck->add_service(temp);
-                }
-                catch(...){
-                    
-                }
-            }
-            
-        }
-        catch(...){
-               
-        }
+        Service *temp = nullptr;
+
         getline(servicesFile,tempGeneral);
         tempState=intToState(stoi(tempGeneral));
 
@@ -496,7 +480,6 @@ void Service::loadFromFile(list<Service*> *services_finished,vector<Service*> *s
 
         getline(servicesFile,tempGeneral);
         tempPrice=(stof(tempGeneral));
-        Service *temp;
         Date *tempD=new Date(tempIDate);
         Date *tempA=new Date(tempADate);
         try {
@@ -510,24 +493,24 @@ void Service::loadFromFile(list<Service*> *services_finished,vector<Service*> *s
             else
                 temp= new Service(tempMaterial,tempOrigin,tempDestination,tempA,unsigned(tempDistance),tempType,tempState,tempD,temp_client,tempQuantity,tempPrice,tempId);
 
-            for(auto i:tempVectorTruckS){
-                try{
-                    vector<string> tempTruckMap=vectorString(i,":");
-                    Truck *temp_truck=Company::getCompany()->getTruck(tempTruckMap.at(0));
-                    temp->addTruck(temp_truck,stof(tempTruckMap.at(1)));
-                    temp_truck->add_service(temp);
-                }
-                catch(TruckDoNotExist e){
-                    vector<string> tempTruckMap=vectorString(i,":");
-                    Truck *temp_t=new Truck(tempTruckMap.at(0),0,0,0,0);
-                    temp->addTruck(temp_t,stof(tempTruckMap.at(1)));
-                }
-                catch(...)
-                {
-                    cout<<"Someone Messed with the files..."<<endl;
-                }
-            }
+            try{
+                tempVectorTruckS=vectorString(temptrucks,";");
+                for(auto i:tempVectorTruckS){
+                    try{
+                        vector<string> tempTruckMap=vectorString(i,":");
+                        Truck *temp_truck=Company::getCompany()->getTruck(tempTruckMap.at(0));
+                        temp->addTruck(temp_truck,stof(tempTruckMap.at(1)));
+                        temp_truck->add_service(temp);
+                    }
+                    catch(...){
 
+                    }
+                }
+
+            }
+            catch(...){
+
+            }
             switch (tempState) {
             case on_transit:
                 services_on_transit->push_back(temp);

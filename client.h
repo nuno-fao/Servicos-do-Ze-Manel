@@ -33,7 +33,7 @@ public:
  * @param nif - Identification number of the client
  * @param services - Pointer to the vector of pointers to Services that the client has bought (none by default)
  */
-    Client(string name, unsigned int nif, vector<Service*> *services = nullptr);
+    Client(string name, unsigned int nif,float money_spent, vector<Service*> *services = nullptr);
     /**
  * Default Destructor
  */
