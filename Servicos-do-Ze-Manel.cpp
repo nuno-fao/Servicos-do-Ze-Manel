@@ -35,9 +35,6 @@ void moneyInformation();
 This function receives a name and returns true if it is valid
 */
 
-template<class T> bool cmp_classes(T *a,T *b){
-    return *a<*b;
-}
 
 Company *Company::company = nullptr;
 int main()

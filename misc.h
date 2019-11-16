@@ -105,8 +105,9 @@ bool checkLicenseV2(string license);
 
 long askForId(string classToAsk, string what_to_do, string identifier);
 
-template<class T> bool cmp_classes(T *a,T *b);
-
+template<class T> bool cmp_classes(T *a,T *b){
+    return *a<*b;
+}
 bool cmpOnQueue(Service *a,Service *b);
 
 bool cmpOnTransit(Service *a,Service *b);

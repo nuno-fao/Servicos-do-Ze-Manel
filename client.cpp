@@ -91,7 +91,7 @@ void Client::addClient(vector<Client *> *clientsVector) {
             cout<<"Nif Input not acceptable, please try again"<<endl;
         }
     }
-    Client *tempClient = new Client(tempName,unsigned(stoi(tempNif)));
+    Client *tempClient = new Client(tempName,unsigned(stoi(tempNif)),0);
     for (auto it = clientsVector->begin(); it != clientsVector->end(); it++)
     {
         if (tempClient->getNif() == (*it)->getNif())
@@ -228,12 +228,13 @@ void Client::loadClients(vector<Client*>& clientsVector) {
             case 0:
                 client.setName(clientsText);
                 break;
-            case 1:
+            case 2:
                 client.setNif(unsigned(stoi(clientsText)));
                 break;
-            case 2:
+            case 1:
                 if(strIsNumber(clientsText))
                 client.money_spent=stof(clientsText);
+                break;
             default:
                 break;
             }
