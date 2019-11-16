@@ -60,10 +60,39 @@ bool strIsNumber(string str);
 */
 bool strIsChar(string str);
 
+/**
+*
+* @brief Checks if user wants to leave
+*
+* Checks if user input is !q and verifies if user wants to leave
+* Throws an exception if the input thereafter is 'y' or '\n'
+*
+* @param temp - string to process
+* @return Returns nothing
+*/
 void checkIfOut(string &temp);
 
+/**
+*
+* @brief Binary search
+*
+* Searches for a Client by using the binary search algorithm
+*
+* @param vetor - pointer to a vector containing pointers to Clients
+* @param val - identification code to search for the Client
+* @return Returns the index of the Client or -1 if not found
+*/
 int binaryCustomfind(vector<Client*> *vetor, unsigned val);
 
+/**
+*
+* @brief Prints Service
+*
+* Prints the Service as its information gets added
+*
+* @param t - pointer to the vector of strings to be printed
+* @return Returns nothing
+*/
 void printClassVector(vector<string> *t);
 
 /**
@@ -71,6 +100,7 @@ void printClassVector(vector<string> *t);
 *
 * Prompts the user to input a newline so that he has time to read whatever is on the screen
 *
+* @return Returns nothing
 */
 void enter_to_exit();
 
@@ -103,11 +133,41 @@ bool checkLicense(string license, vector<Truck*>* trucks);
 */
 bool checkLicenseV2(string license);
 
+/**
+*
+* @brief Asks for the ID
+* Prompts the user for the ID by giving exact instructions
+* This function is versatile and is used to get different kinds of info from the user
+*
+* @param classToAsk - Type of information to be asked for
+* @param what_to_do - Input instructions
+* @param identifier - Idemtifier of the information to be retrieved
+* @return Returns the ID as a long int
+*/
 long askForId(string classToAsk, string what_to_do, string identifier);
 
+/**
+*
+* @brief Operator<-overload-type of function
+* Returns true if a < b, using the template Class' operator< overload function
+*
+* @param a - A template Class Object
+* @param b - A template Class Object
+* @return Returns true if a < b
+*/
 template<class T> bool cmp_classes(T *a,T *b){
     return *a<*b;
 }
+
+/**
+*
+* @brief Operator<-overload-type of function
+* Returns true if a < b, using the template Class' operator< overload function
+*
+* @param a - A template Class Object
+* @param b - A template Class Object
+* @return Returns true if a < b
+*/
 bool cmpOnQueue(Service *a,Service *b);
 
 bool cmpOnTransit(Service *a,Service *b);
