@@ -99,6 +99,7 @@ public:
 *
 *
 * @param cargo - the new value of the truck's cargo
+* @return Returns nothing
 */
     void setCargo(float cargo);
 	/**
@@ -106,6 +107,7 @@ public:
 *
 *
 * @param foo - true if still registered to a service, false otherwise
+* @return Returns nothing
 */
     void setregistered(bool foo);
 	/**
@@ -113,6 +115,7 @@ public:
 *
 *
 * @param foo - true if it is available, false otherwise
+* @return Returns nothing
 */
     void setavailable(bool foo);
     //load and save to file
@@ -121,6 +124,7 @@ public:
 *
 *
 * @param trucks - pointer to the vector that will hold the loaded trucks
+* @return Returns nothing
 */
     static void loadFromFile(vector<Truck*> *trucks);
 	/**
@@ -128,12 +132,14 @@ public:
 *
 *
 * @param trucks - pointer to the vector that holds all the trucks
+* @return Returns nothing
 */
     static void saveToFile(vector<Truck*> *trucks);
     //other
 		/**
 * @brief Prints basic information about a truck
 *
+* @return Returns nothing
 */
     virtual void info();
 	/**
@@ -141,6 +147,7 @@ public:
 *
 *
 * @param service - pointer to the service that will be pushed back onto the services vector
+* @return Returns nothing
 */
     void add_service(Service* service);
 	/**
@@ -148,6 +155,7 @@ public:
 *
 *
 * @param id - id of the service to remove
+* @return Returns nothing
 */
     void remove_service(unsigned int id);
 	/**
@@ -155,6 +163,7 @@ public:
 * sets available to false and updates cargo
 *
 * @param cargo - new value of cargo data member
+* @return Returns nothing
 */
     void start_transport(unsigned short cargo);
 	/**
@@ -162,6 +171,7 @@ public:
 *
 *
 * @param trucks - pointer to the vector to which the created truck will be pushed onto
+* @return Returns nothing
 */
     static void createTruck(vector<Truck*>* trucks); 
 	/**
@@ -169,6 +179,7 @@ public:
 * only works if the truck has no registered
 *
 * @param trucks - pointer to the vector from which we will delete the truck
+* @return Returns nothing
 */
     static void removeTruck(vector<Truck*>* trucks);
 	/**
@@ -183,6 +194,7 @@ public:
 * @brief compares truck by license in ascending order
 *
 * @return Returns true or false
+
 */
 bool operator<(Truck &a,Truck &b);
 
@@ -192,17 +204,20 @@ public:
 	/**
 * @brief constructor for this subclass that calls the one from superclass
 *
+* @return Returns nothing
 */
     Congelation(string license, bool available, bool registered, unsigned short capacity, unsigned short cargo);
 
 	/**
 * @brief Default destructor
 *
+* @return Returns nothing
 */
     ~Congelation() {}
 	/**
 * @brief Prints more specific information about this truck's subclass
 *
+* @return Returns nothing
 */
     void info();
     static unordered_map<Temperature_enum, float> tempMul;/*!< will hold price multipliers depending on the service*/
@@ -217,17 +232,20 @@ public:
 	/**
 * @brief constructor for this subclass that calls the one from superclass
 *
+* @return Returns nothing
 */
     HazardousMat(string license, bool available, bool registered, unsigned short capacity, unsigned short cargo);
 	/**
 * @brief Default destructor
 *
+* @return Returns nothing
 */
     ~HazardousMat(){}
 
 	/**
 * @brief Prints more specific information about this truck's subclass
 *
+* @return Returns nothing
 */
     void info();
     static float pricePerKG;
@@ -243,16 +261,19 @@ public:
 	/**
 * @brief constructor for this subclass that calls the one from superclass
 *
+* @return Returns nothing
 */
     Animal(string license, bool available, bool registered, unsigned short capacity, unsigned short cargo);
 	/**
 * @brief Default destructor
 *
+* @return Returns nothing
 */
     ~Animal(){}
 	/**
 * @brief Prints more specific information about this truck's subclass
 *
+* @return Returns nothing
 */
     void info();
     static float pricePerKG;
@@ -266,16 +287,19 @@ public:
 	/**
 * @brief constructor for this subclass that calls the one from superclass
 *
+* @return Returns nothing
 */
     Normal(string license, bool available, bool registered, unsigned short capacity, unsigned short cargo);
 	/**
 * @brief Default destructor
 *
+* @return Returns nothing
 */
     ~Normal(){}
 	/**
 * @brief Prints more specific information about this truck's subclass
 *
+* @return Returns nothing
 */
     void info();
     static float pricePerKG;
