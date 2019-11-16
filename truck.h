@@ -326,7 +326,7 @@ public:
 	/**
 * @brief Constructor with all data necessary
 *
-* This exception is thrown if the program is unable to fing the truck
+* This exception is thrown if the program is unable to find the truck
 *
 * @param erro - Message describing error
 * @param license - license that was not found
@@ -341,7 +341,7 @@ public:
 	/**
 * @brief Constructor with all data necessary
 *
-* This exception is thrown if the truck it is not a valid
+* This exception is thrown if the truck is not valid
 *
 * @param erro - Message describing error
 * @param license - license that isn't valid
