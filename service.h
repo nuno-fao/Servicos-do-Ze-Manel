@@ -357,8 +357,8 @@ class TemperatureService: public Service
 {
 public:
     ~TemperatureService();
-    TemperatureService(string material,Address origin, Address destination, Date *arrivalDate, unsigned distance, type type, state state, Date *date,Client *client,float quantity,Temperature_enum hazard);
-    TemperatureService(string material, string origin, string destination, Date *arrivalDate, unsigned distance, type type, state state, Date *date, Client *client, float quantity, Temperature_enum hazard, float total_price, unsigned id_s);
+    TemperatureService(string material,Address origin, Address destination, Date *arrivalDate, unsigned distance, type type, state state, Date *date,Client *client,float quantity,Temperature_enum temp);
+    TemperatureService(string material, string origin, string destination, Date *arrivalDate, unsigned distance, type type, state state, Date *date, Client *client, float quantity, Temperature_enum temp, float total_price, unsigned id_s);
     Temperature_enum type;
     string getSpecificType();
 };

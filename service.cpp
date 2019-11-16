@@ -300,7 +300,6 @@ void Service::loadFromFile(list<Service*> *services_finished,vector<Service*> *s
             tempSpecHazar=strToHazard(tt.at(1));
             tempSpecTemp=strToTemp(tt.at(1));
         }
-
         tempType=intToType(stoi(tt.at(0)));
 
         getline(servicesFile,temptrucks);
@@ -328,7 +327,7 @@ void Service::loadFromFile(list<Service*> *services_finished,vector<Service*> *s
 
             if(tempType==type::lowTemperature)
                 temp= new TemperatureService(tempMaterial, tempOrigin,tempDestination,tempA,unsigned(tempDistance),tempType,tempState,tempI,temp_client,tempQuantity,tempSpecTemp,tempPrice,tempId);
-            if(tempType==type::hazardous)
+            else if(tempType==type::hazardous)
                 temp= new HazardousService(tempMaterial, tempOrigin,tempDestination,tempA,unsigned(tempDistance),tempType,tempState,tempI,temp_client,tempQuantity,tempSpecHazar,tempPrice,tempId);
             else
                 temp= new Service(tempMaterial,tempOrigin,tempDestination,tempA,unsigned(tempDistance),tempType,tempState,tempI,temp_client,tempQuantity,tempPrice,tempId);
@@ -369,7 +368,7 @@ void Service::loadFromFile(list<Service*> *services_finished,vector<Service*> *s
             //getline(cin,temp_error);
             if(tempType==type::lowTemperature)
                 temp= new TemperatureService(tempMaterial, tempOrigin,tempDestination,tempA,unsigned(tempDistance),tempType,tempState,tempI,tempC,tempQuantity,tempSpecTemp,tempPrice,tempId);
-            if(tempType==type::hazardous)
+            else if(tempType==type::hazardous)
                 temp= new HazardousService(tempMaterial, tempOrigin,tempDestination,tempA,unsigned(tempDistance),tempType,tempState,tempI,tempC,tempQuantity,tempSpecHazar,tempPrice,tempId);
             else
                 temp= new Service(tempMaterial,tempOrigin,tempDestination,tempA,unsigned(tempDistance),tempType,tempState,tempI,tempC,tempQuantity,tempPrice,tempId);
@@ -1762,6 +1761,7 @@ ostream& operator <<(ostream& os,Service *a){
     os<<"Time :"<<*a->getADate()-*a->getIDate()<<" min"<<endl;
     os<<endl;
     os<<"Type of Transport: "+typeToString(a->getType())<<endl;
+
     if(a->getType()==type::hazardous){
         os<<"Hazardous Type: "<<a->getSpecificType()<<endl;
     }
@@ -1973,5 +1973,6 @@ string HazardousService::getSpecificType(){
 
 string TemperatureService::getSpecificType(){
     return tempToString(this->type);
+
 }
 
