@@ -465,8 +465,25 @@ void Service::loadFromFile(list<Service*> *services_finished,vector<Service*> *s
         getline(servicesFile,tempGeneral);
         tempType=intToType(stoi(tempGeneral));
 
-        getline(servicesFile,tempGeneral);
-
+        getline(servicesFile,temptrucks);
+        try{
+            tempVectorTruckS=vectorString(temptrucks,";");   
+            for(auto i:tempVectorTruckS){
+                try{
+                    vector<string> tempTruckMap=vectorString(i,":");
+                    Truck *temp_truck=Company::getCompany()->getTruck(tempTruckMap.at(0));
+                    temp->addTruck(temp_truck,stof(tempTruckMap.at(1)));
+                    temp_truck->add_service(temp);
+                }
+                catch(...){
+                    
+                }
+            }
+            
+        }
+        catch(...){
+               
+        }
         getline(servicesFile,tempGeneral);
         tempState=intToState(stoi(tempGeneral));
 
