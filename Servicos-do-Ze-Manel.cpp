@@ -1484,6 +1484,7 @@ void manage_client(Client *client){
                 }
                 else{
                     cout<<"No Service can be Canceled"<<endl;
+                    clearBuffer();
                 }
                 enter_to_exit();
                 break;
