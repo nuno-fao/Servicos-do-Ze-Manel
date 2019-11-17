@@ -162,12 +162,21 @@ template<class T> bool cmp_classes(T *a,T *b){
 /**
 *
 * @brief Operator<-overload-type of function
-* Returns true if a < b, using the template Class' operator< overload function
+* Returns true if a's IDate < b's IDate
 *
-* @param a - A template Class Object
-* @param b - A template Class Object
-* @return Returns true if a < b
+* @param a - A pointer to a Service
+* @param b - A pointer to a Service
+* @return Returns true if a's IDate < b's IDate
 */
 bool cmpOnQueue(Service *a,Service *b);
 
+/**
+*
+* @brief Operator<-overload-type of function
+* Returns true if b's IDate < a's IDate
+*
+* @param a - A pointer to a Service
+* @param b - A pointer to a Service
+* @return Returns true if b's IDate < a's IDate
+*/
 bool cmpOnTransit(Service *a,Service *b);
