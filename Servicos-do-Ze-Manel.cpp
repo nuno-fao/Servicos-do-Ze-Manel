@@ -360,6 +360,9 @@ void information(){
     }
 }
 
+inline  bool cpm_clientsSpent(Client *a,Client *b){
+    return a->getMoneySpent()<b->getMoneySpent();
+}
 void clientsInformation(){
     unsigned opt=1;
     clearScreen();
@@ -391,7 +394,7 @@ void clientsInformation(){
                 break;
             case 2:{
                 vector<Client*> temp(*Company::getCompany()->getVectorClients());
-                sort(temp.begin(),temp.end(),cmp_classes<Client>);
+                sort(temp.begin(),temp.end(),cpm_clientsSpent);
                 if(temp.size())
                     for(auto i: temp){
                         cout<<*i;
@@ -405,7 +408,7 @@ void clientsInformation(){
             }
             case 3:{
 				vector<Client*> temp(*Company::getCompany()->getVectorClients());
-				sort(temp.begin(), temp.end(), cmp_classes <Client>);
+                sort(temp.begin(), temp.end(), cpm_clientsSpent);
 				if (temp.size())
 					for (auto it = temp.rbegin(); it != temp.rend(); it++) {
 						cout << *(*it);

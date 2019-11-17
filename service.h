@@ -373,7 +373,7 @@ public:
  * This exception is thrown if the program is unable to find a service
  *
  * @param erro - Message describing error
- */s
+ */
     ServiceDoNotExist(string erro):erro(erro){}
 };
 
