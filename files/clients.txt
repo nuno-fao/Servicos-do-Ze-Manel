@@ -11,7 +11,7 @@ Matilde Ferreira Martins
 210787105
 ::::::::::::::::::::::::::::
 Manuel Pinho
-0
+336710
 353522120
 ::::::::::::::::::::::::::::
 Danilo Carvalho Cunha
@@ -35,7 +35,7 @@ Luís Fernandes Araujo
 555869110
 ::::::::::::::::::::::::::::
 Alfredo Melo
-0
+363559
 678945632
 ::::::::::::::::::::::::::::
 Camila Correia Oliveira
@@ -47,10 +47,10 @@ Nicolas Gomes Melo
 805181049
 ::::::::::::::::::::::::::::
 Luis Silva Souza
-0
+80370
 805219161
 ::::::::::::::::::::::::::::
 Yasmin Carvalho Barbosa
-0
+36500
 834025548
 ::::::::::::::::::::::::::::

@@ -10,8 +10,9 @@ Service::Service(string material, Address origin, Address destination, Date *arr
 {
     
     for(unsigned x=0;;x++){
-        if(idList.find(x)==idList.end()){
+        if(!idList.count(x)){
             this->id=x;
+            idList.insert(x);
             break;
         }
     }
@@ -817,6 +818,10 @@ void Service::saveToFile(list<Service*> *services_finished,vector<Service*>*serv
 
 //adicionar hazardous type ou temp range!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 Service *Service::addService(vector<Service *> *services,Client *client){
+
+    if(Animal::CapDist.empty() && Normal::CapDist.empty() && HazardousMat::CapDist.empty() && Congelation::CapDist.empty()){
+	throw ServiceDoNotExist("There are no Trucks In the company");
+    }
     string tempOrigin,tempDestination,tempMaterial;
     string tempType,tempSpecType,month,day,hour,minute;
     Temperature_enum temp_temperature=Temperature_enum::p1_20;
@@ -1215,10 +1220,10 @@ Service *Service::addService(vector<Service *> *services,Client *client){
         printClassVector(&print);
         cout<<"Please choose a type of service:"<<endl;
         cout<<endl;
-        cout<<"[0] Ordinary"<<endl;
-        cout<<"[1] Hazardous"<<endl;
-        cout<<"[2] Animal"<<endl;
-        cout<<"[3] Low Temperature"<<endl;
+        cout<<"[0] Ordinary"<<((Normal::CapDist.empty())?" (Not Available)":" ")<<endl;
+        cout<<"[1] Hazardous"<<((HazardousMat::CapDist.empty())?" (Not Available)":" ")<<endl;
+        cout<<"[2] Animal"<<((Animal::CapDist.empty())?" (Not Available)":" ")<<endl;
+        cout<<"[3] Low Temperature"<<((Congelation::CapDist.empty())?" (Not Available)":" ")<<endl;
         if(cin>>tempType && strIsNumber(tempType) && stoi(tempType)<4){
             clearScreen();
             variable_error=false;
@@ -1812,11 +1817,17 @@ int Service::autoAddTrucks(){
     }
 
     }
+    int counter=0;
     for(auto i: temp_map){
         temp_map.at(i.first)=0;
+	counter++;
     }
+    if(counter==0)
+	return quantity;
     bool available_on_time=true;
     vector<Truck*> tempVectorIterate=*Company::getCompany()->getVectorTrucks();
+    if(tempVectorIterate.size()<1)
+	return quantity;
     for(auto i= tempVectorIterate.begin();i!=tempVectorIterate.end();){
         if(ser_type==(*i)->getType()){
             for(auto c:*(*i)->getServices()){
@@ -1839,7 +1850,9 @@ int Service::autoAddTrucks(){
             i=tempVectorIterate.erase(i);
         }
     }
-
+	
+    if(tempVectorIterate.size()<1)
+	return quantity;
     auto r_it=temp_map.rbegin();
     auto it=temp_map.begin();
     enter_to_exit();

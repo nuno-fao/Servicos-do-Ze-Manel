@@ -290,9 +290,13 @@ void menu_services(){
                     cout<<e.erro<<endl;
                     enter_to_exit();
                 }
+		catch(const ServiceDoNotExist &e){
+		    cout<<e.erro<<endl;
+		    enter_to_exit();
+		}
                 catch(...){
                     //clearBuffer();
-                    cout << "Stopped operation!" << endl;
+                    cout << "Stopped operation! Couldn't assign Enough Trucks" << endl;
                     enter_to_exit();
                 }
 
@@ -1531,7 +1535,7 @@ void moneyInformation(){
             case 1:{
 				for (unsigned i = 0; i < Company::getCompany()->getStatCong().size(); i++) {
 					cout << ":::::::::::::::::::" << endl;
-					cout << "Month/Year: " << (Company::getCompany()->getStatCong()[i].first % 12) <<"/"<<(int) (Company::getCompany()->getStatCong()[i].first/12)  << endl;
+                    cout << "Month/Year: " << (Company::getCompany()->getStatCong()[i].first % 12) <<"/"<<int(Company::getCompany()->getStatCong()[i].first/12)  << endl;
 					cout << "Total rev: "<< Company::getCompany()->getStatHaz()[i].second + Company::getCompany()->getStatCong()[i].second + Company::getCompany()->getStatNorm()[i].second + Company::getCompany()->getStatAnim()[i].second << endl;
 				}
                 enter_to_exit();
@@ -1540,7 +1544,7 @@ void moneyInformation(){
             case 2:{
 				for (unsigned i = 0; i < Company::getCompany()->getStatCong().size(); i++) {
 					cout << ":::::::::::::::::::" << endl;
-					cout << "Month/Year: " << (Company::getCompany()->getStatCong()[i].first % 12) << "/" << (int)(Company::getCompany()->getStatCong()[i].first / 12) << endl;
+                    cout << "Month/Year: " << (Company::getCompany()->getStatCong()[i].first % 12) << "/" << int(Company::getCompany()->getStatCong()[i].first / 12) << endl;
 					cout << "Low temperature transport rev: " << Company::getCompany()->getStatCong()[i].second << endl;
 				}
                 enter_to_exit();
@@ -1549,7 +1553,7 @@ void moneyInformation(){
             case 3:{
 				for (unsigned i = 0; i < Company::getCompany()->getStatHaz().size(); i++) {
 					cout << ":::::::::::::::::::" << endl;
-					cout << "Month/Year: " << (Company::getCompany()->getStatHaz()[i].first % 12) << "/" << (int)(Company::getCompany()->getStatHaz()[i].first / 12) << endl;
+                    cout << "Month/Year: " << (Company::getCompany()->getStatHaz()[i].first % 12) << "/" << int(Company::getCompany()->getStatHaz()[i].first / 12) << endl;
 					cout << "Hazard transport rev: " << Company::getCompany()->getStatHaz()[i].second << endl;
 				}
                 enter_to_exit();
@@ -1558,7 +1562,7 @@ void moneyInformation(){
             case 4:{
 				for (unsigned i = 0; i < Company::getCompany()->getStatNorm().size(); i++) {
 					cout << ":::::::::::::::::::" << endl;
-					cout << "Month/Year: " << (Company::getCompany()->getStatNorm()[i].first % 12) << "/" << (int)(Company::getCompany()->getStatNorm()[i].first / 12) << endl;
+                    cout << "Month/Year: " << (Company::getCompany()->getStatNorm()[i].first % 12) << "/" << int(Company::getCompany()->getStatNorm()[i].first / 12) << endl;
 					cout << "Normal transport rev: " << Company::getCompany()->getStatNorm()[i].second << endl;
 				}
                 enter_to_exit();
@@ -1567,7 +1571,7 @@ void moneyInformation(){
             case 5:{
 				for (unsigned i = 0; i < Company::getCompany()->getStatAnim().size(); i++) {
 					cout << ":::::::::::::::::::" << endl;
-					cout << "Month/Year: " << (Company::getCompany()->getStatAnim()[i].first % 12) << "/" << (int)(Company::getCompany()->getStatAnim()[i].first / 12) << endl;
+                    cout << "Month/Year: " << (Company::getCompany()->getStatAnim()[i].first % 12) << "/" << int(Company::getCompany()->getStatAnim()[i].first / 12) << endl;
 					cout << "Animal transport rev: " << Company::getCompany()->getStatAnim()[i].second << endl;
 				}
                 enter_to_exit();

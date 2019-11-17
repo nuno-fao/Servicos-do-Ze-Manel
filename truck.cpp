@@ -370,25 +370,29 @@ void Truck::createTruck(vector<Truck*>* trucks) {
         case('C'):{
             Truck* newTruck = new Congelation(license, true, false, date_u_short(capacity), 0);
             trucks->push_back(newTruck);
+	    Congelation::CapDist[capacity]=1;
             break;
         }
         case('A'):{
             Truck* newTruck = new Animal(license, true, false, date_u_short(capacity), 0);
             trucks->push_back(newTruck);
+	    Animal::CapDist[capacity]=1;
             break;
         }
         case('N'):{
             Truck* newTruck = new Normal(license, true, false, date_u_short(capacity), 0);
             trucks->push_back(newTruck);
+	    Normal::CapDist[capacity]=1;
             break;
         }
         case('H'):{
             Truck* newTruck = new HazardousMat(license, true, false, date_u_short(capacity), 0);
             trucks->push_back(newTruck);
+   	    HazardousMat::CapDist[capacity]=1;
             break;
         }
         }
-        cout << "Truck with license " << license << " removed successfully!" << endl;
+        cout << "Truck with license " << license << " added successfully!" << endl;
         enter_to_exit();
     }
     else {
