@@ -290,10 +290,10 @@ void menu_services(){
                     cout<<e.erro<<endl;
                     enter_to_exit();
                 }
-		catch(const ServiceDoNotExist &e){
-		    cout<<e.erro<<endl;
-		    enter_to_exit();
-		}
+                catch(const ServiceDoNotExist &e){
+                    cout<<e.erro<<endl;
+                    enter_to_exit();
+                }
                 catch(...){
                     //clearBuffer();
                     cout << "Stopped operation! Couldn't assign Enough Trucks" << endl;
@@ -407,19 +407,19 @@ void clientsInformation(){
                 break;
             }
             case 3:{
-				vector<Client*> temp(*Company::getCompany()->getVectorClients());
+                vector<Client*> temp(*Company::getCompany()->getVectorClients());
                 sort(temp.begin(), temp.end(), cpm_clientsSpent);
-				if (temp.size())
-					for (auto it = temp.rbegin(); it != temp.rend(); it++) {
-						cout << *(*it);
-						cout << (*it)->getMoneySpent() << endl;
-					}
-				else
-					cout << "There is no Information to show" << endl;
-				
-				clearBuffer();
-				enter_to_exit();
-				break;
+                if (temp.size())
+                    for (auto it = temp.rbegin(); it != temp.rend(); it++) {
+                        cout << *(*it);
+                        cout << (*it)->getMoneySpent() << endl;
+                    }
+                else
+                    cout << "There is no Information to show" << endl;
+
+                clearBuffer();
+                enter_to_exit();
+                break;
 
             }
             case 4:{
@@ -1293,38 +1293,407 @@ void servicesInformation(){
         cout<<"[2] Services On Queue"<<endl;
         cout<<"[3] Services On Transit"<<endl; // Não funciona
         cout<<"[4] Services Finished"<<endl;
+        cout<<"[5] Services From Specific Location"<<endl;
+        cout<<"[6] Services To Specific Location"<<endl;
+        cout<<"[7] Services Between Two Dates"<<endl;
+        cout<<"[8] Animal Services"<<endl;
+        cout<<"[9] Normal Services"<<endl;
+        cout<<"[10] Congelation Services"<<endl;
+        cout<<"[11] Hazardous Services"<<endl;
         cout<<"[0] Return"<<endl;
-        if(cin>>opt && opt<=4)
+        if(cin>>opt && opt<=12)
         {
             clearScreen();
             clearBuffer();
-            switch (opt) {
-            case 0:{
-                return;
-            }
-            case 1:
-                infoEveryServices();
-                enter_to_exit();
-                break;
-            case 2:{
-                infoOnQueueServices();
-                enter_to_exit();
-                break;
-            }
-            case 3:{
-                infoOnTransitServices();
-                enter_to_exit();
-                break;
-            }
-            case 4:{
-                infoFinishedServices();
-                enter_to_exit();
-                break;
-            }
+            try {
+                switch (opt) {
+                case 8:{
+                    string temp_origin;
+                    bool print=false;
+                    for(auto i:*Company::getCompany()->getVectorServicesOnQueue()){
+                        if(i->getType()==type::animal){
+                            cout<<i;
+                            print=true;
+                        }
+                    }
+                    for(auto i:*Company::getCompany()->getVectorServicesOnTransit()){
+                        if(i->getType()==type::animal){
+                            cout<<i;
+                            print=true;
+                        }
+                    }
+                    for(auto i:*Company::getCompany()->getVectorServicesFinished()){
+                        if(i->getType()==type::animal){
+                            cout<<i;
+                            print=true;
+                        }
+                    }
+                    if(print)
+                        enter_to_exit();
+                    clearScreen();
+                    break;
+                }
+                case 9:{
+                    string temp_origin;
+                    bool print=false;
+                    for(auto i:*Company::getCompany()->getVectorServicesOnQueue()){
+                        if(i->getType()==type::ordinary){
+                            cout<<i;
+                            print=true;
+                        }
+                    }
+                    for(auto i:*Company::getCompany()->getVectorServicesOnTransit()){
+                        if(i->getType()==type::ordinary){
+                            cout<<i;
+                            print=true;
+                        }
+                    }
+                    for(auto i:*Company::getCompany()->getVectorServicesFinished()){
+                        if(i->getType()==type::ordinary){
+                            cout<<i;
+                            print=true;
+                        }
+                    }
+                    if(print)
+                        enter_to_exit();
+                    clearScreen();
+                    break;
+                }
+                case 10:{
+                    string temp_origin;
+                    bool print=false;
+                    for(auto i:*Company::getCompany()->getVectorServicesOnQueue()){
+                        if(i->getType()==type::lowTemperature){
+                            cout<<i;
+                            print=true;
+                        }
+                    }
+                    for(auto i:*Company::getCompany()->getVectorServicesOnTransit()){
+                        if(i->getType()==type::lowTemperature){
+                            cout<<i;
+                            print=true;
+                        }
+                    }
+                    for(auto i:*Company::getCompany()->getVectorServicesFinished()){
+                        if(i->getType()==type::lowTemperature){
+                            cout<<i;
+                            print=true;
+                        }
+                    }
+                    if(print)
+                        enter_to_exit();
+                    clearScreen();
+                    break;
+                }
+                case 11:{
+                    string temp_origin;
+                    bool print=false;
+                    for(auto i:*Company::getCompany()->getVectorServicesOnQueue()){
+                        if(i->getType()==type::hazardous){
+                            cout<<i;
+                            print=true;
+                        }
+                    }
+                    for(auto i:*Company::getCompany()->getVectorServicesOnTransit()){
+                        if(i->getType()==type::hazardous){
+                            cout<<i;
+                            print=true;
+                        }
+                    }
+                    for(auto i:*Company::getCompany()->getVectorServicesFinished()){
+                        if(i->getType()==type::hazardous){
+                            cout<<i;
+                            print=true;
+                        }
+                    }
+                    if(print)
+                        enter_to_exit();
+                    clearScreen();
+                    break;
+                }
+                case 7:{
+                    bool variable_error=true;
+                    string tempString;
+                    vector<string> tempVector;
+                    while (variable_error) {
+                        try {
+                            cout<<"Enter the departure date(yy mm dd)"<<endl;
+                            if(getline(cin,tempString)){
+                                clearScreen();
+                                checkIfOut(tempString);
+                                tempVector = vectorString(tempString," ");
+                                for(auto p:tempVector){
+                                    if(!strIsNumber(p)){
+                                        tempVector.clear();
+                                        variable_error=true;
+                                        clearScreen();
+                                        cout<<"Date Input not Aceptable, please try again"<<endl;
+                                        break;
+                                    }
+                                }
+                                if(tempVector.size()==3){
+                                    Date i(date_u_short(stoi(tempVector.at(0))),date_u_short(stoi(tempVector.at(1))),date_u_short(stoi(tempVector.at(2))),23,59);
+                                    variable_error=false;
+                                }
+                                else{
+                                    variable_error=true;
+                                    clearScreen();
+                                    cout<<"Date Input not Aceptable, please try again"<<endl;
+                                }
+                            }
+                            else{
+                                variable_error=true;
+                                clearScreen();
+                                cout<<"minute Input not Aceptable, please try again"<<endl;
+                            }
+                        } catch (DateInvalid i) {
+                            clearScreen();
+                            cout<<i.error<<endl;
+                        }
+                    }
+                    variable_error=true;
+                    vector<string> tempVector_h;
+                    while (variable_error) {
+                        try {
+                            cout<<"Enter the departure hours(hh mm)"<<endl;
+                            if(getline(cin,tempString)){
+                                clearScreen();
+                                checkIfOut(tempString);
+                                tempVector_h = vectorString(tempString," ");
+                                for(auto p:tempVector_h){
+                                    if(!strIsNumber(p)){
+                                        tempVector_h.clear();
+                                        variable_error=true;
+                                        clearScreen();
+                                        cout<<"minute Input not Aceptable, please try again"<<endl;
+                                        break;
+                                    }
+                                }
+                                if(tempVector_h.size()==2){
+                                    Date i(date_u_short(stoi(tempVector.at(0))),date_u_short(stoi(tempVector.at(1))),date_u_short(stoi(tempVector.at(2))),date_u_short(stoi(tempVector_h.at(0))),date_u_short(stoi(tempVector_h.at(1))));
+                                    variable_error=false;
+                                }
+                                else{
+                                    variable_error=true;
+                                    clearScreen();
+                                    cout<<"minute Input not Aceptable, please try again"<<endl;
+                                }
+                            }
+                            else{
+                                variable_error=true;
+                                clearScreen();
+                                cout<<"minute Input not Aceptable, please try again"<<endl;
+                            }
+                        } catch (DateInvalid i) {
+                            clearScreen();
+                            cout<<i.error<<endl;
+                        }
+                    }
+                    Date temp_date=Date(date_u_short(stoi(tempVector.at(0))),date_u_short(stoi(tempVector.at(1))),date_u_short(stoi(tempVector.at(2))),date_u_short(stoi(tempVector_h.at(0))),date_u_short(stoi(tempVector_h.at(1))));
+
+                    //set arrival date
+                    clearScreen();
+                    variable_error=true;
+                    tempVector.clear();
+                    while (variable_error) {
+                        try {
+                            cout<<"Enter the date of arrival(yy mm dd)"<<endl;
+                            if(getline(cin,tempString)){
+                                clearScreen();
+                                checkIfOut(tempString);
+                                tempVector = vectorString(tempString," ");
+                                for(auto p:tempVector){
+                                    if(!strIsNumber(p)){
+                                        tempVector.clear();
+                                        variable_error=true;
+                                        clearScreen();
+                                        cout<<"Date Input not Aceptable, please try again"<<endl;
+                                        break;
+                                    }
+                                }
+                                if(tempVector.size()==3){
+                                    Date i(unsigned(stoi(tempVector.at(0))),date_u_short(stoi(tempVector.at(1))),date_u_short(stoi(tempVector.at(2))),23,59);
+                                    if(i<temp_date){
+                                        variable_error=true;
+                                        clearScreen();
+                                        cout<<"Date Input not Aceptable, should not be prior to initial date, please try again"<<endl;
+                                    }
+                                    else
+                                        variable_error=false;
+                                }
+                                else{
+                                    variable_error=true;
+                                    clearScreen();
+                                    cout<<"Date Input not Aceptable, please try again"<<endl;
+                                }
+                            }
+                            else{
+                                variable_error=true;
+                                clearScreen();
+                                cout<<"Date Input not Aceptable, please try again"<<endl;
+                            }
+                        } catch (DateInvalid i) {
+                            clearScreen();
+                            cout<<i.error<<endl;
+                        }
+                    }
+                    variable_error=true;
+                    tempVector_h.clear();
+                    while (variable_error) {
+                        try {
+                            cout<<"Enter the hours of Arrival(hh mm)"<<endl;
+                            if(getline(cin,tempString)){
+                                clearScreen();
+                                checkIfOut(tempString);
+                                tempVector_h = vectorString(tempString," ");
+                                for(auto p:tempVector_h){
+                                    if(!strIsNumber(p)){
+                                        tempVector_h.clear();
+                                        variable_error=true;
+                                        clearScreen();
+                                        cout<<"minute Input not Aceptable, please try again"<<endl;
+                                        break;
+                                    }
+                                }
+                                if(tempVector_h.size()==2){
+                                    Date i(date_u_short(stoi(tempVector.at(0))),date_u_short(stoi(tempVector.at(1))),date_u_short(stoi(tempVector.at(2))),date_u_short(stoi(tempVector_h.at(0))),date_u_short(stoi(tempVector_h.at(1))));
+                                    if(i<temp_date){
+                                        variable_error=true;
+                                        clearScreen();
+                                        cout<<"Input not Aceptable, should not be prior to current date, please try again"<<endl;
+                                    }
+                                    else
+                                        variable_error=false;
+                                }
+                                else{
+                                    variable_error=true;
+                                    clearScreen();
+                                    cout<<"minute Input not Aceptable, please try again"<<endl;
+                                }
+                            }
+                            else{
+                                variable_error=true;
+                                clearScreen();
+                                cout<<"minute Input not Aceptable, please try again"<<endl;
+                            }
+                        } catch (DateInvalid i) {
+                            clearScreen();
+                            cout<<i.error<<endl;
+                        }
+                    }
+                    Date temp_date_arrival=Date(date_u_short(stoi(tempVector.at(0))),date_u_short(stoi(tempVector.at(1))),date_u_short(stoi(tempVector.at(2))),date_u_short(stoi(tempVector_h.at(0))),date_u_short(stoi(tempVector_h.at(1))));
+
+                    bool print=false;
+                    for(auto i:*Company::getCompany()->getVectorServicesOnQueue()){
+                        if(temp_date<*i->getIDate() && *i->getADate()<temp_date_arrival){
+                            cout<<i;
+                            print=true;
+                        }
+                    }
+                    for(auto i:*Company::getCompany()->getVectorServicesOnTransit()){
+                        if(temp_date<*i->getIDate() && *i->getADate()<temp_date_arrival){
+                            cout<<i;
+                            print=true;
+                        }
+                    }
+                    for(auto i:*Company::getCompany()->getVectorServicesFinished()){
+                        if(temp_date<*i->getIDate() && *i->getADate()<temp_date_arrival){
+                            cout<<i;
+                            print=true;
+                        }
+                    }
+                    if(print){
+                        enter_to_exit();
+                    }
+                    clearScreen();
+                    break;
+                }
+                case 5:{
+                    string temp_origin;
+                    cout<<"Enter Origin Location (i.e. Porto): "<<endl;
+                    getline(cin,temp_origin);
+                    bool print=false;
+                    for(auto i:*Company::getCompany()->getVectorServicesOnQueue()){
+                        if(i->getOrigin().getLocation()==temp_origin){
+                            cout<<i;
+                            print=true;
+                        }
+                    }
+                    for(auto i:*Company::getCompany()->getVectorServicesOnTransit()){
+                        if(i->getOrigin().getLocation()==temp_origin){
+                            cout<<i;
+                            print=true;
+                        }
+                    }
+                    for(auto i:*Company::getCompany()->getVectorServicesFinished()){
+                        if(i->getOrigin().getLocation()==temp_origin){
+                            cout<<i;
+                            print=true;
+                        }
+                    }
+                    if(print)
+                        enter_to_exit();
+                    clearScreen();
+                    break;
+                }
+                case 6:{
+                    bool print=false;
+                    string temp_origin;
+                    cout<<"Enter Destination Location (i.e. Porto): "<<endl;
+                    getline(cin,temp_origin);
+                    for(auto i:*Company::getCompany()->getVectorServicesOnQueue()){
+                        if(i->getDestination().getLocation()==temp_origin){
+                            cout<<i;
+                            print=true;
+                        }
+                    }
+                    for(auto i:*Company::getCompany()->getVectorServicesOnTransit()){
+                        if(i->getDestination().getLocation()==temp_origin){
+                            cout<<i;
+                            print=true;
+                        }
+                    }
+                    for(auto i:*Company::getCompany()->getVectorServicesFinished()){
+                        if(i->getDestination().getLocation()==temp_origin){
+                            cout<<i;
+                            print=true;
+                        }
+                    }
+                    if(print)
+                        enter_to_exit();
+                    clearScreen();
+                    break;
+                }
+                case 0:{
+                    return;
+                }
+                case 1:
+                    infoEveryServices();
+                    enter_to_exit();
+                    break;
+                case 2:{
+                    infoOnQueueServices();
+                    enter_to_exit();
+                    break;
+                }
+                case 3:{
+                    infoOnTransitServices();
+                    enter_to_exit();
+                    break;
+                }
+                case 4:{
+                    infoFinishedServices();
+                    enter_to_exit();
+                    break;
+                }
 
 
-            default:
-                opt=1;
+                default:
+                    opt=1;
+                }
+            }
+            catch(...){
+
             }
         }
         else{
@@ -1529,54 +1898,54 @@ void moneyInformation(){
         cout<<"[0] Return"<<endl;
         if(cin>>opt && opt<=5)
         {
-			clearBuffer();
-			clearScreen();
+            clearBuffer();
+            clearScreen();
             switch (opt) {
             case 0:{
                 return;
             }
             case 1:{
-				for (unsigned i = 0; i < Company::getCompany()->getStatCong().size(); i++) {
-					cout << ":::::::::::::::::::" << endl;
+                for (unsigned i = 0; i < Company::getCompany()->getStatCong().size(); i++) {
+                    cout << ":::::::::::::::::::" << endl;
                     cout << "Month/Year: " << (Company::getCompany()->getStatCong()[i].first % 12) <<"/"<<int(Company::getCompany()->getStatCong()[i].first/12)  << endl;
-					cout << "Total rev: "<< Company::getCompany()->getStatHaz()[i].second + Company::getCompany()->getStatCong()[i].second + Company::getCompany()->getStatNorm()[i].second + Company::getCompany()->getStatAnim()[i].second << endl;
-				}
+                    cout << "Total rev: "<< Company::getCompany()->getStatHaz()[i].second + Company::getCompany()->getStatCong()[i].second + Company::getCompany()->getStatNorm()[i].second + Company::getCompany()->getStatAnim()[i].second << endl;
+                }
                 enter_to_exit();
                 break;
             }
             case 2:{
-				for (unsigned i = 0; i < Company::getCompany()->getStatCong().size(); i++) {
-					cout << ":::::::::::::::::::" << endl;
+                for (unsigned i = 0; i < Company::getCompany()->getStatCong().size(); i++) {
+                    cout << ":::::::::::::::::::" << endl;
                     cout << "Month/Year: " << (Company::getCompany()->getStatCong()[i].first % 12) << "/" << int(Company::getCompany()->getStatCong()[i].first / 12) << endl;
-					cout << "Low temperature transport rev: " << Company::getCompany()->getStatCong()[i].second << endl;
-				}
+                    cout << "Low temperature transport rev: " << Company::getCompany()->getStatCong()[i].second << endl;
+                }
                 enter_to_exit();
                 break;
             }
             case 3:{
-				for (unsigned i = 0; i < Company::getCompany()->getStatHaz().size(); i++) {
-					cout << ":::::::::::::::::::" << endl;
+                for (unsigned i = 0; i < Company::getCompany()->getStatHaz().size(); i++) {
+                    cout << ":::::::::::::::::::" << endl;
                     cout << "Month/Year: " << (Company::getCompany()->getStatHaz()[i].first % 12) << "/" << int(Company::getCompany()->getStatHaz()[i].first / 12) << endl;
-					cout << "Hazard transport rev: " << Company::getCompany()->getStatHaz()[i].second << endl;
-				}
+                    cout << "Hazard transport rev: " << Company::getCompany()->getStatHaz()[i].second << endl;
+                }
                 enter_to_exit();
                 break;
             }
             case 4:{
-				for (unsigned i = 0; i < Company::getCompany()->getStatNorm().size(); i++) {
-					cout << ":::::::::::::::::::" << endl;
+                for (unsigned i = 0; i < Company::getCompany()->getStatNorm().size(); i++) {
+                    cout << ":::::::::::::::::::" << endl;
                     cout << "Month/Year: " << (Company::getCompany()->getStatNorm()[i].first % 12) << "/" << int(Company::getCompany()->getStatNorm()[i].first / 12) << endl;
-					cout << "Normal transport rev: " << Company::getCompany()->getStatNorm()[i].second << endl;
-				}
+                    cout << "Normal transport rev: " << Company::getCompany()->getStatNorm()[i].second << endl;
+                }
                 enter_to_exit();
                 break;
             }
             case 5:{
-				for (unsigned i = 0; i < Company::getCompany()->getStatAnim().size(); i++) {
-					cout << ":::::::::::::::::::" << endl;
+                for (unsigned i = 0; i < Company::getCompany()->getStatAnim().size(); i++) {
+                    cout << ":::::::::::::::::::" << endl;
                     cout << "Month/Year: " << (Company::getCompany()->getStatAnim()[i].first % 12) << "/" << int(Company::getCompany()->getStatAnim()[i].first / 12) << endl;
-					cout << "Animal transport rev: " << Company::getCompany()->getStatAnim()[i].second << endl;
-				}
+                    cout << "Animal transport rev: " << Company::getCompany()->getStatAnim()[i].second << endl;
+                }
                 enter_to_exit();
                 break;
             }
