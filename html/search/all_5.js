@@ -31,6 +31,7 @@ var searchData=
   ['getservice',['getService',['../class_company.html#acf80072e8abec3e359387243d8cdc49f',1,'Company']]],
   ['getservices',['getServices',['../class_truck.html#a207506f38e78d7a5f065893295a2c00d',1,'Truck']]],
   ['getservicesvector',['getServicesVector',['../class_client.html#a13ab3e2d37fde2de5b6a40d4523bb999',1,'Client']]],
+  ['getspecifictype',['getSpecificType',['../class_service.html#a4e833f8d8688facfe0858eb4299660e8',1,'Service::getSpecificType()'],['../class_hazardous_service.html#a683cc101557a61d0ac6c36cbe67bf6c2',1,'HazardousService::getSpecificType()'],['../class_temperature_service.html#afe119e9c22598d454c7355a49f984df5',1,'TemperatureService::getSpecificType()']]],
   ['getstatanim',['getStatAnim',['../class_company.html#af7e04162aac8a1057d2563e211e67460',1,'Company']]],
   ['getstatcong',['getStatCong',['../class_company.html#a46ae11a39256db9dbf2941c58df579c5',1,'Company']]],
   ['getstate',['getState',['../class_service.html#adf7f337e38c8de87e82b42f15c7ccad3',1,'Service']]],

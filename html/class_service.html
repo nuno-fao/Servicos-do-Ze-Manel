@@ -92,7 +92,7 @@ Collaboration diagram for Service:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:af6c3577b59652ac817d1d76aaccee904"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_service.html#af6c3577b59652ac817d1d76aaccee904">~Service</a> ()</td></tr>
+<tr class="memitem:af6c3577b59652ac817d1d76aaccee904"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_service.html#af6c3577b59652ac817d1d76aaccee904">~Service</a> ()</td></tr>
 <tr class="separator:af6c3577b59652ac817d1d76aaccee904"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acc246c9f7ed3c51e2d91d10fe257513f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_service.html#acc246c9f7ed3c51e2d91d10fe257513f">Service</a> ()</td></tr>
 <tr class="separator:acc246c9f7ed3c51e2d91d10fe257513f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -177,6 +177,9 @@ float&#160;</td><td class="memItemRight" valign="bottom"><b>getMultiplier</b> ()
 <tr class="memitem:a351a27eebc07d1ff3f433d6ad356925a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_service.html#a351a27eebc07d1ff3f433d6ad356925a">editService</a> ()</td></tr>
 <tr class="memdesc:a351a27eebc07d1ff3f433d6ad356925a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Edit new service.  <a href="#a351a27eebc07d1ff3f433d6ad356925a">More...</a><br /></td></tr>
 <tr class="separator:a351a27eebc07d1ff3f433d6ad356925a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4e833f8d8688facfe0858eb4299660e8"><td class="memItemLeft" align="right" valign="top">virtual string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_service.html#a4e833f8d8688facfe0858eb4299660e8">getSpecificType</a> ()</td></tr>
+<tr class="memdesc:a4e833f8d8688facfe0858eb4299660e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Overloads operator &lt;&lt; for services.  <a href="#a4e833f8d8688facfe0858eb4299660e8">More...</a><br /></td></tr>
+<tr class="separator:a4e833f8d8688facfe0858eb4299660e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
@@ -259,7 +262,6 @@ float&#160;</td><td class="memItemRight" valign="bottom"><b>total_price</b></td>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
 Friends</h2></td></tr>
 <tr class="memitem:a641fd7efe1dd35ea19ac062c4e2ece45"><td class="memItemLeft" align="right" valign="top">ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_service.html#a641fd7efe1dd35ea19ac062c4e2ece45">operator&lt;&lt;</a> (ostream &amp;os, <a class="el" href="class_service.html">Service</a> *a)</td></tr>
-<tr class="memdesc:a641fd7efe1dd35ea19ac062c4e2ece45"><td class="mdescLeft">&#160;</td><td class="mdescRight">Overloads operator &lt;&lt; for services.  <a href="#a641fd7efe1dd35ea19ac062c4e2ece45">More...</a><br /></td></tr>
 <tr class="separator:a641fd7efe1dd35ea19ac062c4e2ece45"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
@@ -268,6 +270,9 @@ Friends</h2></td></tr>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">Service::~Service </td>
@@ -276,6 +281,11 @@ Friends</h2></td></tr>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 <p>Default destructor </p>
 
@@ -618,6 +628,44 @@ Friends</h2></td></tr>
 
 <p>Gets quantity of the material to transport Gets quantity of the material to transport. </p>
 <dl class="section return"><dt>Returns</dt><dd>Returns quantity of the material to transport </dd></dl>
+
+</div>
+</div>
+<a id="a4e833f8d8688facfe0858eb4299660e8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4e833f8d8688facfe0858eb4299660e8">&#9670;&nbsp;</a></span>getSpecificType()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual string Service::getSpecificType </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Overloads operator &lt;&lt; for services. </p>
+<p>Overloads operator &lt;&lt; for services so that we can print a service's full info more easily</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">os</td><td>- ostream </td></tr>
+    <tr><td class="paramname">a</td><td>- service to 'print' the info </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Returns nothing </dd></dl>
+
+<p>Reimplemented in <a class="el" href="class_temperature_service.html#afe119e9c22598d454c7355a49f984df5">TemperatureService</a>, and <a class="el" href="class_hazardous_service.html#a683cc101557a61d0ac6c36cbe67bf6c2">HazardousService</a>.</p>
 
 </div>
 </div>
@@ -1189,17 +1237,6 @@ Friends</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-
-<p>Overloads operator &lt;&lt; for services. </p>
-<p>Overloads operator &lt;&lt; for services so that we can print a service's full info more easily</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">os</td><td>- ostream </td></tr>
-    <tr><td class="paramname">a</td><td>- service to 'print' the info </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>Returns nothing</dd></dl>
 <p>Overload of &lt;&lt; operator to allow an Adress's information to be printed</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">

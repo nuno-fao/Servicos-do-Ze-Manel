@@ -10,7 +10,21 @@ Company *Company::getCompany(){
 Company::Company(){}
 
 Company::~Company(){
-    cout<<getCompany()->services_on_queue_changed<<endl;
+    for(auto i:services_finished){
+        i->~Service();
+    }
+    for(auto i:services_on_queue){
+        i->~Service();
+    }
+    for(auto i:services_on_transit){
+        i->~Service();
+    }
+    for(auto i:clients){
+        i->~Client();
+    }
+    for(auto i:trucks){
+        i->~Truck();
+    }
     if(getCompany()->services_on_queue_changed){
         Service::saveToFile(&services_finished,&services_on_transit,&services_on_queue);
     }

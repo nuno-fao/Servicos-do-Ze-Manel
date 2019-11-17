@@ -2,8 +2,7 @@
 \label{class_client}\index{Client@{Client}}
 
 
-Inheritance diagram for Client\+:
-\nopagebreak
+Inheritance diagram for Client\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -17,7 +16,7 @@ Inheritance diagram for Client\+:
 \item 
 \hyperlink{class_client_ae51af7aa6b8f591496a8f6a4a87a14bf}{Client} ()
 \item 
-\hyperlink{class_client_a3cdfb856b1cccd81052f589c850ab86f}{Client} (string name, unsigned int \hyperlink{class_client_a1c94dc96a56cb5032573fb1d528517c2}{nif}, vector$<$ \hyperlink{class_service}{Service} $\ast$$>$ $\ast$\hyperlink{class_client_a02b601f12b9905edae7e64ded9bde912}{services}=nullptr)
+\hyperlink{class_client_acb0d694a9c7e32a47bd57ead6013b8a9}{Client} (string name, unsigned int \hyperlink{class_client_a1c94dc96a56cb5032573fb1d528517c2}{nif}, float \hyperlink{class_client_a9d5dc70a6eee2fded8217a7983fe5fd0}{money\+\_\+spent}, vector$<$ \hyperlink{class_service}{Service} $\ast$$>$ $\ast$\hyperlink{class_client_a02b601f12b9905edae7e64ded9bde912}{services}=nullptr)
 \begin{DoxyCompactList}\small\item\em Constructor with all data necessary. \end{DoxyCompactList}\item 
 virtual \hyperlink{class_client_a840e519ca781888cbd54181572ebe3a7}{$\sim$\+Client} ()
 \item 
@@ -93,11 +92,11 @@ Constructor with a \hyperlink{class_client}{Client} Object as parameter
 \subsubsection{\texorpdfstring{Client()}{Client()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
 {\footnotesize\ttfamily Client\+::\+Client (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
-Default Constructor \mbox{\Hypertarget{class_client_a3cdfb856b1cccd81052f589c850ab86f}\label{class_client_a3cdfb856b1cccd81052f589c850ab86f}} 
+Default Constructor \mbox{\Hypertarget{class_client_acb0d694a9c7e32a47bd57ead6013b8a9}\label{class_client_acb0d694a9c7e32a47bd57ead6013b8a9}} 
 \index{Client@{Client}!Client@{Client}}
 \index{Client@{Client}!Client@{Client}}
 \subsubsection{\texorpdfstring{Client()}{Client()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
-{\footnotesize\ttfamily Client\+::\+Client (\begin{DoxyParamCaption}\item[{string}]{name,  }\item[{unsigned int}]{nif,  }\item[{vector$<$ \hyperlink{class_service}{Service} $\ast$$>$ $\ast$}]{services = {\ttfamily nullptr} }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily Client\+::\+Client (\begin{DoxyParamCaption}\item[{string}]{name,  }\item[{unsigned int}]{nif,  }\item[{float}]{money\+\_\+spent,  }\item[{vector$<$ \hyperlink{class_service}{Service} $\ast$$>$ $\ast$}]{services = {\ttfamily nullptr} }\end{DoxyParamCaption})}
 
 
 
@@ -110,6 +109,8 @@ Receives all the data it needs to construct a client properly It is the most use
 {\em name} & -\/ Name of the client \\
 \hline
 {\em nif} & -\/ Identification number of the client \\
+\hline
+{\em money\+\_\+spent} & -\/ Total amount spent by the client in services \\
 \hline
 {\em services} & -\/ Pointer to the vector of pointers to Services that the client has bought (none by default) \\
 \hline

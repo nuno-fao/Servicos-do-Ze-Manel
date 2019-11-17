@@ -21,12 +21,17 @@ Collaboration diagram for Hazardous\+Service\+:\nopagebreak
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
+\mbox{\Hypertarget{class_hazardous_service_a3fe8e09c08eae13090f8be3a2c4750da}\label{class_hazardous_service_a3fe8e09c08eae13090f8be3a2c4750da}} 
+\hyperlink{class_hazardous_service_a3fe8e09c08eae13090f8be3a2c4750da}{$\sim$\+Hazardous\+Service} ()
+\begin{DoxyCompactList}\small\item\em !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\+Hazardous \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{class_hazardous_service_afcd54cb1f6917720b1845c80e8503827}\label{class_hazardous_service_afcd54cb1f6917720b1845c80e8503827}} 
 {\bfseries Hazardous\+Service} (string material, \hyperlink{class_address}{Address} \hyperlink{class_service_a4abd0a104d97e5bdb8e8ca93bab31ce7}{origin}, \hyperlink{class_address}{Address} destination, \hyperlink{class_date}{Date} $\ast$arrival\+Date, unsigned distance, type type, state state, \hyperlink{class_date}{Date} $\ast$date, \hyperlink{class_client}{Client} $\ast$client, float quantity, Hazard\+\_\+enum hazard)
 \item 
 \mbox{\Hypertarget{class_hazardous_service_af33995d8d0934550a13aa8439c825f9b}\label{class_hazardous_service_af33995d8d0934550a13aa8439c825f9b}} 
 {\bfseries Hazardous\+Service} (string material, string \hyperlink{class_service_a4abd0a104d97e5bdb8e8ca93bab31ce7}{origin}, string destination, \hyperlink{class_date}{Date} $\ast$arrival\+Date, unsigned distance, type type, state state, \hyperlink{class_date}{Date} $\ast$date, \hyperlink{class_client}{Client} $\ast$client, float quantity, Hazard\+\_\+enum hazard, float total\+\_\+price, unsigned id)
-\end{DoxyCompactItemize}
+\item 
+string \hyperlink{class_hazardous_service_a683cc101557a61d0ac6c36cbe67bf6c2}{get\+Specific\+Type} ()
+\begin{DoxyCompactList}\small\item\em Overloads operator $<$$<$ for services. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
@@ -36,6 +41,36 @@ Hazard\+\_\+enum {\bfseries type}
 \subsection*{Additional Inherited Members}
 
 
-The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_hazardous_service_a683cc101557a61d0ac6c36cbe67bf6c2}\label{class_hazardous_service_a683cc101557a61d0ac6c36cbe67bf6c2}} 
+\index{Hazardous\+Service@{Hazardous\+Service}!get\+Specific\+Type@{get\+Specific\+Type}}
+\index{get\+Specific\+Type@{get\+Specific\+Type}!Hazardous\+Service@{Hazardous\+Service}}
+\subsubsection{\texorpdfstring{get\+Specific\+Type()}{getSpecificType()}}
+{\footnotesize\ttfamily string Hazardous\+Service\+::get\+Specific\+Type (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Overloads operator $<$$<$ for services. 
+
+Overloads operator $<$$<$ for services so that we can print a service\textquotesingle{}s full info more easily
+
+
+\begin{DoxyParams}{Parameters}
+{\em os} & -\/ ostream \\
+\hline
+{\em a} & -\/ service to \textquotesingle{}print\textquotesingle{} the info \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns nothing 
+\end{DoxyReturn}
+
+
+Reimplemented from \hyperlink{class_service_a4e833f8d8688facfe0858eb4299660e8}{Service}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-service.\+h\end{DoxyCompactItemize}
+service.\+h\item 
+service.\+cpp\end{DoxyCompactItemize}

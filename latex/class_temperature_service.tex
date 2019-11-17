@@ -21,12 +21,14 @@ Collaboration diagram for Temperature\+Service\+:\nopagebreak
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{class_temperature_service_aeecc16594f858590729a79824f2efeff}\label{class_temperature_service_aeecc16594f858590729a79824f2efeff}} 
-{\bfseries Temperature\+Service} (string material, \hyperlink{class_address}{Address} \hyperlink{class_service_a4abd0a104d97e5bdb8e8ca93bab31ce7}{origin}, \hyperlink{class_address}{Address} destination, \hyperlink{class_date}{Date} $\ast$arrival\+Date, unsigned distance, type type, state state, \hyperlink{class_date}{Date} $\ast$date, \hyperlink{class_client}{Client} $\ast$client, float quantity, Temperature\+\_\+enum hazard)
+\mbox{\Hypertarget{class_temperature_service_ade5bfca2ab89523b9492667fed123f6b}\label{class_temperature_service_ade5bfca2ab89523b9492667fed123f6b}} 
+{\bfseries Temperature\+Service} (string material, \hyperlink{class_address}{Address} \hyperlink{class_service_a4abd0a104d97e5bdb8e8ca93bab31ce7}{origin}, \hyperlink{class_address}{Address} destination, \hyperlink{class_date}{Date} $\ast$arrival\+Date, unsigned distance, type type, state state, \hyperlink{class_date}{Date} $\ast$date, \hyperlink{class_client}{Client} $\ast$client, float quantity, Temperature\+\_\+enum temp)
 \item 
-\mbox{\Hypertarget{class_temperature_service_a980fd4745f1dc221fee79bff5f126ad5}\label{class_temperature_service_a980fd4745f1dc221fee79bff5f126ad5}} 
-{\bfseries Temperature\+Service} (string material, string \hyperlink{class_service_a4abd0a104d97e5bdb8e8ca93bab31ce7}{origin}, string destination, \hyperlink{class_date}{Date} $\ast$arrival\+Date, unsigned distance, type type, state state, \hyperlink{class_date}{Date} $\ast$date, \hyperlink{class_client}{Client} $\ast$client, float quantity, Temperature\+\_\+enum hazard, float total\+\_\+price, unsigned id\+\_\+s)
-\end{DoxyCompactItemize}
+\mbox{\Hypertarget{class_temperature_service_acd30d1bf1df6432378826b9285e48f9c}\label{class_temperature_service_acd30d1bf1df6432378826b9285e48f9c}} 
+{\bfseries Temperature\+Service} (string material, string \hyperlink{class_service_a4abd0a104d97e5bdb8e8ca93bab31ce7}{origin}, string destination, \hyperlink{class_date}{Date} $\ast$arrival\+Date, unsigned distance, type type, state state, \hyperlink{class_date}{Date} $\ast$date, \hyperlink{class_client}{Client} $\ast$client, float quantity, Temperature\+\_\+enum temp, float total\+\_\+price, unsigned id\+\_\+s)
+\item 
+string \hyperlink{class_temperature_service_afe119e9c22598d454c7355a49f984df5}{get\+Specific\+Type} ()
+\begin{DoxyCompactList}\small\item\em Overloads operator $<$$<$ for services. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
@@ -36,6 +38,36 @@ Temperature\+\_\+enum {\bfseries type}
 \subsection*{Additional Inherited Members}
 
 
-The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_temperature_service_afe119e9c22598d454c7355a49f984df5}\label{class_temperature_service_afe119e9c22598d454c7355a49f984df5}} 
+\index{Temperature\+Service@{Temperature\+Service}!get\+Specific\+Type@{get\+Specific\+Type}}
+\index{get\+Specific\+Type@{get\+Specific\+Type}!Temperature\+Service@{Temperature\+Service}}
+\subsubsection{\texorpdfstring{get\+Specific\+Type()}{getSpecificType()}}
+{\footnotesize\ttfamily string Temperature\+Service\+::get\+Specific\+Type (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Overloads operator $<$$<$ for services. 
+
+Overloads operator $<$$<$ for services so that we can print a service\textquotesingle{}s full info more easily
+
+
+\begin{DoxyParams}{Parameters}
+{\em os} & -\/ ostream \\
+\hline
+{\em a} & -\/ service to \textquotesingle{}print\textquotesingle{} the info \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns nothing 
+\end{DoxyReturn}
+
+
+Reimplemented from \hyperlink{class_service_a4e833f8d8688facfe0858eb4299660e8}{Service}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-service.\+h\end{DoxyCompactItemize}
+service.\+h\item 
+service.\+cpp\end{DoxyCompactItemize}

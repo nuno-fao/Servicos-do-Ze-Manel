@@ -21,7 +21,7 @@ Collaboration diagram for Service\+:\nopagebreak
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\hyperlink{class_service_af6c3577b59652ac817d1d76aaccee904}{$\sim$\+Service} ()
+virtual \hyperlink{class_service_af6c3577b59652ac817d1d76aaccee904}{$\sim$\+Service} ()
 \item 
 \hyperlink{class_service_acc246c9f7ed3c51e2d91d10fe257513f}{Service} ()
 \item 
@@ -79,7 +79,9 @@ void \hyperlink{class_service_a9fcafc3bcbdc0b436860ee5626c69ce1}{set\+Material} 
 void \hyperlink{class_service_a9812c174aa203cb9e7b9f758b1815ac4}{add\+Truck} (\hyperlink{class_truck}{Truck} $\ast$truck, float cargo)
 \begin{DoxyCompactList}\small\item\em Adds truck and respective load to trucks map. \end{DoxyCompactList}\item 
 void \hyperlink{class_service_a351a27eebc07d1ff3f433d6ad356925a}{edit\+Service} ()
-\begin{DoxyCompactList}\small\item\em Edit new service. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Edit new service. \end{DoxyCompactList}\item 
+virtual string \hyperlink{class_service_a4e833f8d8688facfe0858eb4299660e8}{get\+Specific\+Type} ()
+\begin{DoxyCompactList}\small\item\em Overloads operator $<$$<$ for services. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Static Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -156,7 +158,7 @@ float {\bfseries total\+\_\+price}
 \begin{DoxyCompactItemize}
 \item 
 ostream \& \hyperlink{class_service_a641fd7efe1dd35ea19ac062c4e2ece45}{operator$<$$<$} (ostream \&os, \hyperlink{class_service}{Service} $\ast$a)
-\begin{DoxyCompactList}\small\item\em Overloads operator $<$$<$ for services. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\end{DoxyCompactItemize}
 
 
 \subsection{Constructor \& Destructor Documentation}
@@ -164,7 +166,7 @@ ostream \& \hyperlink{class_service_a641fd7efe1dd35ea19ac062c4e2ece45}{operator$
 \index{Service@{Service}!````~Service@{$\sim$\+Service}}
 \index{````~Service@{$\sim$\+Service}!Service@{Service}}
 \subsubsection{\texorpdfstring{$\sim$\+Service()}{~Service()}}
-{\footnotesize\ttfamily Service\+::$\sim$\+Service (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily Service\+::$\sim$\+Service (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
 
 Default destructor \mbox{\Hypertarget{class_service_acc246c9f7ed3c51e2d91d10fe257513f}\label{class_service_acc246c9f7ed3c51e2d91d10fe257513f}} 
 \index{Service@{Service}!Service@{Service}}
@@ -376,6 +378,32 @@ Gets quantity of the material to transport Gets quantity of the material to tran
 \begin{DoxyReturn}{Returns}
 Returns quantity of the material to transport 
 \end{DoxyReturn}
+\mbox{\Hypertarget{class_service_a4e833f8d8688facfe0858eb4299660e8}\label{class_service_a4e833f8d8688facfe0858eb4299660e8}} 
+\index{Service@{Service}!get\+Specific\+Type@{get\+Specific\+Type}}
+\index{get\+Specific\+Type@{get\+Specific\+Type}!Service@{Service}}
+\subsubsection{\texorpdfstring{get\+Specific\+Type()}{getSpecificType()}}
+{\footnotesize\ttfamily virtual string Service\+::get\+Specific\+Type (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Overloads operator $<$$<$ for services. 
+
+Overloads operator $<$$<$ for services so that we can print a service\textquotesingle{}s full info more easily
+
+
+\begin{DoxyParams}{Parameters}
+{\em os} & -\/ ostream \\
+\hline
+{\em a} & -\/ service to \textquotesingle{}print\textquotesingle{} the info \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns nothing 
+\end{DoxyReturn}
+
+
+Reimplemented in \hyperlink{class_temperature_service_afe119e9c22598d454c7355a49f984df5}{Temperature\+Service}, and \hyperlink{class_hazardous_service_a683cc101557a61d0ac6c36cbe67bf6c2}{Hazardous\+Service}.
+
 \mbox{\Hypertarget{class_service_adf7f337e38c8de87e82b42f15c7ccad3}\label{class_service_adf7f337e38c8de87e82b42f15c7ccad3}} 
 \index{Service@{Service}!get\+State@{get\+State}}
 \index{get\+State@{get\+State}!Service@{Service}}
@@ -709,22 +737,6 @@ Returns nothing
 \subsubsection{\texorpdfstring{operator$<$$<$}{operator<<}}
 {\footnotesize\ttfamily ostream\& operator$<$$<$ (\begin{DoxyParamCaption}\item[{ostream \&}]{os,  }\item[{\hyperlink{class_service}{Service} $\ast$}]{a }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [friend]}}
 
-
-
-Overloads operator $<$$<$ for services. 
-
-Overloads operator $<$$<$ for services so that we can print a service\textquotesingle{}s full info more easily
-
-
-\begin{DoxyParams}{Parameters}
-{\em os} & -\/ ostream \\
-\hline
-{\em a} & -\/ service to \textquotesingle{}print\textquotesingle{} the info \\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-Returns nothing
-\end{DoxyReturn}
 Overload of $<$$<$ operator to allow an Adress\textquotesingle{}s information to be printed
 
 

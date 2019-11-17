@@ -86,9 +86,9 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:ab3079953a67493b5da6ffb32d4f14ac7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae51af7aa6b8f591496a8f6a4a87a14bf"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_client.html#ae51af7aa6b8f591496a8f6a4a87a14bf">Client</a> ()</td></tr>
 <tr class="separator:ae51af7aa6b8f591496a8f6a4a87a14bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3cdfb856b1cccd81052f589c850ab86f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_client.html#a3cdfb856b1cccd81052f589c850ab86f">Client</a> (string name, unsigned int <a class="el" href="class_client.html#a1c94dc96a56cb5032573fb1d528517c2">nif</a>, vector&lt; <a class="el" href="class_service.html">Service</a> *&gt; *<a class="el" href="class_client.html#a02b601f12b9905edae7e64ded9bde912">services</a>=nullptr)</td></tr>
-<tr class="memdesc:a3cdfb856b1cccd81052f589c850ab86f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor with all data necessary.  <a href="#a3cdfb856b1cccd81052f589c850ab86f">More...</a><br /></td></tr>
-<tr class="separator:a3cdfb856b1cccd81052f589c850ab86f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acb0d694a9c7e32a47bd57ead6013b8a9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_client.html#acb0d694a9c7e32a47bd57ead6013b8a9">Client</a> (string name, unsigned int <a class="el" href="class_client.html#a1c94dc96a56cb5032573fb1d528517c2">nif</a>, float <a class="el" href="class_client.html#a9d5dc70a6eee2fded8217a7983fe5fd0">money_spent</a>, vector&lt; <a class="el" href="class_service.html">Service</a> *&gt; *<a class="el" href="class_client.html#a02b601f12b9905edae7e64ded9bde912">services</a>=nullptr)</td></tr>
+<tr class="memdesc:acb0d694a9c7e32a47bd57ead6013b8a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor with all data necessary.  <a href="#acb0d694a9c7e32a47bd57ead6013b8a9">More...</a><br /></td></tr>
+<tr class="separator:acb0d694a9c7e32a47bd57ead6013b8a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a840e519ca781888cbd54181572ebe3a7"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_client.html#a840e519ca781888cbd54181572ebe3a7">~Client</a> ()</td></tr>
 <tr class="separator:a840e519ca781888cbd54181572ebe3a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afe8b004559fd1480fb8747c352f167db"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_client.html#afe8b004559fd1480fb8747c352f167db">editClient</a> ()</td></tr>
@@ -204,8 +204,8 @@ Friends</h2></td></tr>
 
 </div>
 </div>
-<a id="a3cdfb856b1cccd81052f589c850ab86f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3cdfb856b1cccd81052f589c850ab86f">&#9670;&nbsp;</a></span>Client() <span class="overload">[3/3]</span></h2>
+<a id="acb0d694a9c7e32a47bd57ead6013b8a9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acb0d694a9c7e32a47bd57ead6013b8a9">&#9670;&nbsp;</a></span>Client() <span class="overload">[3/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -221,6 +221,12 @@ Friends</h2></td></tr>
           <td></td>
           <td class="paramtype">unsigned int&#160;</td>
           <td class="paramname"><em>nif</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>money_spent</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -242,6 +248,7 @@ Friends</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">name</td><td>- Name of the client </td></tr>
     <tr><td class="paramname">nif</td><td>- Identification number of the client </td></tr>
+    <tr><td class="paramname">money_spent</td><td>- Total amount spent by the client in services </td></tr>
     <tr><td class="paramname">services</td><td>- Pointer to the vector of pointers to Services that the client has bought (none by default) </td></tr>
   </table>
   </dd>
