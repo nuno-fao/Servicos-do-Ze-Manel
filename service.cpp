@@ -820,7 +820,7 @@ void Service::saveToFile(list<Service*> *services_finished,vector<Service*>*serv
 Service *Service::addService(vector<Service *> *services,Client *client){
 
     if(Animal::CapDist.empty() && Normal::CapDist.empty() && HazardousMat::CapDist.empty() && Congelation::CapDist.empty()){
-	throw ServiceDoNotExist("There are no Trucks In the company");
+        throw ServiceDoNotExist("There are no Trucks In the company");
     }
     string tempOrigin,tempDestination,tempMaterial;
     string tempType,tempSpecType,month,day,hour,minute;
@@ -1400,83 +1400,203 @@ void Service::editService(){
                         return;
                     }
                     case 1: {
-                        clearBuffer();
-                        variable_error = true;
-                        clearScreen();
-                        Address temp_origin;
-                        while (variable_error) {
-                            cout << "Enter the Origin (street / doorNumber / location) or (location)" << endl;
+                        try{
+                            clearBuffer();
+                            variable_error = true;
+                            clearScreen();
+                            Address temp_origin;
+                            while (variable_error) {
+                                cout << "Enter the Origin (street / doorNumber / location) or (location)" << endl;
 
-                            getline(cin, tempOrigin);
-                            vector<string> temp_address_no_pc = vectorString(tempOrigin, "/");
-                            checkIfOut(tempOrigin);
-                            if (temp_address_no_pc.size() == 3) {
-                                clearScreen();
-                                if (strIsChar(temp_address_no_pc.at(2)) && strIsNumber(temp_address_no_pc.at(1))) {
-                                    variable_error = false;
-                                    cout << "Enter the Origin postal code (xxxx-yyy)" << endl;
-                                    while (true) {
-                                        string postal_code;
-                                        getline(cin, postal_code);
-                                        checkIfOut(postal_code);
-                                        vector<string> temp_postal_code = vectorString(postal_code, "-");
-                                        if (postal_code == "") {
-                                            temp_origin = Address(temp_address_no_pc.at(0), date_u_short(stoi(temp_address_no_pc.at(1))), "0000-000", temp_address_no_pc.at(2));
-                                            variable_error = false;
-                                            break;
+                                getline(cin, tempOrigin);
+                                vector<string> temp_address_no_pc = vectorString(tempOrigin, "/");
+                                checkIfOut(tempOrigin);
+                                if (temp_address_no_pc.size() == 3) {
+                                    clearScreen();
+                                    if (strIsChar(temp_address_no_pc.at(2)) && strIsNumber(temp_address_no_pc.at(1))) {
+                                        variable_error = false;
+                                        cout << "Enter the Origin postal code (xxxx-yyy)" << endl;
+                                        while (true) {
+                                            string postal_code;
+                                            getline(cin, postal_code);
+                                            checkIfOut(postal_code);
+                                            vector<string> temp_postal_code = vectorString(postal_code, "-");
+                                            if (postal_code == "") {
+                                                temp_origin = Address(temp_address_no_pc.at(0), date_u_short(stoi(temp_address_no_pc.at(1))), "0000-000", temp_address_no_pc.at(2));
+                                                variable_error = false;
+                                                break;
+                                            }
+                                            else if (temp_postal_code.size() == 2 && strIsNumber(temp_postal_code.at(0)) && strIsNumber(temp_postal_code.at(1)) && temp_postal_code.at(0).size() == 4 && temp_postal_code.at(1).size() == 3) {
+                                                temp_origin = Address(temp_address_no_pc.at(0), date_u_short(stoi(temp_address_no_pc.at(1))), postal_code, temp_address_no_pc.at(2));
+                                                variable_error = false;
+                                                break;
+                                            }
+                                            else {
+                                                clearScreen();
+                                                cout << "Postal code not acceptable\nEnter the Origin postal code (xxxx-yyy)" << endl;
+                                            }
+
                                         }
-                                        else if (temp_postal_code.size() == 2 && strIsNumber(temp_postal_code.at(0)) && strIsNumber(temp_postal_code.at(1)) && temp_postal_code.at(0).size() == 4 && temp_postal_code.at(1).size() == 3) {
-                                            temp_origin = Address(temp_address_no_pc.at(0), date_u_short(stoi(temp_address_no_pc.at(1))), postal_code, temp_address_no_pc.at(2));
-                                            variable_error = false;
-                                            break;
-                                        }
-                                        else {
-                                            clearScreen();
-                                            cout << "Postal code not acceptable\nEnter the Origin postal code (xxxx-yyy)" << endl;
+
+                                    }
+                                }
+                                else if (temp_address_no_pc.size() == 1 && strIsChar(temp_address_no_pc.at(0))) {
+                                    clearScreen();
+                                    if (strIsChar(temp_address_no_pc.at(0))) {
+                                        cout << "Enter the Origin postal code (xxxx-yyy)" << endl;
+                                        while (true) {
+                                            string postal_code;
+                                            getline(cin, postal_code);
+                                            checkIfOut(postal_code);
+                                            vector<string> temp_postal_code = vectorString(postal_code, "-");
+                                            if (postal_code == "") {
+                                                temp_origin = Address("unknown", 0, "0000-000", temp_address_no_pc.at(0));
+                                                variable_error = false;
+                                                break;
+                                            }
+                                            else if (temp_postal_code.size() == 2 && strIsNumber(temp_postal_code.at(0)) && strIsNumber(temp_postal_code.at(1)) && temp_postal_code.at(0).size() == 4 && temp_postal_code.at(1).size() == 3) {
+                                                temp_origin = Address("unknown", 0, postal_code, temp_address_no_pc.at(0));
+                                                variable_error = false;
+                                                break;
+                                            }
+                                            else {
+                                                clearScreen();
+                                                cout << "Postal code not acceptable\nEnter the Origin postal code (xxxx-yyy)" << endl;
+                                            }
+
                                         }
 
                                     }
 
                                 }
-                            }
-                            else if (temp_address_no_pc.size() == 1 && strIsChar(temp_address_no_pc.at(0))) {
-                                clearScreen();
-                                if (strIsChar(temp_address_no_pc.at(0))) {
-                                    cout << "Enter the Origin postal code (xxxx-yyy)" << endl;
-                                    while (true) {
-                                        string postal_code;
-                                        getline(cin, postal_code);
-                                        checkIfOut(postal_code);
-                                        vector<string> temp_postal_code = vectorString(postal_code, "-");
-                                        if (postal_code == "") {
-                                            temp_origin = Address("unknown", 0, "0000-000", temp_address_no_pc.at(0));
-                                            variable_error = false;
-                                            break;
-                                        }
-                                        else if (temp_postal_code.size() == 2 && strIsNumber(temp_postal_code.at(0)) && strIsNumber(temp_postal_code.at(1)) && temp_postal_code.at(0).size() == 4 && temp_postal_code.at(1).size() == 3) {
-                                            temp_origin = Address("unknown", 0, postal_code, temp_address_no_pc.at(0));
-                                            variable_error = false;
-                                            break;
-                                        }
-                                        else {
-                                            clearScreen();
-                                            cout << "Postal code not acceptable\nEnter the Origin postal code (xxxx-yyy)" << endl;
-                                        }
 
-                                    }
-
+                                else {
+                                    variable_error = true;
+                                    cout << "Origin Input not acceptable, please try again" << endl;
                                 }
 
                             }
-
-                            else {
-                                variable_error = true;
-                                cout << "Origin Input not acceptable, please try again" << endl;
+                            clearScreen();
+                            if(tempOrigin!=""){
+                                string tempDistance;
+                                variable_error=true;
+                                while (variable_error) {
+                                    cout<<"Enter the distance to go"<<endl;
+                                    if(cin>>tempDistance && strIsNumber(tempDistance)){
+                                        clearScreen();
+                                        variable_error=false;
+                                    }
+                                    else
+                                    {
+                                        checkIfOut(tempDistance);
+                                        clearScreen();
+                                        cout<<"Distance not acceptable, please try again"<<endl;
+                                    }
+                                }
+                                string t="p";
+                                while(t!="y" && t!="n"){
+                                    cout<<"Are u sure you want to Edit Service (y/n)?"<<endl;
+                                    cin>>t;
+                                    if(t!="y"){
+                                        clearScreen();
+                                        throw exception();
+                                    }
+                                    total_price=total_price/distance;
+                                    total_price=total_price*stof(tempDistance);
+                                }
+                                clearScreen();
+                                Company::getCompany()->services_on_queue_changed=true;
+                                this->origin->~Address();
+                                Address *tempPointerOrigin = new Address(temp_origin);
+                                this->origin=tempPointerOrigin;
+                                this->setDistance(unsigned(stoi(tempDistance)));
+                                break;
                             }
+                        }
+                        catch(...){
 
                         }
-                        clearScreen();
-                        if(tempOrigin!=""){
+
+                        break;
+                    }
+
+
+                    case 2:{
+                        try{
+                            clearBuffer();
+                            //set destination
+                            string tempDestination;
+                            Address temp_destination;
+                            variable_error = true;
+                            while (variable_error) {
+                                cout << "Enter the Destination (street / doorNumber / location) or (location)" << endl;
+                                getline(cin, tempDestination);
+                                vector<string> temp_address_no_pc = vectorString(tempDestination, "/");
+                                checkIfOut(tempDestination);
+                                if (temp_address_no_pc.size() == 3) {
+                                    clearScreen();
+                                    if (strIsChar(temp_address_no_pc.at(2)) && strIsNumber(temp_address_no_pc.at(1))) {
+                                        cout << "Enter the Destination postal code (xxxx-yyy)" << endl;
+                                        while (true) {
+                                            string postal_code;
+                                            getline(cin, postal_code);
+                                            checkIfOut(postal_code);
+                                            vector<string> temp_postal_code = vectorString(postal_code, "-");
+                                            if (postal_code == "") {
+                                                temp_destination = Address(temp_address_no_pc.at(0), date_u_short(stoi(temp_address_no_pc.at(1))), "0000-000", temp_address_no_pc.at(2));
+                                                variable_error = false;
+                                                break;
+                                            }
+                                            else if (temp_postal_code.size() == 2 && strIsNumber(temp_postal_code.at(0)) && strIsNumber(temp_postal_code.at(1)) && temp_postal_code.at(0).size() == 4 && temp_postal_code.at(1).size() == 3) {
+                                                temp_destination = Address(temp_address_no_pc.at(0), date_u_short(stoi(temp_address_no_pc.at(1))), postal_code, temp_address_no_pc.at(2));
+                                                variable_error = false;
+                                                break;
+                                            }
+                                            else {
+                                                clearScreen();
+                                                cout << "Postal code not acceptable\nEnter the Destination postal code (xxxx-yyy)" << endl;
+                                            }
+
+                                        }
+
+                                    }
+                                }
+                                else if (temp_address_no_pc.size() == 1 && strIsChar(temp_address_no_pc.at(0))) {
+                                    clearScreen();
+                                    if (strIsChar(temp_address_no_pc.at(0))) {
+                                        cout << "Enter the Destination postal code (xxxx-yyy)" << endl;
+                                        while (true) {
+                                            string postal_code;
+                                            getline(cin, postal_code);
+                                            checkIfOut(postal_code);
+                                            vector<string> temp_postal_code = vectorString(postal_code, "-");
+                                            if (postal_code == "") {
+                                                temp_destination = Address("unknown", 0, "0000-000", temp_address_no_pc.at(0));
+                                                variable_error = false;
+                                                break;
+                                            }
+                                            else if (temp_postal_code.size() == 2 && strIsNumber(temp_postal_code.at(0)) && strIsNumber(temp_postal_code.at(1)) && temp_postal_code.at(0).size() == 4 && temp_postal_code.at(1).size() == 3) {
+                                                temp_destination = Address("unknown", 0, postal_code, temp_address_no_pc.at(0));
+
+                                                variable_error = false;
+                                                break;
+                                            }
+                                            else {
+                                                clearScreen();
+                                                cout << "Postal code not acceptable\nEnter the Destination postal code (xxxx-yyy)" << endl;
+                                            }
+
+                                        }
+
+                                    }
+
+                                }
+                                else {
+                                    variable_error = true;
+                                    cout << "Destination Input not acceptable, please try again" << endl;
+                                }
+                            }
+                            clearScreen();
                             string tempDistance;
                             variable_error=true;
                             while (variable_error) {
@@ -1494,136 +1614,28 @@ void Service::editService(){
                             }
                             string t="p";
                             while(t!="y" && t!="n"){
-                                cout<<"Are u sure you want to Edit Service (y/n)?"<<endl;
+                                cout<<"Are u sure you want to Edit Service(y/n)?"<<endl;
                                 cin>>t;
                                 if(t!="y"){
                                     clearScreen();
                                     throw exception();
                                 }
-                                total_price=total_price/distance;
-                                total_price=total_price*stof(tempDistance);
-                                Address *tempPointerOrigin = new Address(temp_origin);
-                                this->origin=tempPointerOrigin;
+                                total_price/=distance;
+                                total_price*=stof(tempDistance);
                             }
                             clearScreen();
                             Company::getCompany()->services_on_queue_changed=true;
-                            this->origin->~Address();
-                            origin=&temp_origin;
-                            this->setDistance(unsigned(stoi(tempDistance)));
-                            break;
+                            this->destination->~Address();
+                            Address *tempPointerDestination = new Address(temp_destination);
+                            this->destination=tempPointerDestination;
+                            this->distance=unsigned(stof(tempDistance));
                         }
+                        catch(...){
+
+                        }
+
                         break;
-                    }
 
-
-                    case 2:{
-                        clearBuffer();
-                        //set destination
-                        string tempDestination;
-                        Address temp_destination;
-                        variable_error = true;
-                        while (variable_error) {
-                            cout << "Enter the Destination (street / doorNumber / location) or (location)" << endl;
-                            getline(cin, tempDestination);
-                            vector<string> temp_address_no_pc = vectorString(tempDestination, "/");
-                            checkIfOut(tempDestination);
-                            if (temp_address_no_pc.size() == 3) {
-                                clearScreen();
-                                if (strIsChar(temp_address_no_pc.at(2)) && strIsNumber(temp_address_no_pc.at(1))) {
-                                    cout << "Enter the Destination postal code (xxxx-yyy)" << endl;
-                                    while (true) {
-                                        string postal_code;
-                                        getline(cin, postal_code);
-                                        checkIfOut(postal_code);
-                                        vector<string> temp_postal_code = vectorString(postal_code, "-");
-                                        if (postal_code == "") {
-                                            temp_destination = Address(temp_address_no_pc.at(0), date_u_short(stoi(temp_address_no_pc.at(1))), "0000-000", temp_address_no_pc.at(2));
-                                            variable_error = false;
-                                            break;
-                                        }
-                                        else if (temp_postal_code.size() == 2 && strIsNumber(temp_postal_code.at(0)) && strIsNumber(temp_postal_code.at(1)) && temp_postal_code.at(0).size() == 4 && temp_postal_code.at(1).size() == 3) {
-                                            temp_destination = Address(temp_address_no_pc.at(0), date_u_short(stoi(temp_address_no_pc.at(1))), postal_code, temp_address_no_pc.at(2));
-                                            variable_error = false;
-                                            break;
-                                        }
-                                        else {
-                                            clearScreen();
-                                            cout << "Postal code not acceptable\nEnter the Destination postal code (xxxx-yyy)" << endl;
-                                        }
-
-                                    }
-
-                                }
-                            }
-                            else if (temp_address_no_pc.size() == 1 && strIsChar(temp_address_no_pc.at(0))) {
-                                clearScreen();
-                                if (strIsChar(temp_address_no_pc.at(0))) {
-                                    cout << "Enter the Destination postal code (xxxx-yyy)" << endl;
-                                    while (true) {
-                                        string postal_code;
-                                        getline(cin, postal_code);
-                                        checkIfOut(postal_code);
-                                        vector<string> temp_postal_code = vectorString(postal_code, "-");
-                                        if (postal_code == "") {
-                                            temp_destination = Address("unknown", 0, "0000-000", temp_address_no_pc.at(0));
-                                            variable_error = false;
-                                            break;
-                                        }
-                                        else if (temp_postal_code.size() == 2 && strIsNumber(temp_postal_code.at(0)) && strIsNumber(temp_postal_code.at(1)) && temp_postal_code.at(0).size() == 4 && temp_postal_code.at(1).size() == 3) {
-                                            temp_destination = Address("unknown", 0, postal_code, temp_address_no_pc.at(0));
-
-                                            variable_error = false;
-                                            break;
-                                        }
-                                        else {
-                                            clearScreen();
-                                            cout << "Postal code not acceptable\nEnter the Destination postal code (xxxx-yyy)" << endl;
-                                        }
-
-                                    }
-
-                                }
-
-                            }
-                            else {
-                                variable_error = true;
-                                cout << "Destination Input not acceptable, please try again" << endl;
-                            }
-                        }
-                        clearScreen();
-                        string tempDistance;
-                        variable_error=true;
-                        while (variable_error) {
-                            cout<<"Enter the distance to go"<<endl;
-                            if(cin>>tempDistance && strIsNumber(tempDistance)){
-                                clearScreen();
-                                variable_error=false;
-                            }
-                            else
-                            {
-                                checkIfOut(tempDistance);
-                                clearScreen();
-                                cout<<"Distance not acceptable, please try again"<<endl;
-                            }
-                        }
-                        string t="p";
-                        while(t!="y" && t!="n"){
-                            cout<<"Are u sure you want to Edit Service(y/n)?"<<endl;
-                            cin>>t;
-                            if(t!="y"){
-                                clearScreen();
-                                throw exception();
-                            }
-                            total_price/=distance;
-                            total_price*=stof(tempDistance);
-                        }
-                        clearScreen();
-                        Company::getCompany()->services_on_queue_changed=true;
-                        this->destination->~Address();
-                        Address *tempPointerDestination = new Address(temp_destination);
-                        this->destination=tempPointerDestination;
-                        this->distance=unsigned(stof(tempDistance));
-                        break;
                     }
                     case 3:{
                         variable_error=true;
@@ -1820,14 +1832,14 @@ int Service::autoAddTrucks(){
     int counter=0;
     for(auto i: temp_map){
         temp_map.at(i.first)=0;
-	counter++;
+        counter++;
     }
     if(counter==0)
-	return quantity;
+        return quantity;
     bool available_on_time=true;
     vector<Truck*> tempVectorIterate=*Company::getCompany()->getVectorTrucks();
     if(tempVectorIterate.size()<1)
-	return quantity;
+        return quantity;
     for(auto i= tempVectorIterate.begin();i!=tempVectorIterate.end();){
         if(ser_type==(*i)->getType()){
             for(auto c:*(*i)->getServices()){
@@ -1850,9 +1862,9 @@ int Service::autoAddTrucks(){
             i=tempVectorIterate.erase(i);
         }
     }
-	
+
     if(tempVectorIterate.size()<1)
-	return quantity;
+        return quantity;
     auto r_it=temp_map.rbegin();
     auto it=temp_map.begin();
     enter_to_exit();
