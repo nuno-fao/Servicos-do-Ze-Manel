@@ -10,27 +10,18 @@ Company *Company::getCompany(){
 Company::Company(){}
 
 Company::~Company(){
-    for(auto i:services_finished){
-        i->~Service();
-    }
-    for(auto i:services_on_queue){
-        i->~Service();
-    }
-    for(auto i:services_on_transit){
-        i->~Service();
-    }
-    for(auto i:clients){
-        i->~Client();
-    }
-    for(auto i:trucks){
-        i->~Truck();
-    }
     if(getCompany()->services_on_queue_changed){
         Service::saveToFile(&services_finished,&services_on_transit,&services_on_queue);
     }
     Client::saveToFile(clients);
     Truck::saveToFile(&trucks);
 	saveStats();
+    for(auto i:clients){
+        i->~Client();
+    }
+    for(auto i:trucks){
+        i->~Truck();
+    }
     cout<<"Salvo com sucesso"<<endl;
 }
 
