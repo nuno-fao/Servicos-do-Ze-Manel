@@ -714,10 +714,6 @@ void Service::saveToFile(list<Service*> *services_finished,vector<Service*>*serv
         }
         servicesFile<<endl;
 
-        if(!x->getTrucks()->size()){
-            servicesFile << "" <<endl;
-        }
-
         servicesFile << (x->getState())<<endl;
         servicesFile << x->getIDate()->getDate() <<endl;
         servicesFile << x->getClient()->getNif() << endl;

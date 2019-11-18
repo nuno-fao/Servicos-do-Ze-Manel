@@ -10,9 +10,7 @@ Company *Company::getCompany(){
 Company::Company(){}
 
 Company::~Company(){
-    if(getCompany()->services_on_queue_changed){
-        Service::saveToFile(&services_finished,&services_on_transit,&services_on_queue);
-    }
+    Service::saveToFile(&services_finished,&services_on_transit,&services_on_queue);
     Client::saveToFile(clients);
     Truck::saveToFile(&trucks);
 	saveStats();
