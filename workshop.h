@@ -3,6 +3,8 @@
 #include <string>
 #include "date.h"
 #include "truck.h"
+#include "company.h"
+
 
 class Truck;
 
@@ -15,7 +17,7 @@ private:
     string name; /// Workshop's name
     car_brand brand; /// Workshop's brand specialization
     unsigned int unavailability; // Unavailability duration in days
-    queue<Truck*> waiting_line; // Queue of pointers to Trucks assigned to the given Workshop (ordered by FIFO)
+    queue<pair<Truck*, Date>> waiting_line; // Queue of pointers to Trucks assigned to the given Workshop (ordered by FIFO)
 public:
     Workshop(string n, car_brand b, unsigned unavailability);
 };

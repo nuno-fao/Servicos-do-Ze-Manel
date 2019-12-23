@@ -177,5 +177,5 @@ private:
     vector<pair<int, double>> statHaz;
     vector<pair<int, double>> statNorm;
     vector<pair<int, double>> statAnim;
-    priority_queue<Truck*> workshop_line;
+    priority_queue<Workshop> workshop_line;
 };
