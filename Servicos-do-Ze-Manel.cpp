@@ -13,6 +13,8 @@
 #include "service.h"
 #include "company.h"
 #include "misc.h"
+#include "driver.h"
+#include "workshop.h"
 
 using namespace std;
 
