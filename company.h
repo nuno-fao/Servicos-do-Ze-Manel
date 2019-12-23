@@ -6,11 +6,13 @@
 #include <unordered_set>
 #include "client.h"
 #include "service.h"
+#include "workshop.h"
 #include "truck.h"
 
 class Truck;
 class Service;
 class Client;
+class Workshop;
 using namespace std;
 
 struct clientActiviyHash
