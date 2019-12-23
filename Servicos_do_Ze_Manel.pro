@@ -12,7 +12,10 @@ HEADERS = \
    $$PWD/truck.h \
    $$PWD/Address.h\
    $$PWD/driver.h \
-   $$PWD/workshop.h
+   $$PWD/workshop.h\
+   $$PWD/bst.h \
+   $$PWD/binaryTree.h\
+
 
 SOURCES = \
    $$PWD/client.cpp \

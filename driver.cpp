@@ -43,7 +43,7 @@ void Driver::loadFromFile(){
             service_h=stof(serviceHours);
             Driver *tmp;
             tmp=new Driver(nif_tmp,name,service_h);
-            tmp_vect->push_back(tmp);
+            tmp_vect->insert(tmp);
         } catch (...) {
             continue;
         }
@@ -54,10 +54,13 @@ void Driver::saveToFile(){
     ofstream driverFile;
     driverFile.open("./files/drivers.txt");
     BST<Driver*> *tmp=Company::getCompany()->getDrivers();
-    for(auto i:*tmp){
-        driverFile<<i->getNif()<<endl;
-        driverFile<<i->getName()<<endl;
-        driverFile<<i->getServiceHours()<<endl;
+    BSTItrLevel<Driver*> i(*tmp);
+
+    while(!i.isAtEnd()){
+        driverFile<<i.retrieve()->getNif()<<endl;
+        driverFile<<i.retrieve()->getName()<<endl;
+        driverFile<<i.retrieve()->getServiceHours()<<endl;
+        i.advance();
         driverFile<<"::::::::::"<<endl;
     }
 }
