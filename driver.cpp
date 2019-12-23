@@ -27,13 +27,37 @@ void Driver::setServiceHours(float ServiceHours){
 }
 
 void Driver::loadFromFile(){
-
+    ifstream driverFile;
+    driverFile.open("./files/drivers.txt");
+    string nif;
+    string name;
+    string serviceHours;
+    int nif_tmp;
+    float service_h;
+    BST<Driver*> *tmp_vect=Company::getCompany()->getDrivers();
+    while(getline(driverFile,nif)){
+        getline(driverFile,name);
+        getline(driverFile,serviceHours);
+        try {
+            nif_tmp=stoi(nif);
+            service_h=stof(serviceHours);
+            Driver *tmp;
+            tmp=new Driver(nif_tmp,name,service_h);
+            tmp_vect->push_back(tmp);
+        } catch (...) {
+            continue;
+        }
+    }
 }
 
 void Driver::saveToFile(){
     ofstream driverFile;
     driverFile.open("./files/drivers.txt");
-    for(auto i:*(Company::getCompany()->getDrivers())){
-        cout<<"okk"<<endl;
+    BST<Driver*> *tmp=Company::getCompany()->getDrivers();
+    for(auto i:*tmp){
+        driverFile<<i->getNif()<<endl;
+        driverFile<<i->getName()<<endl;
+        driverFile<<i->getServiceHours()<<endl;
+        driverFile<<"::::::::::"<<endl;
     }
 }

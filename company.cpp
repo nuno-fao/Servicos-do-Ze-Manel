@@ -248,6 +248,10 @@ void Company::loadStats() {
 	}
 }
 
+BST<Driver *> *Company::getDrivers(){
+    return &drivers;
+}
+
 void Company::saveStats() {
 	ofstream statfile;
     string aux, separator = "; ";
