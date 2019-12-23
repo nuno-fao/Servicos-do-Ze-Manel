@@ -190,6 +190,9 @@ void Client::removeClient(vector<Client*>& clientsVector) {
         if ((*it)->getNif() == nif) {
             if ((*it)->getServicesVector()->size() == 0) {
                 (*it)->~Client();
+                if (overAYear(lastReservation)) {
+                    //remove client from hash
+                }
                 clientsVector.erase(it);
                 cout << "Client removed sucessfully" << endl;
                 enter_to_exit();

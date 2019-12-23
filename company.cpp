@@ -269,3 +269,13 @@ void Company::saveStats() {
 	}
 	statfile.close();
 }
+
+int clientActiviyHash::operator() (const Client* cr) const
+{
+	return cr->getNif() % 1000 + cr->getName().size();
+}
+
+bool clientActiviyHash::operator() (const Client* cr1, const Client* cr2) const
+{
+	return cr1->getNif() == cr2->getNif();
+}
