@@ -255,6 +255,11 @@ BST<Driver *> *Company::getDrivers(){
     return &drivers;
 }
 
+priority_queue<Workshop*>* Company::getWorkshopLine()
+{
+    return &workshop_line;
+}
+
 void Company::saveStats() {
 	ofstream statfile;
     string aux, separator = "; ";
@@ -266,4 +271,14 @@ void Company::saveStats() {
 		statfile << statHaz[i].second << "; " << statCong[i].second << "; " << statAnim[i].second << "; " << statNorm[i].second << endl;
 	}
 	statfile.close();
+}
+
+int clientActiviyHash::operator() (const Client* cr) const
+{
+	return cr->getNif() % 1000 + cr->getName().size();
+}
+
+bool clientActiviyHash::operator() (const Client* cr1, const Client* cr2) const
+{
+	return cr1->getNif() == cr2->getNif();
 }

@@ -8,6 +8,7 @@
 
 #include "client.h"
 #include "truck.h"
+#include "date.h"
 #include "company.h"
 #include "service.h"
 #include "date.h"

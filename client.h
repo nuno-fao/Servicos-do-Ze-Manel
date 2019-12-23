@@ -5,11 +5,13 @@
 
 #include "service.h"
 #include "misc.h"
+#include "date.h"
 
 using namespace std;
 
 class Service;
 class Truck;
+class Date;
 
 class Client
 {
