@@ -7,6 +7,7 @@
 #include "client.h"
 #include "service.h"
 #include "truck.h"
+#include "workshop.h"
 
 class Truck;
 class Service;

@@ -2,18 +2,20 @@
 #include <queue>
 #include <string>
 #include "date.h"
+#include "truck.h"
+
+class Truck;
 
 using namespace std;
 
-enum car_brand { Mercedes, Man, Ford, Volvo, Iveco, Scania, Volkswagen, Mitsubishi}; /// Enum representing the possibile Workshop's specialization
+enum class car_brand { Mercedes, Man, Ford, Volvo, Iveco, Scania, Volkswagen, Mitsubishi}; /// Enum representing the possibile Workshop's specialization
 
 class Workshop {
 private:
     string name; /// Workshop's name
     car_brand brand; /// Workshop's brand specialization
-    unsigned unavailability; // Unavailability duration in days
+    unsigned int unavailability; // Unavailability duration in days
     queue<Truck*> waiting_line; // Queue of pointers to Trucks assigned to the given Workshop (ordered by FIFO)
-    
 public:
     Workshop(string n, car_brand b, unsigned unavailability);
 };
