@@ -8,6 +8,7 @@
 #include "service.h"
 #include "workshop.h"
 #include "truck.h"
+#include "driver.h"
 
 class Truck;
 class Service;
@@ -178,6 +179,10 @@ public:
 * @return Returns a vector containing pairs that represents the number of trucks of that type that have a determined capacity
 */
 	vector<pair<int, double>> getStatNorm() { return statNorm; }
+    vector<Driver*> *getDrivers(){
+        return &drivers;
+    }
+
 
 private:
     static Company *company;
@@ -194,5 +199,6 @@ private:
     vector<pair<int, double>> statHaz;
     vector<pair<int, double>> statNorm;
     vector<pair<int, double>> statAnim;
+    vector<Driver*> drivers;
 
 };
