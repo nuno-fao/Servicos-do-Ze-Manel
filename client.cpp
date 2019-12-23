@@ -98,6 +98,7 @@ void Client::addClient(vector<Client *> *clientsVector) {
             throw ClientInVector(tempClient->getNif(), "Client you're trying to add already exists in the database!");
 
     }
+    tempClient->setLastReservation(Date(0, 0, 0, 0, 0));
     clientsVector->push_back(tempClient);
     cout << "Client added sucessfully" << endl;
     enter_to_exit();
@@ -311,4 +312,12 @@ void Client::calcMoneySpent(){
     for(auto i:services){
         money_spent+=i->getTotalPrice();
     }
+}
+
+void Client::setLastReservation(Date real_time) {
+    lastReservation = real_time;
+}
+
+Date Client::getLastReservation() const {
+    return lastReservation;
 }

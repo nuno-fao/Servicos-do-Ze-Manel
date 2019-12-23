@@ -3,7 +3,7 @@
 #include <vector>
 #include <algorithm>
 #include <list>
-
+#include <unordered_set>
 #include "client.h"
 #include "service.h"
 #include "truck.h"
@@ -12,6 +12,21 @@ class Truck;
 class Service;
 class Client;
 using namespace std;
+
+struct clientActiviyHash
+{
+	int operator() (const Client* cr) const
+	{
+        return cr->getNif()%1000 + cr->getName().size();
+	}
+
+	bool operator() (const Client* cr1, const Client* cr2) const
+	{
+        return cr1->getNif() == cr2->getNif();
+	}
+};
+
+typedef unordered_set<Client*, clientActiviyHash, clientActiviyHash> HashTabClientActivity;
 
 class Company
 {
@@ -32,6 +47,7 @@ public:
     bool services_finished_changed=false,services_on_transit_changed=false,services_on_queue_changed=false;
     bool clients_changed=false;
     bool trucks_changed=false;
+    HashTabClientActivity clientHash;
 /**
 * @brief Gets list containing finished services
 *
@@ -176,4 +192,5 @@ private:
     vector<pair<int, double>> statHaz;
     vector<pair<int, double>> statNorm;
     vector<pair<int, double>> statAnim;
+
 };

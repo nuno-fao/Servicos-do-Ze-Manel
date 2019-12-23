@@ -79,6 +79,13 @@ public:
     // GET METHODS
 
     /**
+ * @brief Gets the Client's last reservation date
+ *
+ * @return Returns the date when the client made his last reservation
+ */
+    Date getLastReservation() const;
+
+    /**
  * @brief Gets the Client's name
  *
  * @return Returns a string containing the Client's name
@@ -104,6 +111,16 @@ public:
     vector<Service*> *getServicesVector();
 
     // SET METHODS
+
+        /**
+ * @brief Sets a Client's last reservation date
+ *
+ * Updates the Client's last reservation
+ *
+ * @param real_time - real time date
+ * @return Returns nothing
+ */
+    void setLastReservation(Date real_time);
 
     /**
  * @brief Sets a Client's name
@@ -198,6 +215,7 @@ protected:
     string name;
     unsigned int nif; /*!< Client's Identification - used whenever comparing and verifying clients */
     vector<Service*> services;/*!< Client's vector of bought Services */
+    Date lastReservation; /*!< Date of the last reservation made */
 
 };
 
