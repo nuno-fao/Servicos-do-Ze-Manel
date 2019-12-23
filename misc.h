@@ -10,6 +10,7 @@
 #include "truck.h"
 #include "company.h"
 #include "service.h"
+#include "date.h"
 
 
 #define min(a,b) (((a) < (b)) ? (a) : (b))
@@ -20,6 +21,7 @@ class Truck;
 class Company;
 class Service;
 class Address;
+class Date;
 /**
 *
 * Clears the console, works both in windows and linux
