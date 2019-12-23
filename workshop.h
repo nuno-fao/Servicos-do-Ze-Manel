@@ -20,4 +20,7 @@ private:
     queue<pair<Truck*, Date>> waiting_line; // Queue of pointers to Trucks assigned to the given Workshop (ordered by FIFO)
 public:
     Workshop(string n, car_brand b, unsigned unavailability);
+    string getName() const; /// Gets Workshop's name
+    car_brand getBrand() const; /// Gets Workshop's brand specialization
+    unsigned int getUnavailability() const; /// Gets Workshop's Unavailability
 };
