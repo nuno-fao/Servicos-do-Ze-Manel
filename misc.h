@@ -13,8 +13,7 @@
 #include "service.h"
 #include "date.h"
 
-
-#define min(a,b) (((a) < (b)) ? (a) : (b))
+#define min2(a, b) ((a) < (b) ? (a) : (b))
 using namespace std;
 
 class Client;
