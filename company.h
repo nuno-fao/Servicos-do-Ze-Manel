@@ -18,15 +18,9 @@ using namespace std;
 
 struct clientActiviyHash
 {
-	int operator() (const Client* cr) const
-	{
-        return cr->getNif()%1000 + cr->getName().size();
-	}
+    int operator() (const Client* cr) const;
 
-	bool operator() (const Client* cr1, const Client* cr2) const
-	{
-        return cr1->getNif() == cr2->getNif();
-	}
+    bool operator() (const Client* cr1, const Client* cr2) const;
 };
 
 typedef unordered_set<Client*, clientActiviyHash, clientActiviyHash> HashTabClientActivity;
