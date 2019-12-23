@@ -62,31 +62,35 @@ void Workshop::setWaitingLine(wait_queue wl)
 
 void Workshop::loadFromFile()
 {
-	string nif;
-	string name;
-	string serviceHours;
-	int nif_tmp;
-	float service_h;
-	BST<Driver*>* tmp_vect = Company::getCompany()->getDrivers();
-	while (getline(driverFile, nif)) {
-		getline(driverFile, name);
-		getline(driverFile, serviceHours);
-		try {
-			nif_tmp = stoi(nif);
-			service_h = stof(serviceHours);
-			Driver* tmp;
-			tmp = new Driver(nif_tmp, name, service_h);
-			tmp_vect->push_back(tmp);
-		}
-		catch (...) {
-			continue;
-		}
-	}
+	//string nif;
+	//string name;
+	//string serviceHours;
+	//int nif_tmp;
+	//float service_h;
+	//BST<Driver*>* tmp_vect = Company::getCompany()->getDrivers();
+	//while (getline(driverFile, nif)) {
+	//	getline(driverFile, name);
+	//	getline(driverFile, serviceHours);
+	//	try {
+	//		nif_tmp = stoi(nif);
+	//		service_h = stof(serviceHours);
+	//		Driver* tmp;
+	//		tmp = new Driver(nif_tmp, name, service_h);
+	//		tmp_vect->push_back(tmp);
+	//	}
+	//	catch (...) {
+	//		continue;
+	//	}
+	//}
 
 
 
 	ifstream workshopFile;
 	workshopFile.open("./files/workshops.txt");
+
+	string temp_string_pair;
+	string temp_brand;
+	string temp_unavailability;
 
 	string name;
 	car_brand brand;
@@ -94,10 +98,11 @@ void Workshop::loadFromFile()
 	wait_queue waiting_line;
 	priority_queue<Workshop*>* temp_wait_line = Company::getCompany()->getWorkshopLine();
 
-	while (true) {
+	while (!workshopFile.eof()) {
 		getline(workshopFile, name);
-		getline(workshopFile, brand);
-		getline(workshopFile, unavailability);
+		getline(workshopFile, temp_brand);
+		getline(workshopFile, temp_unavailability);
+		getline(workshopFile, temp_string_pair);
 		try {
 			nif_tmp = stoi(nif);
 			service_h = stof(serviceHours);
