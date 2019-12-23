@@ -12,6 +12,7 @@
 class Truck;
 class Service;
 class Client;
+class Workshop;
 using namespace std;
 
 class Company
