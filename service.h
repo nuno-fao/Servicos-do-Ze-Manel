@@ -311,7 +311,6 @@ public:
     virtual string getSpecificType(){return "non correct";}
     friend ostream& operator<<(ostream& os, Service *a);
 
-    static void test();
     static set<unsigned> idList;
 
 protected:

@@ -1968,12 +1968,6 @@ int Service::autoAddTrucks(){
     return  int(remaining);
 }
 
-void Service::test(){
-    Date *x=new Date();
-    Service i("pilas",Address(),Address(),x,300,type::ordinary,on_queue,x,Company::getCompany()->getVectorClients()->at(0),81000);
-    i.autoAddTrucks();
-
-}
 
 /*
 ServiceDoNotExist::ServiceDoNotExist(string erro): erro(erro){
