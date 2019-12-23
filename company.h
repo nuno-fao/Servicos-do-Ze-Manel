@@ -200,5 +200,6 @@ private:
     vector<pair<int, double>> statNorm;
     vector<pair<int, double>> statAnim;
     vector<Driver*> drivers;
+    priority_queue<Workshop*> workshop_line;
 
 };
