@@ -16,8 +16,6 @@ typedef queue<pair<Truck*, Date>> wait_queue;
 
 // TODO: falta comentar as funcoes e fazer as funcoes de pesquisa com static
 
-
-
 class Workshop {
 private:
     string name; /// Workshop's name
@@ -25,7 +23,7 @@ private:
     unsigned int unavailability; /// Unavailability duration in days
     wait_queue waiting_line; /// Queue of pointers to Trucks assigned to the given Workshop (ordered by FIFO)
 public:
-    Workshop(string n, car_brand b, unsigned unavailability);
+    Workshop(string n, car_brand b, unsigned unavailability, wait_queue wl);
     Workshop(string n);
     
     string getName() const;
