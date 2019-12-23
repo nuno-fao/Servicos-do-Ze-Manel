@@ -9,6 +9,7 @@
 #include "workshop.h"
 #include "truck.h"
 #include "driver.h"
+#include "bst.h"
 
 class Truck;
 class Service;
@@ -18,9 +19,15 @@ using namespace std;
 
 struct clientActiviyHash
 {
-    int operator() (const Client* cr) const;
+    int operator() (const Client* cr) const
+	{
+        return cr->getNif()%1000 + cr->getName().size();
+	}
 
-    bool operator() (const Client* cr1, const Client* cr2) const;
+    bool operator() (const Client* cr1, const Client* cr2) const
+	{
+        return cr1->getNif() == cr2->getNif();
+	}
 };
 
 typedef unordered_set<Client*, clientActiviyHash, clientActiviyHash> HashTabClientActivity;
@@ -173,9 +180,7 @@ public:
 * @return Returns a vector containing pairs that represents the number of trucks of that type that have a determined capacity
 */
 	vector<pair<int, double>> getStatNorm() { return statNorm; }
-    vector<Driver*> *getDrivers(){
-        return &drivers;
-    }
+    BST<Driver*> *getDrivers();
 
 
 private:
@@ -193,7 +198,7 @@ private:
     vector<pair<int, double>> statHaz;
     vector<pair<int, double>> statNorm;
     vector<pair<int, double>> statAnim;
-    vector<Driver*> drivers;
+    BST<Driver*> drivers;
     priority_queue<Workshop*> workshop_line;
 
 };

@@ -1,8 +1,12 @@
 #pragma once
 #include <string>
 #include <fstream>
+
+#include "company.h"
+#include "bst.h"
 using namespace std;
 
+class Company;
 class Driver
 {
 public:
