@@ -29,6 +29,11 @@ unsigned int Workshop::getUnavailability() const
 	return unavailability;
 }
 
+queue<pair<Truck*, Date>> Workshop::getWaitingLine() const
+{
+	return waiting_line;
+}
+
 void Workshop::setName(string n)
 {
 	name = n;
@@ -42,4 +47,9 @@ void Workshop::setBrand(car_brand b)
 void Workshop::setUnavailability(unsigned int ua)
 {
 	unavailability = ua;
+}
+
+void Workshop::setWaitingLine(wait_queue wl)
+{
+	waiting_line = wl;
 }

@@ -10,7 +10,9 @@ HEADERS = \
    $$PWD/misc.h \
    $$PWD/service.h \
    $$PWD/truck.h \
-   $$PWD/Address.h
+   $$PWD/Address.h\
+   $$PWD/driver.h \
+   $$PWD/workshop.h
 
 SOURCES = \
    $$PWD/client.cpp \
@@ -20,7 +22,9 @@ SOURCES = \
    $$PWD/service.cpp \
    $$PWD/Servicos-do-Ze-Manel.cpp \
    $$PWD/truck.cpp \
-   $$PWD/Address.cpp
+   $$PWD/Address.cpp\
+   $$PWD/driver.cpp \
+   $$PWD/workshop.cpp
 
 INCLUDEPATH = \
     $$PWD/. \
