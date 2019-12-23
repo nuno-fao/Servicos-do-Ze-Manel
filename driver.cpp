@@ -33,5 +33,7 @@ void Driver::loadFromFile(){
 void Driver::saveToFile(){
     ofstream driverFile;
     driverFile.open("./files/drivers.txt");
-    for(auto i:driver)
+    for(auto i:*(Company::getCompany()->getDrivers())){
+        cout<<"okk"<<endl;
+    }
 }
