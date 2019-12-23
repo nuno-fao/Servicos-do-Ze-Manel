@@ -92,11 +92,12 @@ void Workshop::loadFromFile()
 	car_brand brand;
 	unsigned int unavailability;
 	wait_queue waiting_line;
-	priority_queue<Workshop*> temp_wait_line = Company::getCompany()->
+	priority_queue<Workshop*>* temp_wait_line = Company::getCompany()->getWorkshopLine();
 
-	while (getline(workshopFile, name)) {
-		getline(driverFile, name);
-		getline(driverFile, serviceHours);
+	while (true) {
+		getline(workshopFile, name);
+		getline(workshopFile, brand);
+		getline(workshopFile, unavailability);
 		try {
 			nif_tmp = stoi(nif);
 			service_h = stof(serviceHours);
