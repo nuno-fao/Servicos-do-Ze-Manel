@@ -22,17 +22,21 @@ class Workshop {
 private:
     string name; /// Workshop's name
     car_brand brand; /// Workshop's brand specialization
-    unsigned int unavailability; // Unavailability duration in days
-    wait_queue waiting_line; // Queue of pointers to Trucks assigned to the given Workshop (ordered by FIFO)
+    unsigned int unavailability; /// Unavailability duration in days
+    wait_queue waiting_line; /// Queue of pointers to Trucks assigned to the given Workshop (ordered by FIFO)
 public:
     Workshop(string n, car_brand b, unsigned unavailability);
     Workshop(string n);
+    
     string getName() const;
     car_brand getBrand() const;
     unsigned int getUnavailability() const;
     wait_queue getWaitingLine() const;
+    
     void setName(string n);
     void setBrand(car_brand b);
     void setUnavailability(unsigned int ua);
     void setWaitingLine(wait_queue wl);
+
+
 };
