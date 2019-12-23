@@ -37,6 +37,9 @@ class BST
 public:
     explicit BST( const Comparable & notFound );
     BST( const BST & rhs );
+    BST():ITEM_NOT_FOUND(Comparable()){
+
+    }
     ~BST( );
 
     const Comparable & findMin( ) const;

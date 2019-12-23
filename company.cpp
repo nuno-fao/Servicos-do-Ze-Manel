@@ -7,7 +7,9 @@ Company *Company::getCompany(){
     return company;
 }
 
-Company::Company(){}
+Company::Company(){
+
+}
 
 Company::~Company(){
     Service::saveToFile(&services_finished,&services_on_transit,&services_on_queue);

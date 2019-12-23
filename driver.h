@@ -11,6 +11,9 @@ class Driver
 {
 public:
     Driver(int nif,string name,float serviceHours);
+    Driver(){
+        Driver(1,"0",0);
+    }
     int getNif() const;
     string getName() const;
     float getServiceHours() const;
