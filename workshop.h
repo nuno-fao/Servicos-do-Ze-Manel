@@ -37,5 +37,7 @@ public:
     void setUnavailability(unsigned int ua);
     void setWaitingLine(wait_queue wl);
 
+    static void loadFromFile();
+    static void saveToFile();
 
 };

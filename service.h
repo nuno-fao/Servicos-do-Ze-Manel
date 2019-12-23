@@ -12,6 +12,7 @@
 #include "client.h"
 #include "company.h"
 #include "Address.h"
+#include "driver.h"
 
 using namespace std;
 
@@ -312,6 +313,7 @@ public:
     friend ostream& operator<<(ostream& os, Service *a);
 
     static set<unsigned> idList;
+    vector<Driver*> drivers;
 
 protected:
     Service(string material,Address origin, Address destination, Date *arrivalDate, unsigned distance, type type, state state, Date *date,Client *client,float quantity);

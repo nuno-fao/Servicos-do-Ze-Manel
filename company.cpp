@@ -219,6 +219,9 @@ void Company::updateServicesSituation(){
         for(auto it=services_on_queue.begin(); it!= services_on_queue.end();it++){
             if(*(*it)->getIDate()<f){
                 (*it)->setState(on_transit);
+                for(size_t i=0;i<(*it)->getTrucks()->size();i++){
+                    (*it)->drivers.push_back(driver_queue.front());
+                }
                 Company::getCompany()->services_on_queue_changed=true;
             }
             else{
@@ -250,6 +253,11 @@ void Company::loadStats() {
 
 BST<Driver *> *Company::getDrivers(){
     return &drivers;
+}
+
+priority_queue<Workshop*>* Company::getWorkshopLine()
+{
+    return &workshop_line;
 }
 
 void Company::saveStats() {

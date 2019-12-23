@@ -176,7 +176,10 @@ public:
 	vector<pair<int, double>> getStatNorm() { return statNorm; }
     BST<Driver*> *getDrivers();
 
+    priority_queue<Workshop*>* getWorkshopLine();
 
+
+    queue<Driver*> driver_queue;
 private:
     static Company *company;
 /**
