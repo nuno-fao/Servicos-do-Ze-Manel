@@ -1,31 +1,20 @@
-#ifndef WORKSHOP_H
-#define WORKSHOP_H
+#pragma once
+#include <queue>
+#include <string>
+#include "date.h"
+
+using namespace std;
 
 
-class Workshop
-{
+
+enum car_brand { Mercedes, Man, Ford, Volvo, Iveco, Scania, Volkswagen, Mitsubishi}; /// Enum representing the possibile Workshop's specialization
+
+class Workshop {
+private:
+    string name; /// Workshop's name
+    car_brand brand; /// Workshop's brand specialization
+    unsigned unavailability; // Unavailability duration in days
+    
 public:
-    Workshop();
+    Workshop(string n, car_brand b, unsigned unavailability);
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#endif // WORKSHOP_H
