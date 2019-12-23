@@ -33,5 +33,5 @@ void Driver::loadFromFile(){
 void Driver::saveToFile(){
     ofstream driverFile;
     driverFile.open("./files/drivers.txt");
-    for(auto i:)
+    for(auto i:driver)
 }
