@@ -317,3 +317,9 @@ bool cmpOnQueue(Service *a,Service *b){
 bool cmpOnTransit(Service *a,Service *b){
     return *b->getIDate() <*a->getIDate();
 }
+
+bool overAYear(Date date) {
+    Date aux;
+    aux.setYear(aux.getYear() - 1);
+    return !(aux < date);
+}

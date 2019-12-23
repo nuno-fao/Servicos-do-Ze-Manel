@@ -180,3 +180,13 @@ bool cmpOnQueue(Service *a,Service *b);
 * @return Returns true if b's IDate < a's IDate
 */
 bool cmpOnTransit(Service *a,Service *b);
+
+/**
+*
+* @brief checks if it has passed a year since the date given has an argument
+* Returns true if has, false otherwise
+*
+* @param date - the date to analyse
+* @return Returns true if it has passed a year since the date given has an argument, false otherwise
+*/
+bool overAYear(Date date);
