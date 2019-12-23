@@ -14,6 +14,9 @@ enum class car_brand { Mercedes, Man, Ford, Volvo, Iveco, Scania, Volkswagen, Mi
 
 typedef queue<pair<Truck*, Date>> wait_queue;
 
+// TODO: falta comentar as funcoes e fazer as funcoes de pesquisa com static
+
+
 
 class Workshop {
 private:
