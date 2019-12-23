@@ -7,10 +7,12 @@
 #include "client.h"
 #include "service.h"
 #include "truck.h"
+#include "workshop.h"
 
 class Truck;
 class Service;
 class Client;
+class Workshop;
 using namespace std;
 
 class Company
@@ -176,4 +178,5 @@ private:
     vector<pair<int, double>> statHaz;
     vector<pair<int, double>> statNorm;
     vector<pair<int, double>> statAnim;
+    priority_queue<Workshop> workshop_line;
 };

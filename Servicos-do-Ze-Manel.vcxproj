@@ -102,19 +102,23 @@
     <ClCompile Include="client.cpp" />
     <ClCompile Include="company.cpp" />
     <ClCompile Include="date.cpp" />
+    <ClCompile Include="driver.cpp" />
     <ClCompile Include="misc.cpp" />
     <ClCompile Include="service.cpp" />
     <ClCompile Include="Servicos-do-Ze-Manel.cpp" />
     <ClCompile Include="truck.cpp" />
+    <ClCompile Include="workshop.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Address.h" />
     <ClInclude Include="client.h" />
     <ClInclude Include="company.h" />
     <ClInclude Include="date.h" />
+    <ClInclude Include="driver.h" />
     <ClInclude Include="misc.h" />
     <ClInclude Include="service.h" />
     <ClInclude Include="truck.h" />
+    <ClInclude Include="workshop.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="files\stats.txt" />
