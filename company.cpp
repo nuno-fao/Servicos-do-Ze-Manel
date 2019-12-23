@@ -252,6 +252,11 @@ BST<Driver *> *Company::getDrivers(){
     return &drivers;
 }
 
+priority_queue<Workshop*>* Company::getWorkshopLine()
+{
+    return &workshop_line;
+}
+
 void Company::saveStats() {
 	ofstream statfile;
     string aux, separator = "; ";
