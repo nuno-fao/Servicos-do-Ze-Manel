@@ -11,7 +11,7 @@ Matilde Ferreira Martins
 210787105
 ::::::::::::::::::::::::::::
 Manuel Pinho
-336710
+0
 353522120
 ::::::::::::::::::::::::::::
 Danilo Carvalho Cunha
@@ -35,7 +35,7 @@ Luís Fernandes Araujo
 555869110
 ::::::::::::::::::::::::::::
 Alfredo Melo
-363559
+0
 678945632
 ::::::::::::::::::::::::::::
 Camila Correia Oliveira
@@ -51,6 +51,6 @@ Luis Silva Souza
 805219161
 ::::::::::::::::::::::::::::
 Yasmin Carvalho Barbosa
-36500
+0
 834025548
 ::::::::::::::::::::::::::::
