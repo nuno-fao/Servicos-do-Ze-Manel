@@ -193,3 +193,6 @@ bool cmpOnTransit(Service *a,Service *b);
 * @return Returns true if it has passed a year since the date given has an argument, false otherwise
 */
 bool overAYear(Date date);
+
+
+car_brand selectBrand(string temp_brand);
