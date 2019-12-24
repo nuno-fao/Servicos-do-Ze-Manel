@@ -1,17 +1,19 @@
 #pragma once
+
+
 #include <string>
 #include <vector>
 #include <algorithm>
-
 #include "service.h"
-#include "misc.h"
 #include "date.h"
+#include "misc.h"
 
 using namespace std;
 
 class Service;
-class Truck;
 class Date;
+class Truck;
+
 
 class Client
 {
@@ -85,7 +87,7 @@ public:
  *
  * @return Returns the date when the client made his last reservation
  */
-    Date getLastReservation() const;
+    Date* getLastReservation() const;
 
     /**
  * @brief Gets the Client's name
@@ -122,7 +124,7 @@ public:
  * @param real_time - real time date
  * @return Returns nothing
  */
-    void setLastReservation(Date real_time);
+    void setLastReservation(Date* real_time);
 
     /**
  * @brief Sets a Client's name
@@ -217,7 +219,7 @@ protected:
     string name;
     unsigned int nif; /*!< Client's Identification - used whenever comparing and verifying clients */
     vector<Service*> services;/*!< Client's vector of bought Services */
-    Date lastReservation; /*!< Date of the last reservation made */
+    Date* lastReservation; /*!< Date of the last reservation made */
 
 };
 
