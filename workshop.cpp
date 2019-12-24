@@ -1,23 +1,11 @@
 #include "workshop.h"
 
-Workshop::Workshop(string n = "unknown", car_brand b = car_brand::None, unsigned ua = 0, wait_queue wl)
+Workshop::Workshop(string n, car_brand b, unsigned ua, wait_queue wl)
 {
 	name = n;
 	brand = b;
 	unavailability = ua;
 	waiting_line = wl;
-}
-
-Workshop::Workshop(string n)
-{
-	name = n;
-	brand = car_brand::None;
-	unavailability = 0;
-
-	Truck* default_truck = NULL;
-	Date default_date;
-	pair<Truck*, Date> default_pair(default_truck, default_date);
-	waiting_line.push(default_pair);
 }
 
 string Workshop::getName() const
@@ -69,6 +57,7 @@ void Workshop::loadFromFile()
 	string temp_brand;
 	string temp_unavailability;
 	string discarded;
+	vector<string> vectored_pairs;
 
 	string name;
 	car_brand brand;
@@ -85,8 +74,17 @@ void Workshop::loadFromFile()
 		try {
 			brand = selectBrand(temp_brand);
 			unavailability = stoi(temp_unavailability);
+			vectored_pairs = vectorString(temp_string_pair, ";");
 			
-			//// Pair cenas
+			//for (size_t i = 0; i < vectored_pairs.size() - 1; i++)
+			//{
+			//	pair<>
+			//}
+			//waiting_line.push
+
+
+			//Workshop * temp_workshop = new Workshop(name, brand, unavailability, waiting_line);
+
 			//Driver* tmp;
 			//tmp = new Driver(nif_tmp, name, service_h);
 			//tmp_vect->push_back(tmp);
@@ -95,9 +93,16 @@ void Workshop::loadFromFile()
 			continue;
 		}
 	}
-
+	workshopFile.close();
 }
 
 void Workshop::saveToFile()
 {
+}
+
+bool Workshop::operator<(Workshop w1)
+{
+	if (unavailability < w1.unavailability)
+		return true;
+	return false;
 }

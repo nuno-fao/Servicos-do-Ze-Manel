@@ -4,11 +4,12 @@
 #include "date.h"
 #include "truck.h"
 #include "company.h"
+#include "misc.h"
+
+using namespace std;
 
 class Truck;
 class Date;
-
-using namespace std;
 
 enum class car_brand { Mercedes, Man, Ford, Volvo, Iveco, Scania, Volkswagen, Mitsubishi, None}; /// Enum representing the possibile Workshop's specialization
 
@@ -25,7 +26,6 @@ private:
     wait_queue waiting_line; /// Queue of pointers to Trucks assigned to the given Workshop (ordered by FIFO)
 public:
     Workshop(string n, car_brand b, unsigned unavailability, wait_queue wl);
-    Workshop(string n);
     
     string getName() const;
     car_brand getBrand() const;
@@ -39,5 +39,7 @@ public:
 
     static void loadFromFile();
     static void saveToFile();
+
+    bool operator<(Workshop w1);
 
 };

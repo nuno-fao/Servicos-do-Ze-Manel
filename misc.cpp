@@ -340,6 +340,6 @@ car_brand selectBrand(string temp_brand)
 		return car_brand::Volkswagen;
 	else if (temp_brand == "Mitsubishi")
 		return car_brand::Mitsubishi;
-	else if (temp_brand == "None")
+	else
 		return car_brand::None;
 }

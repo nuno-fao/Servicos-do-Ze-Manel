@@ -16,6 +16,8 @@
 #define min2(a, b) ((a) < (b) ? (a) : (b))
 using namespace std;
 
+enum class car_brand;
+
 class Client;
 class Truck;
 class Company;
