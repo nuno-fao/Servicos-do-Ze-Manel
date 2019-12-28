@@ -16,7 +16,6 @@ class Truck;
 enum class car_brand { Mercedes, Man, Ford, Volvo, Iveco, Scania, Volkswagen, Mitsubishi, None}; /// Enum representing the possibile Workshop's specialization
 
 // TODO: falta comentar as funcoes e fazer as funcoes de pesquisa com static
-// Fazer funcoes de load e save
 
 class Workshop {
 private:

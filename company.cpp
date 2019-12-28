@@ -16,6 +16,7 @@ Company::~Company(){
     Client::saveToFile(clients);
     Truck::saveToFile(&trucks);
 	saveStats();
+    //Workshop::saveToFile();
     for(auto i:clients){
         i->~Client();
     }

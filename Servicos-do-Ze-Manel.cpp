@@ -32,12 +32,7 @@ void infoEveryServices(),infoOnQueueServices(),infoOnTransitServices(),infoFinis
 void servicesInformation();
 void moneyInformation();
 void menu_inactive_clients();
-
-
-/*
-This function receives a name and returns true if it is valid
-*/
-
+void workshopsInformation();
 
 Company *Company::company = nullptr;
 int main()
@@ -95,6 +90,8 @@ int main()
 
     }
 
+    Workshop::loadFromFile();
+
     //Service::test();
     mainMenu();
 
@@ -141,13 +138,6 @@ void mainMenu(){
                 break;
             }
             case 5: {
-                Workshop::loadFromFile();
-                priority_queue<Workshop*>* temp_priority_queue = Company::getCompany()->getWorkshopLine();
-                
-                while (!temp_priority_queue->empty()) {
-                    temp_priority_queue->top()->info();
-                }
-
                 break;
             }
 
@@ -419,8 +409,9 @@ void information(){
         cout<<"[2] Services"<<endl;
         cout<<"[3] Trucks"<<endl;
         cout<<"[4] Revenue"<<endl;
+        cout << "[5] Workshops" << endl;
         cout<<"[0] Return"<<endl;
-        if(cin>>opt && opt<=4)
+        if(cin>>opt && opt<=5)
         {
             clearScreen();
             switch (opt) {
@@ -440,6 +431,10 @@ void information(){
 
             case 4:{
                 moneyInformation();
+                break;
+            }
+            case 5: {
+                workshopsInformation();
                 break;
             }
             default:
@@ -2044,4 +2039,32 @@ void menu_inactive_clients() {
             }
         }
     }
+}
+
+void workshopsInformation() {
+	unsigned opt = 1;
+	clearScreen();
+	while (opt != 0) {
+		cout << "[1] Show Workshops (ordered by unavailability)" << endl;
+		cout << "[0] Return" << endl;
+		if (cin >> opt && opt <= 2)
+		{
+			clearScreen();
+			switch (opt) {
+			case 0: {
+				return;
+			}
+			case 1:
+				priority_queue<Workshop*> * temp_priority_queue = Company::getCompany()->getWorkshopLine();
+
+				while (!temp_priority_queue->empty()) {
+					temp_priority_queue->top()->info();
+					temp_priority_queue->pop();
+				}
+				clearBuffer(); // Might not need it
+				enter_to_exit();
+				break;
+			}
+		}
+	}
 }
