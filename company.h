@@ -135,6 +135,22 @@ public:
 */
     void loadStats();
 /**
+* @brief Removes a specific client from the inactive client hash table
+*
+* If a client exists in the hash and has no scheduled services it will be removed from it. Searches by client NIF
+*
+* @return Returns nothing
+*/
+	void removeClientFromHash(unsigned nif);
+	/**
+* @brief Removes a specific client from the inactive client hash table
+*
+* If a client exists in the hash it will be removed from it. Searches by client NIF
+*
+* @return Returns nothing
+*/
+	void eraseClientFromHash(unsigned nif);
+/**
 * @brief Saves the statistics
 *
 * Writes the statistics to the associated text file

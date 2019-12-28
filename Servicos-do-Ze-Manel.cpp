@@ -31,6 +31,7 @@ void trucksInformation();
 void infoEveryServices(),infoOnQueueServices(),infoOnTransitServices(),infoFinishedServices();
 void servicesInformation();
 void moneyInformation();
+void menu_inactive_clients();
 
 
 /*
@@ -363,6 +364,9 @@ void menu_services(){
                     clearBuffer();
                     clearScreen();
                     Service::addService(Company::getCompany()->getVectorServicesOnQueue(),tempClient);
+                    tempClient->getLastReservation()->~Date();
+                    tempClient->setLastReservation(new Date());
+                    Company::getCompany()->eraseClientFromHash(tempClient->getNif());
                 }
                 catch(const NotAClient &e){
                     clearBuffer();
@@ -453,8 +457,9 @@ void clientsInformation(){
         cout<<"[5] Show Clients with Services on queue"<<endl;
         cout<<"[6] Show Clients with Services on Transit"<<endl;
         cout<<"[7] Show Specific Client"<<endl;
+        cout << "[8] Inactive Client Menu" << endl;
         cout<<"[0] Return"<<endl;
-        if(cin>>opt && opt<=7)
+        if(cin>>opt && opt<=8)
         {
             clearScreen();
             switch (opt) {
@@ -623,6 +628,9 @@ void clientsInformation(){
                 }
                 break;
             }
+			case 8:
+                menu_inactive_clients();
+				break;
 
             default:
                 opt=1;
@@ -1851,7 +1859,9 @@ void manage_client(Client *client){
             case 2:{
                 try {
                     clearBuffer();
+                    Company::getCompany()->removeClientFromHash(client->getNif());
                     client->removeClient(*Company::getCompany()->getVectorClients());
+                    
                 }
                 catch (const ClientNotInVector &e) {
                     clearScreen();
@@ -1949,6 +1959,73 @@ void moneyInformation(){
                     cout << "Month/Year: " << (Company::getCompany()->getStatAnim()[i].first % 12) << "/" << int(Company::getCompany()->getStatAnim()[i].first / 12) << endl;
                     cout << "Animal transport rev: " << Company::getCompany()->getStatAnim()[i].second << endl;
                 }
+                enter_to_exit();
+                break;
+            }
+            }
+        }
+    }
+}
+
+void menu_inactive_clients() {
+	unsigned opt = 1;
+	clearScreen();
+    while (opt != 0) {
+        cout << "[1] Show All Inactive Clients" << endl;
+        cout << "[2] Show a Specific Inactive Client" << endl;
+        cout << "[0] Return" << endl;
+        if (cin >> opt && opt <= 2)
+        {
+            clearScreen();
+            switch (opt) {
+            case 0: {
+                return;
+            }
+            case 1:
+                if (Company::getCompany()->clientHash.size())
+                    for (auto i : Company::getCompany()->clientHash) {
+                        cout << *i << endl;
+                    }
+                else {
+                    cout << "There is no Information to show" << endl;
+                }
+                clearBuffer();
+                enter_to_exit();
+                break;
+            case 2: {
+				bool variable_error = true;
+				string tempNif;
+                clearBuffer();
+				while (variable_error) {
+					cout << "Enter the Nif" << endl;
+
+					getline(cin, tempNif);
+					checkIfOut(tempNif);
+					clearScreen();
+					if (strIsNumber(tempNif) && tempNif.size() == 9)
+						variable_error = false;
+					else {
+						variable_error = true;
+						cout << "Nif Input not acceptable, please try again" << endl;
+					}
+				}
+                clearBuffer();
+                int auxnif = stoi(tempNif);
+                if (Company::getCompany()->clientHash.size()) {
+                    for (auto i : Company::getCompany()->clientHash) {
+                        if (i->getNif() == auxnif) {
+                            cout << *i;
+                            clearBuffer();
+                            enter_to_exit();
+                            return;
+                        }
+
+                    }
+                    cout << "Either there is no client with that NIF or the client simply isn't on the inactive list";
+                }
+                else
+                    cout << "There is no Information to show" << endl;
+                clearBuffer();
                 enter_to_exit();
                 break;
             }

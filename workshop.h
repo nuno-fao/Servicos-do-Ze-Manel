@@ -23,7 +23,7 @@ private:
     string name; /// Workshop's name
     car_brand brand; /// Workshop's brand specialization
     unsigned int unavailability; /// Unavailability duration in days
-    wait_queue waiting_line; /// Queue of pointers to Trucks assigned to the given Workshop (ordered by FIFO)
+    wait_queue* waiting_line; /// Queue of pointers to Trucks assigned to the given Workshop (ordered by FIFO)
 public:
     Workshop(string n, car_brand b, unsigned unavailability, wait_queue wl);
     

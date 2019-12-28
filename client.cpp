@@ -1,13 +1,17 @@
 #include "client.h"
 
-Client::Client():nif(000000000) {}
+Client::Client():nif(000000000) {
+    lastReservation = new Date(1, 1, 1, 1, 1);
+}
 
 Client::Client(Client const &x){
     this->nif=x.getNif();
     this->name=x.getName();
+    this->lastReservation = x.getLastReservation();
 }
 
-Client::Client(string name, unsigned int nif, float money_spent, vector<Service*> *services): money_spent(money_spent),name(name), nif(nif){
+Client::Client(string name, unsigned int nif, float money_spent, Date* date, vector<Service*> *services): money_spent(money_spent),name(name), nif(nif){
+    lastReservation = date;
     if(services==nullptr)
         services=new vector<Service*>;
 }
@@ -91,15 +95,15 @@ void Client::addClient(vector<Client *> *clientsVector) {
             cout<<"Nif Input not acceptable, please try again"<<endl;
         }
     }
-    Client *tempClient = new Client(tempName,unsigned(stoi(tempNif)),0);
+    Client *tempClient = new Client(tempName,unsigned(stoi(tempNif)),0, new Date(1,1,1,1,1));
     for (auto it = clientsVector->begin(); it != clientsVector->end(); it++)
     {
         if (tempClient->getNif() == (*it)->getNif())
             throw ClientInVector(tempClient->getNif(), "Client you're trying to add already exists in the database!");
 
     }
-    tempClient->setLastReservation(new Date(0, 0, 0, 0, 0));
     clientsVector->push_back(tempClient);
+    Company::getCompany()->clientHash.insert(tempClient);
     cout << "Client added sucessfully" << endl;
     enter_to_exit();
 
@@ -189,10 +193,11 @@ void Client::removeClient(vector<Client*>& clientsVector) {
     {
         if ((*it)->getNif() == nif) {
             if ((*it)->getServicesVector()->size() == 0) {
+				if (overAYear(*lastReservation)) {
+					//remove client from hash
+
+				}
                 (*it)->~Client();
-                if (overAYear(*lastReservation)) {
-                    //remove client from hash
-                }
                 clientsVector.erase(it);
                 cout << "Client removed sucessfully" << endl;
                 enter_to_exit();
@@ -211,6 +216,7 @@ void Client::removeClient(vector<Client*>& clientsVector) {
 void Client::loadClients(vector<Client*>& clientsVector) {
 
     string clientsNameFile = "./files/clients.txt"; // File containing clients
+    vector<string> aux;
     string clientsText; // String containing contents of clients.txt
     ifstream clientsFile;
     Client client;
@@ -239,12 +245,19 @@ void Client::loadClients(vector<Client*>& clientsVector) {
                 if(strIsNumber(clientsText))
                 client.money_spent=stof(clientsText);
                 break;
+			case 3:
+                aux = vectorString(clientsText, "/");
+                client.setLastReservation(new Date(stoi(aux[0]), stoi(aux[1]), stoi(aux[2]), stoi(aux[3]), stoi(aux[4])));
+				break;
             default:
                 break;
             }
             i++;
-            if (i == 4) {
+            if (i == 5) {
                 Client *temp=new Client(client);
+                if (overAYear(*(temp->getLastReservation()))) {
+                    Company::getCompany()->clientHash.insert(temp);
+                }
                 clientsVector.push_back(temp);
                 i = 0;
             }
@@ -266,6 +279,7 @@ void Client::saveToFile(vector<Client*>& clientsVector){
             clientsFile << (*it)->getName() << endl;
             clientsFile << (*it)->getMoneySpent() <<endl;
             clientsFile << (*it)->getNif() << endl;
+            clientsFile << (*it)->getLastReservation()->getDate() << endl;
             clientsFile << "::::::::::::::::::::::::::::" << endl;
         }
     }
@@ -286,6 +300,7 @@ bool Client::operator<(const Client &a) const{
 ostream& operator<<(ostream& out, const Client& client) {
     out << "Name: " << client.name << endl;
     out << "NIF: " << client.nif << endl;
+    out << "Date Of Last Reservation: " << client.lastReservation->getDate() << endl;
 
     return out;
 }

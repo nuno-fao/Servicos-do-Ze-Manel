@@ -284,3 +284,23 @@ bool clientActiviyHash::operator() (const Client* cr1, const Client* cr2) const
 {
 	return cr1->getNif() == cr2->getNif();
 }
+
+void Company::removeClientFromHash(unsigned nif) {
+    auto it = clientHash.begin();
+    for (it; it != clientHash.end(); it++) {
+        if ((*it)->getNif()==nif && (*it)->getServicesVector()->size()==0) {
+            clientHash.erase(it);
+            return;
+        }
+    }
+}
+
+void Company::eraseClientFromHash(unsigned nif) {
+	auto it = clientHash.begin();
+	for (it; it != clientHash.end(); it++) {
+		if ((*it)->getNif() == nif) {
+			clientHash.erase(it);
+			return;
+		}
+	}
+}

@@ -5,7 +5,7 @@ Workshop::Workshop(string n, car_brand b, unsigned ua, wait_queue wl)
 	name = n;
 	brand = b;
 	unavailability = ua;
-	waiting_line = wl;
+	*waiting_line = wl;
 }
 
 string Workshop::getName() const
@@ -25,7 +25,7 @@ unsigned int Workshop::getUnavailability() const
 
 queue<pair<Truck*, Date>> Workshop::getWaitingLine() const
 {
-	return waiting_line;
+	return *waiting_line;
 }
 
 void Workshop::setName(string n)
@@ -45,7 +45,7 @@ void Workshop::setUnavailability(unsigned int ua)
 
 void Workshop::setWaitingLine(wait_queue wl)
 {
-	waiting_line = wl;
+	*waiting_line = wl;
 }
 
 void Workshop::loadFromFile()
