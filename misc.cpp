@@ -163,7 +163,6 @@ int binaryCustomfind(vector<Client*>* vetor, unsigned val) {
 	return -1;   // não encontrado
 }
 
-
 bool checkNif(int nif) {
 
 	if (nif < 100000000 || nif > 999999999) // The number has to be 9 digits long
@@ -342,4 +341,26 @@ car_brand selectBrand(string temp_brand)
 		return car_brand::Mitsubishi;
 	else
 		return car_brand::None;
+}
+
+string printBrand(car_brand brand)
+{
+	if (brand == car_brand::Mercedes)
+		return "Mercedes";
+	if (brand == car_brand::Man)
+		return "Man";
+	if (brand == car_brand::Volvo)
+		return "Volvo";
+	if (brand == car_brand::Iveco)
+		return "Iveco";
+	if (brand == car_brand::Scania)
+		return "Scania";
+	if (brand == car_brand::Volkswagen)
+		return "Volkswagen";
+	if (brand == car_brand::Mitsubishi)
+		return "Mitsubishi";
+	if (brand == car_brand::None)
+		return "None";
+	else
+		return "None";
 }

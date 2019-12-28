@@ -40,6 +40,8 @@ public:
     static void loadFromFile();
     static void saveToFile();
 
+    void info();
+
     bool operator<(Workshop w1);
 
 };

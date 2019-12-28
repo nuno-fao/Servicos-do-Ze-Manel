@@ -141,12 +141,13 @@ void mainMenu(){
                 break;
             }
             case 5: {
-                vector<string> to_print = vectorString("Truck 1;Date 1;Truck2;Date2", ";");
-
-                for (vector<string>::iterator it = to_print.begin(); it != to_print.end(); it++)
-                {
-                    cout << (*it) << endl;
+                Workshop::loadFromFile();
+                priority_queue<Workshop*>* temp_priority_queue = Company::getCompany()->getWorkshopLine();
+                
+                while (!temp_priority_queue->empty()) {
+                    temp_priority_queue->top()->info();
                 }
+
                 break;
             }
 

@@ -192,6 +192,14 @@ public:
 	vector<pair<int, double>> getStatNorm() { return statNorm; }
     BST<Driver*> *getDrivers();
 
+
+/**
+* @brief Gets the priority queue containing the workshops
+*
+* Retrieves the priority queue containing the workshops
+*
+* @return Returns the priority queue containing the workshops
+*/
     priority_queue<Workshop*>* getWorkshopLine();
 
 

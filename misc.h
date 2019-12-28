@@ -87,7 +87,6 @@ void checkIfOut(string &temp);
 * @return Returns the index of the Client or -1 if not found
 */
 int binaryCustomfind(vector<Client*> *vetor, unsigned val);
-
 /**
 *
 * @brief Prints Service
@@ -194,6 +193,19 @@ bool cmpOnTransit(Service *a,Service *b);
 * @return Returns true if it has passed a year since the date given has an argument, false otherwise
 */
 bool overAYear(Date date);
-
-
+/**
+*
+* @brief Transforms string into a car brand
+*
+* @param temp_brand - brand as a string to be converted
+* @return Returns a car_brand type corresponding to the string passed
+*/
 car_brand selectBrand(string temp_brand);
+/**
+*
+* @brief Transforms car brand type into a string
+*
+* @param brand - car brand type to be transformed
+* @return Returns a string representing a car brand
+*/
+string printBrand(car_brand brand);
