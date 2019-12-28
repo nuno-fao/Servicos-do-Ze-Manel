@@ -38,7 +38,7 @@ public:
  * @param money_spent - Total amount spent by the client in services
  * @param services - Pointer to the vector of pointers to Services that the client has bought (none by default)
  */
-    Client(string name, unsigned int nif, float money_spent, vector<Service*> *services = nullptr);
+    Client(string name, unsigned int nif, float money_spent, Date* date, vector<Service*>* services=nullptr);
     /**
  * Default Destructor
  */
