@@ -1,6 +1,6 @@
 #include "workshop.h"
 
-Workshop::Workshop(string n, car_brand b, unsigned ua, wait_queue wl)
+Workshop::Workshop(string n, car_brand b, unsigned ua, queue<pair<Truck*, Date*>> wl)
 {
 	name = n;
 	brand = b;
@@ -23,7 +23,7 @@ unsigned int Workshop::getUnavailability() const
 	return unavailability;
 }
 
-queue<pair<Truck*, Date>> Workshop::getWaitingLine() const
+queue<pair<Truck*, Date*>> Workshop::getWaitingLine() const
 {
 	return waiting_line;
 }
@@ -43,7 +43,7 @@ void Workshop::setUnavailability(unsigned int ua)
 	unavailability = ua;
 }
 
-void Workshop::setWaitingLine(wait_queue wl)
+void Workshop::setWaitingLine(queue<pair<Truck*, Date*>> wl)
 {
 	waiting_line = wl;
 }
@@ -56,13 +56,12 @@ void Workshop::loadFromFile()
 	string temp_string_pair;
 	string temp_brand;
 	string temp_unavailability;
-	string discarded;
 	vector<string> vectored_pairs;
 
 	string name;
 	car_brand brand;
 	unsigned int unavailability;
-	wait_queue waiting_line;
+	queue<pair<Truck*, Date*>> waiting_line;
 	priority_queue<Workshop*>* temp_wait_line = Company::getCompany()->getWorkshopLine();
 
 	while (!workshopFile.eof()) {
@@ -70,7 +69,6 @@ void Workshop::loadFromFile()
 		getline(workshopFile, temp_brand);
 		getline(workshopFile, temp_unavailability);
 		getline(workshopFile, temp_string_pair);
-		getline(workshopFile, discarded);
 		try {
 			brand = selectBrand(temp_brand);
 			unavailability = stoi(temp_unavailability);

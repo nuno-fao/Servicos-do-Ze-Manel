@@ -114,7 +114,9 @@ void mainMenu(){
         cout<<"[2] Trucks"<<endl;
         cout<<"[3] Services"<<endl;
         cout<<"[4] Information"<<endl;
-        if(cin>>opt && opt<=4)
+        cout << "[5] Workshop" << endl;
+
+        if(cin>>opt && opt<=5)
         {
             clearScreen();
             switch (opt) {
@@ -135,6 +137,15 @@ void mainMenu(){
             }
             case 4:{
                 information();
+                break;
+            }
+            case 5: {
+                vector<string> to_print = vectorString("Truck 1;Date 1;Truck2;Date2", ";");
+
+                for (vector<string>::iterator it = to_print.begin(); it != to_print.end(); it++)
+                {
+                    cout << (*it) << endl;
+                }
                 break;
             }
 
