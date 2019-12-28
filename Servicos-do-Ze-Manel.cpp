@@ -115,7 +115,7 @@ void mainMenu(){
         cout<<"[2] Trucks"<<endl;
         cout<<"[3] Services"<<endl;
         cout<<"[4] Information"<<endl;
-        cout << "[5] Workshop" << endl;
+        cout << "[5] Testing section" << endl;
 
         if(cin>>opt && opt<=5)
         {
