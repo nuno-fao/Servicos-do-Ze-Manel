@@ -5,6 +5,7 @@
 #include <iomanip>
 #include <iostream>
 #include <sstream>
+#include <queue>
 
 #include "client.h"
 #include "truck.h"
@@ -226,3 +227,12 @@ car_brand selectBrand(string temp_brand);
 * @return Returns a string representing a car brand
 */
 string printBrand(car_brand brand);
+/**
+*
+* @brief Searches the latest date
+* Retrieves the latest date in the given queue
+*
+* @param queue_to_check - pointer to a queue of pairs of pointers to Trucks and pointers to Dates to be checked
+* @return Returns the pointer to the latest date as a Date objects
+*/
+Date findMaxDate(queue<pair<Truck*, Date*>>* queue_to_check);

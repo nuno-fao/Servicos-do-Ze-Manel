@@ -183,6 +183,20 @@ void checkIfOut(string& temp) {
 	}
 }
 
+Date findMaxDate(queue<pair<Truck*, Date*>>* queue_to_check) {
+	queue<pair<Truck*, Date*>> temp = *queue_to_check;
+	Date d1 = *temp.front().second;
+
+	while (!temp.empty()) {
+		if (d1 < *temp.front().second)
+			d1 = *temp.front().second;
+		temp.pop();
+	}
+
+	return d1;
+}
+
+
 void printClassVector(vector<string>* t) {
 	for (auto i : *t) {
 		cout << i << endl;

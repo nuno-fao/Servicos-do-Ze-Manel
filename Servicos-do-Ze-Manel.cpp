@@ -15,6 +15,7 @@
 #include "misc.h"
 #include "driver.h"
 #include "workshop.h"
+#include "date.h"
 
 using namespace std;
 
@@ -33,6 +34,7 @@ void servicesInformation();
 void moneyInformation();
 void menu_inactive_clients();
 void workshopsInformation();
+void menu_workshops();
 
 Company *Company::company = nullptr;
 int main()
@@ -112,7 +114,7 @@ void mainMenu(){
         cout<<"[2] Trucks"<<endl;
         cout<<"[3] Services"<<endl;
         cout<<"[4] Information"<<endl;
-        cout << "[5] Testing section" << endl;
+        cout << "[5] Workshops" << endl;
 
         if(cin>>opt && opt<=5)
         {
@@ -138,7 +140,7 @@ void mainMenu(){
                 break;
             }
             case 5: {
-                Workshop::addWorkshop(Company::getCompany()->getWorkshopLine());
+                menu_workshops();
                 break;
             }
 
@@ -649,6 +651,36 @@ void clientsInformation(){
             clearBuffer();
             clearScreen();
             cout<<"Not a valid option, please try again"<<endl;
+        }
+    }
+}
+
+void menu_workshops() {
+    unsigned opt = 1;
+    clearScreen();
+    while (opt != 0) {
+        cout << "[1] Add Workshop" << endl;
+        cout << "[2] Testing area" << endl;
+        cout << "[0] Return" << endl;
+        if (cin >> opt && opt <= 2)
+        {
+            clearScreen();
+            switch (opt) {
+            case 0: {
+                return;
+            }
+            case 1: {
+                clearBuffer();
+                Workshop::addWorkshop(Company::getCompany()->getWorkshopLine());
+                break;
+            }
+            case 2:{
+                Date d1 = findMaxDate(Company::getCompany()->getWorkshopLine()->top()->getWaitingLine());
+                d1.show();
+                
+                break;
+            }
+            }
         }
     }
 }
