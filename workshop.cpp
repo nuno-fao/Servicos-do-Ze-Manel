@@ -173,6 +173,12 @@ void Workshop::addWorkshop(priority_queue<Workshop*>* workshop_line)
 	clearScreen();
 }
 
+unsigned int Workshop::calculateUnavailability(Date d1)
+{
+	Date now_date;
+	return (d1 - now_date) / 1440;
+}
+
 bool Workshop::operator<(Workshop w1)
 {
 	if (unavailability < w1.unavailability)

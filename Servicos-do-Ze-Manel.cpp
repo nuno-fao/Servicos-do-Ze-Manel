@@ -138,7 +138,6 @@ void mainMenu(){
                 break;
             }
             case 5: {
-                cout << boolalpha << verifyBrand("None") << endl;
                 break;
             }
 
@@ -2046,7 +2045,7 @@ void workshopsInformation() {
 	unsigned opt = 1;
 	clearScreen();
 	while (opt != 0) {
-		cout << "[1] Show Workshops (ordered by unavailability)" << endl;
+		cout << "[1] Show all Workshops (ordered by unavailability)" << endl;
 		cout << "[0] Return" << endl;
 		if (cin >> opt && opt <= 2)
 		{
