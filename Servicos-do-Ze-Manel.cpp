@@ -2044,6 +2044,10 @@ void menu_inactive_clients() {
 					cout << "Enter the Nif" << endl;
 
 					getline(cin, tempNif);
+                    if (tempNif=="!q") {
+                        clearScreen();
+                        return;
+                    }
 					checkIfOut(tempNif);
 					clearScreen();
 					if (strIsNumber(tempNif) && tempNif.size() == 9)
@@ -2053,7 +2057,6 @@ void menu_inactive_clients() {
 						cout << "Nif Input not acceptable, please try again" << endl;
 					}
 				}
-                clearBuffer();
                 int auxnif = stoi(tempNif);
                 if (Company::getCompany()->clientHash.size()) {
                     for (auto i : Company::getCompany()->clientHash) {
@@ -2069,7 +2072,6 @@ void menu_inactive_clients() {
                 }
                 else
                     cout << "There is no Information to show" << endl;
-                clearBuffer();
                 enter_to_exit();
                 break;
             }
