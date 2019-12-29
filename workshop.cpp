@@ -23,9 +23,9 @@ unsigned int Workshop::getUnavailability() const
 	return unavailability;
 }
 
-queue<pair<Truck*, Date*>> Workshop::getWaitingLine() const
+queue<pair<Truck *, Date *> > *Workshop::getWaitingLine()
 {
-	return waiting_line;
+    return &waiting_line;
 }
 
 void Workshop::setName(string n)
@@ -110,13 +110,13 @@ void Workshop::saveToFile(priority_queue<Workshop*>* workshopLine)
 			workshopFile << workshopLine->top()->getUnavailability() << endl;
 
 
-			while (!(workshopLine->top()->getWaitingLine().empty()))
+            while (!(workshopLine->top()->getWaitingLine()->empty()))
 			{
-				workshopFile << workshopLine->top()->getWaitingLine().front().first->getlicense() << ";";
-				workshopFile << workshopLine->top()->getWaitingLine().front().second->getDate() << ";";
+                workshopFile << workshopLine->top()->getWaitingLine()->front().first->getlicense() << ";";
+                workshopFile << workshopLine->top()->getWaitingLine()->front().second->getDate() << ";";
 
 				// Pop() not working, no clue why
-				workshopLine->top()->getWaitingLine().pop();
+                workshopLine->top()->getWaitingLine()->pop();
 			}
 
 			workshopFile << endl << discarded;
