@@ -132,7 +132,6 @@ void Workshop::saveToFile(priority_queue<Workshop*>* workshopLine)
 void Workshop::addWorkshop(priority_queue<Workshop*>* workshop_line)
 {
 	clearScreen();
-	clearBuffer();
 	string name, temp_brand;
 	string confirmstr;
 	car_brand brand;
@@ -165,6 +164,7 @@ void Workshop::addWorkshop(priority_queue<Workshop*>* workshop_line)
 		getline(cin, temp_brand);
 		if (temp_brand == "!q"){
 			clearScreen();
+			//clearBuffer();
 			return;
 		}
 
@@ -213,6 +213,7 @@ unsigned int Workshop::calculateUnavailability(Date d1)
 void Workshop::addService(Truck* truck, Date* date)
 {
 	getWaitingLine()->push(make_pair(truck, date));
+	
 }
 
 bool Workshop::operator<(Workshop w1)
