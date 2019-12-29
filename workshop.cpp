@@ -115,11 +115,10 @@ void Workshop::saveToFile(priority_queue<Workshop*>* workshopLine)
                 workshopFile << workshopLine->top()->getWaitingLine()->front().first->getlicense() << ";";
                 workshopFile << workshopLine->top()->getWaitingLine()->front().second->getDate() << ";";
 
-				// Pop() not working, no clue why
                 workshopLine->top()->getWaitingLine()->pop();
 			}
 
-			workshopFile << endl << discarded;
+			workshopFile << endl << discarded << endl;
 
 			workshopLine->pop();
 		}
@@ -177,6 +176,8 @@ void Workshop::addWorkshop(priority_queue<Workshop*>* workshop_line)
 		else
 			brand = selectBrand(temp_brand);
 	} while (invalidInput);
+
+	// Confirmation screen
 
 	do {
 		clearScreen();
