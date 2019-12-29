@@ -2056,13 +2056,14 @@ void workshopsInformation() {
 				return;
 			}
 			case 1:
+                // Copying to avoid destroying the queue
 				priority_queue<Workshop*> temp_priority_queue = *Company::getCompany()->getWorkshopLine();
 
 				while (!temp_priority_queue.empty()) {
 					temp_priority_queue.top()->info();
 					temp_priority_queue.pop();
 				}
-				clearBuffer(); // Might not need it
+				clearBuffer();
 				enter_to_exit();
 				break;
 			}
