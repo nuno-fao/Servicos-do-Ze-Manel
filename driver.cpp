@@ -44,6 +44,7 @@ void Driver::loadFromFile(){
             Driver *tmp;
             tmp=new Driver(nif_tmp,name,service_h);
             tmp_vect->insert(*tmp);
+            Company::getCompany()->driver_queue.push(nif_tmp);
         } catch (...) {
             continue;
         }
@@ -68,4 +69,15 @@ void Driver::saveToFile(){
 
 bool operator <( const Driver &a, const Driver &b){
     return a.getNif()<b.getNif();
+}
+
+
+void Driver::addDriver(){
+
+}
+void Driver::toogleDriverActiv(){
+    if(active){
+        active=false;
+    }
+    else active=true;
 }

@@ -120,50 +120,50 @@ void Company::updateTruckSituation(){
                         x->first->setregistered(false);
                     }
                 }
-				//adicionar á lista
+                //adicionar à lista
 				switch ((*it)->getType()) {
 				case type::ordinary:
-                    if (((*it)->getADate()->getMonth() + (*it)->getADate()->getYear() * 12) == unsigned(statNorm.back().first)) {
-                        statNorm.back().second += double((*it)->getTotalPrice());
+                    if (((*it)->getADate()->getMonth() + (*it)->getADate()->getYear() * 12-1) == unsigned(statNorm.begin()->first)) {
+                        statNorm.begin()->second += double((*it)->getTotalPrice());
 					}
 					else {
-						statNorm.push_back(make_pair((*it)->getADate()->getMonth() + (*it)->getADate()->getYear() * 12, (*it)->getTotalPrice()));
-						statHaz.push_back(make_pair((*it)->getADate()->getMonth() + (*it)->getADate()->getYear() * 12, 0));
-						statAnim.push_back(make_pair((*it)->getADate()->getMonth() + (*it)->getADate()->getYear() * 12, 0));
-						statCong.push_back(make_pair((*it)->getADate()->getMonth() + (*it)->getADate()->getYear() * 12, 0));
-					}
+                        statNorm.insert(statNorm.begin(),make_pair((*it)->getADate()->getMonth() + (*it)->getADate()->getYear() * 12-1, (*it)->getTotalPrice()));
+                        statHaz.insert(statHaz.begin(),make_pair((*it)->getADate()->getMonth() + (*it)->getADate()->getYear() * 12-1, 0));
+                        statAnim.insert(statAnim.begin(), make_pair((*it)->getADate()->getMonth() + (*it)->getADate()->getYear() * 12-1, 0));
+                        statCong.insert(statCong.begin(), make_pair((*it)->getADate()->getMonth() + (*it)->getADate()->getYear() * 12-1, 0));
+                    }
 					break;
 				case type::hazardous:
-                    if (((*it)->getADate()->getMonth() + (*it)->getADate()->getYear()*12) == unsigned(statHaz.back().first)) {
-                        statHaz.back().second += double((*it)->getTotalPrice());
+                    if (((*it)->getADate()->getMonth() + (*it)->getADate()->getYear()*12-1) == unsigned(statHaz.begin()->first)) {
+                        statHaz.begin()->second += double((*it)->getTotalPrice());
 					}
 					else {
-						statNorm.push_back(make_pair((*it)->getADate()->getMonth() + (*it)->getADate()->getYear() * 12, 0));
-						statHaz.push_back(make_pair((*it)->getADate()->getMonth() + (*it)->getADate()->getYear() * 12, (*it)->getTotalPrice()));
-						statAnim.push_back(make_pair((*it)->getADate()->getMonth() + (*it)->getADate()->getYear() * 12, 0));
-						statCong.push_back(make_pair((*it)->getADate()->getMonth() + (*it)->getADate()->getYear() * 12, 0));
+                        statNorm.insert(statNorm.begin(),make_pair((*it)->getADate()->getMonth() + (*it)->getADate()->getYear() * 12-1, 0));
+                        statHaz.insert(statHaz.begin(),make_pair((*it)->getADate()->getMonth() + (*it)->getADate()->getYear() * 12-1, (*it)->getTotalPrice()));
+                        statAnim.insert(statAnim.begin(),make_pair((*it)->getADate()->getMonth() + (*it)->getADate()->getYear() * 12-1, 0));
+                        statCong.insert(statCong.begin(),make_pair((*it)->getADate()->getMonth() + (*it)->getADate()->getYear() * 12-1, 0));
 					}
 					break;
 				case type::animal:
-                    if (((*it)->getADate()->getMonth() + (*it)->getADate()->getYear() * 12) == unsigned(statAnim.back().first)) {
-                        statAnim.back().second += double((*it)->getTotalPrice());
+                    if (((*it)->getADate()->getMonth() + (*it)->getADate()->getYear() * 12-1) == unsigned(statAnim.begin()->first)) {
+                        statAnim.begin()->second += double((*it)->getTotalPrice());
                     }
 					else {
-						statNorm.push_back(make_pair((*it)->getADate()->getMonth() + (*it)->getADate()->getYear() * 12, 0));
-						statHaz.push_back(make_pair((*it)->getADate()->getMonth() + (*it)->getADate()->getYear() * 12, 0));
-						statAnim.push_back(make_pair((*it)->getADate()->getMonth() + (*it)->getADate()->getYear() * 12, (*it)->getTotalPrice()));
-						statCong.push_back(make_pair((*it)->getADate()->getMonth() + (*it)->getADate()->getYear() * 12, 0));
+                        statNorm.insert(statNorm.begin(),make_pair((*it)->getADate()->getMonth() + (*it)->getADate()->getYear() * 12-1, 0));
+                        statHaz.insert(statHaz.begin(),make_pair((*it)->getADate()->getMonth() + (*it)->getADate()->getYear() * 12-1, 0));
+                        statAnim.insert(statAnim.begin(),make_pair((*it)->getADate()->getMonth() + (*it)->getADate()->getYear() * 12-1, (*it)->getTotalPrice()));
+                        statCong.insert(statCong.begin(),make_pair((*it)->getADate()->getMonth() + (*it)->getADate()->getYear() * 12-1, 0));
 					}
 					break;
 				case type::lowTemperature:
-                    if (((*it)->getADate()->getMonth() + (*it)->getADate()->getYear() * 12) == unsigned(statHaz.back().first)) {
-                        statCong.back().second += double((*it)->getTotalPrice());
+                    if (((*it)->getADate()->getMonth() + (*it)->getADate()->getYear() * 12-1) == unsigned(statHaz.begin()->first)) {
+                        statCong.begin()->second += double((*it)->getTotalPrice());
 					}
 					else {
-						statNorm.push_back(make_pair((*it)->getADate()->getMonth() + (*it)->getADate()->getYear() * 12, 0));
-						statHaz.push_back(make_pair((*it)->getADate()->getMonth() + (*it)->getADate()->getYear() * 12, 0));
-						statAnim.push_back(make_pair((*it)->getADate()->getMonth() + (*it)->getADate()->getYear() * 12, 0));
-						statCong.push_back(make_pair((*it)->getADate()->getMonth() + (*it)->getADate()->getYear() * 12, (*it)->getTotalPrice()));
+                        statNorm.insert(statNorm.begin(),make_pair((*it)->getADate()->getMonth() + (*it)->getADate()->getYear() * 12-1, 0));
+                        statHaz.insert(statHaz.begin(),make_pair((*it)->getADate()->getMonth() + (*it)->getADate()->getYear() * 12-1, 0));
+                        statAnim.insert(statAnim.begin(),make_pair((*it)->getADate()->getMonth() + (*it)->getADate()->getYear() * 12-1, 0));
+                        statCong.insert(statCong.begin(),make_pair((*it)->getADate()->getMonth() + (*it)->getADate()->getYear() * 12-1, (*it)->getTotalPrice()));
 					}
 					break;
 				}
@@ -210,7 +210,15 @@ void Company::updateServicesSituation(){
         for(auto it=services_on_transit.begin(); it!= services_on_transit.end();it++){
             if(*(*it)->getADate()<f){
                 (*it)->setState(finished);
+                int hours=(*it)->getADate()-(*it)->getIDate();
                 Company::getCompany()->services_on_queue_changed=true;
+                for(auto i:(*it)->drivers){
+                    Company::getCompany()->driver_queue.push(stoi(i));
+                    Driver tmp=drivers.find(Driver(stoi(i),"",0));
+                    drivers.remove(tmp);
+                    tmp.setServiceHours(tmp.getServiceHours()+hours/60);
+                    drivers.insert(tmp);
+                }
             }
             else{
                 continue;
@@ -223,7 +231,8 @@ void Company::updateServicesSituation(){
             if(*(*it)->getIDate()<f){
                 (*it)->setState(on_transit);
                 for(size_t i=0;i<(*it)->getTrucks()->size();i++){
-                    //(*it)->drivers.push_back(driver_queue.front());
+                    (*it)->drivers.push_back(to_string(Company::getCompany()->driver_queue.front()));
+                    Company::getCompany()->driver_queue.pop();
                 }
                 Company::getCompany()->services_on_queue_changed=true;
             }
@@ -244,7 +253,7 @@ void Company::loadStats() {
 	statfile.open("files//stats.txt");
 	while (getline(statfile, aux)) {
 		getline(statfile, aux);
-		ano_mes = stoi(aux);
+        ano_mes = stoi(aux);
 		getline(statfile, aux);
 		auxVec = vectorString(aux,separator);
 		statHaz.push_back(make_pair(ano_mes,stod(auxVec[0])));
