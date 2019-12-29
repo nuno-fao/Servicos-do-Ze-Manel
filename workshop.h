@@ -29,7 +29,7 @@ public:
     string getName() const;
     car_brand getBrand() const;
     unsigned int getUnavailability() const;
-    queue<pair<Truck*, Date*>> getWaitingLine() const;
+    queue<pair<Truck*, Date*>> *getWaitingLine();
     
     void setName(string n);
     void setBrand(car_brand b);
