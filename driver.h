@@ -24,10 +24,14 @@ public:
 
     static void loadFromFile();
     static void saveToFile();
+    static void addDriver();
+    void toogleDriverActiv();
+
 private:
     int nif;
     string name;
     float service_hours;
+    bool active;
 };
 
 bool operator <(const Driver &a,const Driver &b);
