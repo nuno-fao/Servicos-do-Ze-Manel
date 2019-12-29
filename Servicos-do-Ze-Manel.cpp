@@ -138,6 +138,7 @@ void mainMenu(){
                 break;
             }
             case 5: {
+                cout << boolalpha << verifyBrand("None") << endl;
                 break;
             }
 

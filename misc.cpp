@@ -287,6 +287,24 @@ bool checkLicenseV2(string license) {
 	return false;
 }
 
+bool checkWorkshopName(string name)
+{
+	priority_queue<Workshop*>* temp_workshop_line = Company::getCompany()->getWorkshopLine();
+	
+	if (!strIsChar(name))
+		return false;
+
+	while (!temp_workshop_line->empty()) {
+		if (temp_workshop_line->top()->getName() == name) {
+			return false;
+		}
+		temp_workshop_line->pop();
+	}
+	
+	enter_to_exit();
+	return true;
+}
+
 long askForId(string classToAsk, string what_to_do, string identifier) {
 	string id;
 	cout << "Which " + classToAsk + " you want to " + what_to_do + " ( write " + classToAsk + "'s " + identifier + " ):" << endl;
@@ -321,6 +339,28 @@ bool overAYear(Date date) {
 	Date aux;
 	aux.setYear(aux.getYear() - 1);
 	return !(aux < date);
+}
+
+bool verifyBrand(string temp_brand)
+{
+	if (temp_brand == "Mercedes")
+		return true;
+	else if (temp_brand == "Man")
+		return true;
+	else if (temp_brand == "Volvo")
+		return true;
+	else if (temp_brand == "Iveco")
+		return true;
+	else if (temp_brand == "Scania")
+		return true;
+	else if (temp_brand == "Volkswagen")
+		return true;
+	else if (temp_brand == "Mitsubishi")
+		return true;
+	else if(temp_brand == "None")
+		return true;
+	else
+		return false;
 }
 
 car_brand selectBrand(string temp_brand)

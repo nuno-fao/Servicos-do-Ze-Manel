@@ -39,6 +39,8 @@ public:
     static void loadFromFile(priority_queue<Workshop*>* workshopLine);
     static void saveToFile(priority_queue<Workshop*>* workshopLine);
 
+    static void addWorkshop(priority_queue<Workshop*>* workshop_line);
+
     void info();
 
     bool operator<(Workshop w1);

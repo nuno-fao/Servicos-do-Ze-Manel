@@ -130,6 +130,49 @@ void Workshop::saveToFile(priority_queue<Workshop*>* workshopLine)
 	workshopFile.close();
 }
 
+void Workshop::addWorkshop(priority_queue<Workshop*>* workshop_line)
+{
+	clearScreen();
+	string name, temp_brand;
+	car_brand brand;
+	bool invalidInput;
+
+	do {
+		invalidInput = false;
+		cout << "Please input the new Workshop's name: " << endl; 
+		getline(cin, name);
+		if (name == "!q") 
+			return;
+
+		//Verifies if workshop already exists.
+		if (!checkWorkshopName(name)) {
+			invalidInput = true;
+			clearScreen();
+		}
+	} while (invalidInput);
+
+	clearScreen();
+
+	do {
+		invalidInput = false;
+		cout << "Please input the new Workshop's name: " << name << endl;
+		cout << "Please input the new Workshop's brand: " << endl;
+		getline(cin, temp_brand);
+		if (temp_brand == "!q") 
+			return;
+
+		// Verifies if brand if valid
+		if (!verifyBrand(temp_brand)) {
+			invalidInput = true;
+			clearScreen();
+		}
+		else
+			brand = selectBrand(temp_brand);
+	} while (invalidInput);
+
+	clearScreen();
+}
+
 bool Workshop::operator<(Workshop w1)
 {
 	if (unavailability < w1.unavailability)
