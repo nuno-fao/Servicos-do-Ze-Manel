@@ -90,7 +90,7 @@ int main()
 
     }
 
-    Workshop::loadFromFile();
+    Workshop::loadFromFile(Ze_Manel->getWorkshopLine());
 
     //Service::test();
     mainMenu();

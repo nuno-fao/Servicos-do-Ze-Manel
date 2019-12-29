@@ -48,7 +48,7 @@ void Workshop::setWaitingLine(queue<pair<Truck*, Date*>> wl)
 	waiting_line = wl;
 }
 
-void Workshop::loadFromFile()
+void Workshop::loadFromFile(priority_queue<Workshop*>* workshopLine)
 {
 	ifstream workshopFile;
 	workshopFile.open("./files/workshops.txt");
@@ -58,8 +58,6 @@ void Workshop::loadFromFile()
 	string temp_unavailability;
 	string discarded;
 	vector<string> vectored_pairs;
-
-	priority_queue<Workshop*>* temp_wait_line = Company::getCompany()->getWorkshopLine();
 
 	while (!workshopFile.eof()) {
 		
@@ -87,7 +85,7 @@ void Workshop::loadFromFile()
 
 			Workshop* new_workshop = new Workshop(name, brand, unavailability, *waiting_line);
 
-			temp_wait_line->push(new_workshop);
+			workshopLine->push(new_workshop);
 		}
 		catch (...) {
 			continue;
@@ -96,35 +94,34 @@ void Workshop::loadFromFile()
 	workshopFile.close();
 }
 
-void Workshop::saveToFile()
+void Workshop::saveToFile(priority_queue<Workshop*>* workshopLine)
 {
 	ofstream workshopFile;
 	workshopFile.open("./files/workshops.txt");
 
 	string discarded = "::::::::::::::::::::::::::::";
 
-	priority_queue<Workshop*>* temp_wait_line = Company::getCompany()->getWorkshopLine();
 
-
-	while(!temp_wait_line->empty()) {
+	while(!workshopLine->empty()) {
 	
 		try {
-			workshopFile << temp_wait_line->top()->getName() << endl;
-			workshopFile << printBrand(temp_wait_line->top()->getBrand()) << endl;
-			workshopFile << temp_wait_line->top()->getUnavailability() << endl;
+			workshopFile << workshopLine->top()->getName() << endl;
+			workshopFile << printBrand(workshopLine->top()->getBrand()) << endl;
+			workshopFile << workshopLine->top()->getUnavailability() << endl;
 
 
-			while (!(temp_wait_line->top()->getWaitingLine().empty()))
+			while (!(workshopLine->top()->getWaitingLine().empty()))
 			{
-				workshopFile << temp_wait_line->top()->getWaitingLine().front().first->getlicense() << ";";
-				workshopFile << temp_wait_line->top()->getWaitingLine().front().second->getDate() << ";";
+				workshopFile << workshopLine->top()->getWaitingLine().front().first->getlicense() << ";";
+				workshopFile << workshopLine->top()->getWaitingLine().front().second->getDate() << ";";
 
-				temp_wait_line->top()->getWaitingLine().pop();
+				// Pop() not working, no clue why
+				workshopLine->top()->getWaitingLine().pop();
 			}
 
 			workshopFile << endl << discarded;
 
-			temp_wait_line->pop();
+			workshopLine->pop();
 		}
 		catch (...) {
 			continue;

@@ -36,8 +36,8 @@ public:
     void setUnavailability(unsigned int ua);
     void setWaitingLine(queue<pair<Truck*, Date*>> wl);
 
-    static void loadFromFile();
-    static void saveToFile();
+    static void loadFromFile(priority_queue<Workshop*>* workshopLine);
+    static void saveToFile(priority_queue<Workshop*>* workshopLine);
 
     void info();
 
