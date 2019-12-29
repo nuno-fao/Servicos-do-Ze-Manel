@@ -138,7 +138,6 @@ void mainMenu(){
                 break;
             }
             case 5: {
-                Workshop::addWorkshop(Company::getCompany()->getWorkshopLine());
                 break;
             }
 
