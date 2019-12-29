@@ -1,3 +1,4 @@
+#pragma once
 #ifndef _BST_H_
 #define _BST_H_
 
@@ -37,7 +38,7 @@ class BST
 public:
     explicit BST( const Comparable & notFound );
     BST( const BST & rhs );
-    BST():ITEM_NOT_FOUND(Comparable()){
+    BST():ITEM_NOT_FOUND(new Comparable()){
 
     }
     ~BST( );
@@ -59,7 +60,7 @@ public:
 
 private:
     BinaryNode<Comparable> *root;
-    const Comparable ITEM_NOT_FOUND;
+    const Comparable *ITEM_NOT_FOUND;
 
     const Comparable & elementAt( BinaryNode<Comparable> *t ) const;
 
@@ -188,7 +189,7 @@ const Comparable & BST<Comparable>::
 elementAt( BinaryNode<Comparable> *t ) const
 {
     if( t == NULL )
-        return ITEM_NOT_FOUND;
+        return *ITEM_NOT_FOUND;
     else
         return t->element;
 }

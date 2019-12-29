@@ -190,7 +190,7 @@ public:
 * @return Returns a vector containing pairs that represents the number of trucks of that type that have a determined capacity
 */
 	vector<pair<int, double>> getStatNorm() { return statNorm; }
-    BST<Driver*> *getDrivers();
+    BST<Driver> *getDrivers();
 
 
 /**
@@ -219,7 +219,7 @@ private:
     vector<pair<int, double>> statHaz;
     vector<pair<int, double>> statNorm;
     vector<pair<int, double>> statAnim;
-    BST<Driver*> drivers;
+    BST<Driver> drivers;
     priority_queue<Workshop*> workshop_line;
 
 };

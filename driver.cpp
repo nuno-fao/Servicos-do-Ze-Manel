@@ -34,7 +34,7 @@ void Driver::loadFromFile(){
     string serviceHours;
     int nif_tmp;
     float service_h;
-    BST<Driver*> *tmp_vect=Company::getCompany()->getDrivers();
+    BST<Driver> *tmp_vect=Company::getCompany()->getDrivers();
     while(getline(driverFile,nif)){
         getline(driverFile,name);
         getline(driverFile,serviceHours);
@@ -43,7 +43,7 @@ void Driver::loadFromFile(){
             service_h=stof(serviceHours);
             Driver *tmp;
             tmp=new Driver(nif_tmp,name,service_h);
-            tmp_vect->insert(tmp);
+            tmp_vect->insert(*tmp);
         } catch (...) {
             continue;
         }
@@ -53,14 +53,19 @@ void Driver::loadFromFile(){
 void Driver::saveToFile(){
     ofstream driverFile;
     driverFile.open("./files/drivers.txt");
-    BST<Driver*> *tmp=Company::getCompany()->getDrivers();
-    BSTItrLevel<Driver*> i(*tmp);
+    BST<Driver> *tmp=Company::getCompany()->getDrivers();
+    BSTItrLevel<Driver> i(*tmp);
 
     while(!i.isAtEnd()){
-        driverFile<<i.retrieve()->getNif()<<endl;
-        driverFile<<i.retrieve()->getName()<<endl;
-        driverFile<<i.retrieve()->getServiceHours()<<endl;
+        driverFile<<i.retrieve().getNif()<<endl;
+        driverFile<<i.retrieve().getName()<<endl;
+        driverFile<<i.retrieve().getServiceHours()<<endl;
         i.advance();
         driverFile<<"::::::::::"<<endl;
     }
+}
+
+
+bool operator <( const Driver &a, const Driver &b){
+    return a.getNif()<b.getNif();
 }

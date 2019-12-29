@@ -62,6 +62,7 @@ public:
 *
 * @return Returns the destiny of the service as Address data type
 */
+
     Address getDestination() const;
 	/**
 * @brief Gets distance
@@ -314,7 +315,7 @@ public:
     friend ostream& operator<<(ostream& os, Service *a);
 
     static set<unsigned> idList;
-    vector<Driver*> drivers;
+    vector<string> drivers;
 
 protected:
     Service(string material,Address origin, Address destination, Date *arrivalDate, unsigned distance, type type, state state, Date *date,Client *client,float quantity);
