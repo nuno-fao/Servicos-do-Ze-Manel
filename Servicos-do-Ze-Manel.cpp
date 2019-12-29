@@ -138,6 +138,7 @@ void mainMenu(){
                 break;
             }
             case 5: {
+                Workshop::addWorkshop(Company::getCompany()->getWorkshopLine());
                 break;
             }
 
@@ -2055,11 +2056,11 @@ void workshopsInformation() {
 				return;
 			}
 			case 1:
-				priority_queue<Workshop*> * temp_priority_queue = Company::getCompany()->getWorkshopLine();
+				priority_queue<Workshop*> temp_priority_queue = *Company::getCompany()->getWorkshopLine();
 
-				while (!temp_priority_queue->empty()) {
-					temp_priority_queue->top()->info();
-					temp_priority_queue->pop();
+				while (!temp_priority_queue.empty()) {
+					temp_priority_queue.top()->info();
+					temp_priority_queue.pop();
 				}
 				clearBuffer(); // Might not need it
 				enter_to_exit();

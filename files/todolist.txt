@@ -1,0 +1,7 @@
+Problems found:
+
+Workshop::savetoFile() not working - while in line 113 is repeating infinitely
+
+Workshop::addWorkshop() not working properly - option 1 in workshopsInformation deletes the workshops previously registered
+
+Exiting the inactive clients menu while searching for a specific client with !q throws an unhandled exception

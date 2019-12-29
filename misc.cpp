@@ -301,7 +301,6 @@ bool checkWorkshopName(string name)
 		temp_workshop_line->pop();
 	}
 	
-	enter_to_exit();
 	return true;
 }
 
