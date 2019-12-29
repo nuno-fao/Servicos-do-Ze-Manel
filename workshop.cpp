@@ -212,8 +212,19 @@ unsigned int Workshop::calculateUnavailability(Date d1)
 
 void Workshop::addService(Truck* truck, Date* date)
 {
-	getWaitingLine()->push(make_pair(truck, date));
+	Date maxDate;
 	
+	getWaitingLine()->push(make_pair(truck, date));
+
+	priority_queue<Workshop*> temp_workshops = *Company::getCompany()->getWorkshopLine();
+
+	while (!temp_workshops.empty()) {
+		maxDate = findMaxDate(temp_workshops.top()->getWaitingLine());
+		temp_workshops.pop();
+	}
+
+	setUnavailability(calculateUnavailability(maxDate));
+
 }
 
 bool Workshop::operator<(Workshop w1)

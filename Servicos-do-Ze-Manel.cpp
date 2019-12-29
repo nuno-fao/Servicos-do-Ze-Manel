@@ -675,8 +675,12 @@ void menu_workshops() {
                 break;
             }
             case 2:{
-                Date d1 = findMaxDate(Company::getCompany()->getWorkshopLine()->top()->getWaitingLine());
-                d1.show();
+                Truck* truck = new Truck("78-WE-80", true, true, 1000, 150);
+                Date* date = new Date();
+                Company::getCompany()->getWorkshopLine()->top()->addService(truck, date);
+
+                cout << Company::getCompany()->getWorkshopLine()->top()->getName() << endl;
+                cout << Company::getCompany()->getWorkshopLine()->top()->getUnavailability() << endl;
                 
                 break;
             }
@@ -691,7 +695,7 @@ void trucksInformation() {
     while (opt != 0) {
         cout << "[1] See all" << endl;
         cout << "[2] See Congelation trucks" << endl;
-        cout << "[3] See Hazardous Material trucks" << endl; // Não funciona
+        cout << "[3] See Hazardous Material trucks" << endl;
         cout << "[4] See Animal Material trucks" << endl;
         cout << "[5] See Normal Material trucks" << endl;
         cout << "[6] Show Trucks with Services on queue" << endl;
