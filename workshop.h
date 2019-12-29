@@ -44,7 +44,7 @@ public:
     // Calculates Unavailability by checking the date (which will be the most recent date in the priority_queue)
     unsigned int calculateUnavailability(Date d1);
 
-
+    void addService(Truck* truck, Date* date);
 
     void info();
 

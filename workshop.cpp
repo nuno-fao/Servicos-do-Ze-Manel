@@ -23,7 +23,7 @@ unsigned int Workshop::getUnavailability() const
 	return unavailability;
 }
 
-queue<pair<Truck *, Date *> > *Workshop::getWaitingLine()
+queue<pair<Truck*, Date*>> *Workshop::getWaitingLine()
 {
     return &waiting_line;
 }
@@ -208,6 +208,11 @@ unsigned int Workshop::calculateUnavailability(Date d1)
 {
 	Date now_date;
 	return (d1 - now_date) / 1440;
+}
+
+void Workshop::addService(Truck* truck, Date* date)
+{
+	getWaitingLine()->push(make_pair(truck, date));
 }
 
 bool Workshop::operator<(Workshop w1)

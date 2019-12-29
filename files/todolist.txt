@@ -1,7 +1,7 @@
 Problems found:
 
-Exiting the program prints "Salvo com sucesso" but throws an unhandled exception 
+Adding a Workshop deletes the workshops previously stored (see testing section)
 
-Workshop::addWorkshop() not working properly - option 1 in workshopsInformation deletes the workshops previously registered
+Exiting the program prints "Salvo com sucesso" but throws an unhandled exception 
 
 Exiting the inactive clients menu while searching for a specific client with !q throws an unhandled exception
