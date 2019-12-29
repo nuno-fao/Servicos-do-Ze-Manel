@@ -69,9 +69,9 @@ public:
 *
 * Constructs the object by parsing the received string
 *
-* @param date - string containing all the informatio in the format "yyyy/mm/dd"
+* @param date - string containing all the informatio in the format "yyyy/mm/dd/hh/mm"
 */
-	Date(string date); // date must be in format "yyyy/mm/dd"
+	Date(string date); // date must be in format "yyyy/mm/dd/hh/mm"
 
 	// GET METHODS
 

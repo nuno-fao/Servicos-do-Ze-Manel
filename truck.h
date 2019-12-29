@@ -110,7 +110,7 @@ public:
 * @return Returns nothing
 */
     void setregistered(bool foo);
-	/**
+/**
 * @brief Sets available
 *
 *
@@ -118,8 +118,7 @@ public:
 * @return Returns nothing
 */
     void setavailable(bool foo);
-    //load and save to file
-		/**
+/**
 * @brief loads trucks and price multipliers from file trucks.txt with the specified format
 *
 *

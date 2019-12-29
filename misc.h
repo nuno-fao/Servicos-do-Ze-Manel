@@ -16,6 +16,8 @@
 #define min2(a, b) ((a) < (b) ? (a) : (b))
 using namespace std;
 
+enum class car_brand;
+
 class Client;
 class Truck;
 class Company;
@@ -85,7 +87,6 @@ void checkIfOut(string &temp);
 * @return Returns the index of the Client or -1 if not found
 */
 int binaryCustomfind(vector<Client*> *vetor, unsigned val);
-
 /**
 *
 * @brief Prints Service
@@ -134,6 +135,15 @@ bool checkLicense(string license, vector<Truck*>* trucks);
 * @return Returns true or false
 */
 bool checkLicenseV2(string license);
+/**
+*
+* Checks if the name given is valid and if Workshop with that name already exists
+*
+*
+* @param name - name to verify
+* @return Returns true if name given is valid and doesn't exist yet
+*/
+bool checkWorkshopName(string name);
 
 /**
 *
@@ -192,3 +202,27 @@ bool cmpOnTransit(Service *a,Service *b);
 * @return Returns true if it has passed a year since the date given has an argument, false otherwise
 */
 bool overAYear(Date date);
+/**
+*
+* @brief Verifies if given string is a valid brand
+*
+* @param temp_brand - string containing brand to verify
+* @return Returns true if string can represent a brand, false otherwise
+*/
+bool verifyBrand(string temp_brand);
+/**
+*
+* @brief Transforms string into a car brand
+*
+* @param temp_brand - brand as a string to be converted
+* @return Returns a car_brand type corresponding to the string passed
+*/
+car_brand selectBrand(string temp_brand);
+/**
+*
+* @brief Transforms car brand type into a string
+*
+* @param brand - car brand type to be transformed
+* @return Returns a string representing a car brand
+*/
+string printBrand(car_brand brand);

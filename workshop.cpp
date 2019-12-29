@@ -1,23 +1,11 @@
 #include "workshop.h"
 
-Workshop::Workshop(string n = "unknown", car_brand b = car_brand::None, unsigned ua = 0, wait_queue wl)
+Workshop::Workshop(string n, car_brand b, unsigned ua, queue<pair<Truck*, Date*>> wl)
 {
 	name = n;
 	brand = b;
 	unavailability = ua;
 	waiting_line = wl;
-}
-
-Workshop::Workshop(string n)
-{
-	name = n;
-	brand = car_brand::None;
-	unavailability = 0;
-
-	Truck* default_truck = NULL;
-	Date default_date;
-	pair<Truck*, Date> default_pair(default_truck, default_date);
-	waiting_line.push(default_pair);
 }
 
 string Workshop::getName() const
@@ -35,7 +23,7 @@ unsigned int Workshop::getUnavailability() const
 	return unavailability;
 }
 
-queue<pair<Truck*, Date>> Workshop::getWaitingLine() const
+queue<pair<Truck*, Date*>> Workshop::getWaitingLine() const
 {
 	return waiting_line;
 }
@@ -55,68 +43,161 @@ void Workshop::setUnavailability(unsigned int ua)
 	unavailability = ua;
 }
 
-void Workshop::setWaitingLine(wait_queue wl)
+void Workshop::setWaitingLine(queue<pair<Truck*, Date*>> wl)
 {
 	waiting_line = wl;
 }
 
-void Workshop::loadFromFile()
+void Workshop::loadFromFile(priority_queue<Workshop*>* workshopLine)
 {
-	//string nif;
-	//string name;
-	//string serviceHours;
-	//int nif_tmp;
-	//float service_h;
-	//BST<Driver*>* tmp_vect = Company::getCompany()->getDrivers();
-	//while (getline(driverFile, nif)) {
-	//	getline(driverFile, name);
-	//	getline(driverFile, serviceHours);
-	//	try {
-	//		nif_tmp = stoi(nif);
-	//		service_h = stof(serviceHours);
-	//		Driver* tmp;
-	//		tmp = new Driver(nif_tmp, name, service_h);
-	//		tmp_vect->push_back(tmp);
-	//	}
-	//	catch (...) {
-	//		continue;
-	//	}
-	//}
-
-
-
 	ifstream workshopFile;
 	workshopFile.open("./files/workshops.txt");
 
 	string temp_string_pair;
 	string temp_brand;
 	string temp_unavailability;
-
-	string name;
-	car_brand brand;
-	unsigned int unavailability;
-	wait_queue waiting_line;
-	priority_queue<Workshop*>* temp_wait_line = Company::getCompany()->getWorkshopLine();
+	string discarded;
+	vector<string> vectored_pairs;
 
 	while (!workshopFile.eof()) {
+		
+		string name;
+		car_brand brand;
+		unsigned int unavailability;	
+		queue<pair<Truck*, Date*>>* waiting_line = new queue<pair<Truck*, Date*>>();
+		
 		getline(workshopFile, name);
 		getline(workshopFile, temp_brand);
 		getline(workshopFile, temp_unavailability);
 		getline(workshopFile, temp_string_pair);
+		getline(workshopFile, discarded);
 		try {
-			nif_tmp = stoi(nif);
-			service_h = stof(serviceHours);
-			Driver* tmp;
-			tmp = new Driver(nif_tmp, name, service_h);
-			tmp_vect->push_back(tmp);
+			brand = selectBrand(temp_brand);
+			unavailability = stoi(temp_unavailability);
+			vectored_pairs = vectorString(temp_string_pair, ";");
+			
+			for (int i = 0; i < vectored_pairs.size() - 1; i+=2)
+			{				
+				Truck* new_truck = Company::getCompany()->getTruck(vectored_pairs.at(i));
+				Date* new_date = new Date(vectored_pairs.at(i+1));
+				waiting_line->push(make_pair(new_truck, new_date));
+			}
+
+			Workshop* new_workshop = new Workshop(name, brand, unavailability, *waiting_line);
+
+			workshopLine->push(new_workshop);
 		}
 		catch (...) {
 			continue;
 		}
 	}
-
+	workshopFile.close();
 }
 
-void Workshop::saveToFile()
+void Workshop::saveToFile(priority_queue<Workshop*>* workshopLine)
 {
+	ofstream workshopFile;
+	workshopFile.open("./files/workshops.txt");
+
+	string discarded = "::::::::::::::::::::::::::::";
+
+
+	while(!workshopLine->empty()) {
+	
+		try {
+			workshopFile << workshopLine->top()->getName() << endl;
+			workshopFile << printBrand(workshopLine->top()->getBrand()) << endl;
+			workshopFile << workshopLine->top()->getUnavailability() << endl;
+
+
+			while (!(workshopLine->top()->getWaitingLine().empty()))
+			{
+				workshopFile << workshopLine->top()->getWaitingLine().front().first->getlicense() << ";";
+				workshopFile << workshopLine->top()->getWaitingLine().front().second->getDate() << ";";
+
+				// Pop() not working, no clue why
+				workshopLine->top()->getWaitingLine().pop();
+			}
+
+			workshopFile << endl << discarded;
+
+			workshopLine->pop();
+		}
+		catch (...) {
+			continue;
+		}
+	}
+	workshopFile.close();
+}
+
+void Workshop::addWorkshop(priority_queue<Workshop*>* workshop_line)
+{
+	clearScreen();
+	string name, temp_brand;
+	car_brand brand;
+	bool invalidInput;
+
+	do {
+		invalidInput = false;
+		cout << "Please input the new Workshop's name: " << endl; 
+		getline(cin, name);
+		if (name == "!q") 
+			return;
+
+		//Verifies if workshop already exists.
+		if (!checkWorkshopName(name)) {
+			invalidInput = true;
+			clearScreen();
+		}
+	} while (invalidInput);
+
+	clearScreen();
+
+	do {
+		invalidInput = false;
+		cout << "Please input the new Workshop's name: " << name << endl;
+		cout << "Please input the new Workshop's brand: " << endl;
+		getline(cin, temp_brand);
+		if (temp_brand == "!q") 
+			return;
+
+		// Verifies if brand if valid
+		if (!verifyBrand(temp_brand)) {
+			invalidInput = true;
+			clearScreen();
+		}
+		else
+			brand = selectBrand(temp_brand);
+	} while (invalidInput);
+
+	clearScreen();
+}
+
+unsigned int Workshop::calculateUnavailability(Date d1)
+{
+	Date now_date;
+	return (d1 - now_date) / 1440;
+}
+
+bool Workshop::operator<(Workshop w1)
+{
+	if (unavailability < w1.unavailability)
+		return true;
+	return false;
+}
+
+void Workshop::info() {
+	cout << "Name: " << name << endl;
+	cout << "Brand: " << printBrand(brand) << endl;
+	cout << "Unavailability: " << to_string(unavailability) << endl;
+	
+	queue<pair<Truck*, Date*>> temp_queue = waiting_line;
+
+	while (!temp_queue.empty()) {
+		cout << "Truck: " << temp_queue.front().first->getlicense() << endl;
+		cout << "Date: ";
+		temp_queue.front().second->show();
+		temp_queue.pop();
+	}
+	cout << "::::::::::::::::::::::::::::" << endl;
 }
