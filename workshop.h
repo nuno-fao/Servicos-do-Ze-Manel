@@ -19,7 +19,6 @@ enum class car_brand { Mercedes, Man, Ford, Volvo, Iveco, Scania, Volkswagen, Mi
 // Falta fazer update das cenas no clearScreen()
 // Falta fazer as funcoes de pesquisa indicadas no pdf
 // Falta corrigir os bugs reportados no todolist.txt
-// Falta fazer o destrutor
 
 
 class Workshop {
@@ -40,7 +39,6 @@ public:
  * @param wl - Queue of Services, indicated by pairs of pointers to the truck and date the service finishes 
  */
 	Workshop(string n, car_brand b, unsigned unavailability, queue<pair<Truck*, Date*>> wl);
-
 /**
 * @brief Gets name
 *
