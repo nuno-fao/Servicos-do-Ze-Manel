@@ -88,7 +88,7 @@ void Driver::addDriver(){
             nif=stoi(nif_s);
             //Company::getCompany
         }
-        carch(...){
+        catch(...){
            clearScreen();
            cout<<"NIF not valid, please try again"<<endl;
         }

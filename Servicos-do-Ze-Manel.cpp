@@ -661,8 +661,10 @@ void menu_workshops() {
     while (opt != 0) {
         cout << "[1] Add Workshop" << endl;
         cout << "[2] Testing area" << endl;
+        cout << "[3] Edit Workshop" << endl;
+        cout << "[4] Delete Workshop" << endl;
         cout << "[0] Return" << endl;
-        if (cin >> opt && opt <= 2)
+        if (cin >> opt && opt <= 4)
         {
             clearScreen();
             switch (opt) {
@@ -675,13 +677,28 @@ void menu_workshops() {
                 break;
             }
             case 2:{
+                // ADDING SERVICE
+                /* Not working, not sure why
                 Truck* truck = new Truck("78-WE-80", true, true, 1000, 150);
                 Date* date = new Date();
+
                 Company::getCompany()->getWorkshopLine()->top()->addService(truck, date);
 
                 cout << Company::getCompany()->getWorkshopLine()->top()->getName() << endl;
-                cout << Company::getCompany()->getWorkshopLine()->top()->getUnavailability() << endl;
+                cout << Company::getCompany()->getWorkshopLine()->top()->getUnavailability() << endl;*/
                 
+                break;
+            }
+            case 3: {
+                /* Also not working, not sure why
+                clearBuffer();
+                Workshop::editWorkshop(Company::getCompany()->getWorkshopLine());
+                */
+                break;
+            }
+            case 4: {
+                clearBuffer();
+                Workshop::deleteWorkshop(Company::getCompany()->getWorkshopLine());
                 break;
             }
             }

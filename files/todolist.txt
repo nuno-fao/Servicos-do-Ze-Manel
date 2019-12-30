@@ -1,6 +1,12 @@
 Problems found:
 
-Adding a Workshop deletes the workshops previously stored (see testing section)
+Adding a Workshop should require no services but I need to store a service for load to work - not sure how to solve this
+
+Adding a Workshop deletes the workshops previously stored
+
+Editing a deletes the workshops previously stored
+
+Adding a service to a Workshop doesn't work properly
 
 Exiting the program prints "Salvo com sucesso" but throws an unhandled exception 
 
