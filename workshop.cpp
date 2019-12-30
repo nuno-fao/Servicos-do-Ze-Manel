@@ -406,6 +406,7 @@ void Workshop::addService(Truck* truck, Date* date)
 
 }
 
+
 bool Workshop::operator<(Workshop &w1)
 {
 	if (unavailability < w1.unavailability)

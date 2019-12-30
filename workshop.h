@@ -18,7 +18,6 @@ enum class car_brand { Mercedes, Man, Ford, Volvo, Iveco, Scania, Volkswagen, Mi
 // TODO: 
 // Falta fazer update das cenas no clearScreen()
 // Falta fazer as funcoes de pesquisa indicadas no pdf
-// Falta fazer editService() e removeService()
 // Falta corrigir os bugs reportados no todolist.txt
 // Falta fazer o destrutor
 
