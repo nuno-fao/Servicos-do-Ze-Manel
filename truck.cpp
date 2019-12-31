@@ -33,24 +33,25 @@ Truck::~Truck(){
 };
 
 
-Truck::Truck(string license, bool available, bool registered, unsigned short capacity, unsigned short cargo) {
+Truck::Truck(string license, bool available, bool registered, unsigned short capacity, unsigned short cargo, car_brand brand) {
     this->license=license;
     this->available = available;
     this->registered = registered;
     this->capacity = capacity;
     this->cargo = cargo;
+    this->brand = brand;
 }
 
-Congelation::Congelation(string license_c, bool available_c, bool registered_c, unsigned short capacity_c, unsigned short cargo_c) : Truck(license_c,available_c,registered_c, capacity_c, cargo_c) {
+Congelation::Congelation(string license_c, bool available_c, bool registered_c, unsigned short capacity_c, unsigned short cargo_c, car_brand brand_c) : Truck(license_c,available_c,registered_c, capacity_c, cargo_c, brand_c) {
 
 }
-HazardousMat::HazardousMat(string license_h, bool available_h, bool registered_h, unsigned short capacity_h, unsigned short cargo_h) : Truck(license_h, available_h, registered_h, capacity_h, cargo_h) {
+HazardousMat::HazardousMat(string license_h, bool available_h, bool registered_h, unsigned short capacity_h, unsigned short cargo_h, car_brand brand_h) : Truck(license_h, available_h, registered_h, capacity_h, cargo_h, brand_h) {
 
 }
-Animal::Animal(string license_a, bool available_a, bool registered_a, unsigned short capacity_a, unsigned short cargo_a) : Truck(license_a,available_a,registered_a, capacity_a, cargo_a) {
+Animal::Animal(string license_a, bool available_a, bool registered_a, unsigned short capacity_a, unsigned short cargo_a, car_brand brand_a) : Truck(license_a,available_a,registered_a, capacity_a, cargo_a, brand_a) {
 
 }
-Normal::Normal(string license_n, bool available_n, bool registered_n, unsigned short capacity_n, unsigned short cargo_n) : Truck(license_n,available_n,registered_n, capacity_n, cargo_n) {
+Normal::Normal(string license_n, bool available_n, bool registered_n, unsigned short capacity_n, unsigned short cargo_n, car_brand brand_n) : Truck(license_n,available_n,registered_n, capacity_n, cargo_n, brand_n) {
 
 }
 
@@ -68,6 +69,11 @@ bool Truck::getregistered() const{
 
 string Truck::getlicense() const {
     return license;
+}
+
+car_brand Truck::getbrand() const
+{
+    return brand;
 }
 
 float Truck::getcargo() const {
@@ -93,6 +99,7 @@ void Truck::setregistered(bool foo) {
 
 void Truck::info() {
     cout << "License: " << license << endl;
+    cout << "Brand: " << printBrand(brand) << endl;
     cout << "Capacity: " << capacity << endl;
     cout << "Available: ";
     (available) ? cout << "true" << endl : cout << "false" << endl << "\tCurrently transporting " << cargo << "KG of cargo" << endl;
@@ -147,6 +154,8 @@ void Truck::loadFromFile(vector<Truck*>* trucks) {
     string aux;
     string separator = "; ";
     string lic;
+    string brand_string;
+    car_brand br;
     char type='\0';
     bool avai, regist;
     unsigned short cap, carg;
@@ -181,6 +190,8 @@ void Truck::loadFromFile(vector<Truck*>* trucks) {
     Normal::pricePerKG = stof(auxVec[3]);
     while (getline(truckfile, aux)) {
         getline(truckfile, lic);
+        getline(truckfile, brand_string);
+        br = selectBrand(brand_string);
         getline(truckfile, aux);
         aux == "1" ? avai = true : avai = false;
         getline(truckfile, aux);
@@ -194,25 +205,25 @@ void Truck::loadFromFile(vector<Truck*>* trucks) {
         switch (type) {
         case 'A':{
 
-            Truck *temp= new Animal(lic, avai, regist, cap, carg);
+            Truck *temp= new Animal(lic, avai, regist, cap, carg, br);
             trucks->push_back(temp);
             (Animal::CapDist.count(cap)) ? Animal::CapDist[cap] == 1 : Animal::CapDist[cap] += 1;
             break;
         }
         case 'C':{
-            Truck *temp = new Congelation(lic, avai, regist, cap, carg);
+            Truck *temp = new Congelation(lic, avai, regist, cap, carg, br);
             trucks->push_back(temp);
             (Congelation::CapDist.count(cap)) ? Congelation::CapDist[cap] == 1 : Congelation::CapDist[cap] += 1;
             break;
         }
         case 'H':{
-            Truck *temp = new HazardousMat(lic, avai, regist, cap, carg);
+            Truck *temp = new HazardousMat(lic, avai, regist, cap, carg, br);
             trucks->push_back(temp);
             (HazardousMat::CapDist.count(cap)) ? HazardousMat::CapDist[cap] == 1 : HazardousMat::CapDist[cap] += 1;
             break;
         }
         case 'N':{
-            Truck *temp = new Normal(lic, avai, regist, cap, carg);
+            Truck *temp = new Normal(lic, avai, regist, cap, carg, br);
             trucks->push_back(temp);
             (Normal::CapDist.count(cap)) ? Normal::CapDist[cap] == 1 : Normal::CapDist[cap] += 1;
             break;
@@ -248,6 +259,7 @@ void Truck::saveToFile(vector<Truck*>* trucks) {
     for (auto it : *trucks) {
         truckfile << "::::::::::::::::::::::::::::" << endl;
         truckfile << it->getlicense() << endl;
+        truckfile << printBrand(it->getbrand()) << endl;
         truckfile << it->getavailable() << endl;
         truckfile << it->getregistered() << endl;
         truckfile << it->getcapacity() << endl;
@@ -275,6 +287,8 @@ bool operator<(Truck &a,Truck &b) {
 void Truck::createTruck(vector<Truck*>* trucks) {
     clearScreen();
     string license, aux, confirmstr;
+    string brand_string;
+    car_brand brand;
     char type = '\0';
     int capacity = 0;
     bool invalidInput;
@@ -292,10 +306,29 @@ void Truck::createTruck(vector<Truck*>* trucks) {
     } while (invalidInput);
 
     clearScreen();
+    
+    do {
+        invalidInput = false;
+        cout << "What's the license of the new truck (XX-YY-ZZ)? " << license << endl;
+        cout << "What's the brand of the new truck? "; getline(cin, brand_string);
+        if (brand_string == "!q") 
+            return;
+
+        //verifies if the string is valid
+        if (!strIsChar(brand_string)) {
+            invalidInput = true;
+            clearScreen();
+        }
+    } while (invalidInput);
+
+    brand = selectBrand(brand_string);
+
+    clearScreen();
 
     do {
         invalidInput = false;
         cout << "What's the license of the new truck (XX-YY-ZZ)? " << license << endl;
+        cout << "What's the brand of the new truck? " << brand_string << endl;
         cout << "What's the capacity of the new truck? "; getline(cin, aux);
         if (aux == "!q") return;
 
@@ -318,6 +351,7 @@ void Truck::createTruck(vector<Truck*>* trucks) {
     do {
         invalidInput = false;
         cout << "What's the license of the new truck (XX-YY-ZZ)? " << license << endl;
+        cout << "What's the brand of the new truck? " << brand_string << endl;
         cout << "What's the capacity of the new truck? " << capacity << endl;
         cout << "What's the truck type (A/N/C/H)? "; getline(cin, aux);
         if (aux == "!q") return;
@@ -359,6 +393,7 @@ void Truck::createTruck(vector<Truck*>* trucks) {
         clearScreen();
         cout << "You're about to add a truck with the following characteristics to this business: " << endl;
         cout << "License: " << license << endl;
+        cout << "Brand: " << brand_string << endl;
         cout << "Capacity: " << capacity << endl;
         cout << "Type: " << aux << endl;
         cout << "Do you wish proceed (Y/N)? ";
@@ -368,25 +403,25 @@ void Truck::createTruck(vector<Truck*>* trucks) {
     if (confirmstr == "Y" || confirmstr == "y") {
         switch (type) {
         case('C'):{
-            Truck* newTruck = new Congelation(license, true, false, date_u_short(capacity), 0);
+            Truck* newTruck = new Congelation(license, true, false, date_u_short(capacity), 0, brand);
             trucks->push_back(newTruck);
 	    Congelation::CapDist[capacity]=1;
             break;
         }
         case('A'):{
-            Truck* newTruck = new Animal(license, true, false, date_u_short(capacity), 0);
+            Truck* newTruck = new Animal(license, true, false, date_u_short(capacity), 0, brand);
             trucks->push_back(newTruck);
 	    Animal::CapDist[capacity]=1;
             break;
         }
         case('N'):{
-            Truck* newTruck = new Normal(license, true, false, date_u_short(capacity), 0);
+            Truck* newTruck = new Normal(license, true, false, date_u_short(capacity), 0, brand);
             trucks->push_back(newTruck);
 	    Normal::CapDist[capacity]=1;
             break;
         }
         case('H'):{
-            Truck* newTruck = new HazardousMat(license, true, false, date_u_short(capacity), 0);
+            Truck* newTruck = new HazardousMat(license, true, false, date_u_short(capacity), 0, brand);
             trucks->push_back(newTruck);
    	    HazardousMat::CapDist[capacity]=1;
             break;

@@ -20,12 +20,11 @@ enum class car_brand { Mercedes, Man, Ford, Volvo, Iveco, Scania, Volkswagen, Mi
 // Falta fazer as funcoes de pesquisa indicadas no pdf
 // Falta corrigir os bugs reportados no todolist.txt
 
-
 class Workshop {
 private:
 	string name; /// Workshop's name
 	car_brand brand; /// Workshop's brand specialization
-	unsigned int unavailability; /// Unavailability duration in days
+	int unavailability; /// Unavailability duration in days
 	queue<pair<Truck*, Date*>> waiting_line; /// Queue of Services, indicated by pairs of pointers to the truck and date the service finishes 
 public:
 /**
@@ -38,7 +37,7 @@ public:
  * @param unavailability - Number of days until available
  * @param wl - Queue of Services, indicated by pairs of pointers to the truck and date the service finishes 
  */
-	Workshop(string n, car_brand b, unsigned unavailability, queue<pair<Truck*, Date*>> wl);
+	Workshop(string n, car_brand b, int unavailability, queue<pair<Truck*, Date*>> wl);
 /**
 * @brief Gets name
 *
@@ -62,7 +61,7 @@ public:
 *
 * @return Returns an unsigned int representing the unavailability of the Workshop
 */
-	unsigned int getUnavailability() const;
+	int getUnavailability() const;
 /**
 * @brief Gets waiting line
 *
@@ -97,7 +96,7 @@ public:
 * @param ua - Unavailability of the workshop
 * @return Returns nothing
 */
-	void setUnavailability(unsigned int ua);
+	void setUnavailability(int ua);
 /**
 * @brief Sets waiting line
 *
@@ -160,7 +159,7 @@ public:
 * @param d1 - Date to calculate difference in minutes
 * @return Returns an unsigned int representing the difference in days (converted from minutes)
 */
-	static unsigned int calculateUnavailability(Date d1);
+	static int calculateUnavailability(Date d1);
 /**
 * @brief Adds service
 *
@@ -192,8 +191,28 @@ public:
 * Overload of < operator for comparisons. A Workshop is < if its unavailability is less than another Workshop's unavailability 
 *
 * @param w1 - Workshop Object containing the unavailability to be compared
-* @return Returns true if the Client has a smaller unavailability
+* @return Returns true if the Workshop has a smaller unavailability
 */
 	bool operator<(Workshop &w1);
+	/**
+* @brief Function for comparisons in sort
+*
+* Function for comparisons in sort
+* 
+* @param w1 - Workshop Object containing the unavailability to be compared
+* @param w2 - Workshop Object containing the unavailability to be compared
+* @return Returns true if the w1 has a smaller unavailability than w2
+*/
+	static bool sortingFunction(Workshop* w1, Workshop* w2);
+
+/**
+* @brief Verifies if truck isn't in workshop
+*
+* Checks if the truck passsed as argument isn't in any Workshop getting a service
+*
+* @param truck - Truck Object to verify
+* @return Returns true if the truck is in no Workshop
+*/
+static bool notInWorkshop(Truck* truck);
 
 };

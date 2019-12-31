@@ -11,6 +11,7 @@ class Client;
 enum class Temperature_enum;
 enum class Hazard_enum;
 enum class type;
+enum class car_brand;
 
 
 class Truck
@@ -22,6 +23,7 @@ protected:
     vector<Service*> assignedServices;	///services the truck is registered to
     unsigned capacity; //in KG
     float cargo; ///if in transit this holds the weight it transports, if not it is 0
+    car_brand brand;
 
 public:
 	/**
@@ -34,8 +36,9 @@ public:
 * @param registered - whether it is registereds to a service or not
 * @param capacity - truck's maximum capacity
 * @param cargo - if it is on transit, how much it is transporting
+* @param brand - truck's brand of car brand type
 */
-    Truck(string license, bool available,bool registered,unsigned short capacity, unsigned short cargo);
+    Truck(string license, bool available,bool registered,unsigned short capacity, unsigned short cargo, car_brand brand);
 	/**
 *
 * Default destructor
@@ -59,7 +62,7 @@ public:
 * @return Returns whether the truck is available or not
 */
     bool getavailable() const;
-	/**
+/**
 * @brief Gets the license
 *
 * Returns the truck's license
@@ -67,6 +70,14 @@ public:
 * @return Returns a string with the license
 */
     string getlicense() const;
+    /**
+* @brief Gets the brand
+*
+* Returns the truck's brands
+*
+* @return Returns a car brand type with the truck's brand
+*/
+    car_brand getbrand() const;
 	/**
 * @brief Gets registered
 *
@@ -205,7 +216,7 @@ public:
 *
 * @return Returns nothing
 */
-    Congelation(string license, bool available, bool registered, unsigned short capacity, unsigned short cargo);
+    Congelation(string license, bool available, bool registered, unsigned short capacity, unsigned short cargo, car_brand brand);
 
 	/**
 * @brief Default destructor
@@ -233,7 +244,7 @@ public:
 *
 * @return Returns nothing
 */
-    HazardousMat(string license, bool available, bool registered, unsigned short capacity, unsigned short cargo);
+    HazardousMat(string license, bool available, bool registered, unsigned short capacity, unsigned short cargo, car_brand brand);
 	/**
 * @brief Default destructor
 *
@@ -262,7 +273,7 @@ public:
 *
 * @return Returns nothing
 */
-    Animal(string license, bool available, bool registered, unsigned short capacity, unsigned short cargo);
+    Animal(string license, bool available, bool registered, unsigned short capacity, unsigned short cargo, car_brand brand);
 	/**
 * @brief Default destructor
 *
@@ -288,7 +299,7 @@ public:
 *
 * @return Returns nothing
 */
-    Normal(string license, bool available, bool registered, unsigned short capacity, unsigned short cargo);
+    Normal(string license, bool available, bool registered, unsigned short capacity, unsigned short cargo, car_brand brand);
 	/**
 * @brief Default destructor
 *

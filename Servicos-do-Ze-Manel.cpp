@@ -686,7 +686,7 @@ void menu_workshops() {
 
                 cout << Company::getCompany()->getWorkshopLine()->top()->getName() << endl;
                 cout << Company::getCompany()->getWorkshopLine()->top()->getUnavailability() << endl;*/
-                
+
                 break;
             }
             case 3: {
@@ -719,8 +719,9 @@ void trucksInformation() {
         cout << "[7] Show Trucks on Transit" << endl;
         cout << "[8] Show Specific Truck" << endl;
         cout << "[9] Show Multipliers and Standard Prices" << endl;
+        cout << "[10] Show best Workshop for a specific Truck" << endl;
         cout << "[0] Return" << endl;
-        if (cin >> opt && opt <= 9)
+        if (cin >> opt && opt <= 10)
         {
             clearScreen();
             switch (opt) {
@@ -903,6 +904,78 @@ void trucksInformation() {
                 cout << "Normal price per KG: " << Normal::pricePerKG << endl;
                 enter_to_exit();
                 break;
+            case 10: {
+                string license;
+                bool invalidInput;
+                vector<string> auxVec;
+                if (Company::getCompany()->getVectorTrucks()->size()) {
+                    clearBuffer();
+                    do {
+                        clearScreen();
+                        invalidInput = false;
+                        cout << "What's the license of the truck you wish to see (XX-YY-ZZ)? "; getline(cin, license);
+                        if (license == "!q") break;
+
+                        //verifies if the license is valid or if it already exists.
+                        if (!checkLicenseV2(license)) {
+                            invalidInput = true;
+                        }
+                        else {
+                            invalidInput = true;
+                            for (vector<Truck*>::iterator it = Company::getCompany()->getVectorTrucks()->begin(); it != Company::getCompany()->getVectorTrucks()->end(); it++) {
+                                if ((*it)->getlicense() == license) {
+                                    clearScreen();
+                                    cout << "Truck found!!!" << endl;
+                                    (*it)->info();
+
+                                    // Copying
+                                    priority_queue<Workshop*> temp = *Company::getCompany()->getWorkshopLine();
+                                    vector<Workshop*> sorted_vector;
+                                    Workshop* best_workshop_branded;
+                                    Workshop* best_workshop_non_branded;
+
+                                    while (!temp.empty()) {
+                                        sorted_vector.push_back(temp.top());
+                                        temp.pop();
+                            
+                                    }
+
+                                    sort(sorted_vector.begin(), sorted_vector.end(), Workshop::sortingFunction);
+
+                                    best_workshop_branded = sorted_vector.at(0);
+                                    best_workshop_non_branded = sorted_vector.at(0);
+
+                                    if (!Workshop::notInWorkshop((*it))) {
+                                        cout << endl << "Truck with that license is in the workshop already!" << endl;
+                                        enter_to_exit();
+                                        break;
+                                    }
+
+                                    for (vector<Workshop*>::iterator it2 = sorted_vector.begin(); it2 != sorted_vector.end(); it2++)
+                                    {
+                                        if (((*it2)->getBrand() == (*it)->getbrand()))
+                                            best_workshop_branded = (*it2);
+                                    }
+
+                                    cout << endl;
+                                    cout << "Best Workshop of brand " << printBrand((*it)->getbrand()) << " is " << best_workshop_branded->getName() << endl;
+                                    cout << "Best Workshop overall is " << best_workshop_non_branded->getName() << endl;
+                                    enter_to_exit();
+
+                                    invalidInput = false;
+                                    clearScreen();
+                                    break;
+                                }
+                            }
+                            if (invalidInput) {
+                                cout << "Truck with license " << license << " is not a part of the company's database" << endl;
+                                enter_to_exit();
+                            }
+                        }
+                    } while (invalidInput);
+                }
+                break;
+            }
 
             default:
                 opt = 1;
@@ -2113,11 +2186,20 @@ void workshopsInformation() {
 			case 1:
                 // Copying to avoid destroying the queue
 				priority_queue<Workshop*> temp_priority_queue = *Company::getCompany()->getWorkshopLine();
+                vector<Workshop*> sorted_vector;
 
 				while (!temp_priority_queue.empty()) {
-					temp_priority_queue.top()->info();
+					sorted_vector.push_back(temp_priority_queue.top());
 					temp_priority_queue.pop();
 				}
+
+                sort(sorted_vector.begin(), sorted_vector.end(), Workshop::sortingFunction);
+
+                for (vector<Workshop*>::iterator it = sorted_vector.begin(); it != sorted_vector.end(); it++)
+                {
+                    (*it)->info();
+                }
+
 				clearBuffer();
 				enter_to_exit();
 				break;

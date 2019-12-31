@@ -1,6 +1,6 @@
 #include "workshop.h"
 
-Workshop::Workshop(string n, car_brand b, unsigned ua, queue<pair<Truck*, Date*>> wl)
+Workshop::Workshop(string n, car_brand b, int ua, queue<pair<Truck*, Date*>> wl)
 {
 	name = n;
 	brand = b;
@@ -18,7 +18,7 @@ car_brand Workshop::getBrand() const
 	return brand;
 }
 
-unsigned int Workshop::getUnavailability() const
+int Workshop::getUnavailability() const
 {
 	return unavailability;
 }
@@ -38,7 +38,7 @@ void Workshop::setBrand(car_brand b)
 	brand = b;
 }
 
-void Workshop::setUnavailability(unsigned int ua)
+void Workshop::setUnavailability(int ua)
 {
 	unavailability = ua;
 }
@@ -63,7 +63,7 @@ void Workshop::loadFromFile(priority_queue<Workshop*>* workshopLine)
 
 		string name;
 		car_brand brand;
-		unsigned int unavailability;
+		int unavailability;
 		queue<pair<Truck*, Date*>>* waiting_line = new queue<pair<Truck*, Date*>>();
 
 		getline(workshopFile, name);
@@ -86,6 +86,7 @@ void Workshop::loadFromFile(priority_queue<Workshop*>* workshopLine)
 			Workshop* new_workshop = new Workshop(name, brand, unavailability, *waiting_line);
 
 			workshopLine->push(new_workshop);
+
 		}
 		catch (...) {
 			continue;
@@ -138,7 +139,7 @@ void Workshop::addWorkshop(priority_queue<Workshop*>* workshop_line)
 	string name, temp_brand;
 	string confirmstr;
 	car_brand brand;
-	unsigned int unavailability = 0;
+	int unavailability = 0;
 	queue<pair<Truck*, Date*>>* standard_queue = new queue<pair<Truck*, Date*>>();
 	bool invalidInput;
 
@@ -380,7 +381,7 @@ void Workshop::deleteWorkshop(priority_queue<Workshop*>* workshop_line)
 	clearScreen();
 }
 
-unsigned int Workshop::calculateUnavailability(Date d1)
+int Workshop::calculateUnavailability(Date d1)
 {
 	Date now_date;
 	return (d1 - now_date) / 1440;
@@ -409,9 +410,34 @@ void Workshop::addService(Truck* truck, Date* date)
 
 bool Workshop::operator<(Workshop &w1)
 {
-	if (unavailability < w1.unavailability)
+	if (unavailability > w1.unavailability)
 		return true;
 	return false;
+}
+
+bool Workshop::sortingFunction(Workshop* w1, Workshop* w2)
+{
+	if (w1->unavailability < w2->unavailability)
+		return true;
+	return false;
+}
+
+bool Workshop::notInWorkshop(Truck* truck)
+{
+	priority_queue<Workshop*> temp = *Company::getCompany()->getWorkshopLine();
+
+	while (!temp.empty()) {
+
+		while (!temp.top()->getWaitingLine()->empty()) {
+			if (temp.top()->getWaitingLine()->front().first->getlicense() == truck->getlicense())
+				return false;
+
+			temp.top()->getWaitingLine()->pop();
+		}
+		temp.pop();
+	}
+
+	return true;
 }
 
 void Workshop::info() {
