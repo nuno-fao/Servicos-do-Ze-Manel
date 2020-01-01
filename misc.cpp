@@ -183,8 +183,8 @@ void checkIfOut(string& temp) {
 	}
 }
 
-Date findMaxDate(queue<pair<Truck*, Date*>>* queue_to_check) {
-	queue<pair<Truck*, Date*>> temp = *queue_to_check;
+Date findMaxDate(queue<pair<Truck*, Date*>> queue_to_check) {
+	queue<pair<Truck*, Date*>> temp = queue_to_check;
 	Date d1 = *temp.front().second;
 
 	while (!temp.empty()) {

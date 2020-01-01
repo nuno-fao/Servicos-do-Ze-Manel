@@ -391,16 +391,16 @@ void Workshop::addService(Truck* truck, Date* date)
 {
 	Date maxDate;
 
-	getWaitingLine()->push(make_pair(truck, date));
+	waiting_line.push(make_pair(truck, date));
 
 	// Copying
-	queue<pair<Truck*, Date*>>* temp = getWaitingLine();
+	queue<pair<Truck*, Date*>> temp = waiting_line;
 
 	// Searching for most recent date
-	while (!temp->empty()) {
+	while (!temp.empty()) {
 		if(!(findMaxDate(temp) < maxDate))
 			maxDate = findMaxDate(temp);
-		temp->pop();
+		temp.pop();
 	}
 
 	setUnavailability(calculateUnavailability(maxDate));
