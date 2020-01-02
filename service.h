@@ -315,7 +315,7 @@ public:
     friend ostream& operator<<(ostream& os, Service *a);
 
     static set<unsigned> idList;
-    vector<string> drivers;
+    vector<pair<int,float>> drivers;
 
 protected:
     Service(string material,Address origin, Address destination, Date *arrivalDate, unsigned distance, type type, state state, Date *date,Client *client,float quantity);

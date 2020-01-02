@@ -199,5 +199,9 @@ float operator - (Date  &dt1, Date  &dt2){
     n2 += countLeapYears(&dt2);
 
 	float t = ((n1 - n2) * 24 * 60 + (dt1.getHour() - dt2.getHour()) * 60 + (dt1.getMinute() - dt2.getMinute()));
+    cout<<t<<endl;
+    cout<<n1<<endl;
+    cout<<n2<<endl;
+    cout<<n1-n2<<endl;
     return  t;
 }

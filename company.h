@@ -203,7 +203,7 @@ public:
     priority_queue<Workshop*>* getWorkshopLine();
 
 
-    queue<int> driver_queue;
+    queue<pair<int,float>> driver_queue;
 private:
     static Company *company;
 /**

@@ -44,7 +44,7 @@ void Driver::loadFromFile(){
             Driver *tmp;
             tmp=new Driver(nif_tmp,name,service_h);
             tmp_vect->insert(*tmp);
-            Company::getCompany()->driver_queue.push(nif_tmp);
+            Company::getCompany()->driver_queue.push(pair<int,float>(nif_tmp,service_h));
         } catch (...) {
             continue;
         }
@@ -68,7 +68,13 @@ void Driver::saveToFile(){
 
 
 bool operator <( const Driver &a, const Driver &b){
-    return a.getNif()<b.getNif();
+    if(a.getServiceHours()<b.getServiceHours()){
+        return true;
+    }
+    else if(a.getServiceHours()==b.getServiceHours()){
+        return a.getNif()<b.getNif();
+    }
+    return false;
 }
 
 
@@ -79,20 +85,53 @@ void Driver::addDriver(){
     while(true){
         cout<<"What is the Driver's Name?"<<endl;
         getline(cin,name);
-        //checkifout
+        try {
+            checkIfOut(name);
+        } catch (...) {
+            return;
+        }
+        break;
     }
+    clearScreen();
     while(true){
         cout<<"what is the Driver's NIF?"<<endl;
         getline(cin,nif_s);
+        try {
+            checkIfOut(nif_s);
+        } catch (...) {
+            return;
+        }
         try{
             nif=stoi(nif_s);
-            //Company::getCompany
+            if(!checkNif(nif))
+                throw exception();
+            const Driver x(1,"0",0);
+            bool found=false;
+            BSTItrIn<Driver> it(*Company::getCompany()->getDrivers());
+            while(!it.isAtEnd()){
+                if(it.retrieve().getNif()==nif){
+                    found=true;
+                    break;
+                }
+                it.advance();
+            }
+            if(found){
+                clearScreen();
+                cout<<"NIF already on registed to driver "<< Company::getCompany()->getDrivers()->find(Driver(nif,"",0)).getName()<<", please try again"<<endl;
+            }
+            else{
+                Company::getCompany()->getDrivers()->insert(Driver(nif,name,0));
+                Company::getCompany()->driver_queue.push(pair<int,float>(nif,0));
+                break;
+            }
         }
         catch(...){
            clearScreen();
            cout<<"NIF not valid, please try again"<<endl;
         }
     }
+    cout<<"Driver registed!"<<endl;
+    enter_to_exit();
 }
 void Driver::toogleDriverActiv(){
     if(active){
