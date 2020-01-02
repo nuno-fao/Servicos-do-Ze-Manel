@@ -61,7 +61,7 @@ int main()
         Client::loadClients(*Ze_Manel->getVectorClients());
     }
     try {
-        Company::getCompany().getDrivers().resetRoot();
+        Company::getCompany()->getDrivers()->resetRoot();
         Driver::loadFromFile();
     } catch (...) {
 
