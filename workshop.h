@@ -26,7 +26,9 @@ private:
 	car_brand brand; /// Workshop's brand specialization
 	int unavailability; /// Unavailability duration in days
 	queue<pair<Truck*, Date*>> waiting_line; /// Queue of Services, indicated by pairs of pointers to the truck and date the service finishes 
+    Date* last_date;
 public:
+    Date *getLastDate();
 /**
  * @brief Constructor with all data necessary
  *
@@ -114,7 +116,7 @@ public:
  * @param workshopLine - pointer to the priority_queue where the pointers to the Workshops are stored
  * @return Returns nothing
  */
-	static void loadFromFile(priority_queue<Workshop*>* workshopLine);
+    static void loadFromFile(priority_queue<Workshop>* workshopLine);
 /**
 * @brief Saves the workshops
 *
@@ -123,7 +125,7 @@ public:
 * @param workshopLine - pointer to the priority_queue where the pointers to the Workshops are stored
 * @return Returns nothing
 */
-	static void saveToFile(priority_queue<Workshop*>* workshopLine);
+    static void saveToFile(priority_queue<Workshop>* workshopLine);
 /**
 * @brief Adds a workshop
 *
@@ -132,7 +134,7 @@ public:
 * @param workshopLine - pointer to the priority_queue where the pointers to the Workshops are stored
 * @return Returns nothing
 */
-	static void addWorkshop(priority_queue<Workshop*>* workshop_line);
+    static void addWorkshop(priority_queue<Workshop>* workshop_line);
 /**
 * @brief Edits a workshop
 *
@@ -141,7 +143,7 @@ public:
 * @param workshopLine - pointer to the priority_queue where the pointers to the Workshops are stored
 * @return Returns nothing
 */
-	static void editWorkshop(priority_queue<Workshop*>* workshop_line);
+    static void editWorkshop(priority_queue<Workshop>* workshop_line);
 /**
 * @brief Deletes a workshop
 *
@@ -150,7 +152,7 @@ public:
 * @param workshopLine - pointer to the priority_queue where the pointers to the Workshops are stored
 * @return Returns nothing
 */
-	static void deleteWorkshop(priority_queue<Workshop*>* workshop_line);
+    static void deleteWorkshop(priority_queue<Workshop>* workshop_line);
 /**
 * @brief Calculates unavailability
 *
@@ -184,7 +186,7 @@ public:
 * @param name - name of the Workshop to look for
 * @return Returns a pointer to the Workshop with name name and NULL if not found
 */
-	static Workshop* getWorkshop(string name);
+    static Workshop getWorkshop(string name);
 /**
 * @brief Operator < overloading
 *
@@ -193,18 +195,7 @@ public:
 * @param w1 - Workshop Object containing the unavailability to be compared
 * @return Returns true if the Workshop has a smaller unavailability
 */
-	bool operator<(Workshop &w1);
 	/**
-* @brief Function for comparisons in sort
-*
-* Function for comparisons in sort
-* 
-* @param w1 - Workshop Object containing the unavailability to be compared
-* @param w2 - Workshop Object containing the unavailability to be compared
-* @return Returns true if the w1 has a smaller unavailability than w2
-*/
-	static bool sortingFunction(Workshop* w1, Workshop* w2);
-
 /**
 * @brief Verifies if truck isn't in workshop
 *
@@ -216,3 +207,5 @@ public:
 static bool notInWorkshop(Truck* truck);
 
 };
+
+bool operator<(const Workshop &w1,const Workshop &w2);

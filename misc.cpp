@@ -303,13 +303,13 @@ bool checkLicenseV2(string license) {
 
 bool checkWorkshopName(string name)
 {
-	priority_queue<Workshop*>* temp_workshop_line = Company::getCompany()->getWorkshopLine();
+    priority_queue<Workshop>* temp_workshop_line = Company::getCompany()->getWorkshopLine();
 	
 	if (!strIsChar(name))
 		return false;
 
 	while (!temp_workshop_line->empty()) {
-		if (temp_workshop_line->top()->getName() == name) {
+        if (temp_workshop_line->top().getName() == name) {
 			return false;
 		}
 		temp_workshop_line->pop();

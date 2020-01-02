@@ -8,6 +8,11 @@ Workshop::Workshop(string n, car_brand b, int ua, queue<pair<Truck*, Date*>> wl)
 	waiting_line = wl;
 }
 
+
+Date *Workshop::getLastDate(){
+    return last_date;
+}
+
 string Workshop::getName() const
 {
 	return name;
@@ -48,7 +53,7 @@ void Workshop::setWaitingLine(queue<pair<Truck*, Date*>> wl)
 	waiting_line = wl;
 }
 
-void Workshop::loadFromFile(priority_queue<Workshop*>* workshopLine)
+void Workshop::loadFromFile(priority_queue<Workshop>* workshopLine)
 {
 	ifstream workshopFile;
 	workshopFile.open("./files/workshops.txt");
@@ -81,11 +86,9 @@ void Workshop::loadFromFile(priority_queue<Workshop*>* workshopLine)
 				Truck* new_truck = Company::getCompany()->getTruck(vectored_pairs.at(i));
 				Date* new_date = new Date(vectored_pairs.at(i + 1));
 				waiting_line->push(make_pair(new_truck, new_date));
-			}
+            }
 
-			Workshop* new_workshop = new Workshop(name, brand, unavailability, *waiting_line);
-
-			workshopLine->push(new_workshop);
+            workshopLine->push(Workshop(name, brand, unavailability, *waiting_line));
 
 		}
 		catch (...) {
@@ -95,7 +98,7 @@ void Workshop::loadFromFile(priority_queue<Workshop*>* workshopLine)
 	workshopFile.close();
 }
 
-void Workshop::saveToFile(priority_queue<Workshop*>* workshopLine)
+void Workshop::saveToFile(priority_queue<Workshop>* workshopLine)
 {
 	ofstream workshopFile;
 	workshopFile.open("./files/workshops.txt");
@@ -106,17 +109,17 @@ void Workshop::saveToFile(priority_queue<Workshop*>* workshopLine)
 	while (!workshopLine->empty()) {
 
 		try {
-			workshopFile << workshopLine->top()->getName() << endl;
-			workshopFile << printBrand(workshopLine->top()->getBrand()) << endl;
-			workshopFile << workshopLine->top()->getUnavailability() << endl;
+            workshopFile << workshopLine->top().getName() << endl;
+            workshopFile << printBrand(workshopLine->top().getBrand()) << endl;
+            workshopFile << workshopLine->top().getUnavailability() << endl;
 
-
-			while (!(workshopLine->top()->getWaitingLine()->empty()))
+            Workshop tmp=workshopLine->top();
+            while (!(tmp.getWaitingLine()->empty()))
 			{
-				workshopFile << workshopLine->top()->getWaitingLine()->front().first->getlicense() << ";";
-				workshopFile << workshopLine->top()->getWaitingLine()->front().second->getDate() << ";";
+                workshopFile << tmp.getWaitingLine()->front().first->getlicense() << ";";
+                workshopFile << tmp.getWaitingLine()->front().second->getDate() << ";";
 
-				workshopLine->top()->getWaitingLine()->pop();
+                tmp.getWaitingLine()->pop();
 			}
 
 			workshopFile << endl << discarded;
@@ -133,7 +136,7 @@ void Workshop::saveToFile(priority_queue<Workshop*>* workshopLine)
 	workshopFile.close();
 }
 
-void Workshop::addWorkshop(priority_queue<Workshop*>* workshop_line)
+void Workshop::addWorkshop(priority_queue<Workshop>* workshop_line)
 {
 	clearScreen();
 	string name, temp_brand;
@@ -193,9 +196,8 @@ void Workshop::addWorkshop(priority_queue<Workshop*>* workshop_line)
 		clearBuffer();
 	} while (confirmstr != "Y" && confirmstr != "N" && confirmstr != "y" && confirmstr != "n" && confirmstr != "!q");	// Confirmation
 
-	if (confirmstr == "Y" || confirmstr == "y") {
-		Workshop* workshop_to_add = new Workshop(name, brand, unavailability, *standard_queue);
-		workshop_line->push(workshop_to_add);
+    if (confirmstr == "Y" || confirmstr == "y") {
+        workshop_line->push(Workshop(name, brand, unavailability, *standard_queue));
 		cout << "Workshop " << name << " added successfully!" << endl;
 		enter_to_exit();
 	}
@@ -206,7 +208,7 @@ void Workshop::addWorkshop(priority_queue<Workshop*>* workshop_line)
 	clearScreen();
 }
 
-void Workshop::editWorkshop(priority_queue<Workshop*>* workshop_line)
+void Workshop::editWorkshop(priority_queue<Workshop>* workshop_line)
 {
 	clearScreen();
 	string name, temp_brand, name_to_change, brand_to_change_string;
@@ -232,9 +234,9 @@ void Workshop::editWorkshop(priority_queue<Workshop*>* workshop_line)
 
 	clearScreen();
 
-	Workshop* to_edit = getWorkshop(name);
+    Workshop to_edit = getWorkshop(name);
 
-	if (to_edit == NULL) {
+    if (to_edit.getName() == "nanana") {
 		cout << "Workshop not found" << endl;
 		enter_to_exit();
 		clearScreen();
@@ -293,9 +295,9 @@ void Workshop::editWorkshop(priority_queue<Workshop*>* workshop_line)
 	} while (confirmstr != "Y" && confirmstr != "N" && confirmstr != "y" && confirmstr != "n" && confirmstr != "!q");	// Confirmation
 
 	if (confirmstr == "Y" || confirmstr == "y") {
-		to_edit->setName(name_to_change);
-		to_edit->setBrand(brand_to_change);
-
+        to_edit.setName(name_to_change);
+        to_edit.setBrand(brand_to_change);
+        workshop_line->push(to_edit);
 		cout << "Workshop changed successfully!" << endl;
 		enter_to_exit();
 	}
@@ -306,11 +308,11 @@ void Workshop::editWorkshop(priority_queue<Workshop*>* workshop_line)
 	clearScreen();
 }
 
-void Workshop::deleteWorkshop(priority_queue<Workshop*>* workshop_line)
+void Workshop::deleteWorkshop(priority_queue<Workshop>* workshop_line)
 {
 	// Copying
 
-	priority_queue<Workshop*> to_replace = *workshop_line;
+    priority_queue<Workshop> to_replace = *workshop_line;
 
 	clearScreen();
 	string name;
@@ -335,9 +337,9 @@ void Workshop::deleteWorkshop(priority_queue<Workshop*>* workshop_line)
 
 	clearScreen();
 
-	Workshop* to_delete = getWorkshop(name);
+    Workshop to_delete = getWorkshop(name);
 
-	if (to_delete == NULL) {
+    if (to_delete.getName() == "nanana") {
 		cout << "Workshop not found" << endl;
 		enter_to_exit();
 		clearScreen();
@@ -350,7 +352,7 @@ void Workshop::deleteWorkshop(priority_queue<Workshop*>* workshop_line)
 		clearScreen();
 		cout << "You're about to delete a Workshop with the following characteristics: " << endl;
 		cout << "Name: " << name << endl;
-		cout << "Brand: " << printBrand(to_delete->getBrand()) << endl;
+        cout << "Brand: " << printBrand(to_delete.getBrand()) << endl;
 		cout << "Do you wish proceed (Y/N)? ";
 		cin >> confirmstr;
 		clearBuffer();
@@ -365,7 +367,7 @@ void Workshop::deleteWorkshop(priority_queue<Workshop*>* workshop_line)
 		}
 
 		while (!to_replace.empty()) {
-			if (to_replace.top()->getName() != to_delete->getName())
+            if (to_replace.top().getName() != to_delete.getName())
 				workshop_line->push(to_replace.top());
 			
 			to_replace.pop();
@@ -408,31 +410,25 @@ void Workshop::addService(Truck* truck, Date* date)
 }
 
 
-bool Workshop::operator<(Workshop &w1)
+bool operator<(const Workshop &w1,const Workshop &w2)
 {
-	if (unavailability > w1.unavailability)
-		return true;
-	return false;
-}
-
-bool Workshop::sortingFunction(Workshop* w1, Workshop* w2)
-{
-	if (w1->unavailability < w2->unavailability)
+    if (w1.getUnavailability() > w2.getUnavailability())
 		return true;
 	return false;
 }
 
 bool Workshop::notInWorkshop(Truck* truck)
 {
-	priority_queue<Workshop*> temp = *Company::getCompany()->getWorkshopLine();
+    priority_queue<Workshop> temp = *Company::getCompany()->getWorkshopLine();
 
 	while (!temp.empty()) {
 
-		while (!temp.top()->getWaitingLine()->empty()) {
-			if (temp.top()->getWaitingLine()->front().first->getlicense() == truck->getlicense())
+        Workshop tmp=temp.top();
+        while (!tmp.getWaitingLine()->empty()) {
+            if (tmp.getWaitingLine()->front().first->getlicense() == truck->getlicense())
 				return false;
 
-			temp.top()->getWaitingLine()->pop();
+            tmp.getWaitingLine()->pop();
 		}
 		temp.pop();
 	}
@@ -456,18 +452,23 @@ void Workshop::info() {
 	cout << "::::::::::::::::::::::::::::" << endl;
 }
 
-Workshop* Workshop::getWorkshop(string name)
+Workshop Workshop::getWorkshop(string name)
 {
 	// Copying
-	priority_queue<Workshop*> temp_priority_queue = *Company::getCompany()->getWorkshopLine();
-
+    priority_queue<Workshop> temp_priority_queue = *Company::getCompany()->getWorkshopLine();
+    vector<Workshop> tmp_vect;
 	while (!temp_priority_queue.empty()) {
 		
-		if (temp_priority_queue.top()->getName() == name)
-			return temp_priority_queue.top();
-
+        if (temp_priority_queue.top().getName() == name){
+            temp_priority_queue.pop();
+            for(auto i:tmp_vect){
+                temp_priority_queue.push(i);
+            }
+            return temp_priority_queue.top();
+        }
+        tmp_vect.push_back(temp_priority_queue.top());
 		temp_priority_queue.pop();
 	}
 
-	return NULL;
+    return Workshop("nanana",car_brand::None,0,queue<pair<Truck*,Date*>>());
 }

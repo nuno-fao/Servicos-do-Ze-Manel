@@ -200,7 +200,7 @@ public:
 *
 * @return Returns the priority queue containing the workshops
 */
-    priority_queue<Workshop*>* getWorkshopLine();
+    priority_queue<Workshop>* getWorkshopLine();
 
 
     queue<pair<int,float>> driver_queue;
@@ -220,6 +220,6 @@ private:
     vector<pair<int, double>> statNorm;
     vector<pair<int, double>> statAnim;
     BST<Driver> drivers;
-    priority_queue<Workshop*> workshop_line;
+    priority_queue<Workshop> workshop_line;
 
 };

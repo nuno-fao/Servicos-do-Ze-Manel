@@ -294,8 +294,7 @@ bool Client::operator==(const Client& client1) const {
 }
 
 bool Client::operator<(const Client &a) const{
-    return nif < a.getNif();
-}
+    return nif < a.getNif();}
 
 ostream& operator<<(ostream& out, const Client& client) {
     out << "Name: " << client.name << endl;
