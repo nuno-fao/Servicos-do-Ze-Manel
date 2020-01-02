@@ -651,7 +651,7 @@ void Service::loadFromFile(list<Service*> *services_finished,vector<Service*> *s
                 }
                 catch(TruckDoNotExist e){
                     vector<string> tempTruckMap=vectorString(i,":");
-                    Truck *temp_t=new Truck(tempTruckMap.at(0),0,0,0,0);
+                    Truck* temp_t = new Truck(tempTruckMap.at(0), 0, 0, 0, 0, car_brand::None);
                     temp->addTruck(temp_t,stof(tempTruckMap.at(1)));
                 }
                 catch(...)

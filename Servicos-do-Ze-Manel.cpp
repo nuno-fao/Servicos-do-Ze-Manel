@@ -231,8 +231,9 @@ void menu_trucks() {
         cout << "[1] Add Truck" << endl;
         cout << "[2] Edit Truck Prices" << endl;
         cout << "[3] Remove Truck" << endl;
+        cout << "[4] Add a Truck to a workshop" << endl;
         cout << "[0] Return to Main Menu" << endl;
-        if (cin >> opt && opt <= 3)
+        if (cin >> opt && opt <= 4)
         {
             clearScreen();
             switch (opt) {
@@ -251,6 +252,151 @@ void menu_trucks() {
             case 3: {
                 clearBuffer();
                 Truck::removeTruck(Company::getCompany()->getVectorTrucks());
+                break;
+            }
+            case 4: {
+                string license;
+                string tempString;
+                vector<string> tempVector;
+                bool invalidInput;
+                bool variable_error = true;
+                vector<string> auxVec;
+                if (Company::getCompany()->getVectorTrucks()->size()) {
+                    clearBuffer();
+                    do {
+                        clearScreen();
+                        invalidInput = false;
+                        cout << "What's the license of the truck you wish to see (XX-YY-ZZ)? "; getline(cin, license);
+                        if (license == "!q") break;
+
+                        //verifies if the license is valid or if it already exists.
+                        if (!checkLicenseV2(license)) {
+                            invalidInput = true;
+                        }
+                        else {
+                            invalidInput = true;
+                            for (vector<Truck*>::iterator it = Company::getCompany()->getVectorTrucks()->begin(); it != Company::getCompany()->getVectorTrucks()->end(); it++) {
+                                if ((*it)->getlicense() == license) {
+                                    clearScreen();
+                                    cout << "Truck found!!!" << endl;
+                                    (*it)->info();
+
+                                    // Copying
+                                    priority_queue<Workshop*> temp = *Company::getCompany()->getWorkshopLine();
+                                    vector<Workshop*> sorted_vector;
+                                    Workshop* best_workshop_branded;
+
+                                    while (!temp.empty()) {
+                                        sorted_vector.push_back(temp.top());
+                                        temp.pop();
+
+                                    }
+
+                                    sort(sorted_vector.begin(), sorted_vector.end(), Workshop::sortingFunction);
+
+                                    best_workshop_branded = sorted_vector.at(0);
+
+                                    for (vector<Workshop*>::iterator it2 = sorted_vector.begin(); it2 != sorted_vector.end(); it2++)
+                                    {
+                                        if (((*it2)->getBrand() == (*it)->getbrand()))
+                                            best_workshop_branded = (*it2);
+                                    }
+
+                                    while (variable_error) {
+                                        try {
+                                            cout << "Enter the date(yy mm dd) the service finishes: " << endl;
+                                            if (getline(cin, tempString)) {
+                                                clearScreen();
+                                                checkIfOut(tempString);
+                                                tempVector = vectorString(tempString, " ");
+                                                for (auto p : tempVector) {
+                                                    if (!strIsNumber(p)) {
+                                                        tempVector.clear();
+                                                        variable_error = true;
+                                                        clearScreen();
+                                                        cout << "Date Input not Aceptable, please try again" << endl;
+                                                        break;
+                                                    }
+                                                }
+                                                if (tempVector.size() == 3) {
+                                                    Date i(date_u_short(stoi(tempVector.at(0))), date_u_short(stoi(tempVector.at(1))), date_u_short(stoi(tempVector.at(2))), 23, 59);
+                                                    variable_error = false;
+                                                }
+                                                else {
+                                                    variable_error = true;
+                                                    clearScreen();
+                                                    cout << "Date Input not Aceptable, please try again" << endl;
+                                                }
+                                            }
+                                            else {
+                                                variable_error = true;
+                                                clearScreen();
+                                                cout << "minute Input not Aceptable, please try again" << endl;
+                                            }
+                                        }
+                                        catch (DateInvalid i) {
+                                            clearScreen();
+                                            cout << i.error << endl;
+                                        }
+                                    }
+                                    variable_error = true;
+                                    vector<string> tempVector_h;
+                                    while (variable_error) {
+                                        try {
+                                            cout << "Enter the time(hh mm) the service finishes: " << endl;
+                                            if (getline(cin, tempString)) {
+                                                clearScreen();
+                                                checkIfOut(tempString);
+                                                tempVector_h = vectorString(tempString, " ");
+                                                for (auto p : tempVector_h) {
+                                                    if (!strIsNumber(p)) {
+                                                        tempVector_h.clear();
+                                                        variable_error = true;
+                                                        clearScreen();
+                                                        cout << "minute Input not Aceptable, please try again" << endl;
+                                                        break;
+                                                    }
+                                                }
+                                                if (tempVector_h.size() == 2) {
+                                                    Date i(date_u_short(stoi(tempVector.at(0))), date_u_short(stoi(tempVector.at(1))), date_u_short(stoi(tempVector.at(2))), date_u_short(stoi(tempVector_h.at(0))), date_u_short(stoi(tempVector_h.at(1))));
+                                                    variable_error = false;
+                                                }
+                                                else {
+                                                    variable_error = true;
+                                                    clearScreen();
+                                                    cout << "minute Input not Aceptable, please try again" << endl;
+                                                }
+                                            }
+                                            else {
+                                                variable_error = true;
+                                                clearScreen();
+                                                cout << "minute Input not Aceptable, please try again" << endl;
+                                            }
+                                        }
+                                        catch (DateInvalid i) {
+                                            clearScreen();
+                                            cout << i.error << endl;
+                                        }
+                                    }
+                                    Date *temp_date = new Date(date_u_short(stoi(tempVector.at(0))), date_u_short(stoi(tempVector.at(1))), date_u_short(stoi(tempVector.at(2))), date_u_short(stoi(tempVector_h.at(0))), date_u_short(stoi(tempVector_h.at(1))));
+
+                                    best_workshop_branded->addService((*it), temp_date);
+
+                                    cout << "Service added to the most appropriate workshop, which is: " << best_workshop_branded->getName() << endl;
+                                    enter_to_exit();
+
+                                    invalidInput = false;
+                                    clearScreen();
+                                    break;
+                                }
+                            }
+                            if (invalidInput) {
+                                cout << "Truck with license " << license << " is not a part of the company's database" << endl;
+                                enter_to_exit();
+                            }
+                        }
+                    } while (invalidInput);
+                }
                 break;
             }
 
@@ -661,8 +807,10 @@ void menu_workshops() {
     while (opt != 0) {
         cout << "[1] Add Workshop" << endl;
         cout << "[2] Testing area" << endl;
+        cout << "[3] Edit Workshop" << endl;
+        cout << "[4] Delete Workshop" << endl;
         cout << "[0] Return" << endl;
-        if (cin >> opt && opt <= 2)
+        if (cin >> opt && opt <= 4)
         {
             clearScreen();
             switch (opt) {
@@ -671,17 +819,24 @@ void menu_workshops() {
             }
             case 1: {
                 clearBuffer();
-                Workshop::addWorkshop(Company::getCompany()->getWorkshopLine());
+
+                // Works but deletes previously stored stuff ???
+                //Workshop::addWorkshop(Company::getCompany()->getWorkshopLine());
                 break;
             }
             case 2:{
-                Truck* truck = new Truck("78-WE-80", true, true, 1000, 150);
-                Date* date = new Date();
-                Company::getCompany()->getWorkshopLine()->top()->addService(truck, date);
-
-                cout << Company::getCompany()->getWorkshopLine()->top()->getName() << endl;
-                cout << Company::getCompany()->getWorkshopLine()->top()->getUnavailability() << endl;
-                
+                break;
+            }
+            case 3: {
+                /* Also not working, not sure why
+                clearBuffer();
+                Workshop::editWorkshop(Company::getCompany()->getWorkshopLine());
+                */
+                break;
+            }
+            case 4: {
+                clearBuffer();
+                Workshop::deleteWorkshop(Company::getCompany()->getWorkshopLine());
                 break;
             }
             }
@@ -702,8 +857,9 @@ void trucksInformation() {
         cout << "[7] Show Trucks on Transit" << endl;
         cout << "[8] Show Specific Truck" << endl;
         cout << "[9] Show Multipliers and Standard Prices" << endl;
+        cout << "[10] Show best Workshop for a specific Truck" << endl;
         cout << "[0] Return" << endl;
-        if (cin >> opt && opt <= 9)
+        if (cin >> opt && opt <= 10)
         {
             clearScreen();
             switch (opt) {
@@ -886,6 +1042,78 @@ void trucksInformation() {
                 cout << "Normal price per KG: " << Normal::pricePerKG << endl;
                 enter_to_exit();
                 break;
+            case 10: {
+                string license;
+                bool invalidInput;
+                vector<string> auxVec;
+                if (Company::getCompany()->getVectorTrucks()->size()) {
+                    clearBuffer();
+                    do {
+                        clearScreen();
+                        invalidInput = false;
+                        cout << "What's the license of the truck you wish to see (XX-YY-ZZ)? "; getline(cin, license);
+                        if (license == "!q") break;
+
+                        //verifies if the license is valid or if it already exists.
+                        if (!checkLicenseV2(license)) {
+                            invalidInput = true;
+                        }
+                        else {
+                            invalidInput = true;
+                            for (vector<Truck*>::iterator it = Company::getCompany()->getVectorTrucks()->begin(); it != Company::getCompany()->getVectorTrucks()->end(); it++) {
+                                if ((*it)->getlicense() == license) {
+                                    clearScreen();
+                                    cout << "Truck found!!!" << endl;
+                                    (*it)->info();
+
+                                    // Copying
+                                    priority_queue<Workshop*> temp = *Company::getCompany()->getWorkshopLine();
+                                    vector<Workshop*> sorted_vector;
+                                    Workshop* best_workshop_branded;
+                                    Workshop* best_workshop_non_branded;
+
+                                    while (!temp.empty()) {
+                                        sorted_vector.push_back(temp.top());
+                                        temp.pop();
+                            
+                                    }
+
+                                    sort(sorted_vector.begin(), sorted_vector.end(), Workshop::sortingFunction);
+
+                                    best_workshop_branded = sorted_vector.at(0);
+                                    best_workshop_non_branded = sorted_vector.at(0);
+
+                                    if (!Workshop::notInWorkshop((*it))) {
+                                        cout << endl << "Truck with that license is in the workshop already!" << endl;
+                                        enter_to_exit();
+                                        break;
+                                    }
+
+                                    for (vector<Workshop*>::iterator it2 = sorted_vector.begin(); it2 != sorted_vector.end(); it2++)
+                                    {
+                                        if (((*it2)->getBrand() == (*it)->getbrand()))
+                                            best_workshop_branded = (*it2);
+                                    }
+
+                                    cout << endl;
+                                    cout << "Best Workshop of brand " << printBrand((*it)->getbrand()) << " is " << best_workshop_branded->getName() << endl;
+                                    cout << "Best Workshop overall is " << best_workshop_non_branded->getName() << endl;
+                                    enter_to_exit();
+
+                                    invalidInput = false;
+                                    clearScreen();
+                                    break;
+                                }
+                            }
+                            if (invalidInput) {
+                                cout << "Truck with license " << license << " is not a part of the company's database" << endl;
+                                enter_to_exit();
+                            }
+                        }
+                    } while (invalidInput);
+                }
+                break;
+            }
 
             default:
                 opt = 1;
@@ -2044,6 +2272,10 @@ void menu_inactive_clients() {
 					cout << "Enter the Nif" << endl;
 
 					getline(cin, tempNif);
+                    if (tempNif=="!q") {
+                        clearScreen();
+                        return;
+                    }
 					checkIfOut(tempNif);
 					clearScreen();
 					if (strIsNumber(tempNif) && tempNif.size() == 9)
@@ -2053,7 +2285,6 @@ void menu_inactive_clients() {
 						cout << "Nif Input not acceptable, please try again" << endl;
 					}
 				}
-                clearBuffer();
                 int auxnif = stoi(tempNif);
                 if (Company::getCompany()->clientHash.size()) {
                     for (auto i : Company::getCompany()->clientHash) {
@@ -2069,7 +2300,6 @@ void menu_inactive_clients() {
                 }
                 else
                     cout << "There is no Information to show" << endl;
-                clearBuffer();
                 enter_to_exit();
                 break;
             }
@@ -2094,11 +2324,20 @@ void workshopsInformation() {
 			case 1:
                 // Copying to avoid destroying the queue
 				priority_queue<Workshop*> temp_priority_queue = *Company::getCompany()->getWorkshopLine();
+                vector<Workshop*> sorted_vector;
 
 				while (!temp_priority_queue.empty()) {
-					temp_priority_queue.top()->info();
+					sorted_vector.push_back(temp_priority_queue.top());
 					temp_priority_queue.pop();
 				}
+
+                sort(sorted_vector.begin(), sorted_vector.end(), Workshop::sortingFunction);
+
+                for (vector<Workshop*>::iterator it = sorted_vector.begin(); it != sorted_vector.end(); it++)
+                {
+                    (*it)->info();
+                }
+
 				clearBuffer();
 				enter_to_exit();
 				break;

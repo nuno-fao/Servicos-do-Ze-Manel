@@ -235,4 +235,4 @@ string printBrand(car_brand brand);
 * @param queue_to_check - pointer to a queue of pairs of pointers to Trucks and pointers to Dates to be checked
 * @return Returns the pointer to the latest date as a Date objects
 */
-Date findMaxDate(queue<pair<Truck*, Date*>>* queue_to_check);
+Date findMaxDate(queue<pair<Truck*, Date*>> queue_to_check);

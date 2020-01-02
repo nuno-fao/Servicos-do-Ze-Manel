@@ -73,7 +73,26 @@ bool operator <( const Driver &a, const Driver &b){
 
 
 void Driver::addDriver(){
-
+    string name;
+    string nif_s;
+    int nif;
+    while(true){
+        cout<<"What is the Driver's Name?"<<endl;
+        getline(cin,name);
+        //checkifout
+    }
+    while(true){
+        cout<<"what is the Driver's NIF?"<<endl;
+        getline(cin,nif_s);
+        try{
+            nif=stoi(nif_s);
+            //Company::getCompany
+        }
+        catch(...){
+           clearScreen();
+           cout<<"NIF not valid, please try again"<<endl;
+        }
+    }
 }
 void Driver::toogleDriverActiv(){
     if(active){
