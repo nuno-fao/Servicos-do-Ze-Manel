@@ -205,3 +205,14 @@ float operator - (Date  &dt1, Date  &dt2){
     cout<<n1-n2<<endl;
     return  t;
 }
+
+void Date::setHour(int hour){
+    this->hour=hour;
+}
+
+Date operator + (Date &date1, int days){
+    date1.setDay(date1.getDay()+days);
+    if(date1.getDay()/monthDays[date1.getMonth()]){
+        date1
+    }
+}

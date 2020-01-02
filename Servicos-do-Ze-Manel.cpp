@@ -278,7 +278,7 @@ void menu_trucks() {
         cout << "[1] Add Truck" << endl;
         cout << "[2] Edit Truck Prices" << endl;
         cout << "[3] Remove Truck" << endl;
-        cout << "[4] Add a Truck to a workshop" << endl;
+        cout << "[4] Add a Truck to a workshop with specific brand" << endl;
         cout << "[0] Return to Main Menu" << endl;
         if (cin >> opt && opt <= 4)
         {
@@ -305,7 +305,6 @@ void menu_trucks() {
                 string license;
                 string tempString;
                 vector<string> tempVector;
-                string confirmstr;
                 bool invalidInput;
                 bool variable_error = true;
                 vector<string> auxVec;
@@ -314,7 +313,7 @@ void menu_trucks() {
                     do {
                         clearScreen();
                         invalidInput = false;
-                        cout << "What's the license of the truck you wish to see (XX-YY-ZZ)? "; getline(cin, license);
+                        cout << "What's the license of the truck you wish to add (XX-YY-ZZ)? "; getline(cin, license);
                         if (license == "!q") break;
 
                         //verifies if the license is valid or if it already exists.
@@ -330,124 +329,33 @@ void menu_trucks() {
                                     (*it)->info();
 
                                     // Copying
-                                    priority_queue<Workshop*> temp = *Company::getCompany()->getWorkshopLine();
-                                    vector<Workshop*> sorted_vector;
-                                    Workshop* best_workshop_branded;
-                                    Workshop* best_workshop_non_branded;
 
-
-                                    while (!temp.empty()) {
-                                        sorted_vector.push_back(temp.top());
-                                        temp.pop();
-
-                                    }
-
-                                    sort(sorted_vector.begin(), sorted_vector.end(), Workshop::sortingFunction);
-
-                                    best_workshop_non_branded = sorted_vector.at(0);
-                                    best_workshop_branded = sorted_vector.at(0);
-
-                                    for (vector<Workshop*>::iterator it2 = sorted_vector.begin(); it2 != sorted_vector.end(); it2++)
-                                    {
-                                        if (((*it2)->getBrand() == (*it)->getbrand()))
-                                            best_workshop_branded = (*it2);
-                                    }
-
+                                    Workshop best_workshop_branded= Company::getCompany()->getWorkshopLine()->top();
+                                    Company::getCompany()->getWorkshopLine()->pop();
+                                    string days_s;
+                                    int days;
                                     while (variable_error) {
-                                        try {
-                                            cout << "Enter the date(yy mm dd) the service finishes: " << endl;
-                                            if (getline(cin, tempString)) {
-                                                clearScreen();
-                                                checkIfOut(tempString);
-                                                tempVector = vectorString(tempString, " ");
-                                                for (auto p : tempVector) {
-                                                    if (!strIsNumber(p)) {
-                                                        tempVector.clear();
-                                                        variable_error = true;
-                                                        clearScreen();
-                                                        cout << "Date Input not Aceptable, please try again" << endl;
-                                                        break;
-                                                    }
-                                                }
-                                                if (tempVector.size() == 3) {
-                                                    Date i(date_u_short(stoi(tempVector.at(0))), date_u_short(stoi(tempVector.at(1))), date_u_short(stoi(tempVector.at(2))), 23, 59);
-                                                    variable_error = false;
-                                                }
-                                                else {
-                                                    variable_error = true;
-                                                    clearScreen();
-                                                    cout << "Date Input not Aceptable, please try again" << endl;
-                                                }
-                                            }
-                                            else {
-                                                variable_error = true;
-                                                clearScreen();
-                                                cout << "minute Input not Aceptable, please try again" << endl;
-                                            }
-                                        }
-                                        catch (DateInvalid i) {
-                                            clearScreen();
-                                            cout << i.error << endl;
-                                        }
-                                    }
-                                    variable_error = true;
-                                    vector<string> tempVector_h;
-                                    while (variable_error) {
-                                        try {
-                                            cout << "Enter the time(hh mm) the service finishes: " << endl;
-                                            if (getline(cin, tempString)) {
-                                                clearScreen();
-                                                checkIfOut(tempString);
-                                                tempVector_h = vectorString(tempString, " ");
-                                                for (auto p : tempVector_h) {
-                                                    if (!strIsNumber(p)) {
-                                                        tempVector_h.clear();
-                                                        variable_error = true;
-                                                        clearScreen();
-                                                        cout << "minute Input not Aceptable, please try again" << endl;
-                                                        break;
-                                                    }
-                                                }
-                                                if (tempVector_h.size() == 2) {
-                                                    Date i(date_u_short(stoi(tempVector.at(0))), date_u_short(stoi(tempVector.at(1))), date_u_short(stoi(tempVector.at(2))), date_u_short(stoi(tempVector_h.at(0))), date_u_short(stoi(tempVector_h.at(1))));
-                                                    variable_error = false;
-                                                }
-                                                else {
-                                                    variable_error = true;
-                                                    clearScreen();
-                                                    cout << "minute Input not Aceptable, please try again" << endl;
-                                                }
-                                            }
-                                            else {
-                                                variable_error = true;
-                                                clearScreen();
-                                                cout << "minute Input not Aceptable, please try again" << endl;
-                                            }
-                                        }
-                                        catch (DateInvalid i) {
-                                            clearScreen();
-                                            cout << i.error << endl;
-                                        }
-                                    }
-                                    Date *temp_date = new Date(date_u_short(stoi(tempVector.at(0))), date_u_short(stoi(tempVector.at(1))), date_u_short(stoi(tempVector.at(2))), date_u_short(stoi(tempVector_h.at(0))), date_u_short(stoi(tempVector_h.at(1))));
-
-                                    do {
+                                        cout << "Enter the number of days of service: " << endl;
+                                        getline(cin,days_s);
                                         clearScreen();
-                                        cout << "Is the service you're adding brand-specific? (Y/N): " << endl;
-                                        cin >> confirmstr;
-                                        clearBuffer();
-                                    } while (confirmstr != "Y" && confirmstr != "N" && confirmstr != "y" && confirmstr != "n" && confirmstr != "!q");	// Confirmation
+                                        try {
+                                            checkIfOut(days_s);
+                                        } catch (...) {
+                                            return;
+                                        }
+                                        try {
+                                            days=stoi(days_s);
+                                        } catch (...) {
+                                            cout << "Number not valid. please try again" << endl;
+                                        }
 
-                                    if (confirmstr == "Y" || confirmstr == "y") {
-                                        best_workshop_branded->addService((*it), temp_date);
-                                        cout << "Service added to the most appropriate workshop, which is: " << best_workshop_branded->getName() << endl;
-                                        enter_to_exit();
                                     }
-                                    else {
-                                        best_workshop_non_branded->addService((*it), temp_date);
-                                        cout << "Service added to the most appropriate workshop, which is: " << best_workshop_non_branded->getName() << endl;
-                                        enter_to_exit();
-                                    }
+                                    Date tmp=(*best_workshop_branded.getLastDate())+days;
+                                    best_workshop_branded.addService((*it), temp_date);
+                                    Company::getCompany()->getWorkshopLine()->push(best_workshop_branded);
+
+                                    cout << "Service added to the most appropriate workshop, which is: " << best_workshop_branded.getName() << endl;
+                                    enter_to_exit();
 
                                     invalidInput = false;
                                     clearScreen();
@@ -1131,21 +1039,18 @@ void trucksInformation() {
                                     (*it)->info();
 
                                     // Copying
-                                    priority_queue<Workshop*> temp = *Company::getCompany()->getWorkshopLine();
-                                    vector<Workshop*> sorted_vector;
-                                    Workshop* best_workshop_branded;
-                                    Workshop* best_workshop_non_branded;
+                                    priority_queue<Workshop> temp = *Company::getCompany()->getWorkshopLine();
+
+                                    Workshop best_workshop_non_branded = Company::getCompany()->getWorkshopLine()->top();
+
+                                    Workshop best_workshop_branded = best_workshop_non_branded;
 
                                     while (!temp.empty()) {
-                                        sorted_vector.push_back(temp.top());
+                                        if(temp.top().getBrand()==(*it)->getbrand()){
+                                            best_workshop_branded = temp.top();
+                                        }
                                         temp.pop();
-                            
                                     }
-
-                                    sort(sorted_vector.begin(), sorted_vector.end(), Workshop::sortingFunction);
-
-                                    best_workshop_branded = sorted_vector.at(0);
-                                    best_workshop_non_branded = sorted_vector.at(0);
 
                                     if (!Workshop::notInWorkshop((*it))) {
                                         cout << endl << "Truck with that license is in the workshop already!" << endl;
@@ -1153,15 +1058,9 @@ void trucksInformation() {
                                         break;
                                     }
 
-                                    for (vector<Workshop*>::iterator it2 = sorted_vector.begin(); it2 != sorted_vector.end(); it2++)
-                                    {
-                                        if (((*it2)->getBrand() == (*it)->getbrand()))
-                                            best_workshop_branded = (*it2);
-                                    }
-
                                     cout << endl;
-                                    cout << "Best Workshop of brand " << printBrand((*it)->getbrand()) << " is " << best_workshop_branded->getName() << endl;
-                                    cout << "Best Workshop overall is " << best_workshop_non_branded->getName() << endl;
+                                    cout << "Best Workshop of brand " << printBrand((*it)->getbrand()) << " is " << best_workshop_branded.getName() << endl;
+                                    cout << "Best Workshop overall is " << best_workshop_non_branded.getName() << endl;
                                     enter_to_exit();
 
                                     invalidInput = false;
@@ -2387,20 +2286,14 @@ void workshopsInformation() {
 			}
 			case 1:
                 // Copying to avoid destroying the queue
-				priority_queue<Workshop*> temp_priority_queue = *Company::getCompany()->getWorkshopLine();
-                vector<Workshop*> sorted_vector;
+                priority_queue<Workshop> temp_priority_queue = *Company::getCompany()->getWorkshopLine();
 
-				while (!temp_priority_queue.empty()) {
-					sorted_vector.push_back(temp_priority_queue.top());
-					temp_priority_queue.pop();
-				}
-
-                sort(sorted_vector.begin(), sorted_vector.end(), Workshop::sortingFunction);
-
-                for (vector<Workshop*>::iterator it = sorted_vector.begin(); it != sorted_vector.end(); it++)
-                {
-                    (*it)->info();
+                while (!temp_priority_queue.empty()) {
+                    Workshop a=temp_priority_queue.top();
+                    a.info();
+                    temp_priority_queue.pop();
                 }
+
 
 				clearBuffer();
 				enter_to_exit();

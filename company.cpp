@@ -292,7 +292,7 @@ BST<Driver> *Company::getDrivers(){
     return &drivers;
 }
 
-priority_queue<Workshop*>* Company::getWorkshopLine()
+priority_queue<Workshop> *Company::getWorkshopLine()
 {
     return &workshop_line;
 }

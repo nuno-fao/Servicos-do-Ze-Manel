@@ -113,7 +113,9 @@ public:
 * Returns the minutes of the Date
 *
 * @return Returns the minutes of the Date
+*
 */
+    void setHour(int hour);
     unsigned short getMinute() const;
 	/**
 * @brief Gets date as a string
@@ -226,3 +228,5 @@ float operator - (Date &date1, Date &data2);
 * @return Returns the total number of days the month of the given year contains
 */
 unsigned total_days(unsigned year, unsigned short month);
+
+Date operator + (Date &date1, int hours);
