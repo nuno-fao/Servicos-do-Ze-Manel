@@ -305,6 +305,7 @@ void menu_trucks() {
                 string license;
                 string tempString;
                 vector<string> tempVector;
+                string confirmstr;
                 bool invalidInput;
                 bool variable_error = true;
                 vector<string> auxVec;
@@ -332,6 +333,8 @@ void menu_trucks() {
                                     priority_queue<Workshop*> temp = *Company::getCompany()->getWorkshopLine();
                                     vector<Workshop*> sorted_vector;
                                     Workshop* best_workshop_branded;
+                                    Workshop* best_workshop_non_branded;
+
 
                                     while (!temp.empty()) {
                                         sorted_vector.push_back(temp.top());
@@ -341,6 +344,7 @@ void menu_trucks() {
 
                                     sort(sorted_vector.begin(), sorted_vector.end(), Workshop::sortingFunction);
 
+                                    best_workshop_non_branded = sorted_vector.at(0);
                                     best_workshop_branded = sorted_vector.at(0);
 
                                     for (vector<Workshop*>::iterator it2 = sorted_vector.begin(); it2 != sorted_vector.end(); it2++)
@@ -427,10 +431,23 @@ void menu_trucks() {
                                     }
                                     Date *temp_date = new Date(date_u_short(stoi(tempVector.at(0))), date_u_short(stoi(tempVector.at(1))), date_u_short(stoi(tempVector.at(2))), date_u_short(stoi(tempVector_h.at(0))), date_u_short(stoi(tempVector_h.at(1))));
 
-                                    best_workshop_branded->addService((*it), temp_date);
+                                    do {
+                                        clearScreen();
+                                        cout << "Is the service you're adding brand-specific? (Y/N): " << endl;
+                                        cin >> confirmstr;
+                                        clearBuffer();
+                                    } while (confirmstr != "Y" && confirmstr != "N" && confirmstr != "y" && confirmstr != "n" && confirmstr != "!q");	// Confirmation
 
-                                    cout << "Service added to the most appropriate workshop, which is: " << best_workshop_branded->getName() << endl;
-                                    enter_to_exit();
+                                    if (confirmstr == "Y" || confirmstr == "y") {
+                                        best_workshop_branded->addService((*it), temp_date);
+                                        cout << "Service added to the most appropriate workshop, which is: " << best_workshop_branded->getName() << endl;
+                                        enter_to_exit();
+                                    }
+                                    else {
+                                        best_workshop_non_branded->addService((*it), temp_date);
+                                        cout << "Service added to the most appropriate workshop, which is: " << best_workshop_non_branded->getName() << endl;
+                                        enter_to_exit();
+                                    }
 
                                     invalidInput = false;
                                     clearScreen();
