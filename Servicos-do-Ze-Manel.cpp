@@ -305,6 +305,7 @@ void menu_trucks() {
                 string license;
                 string tempString;
                 vector<string> tempVector;
+                string confirmstr;
                 bool invalidInput;
                 bool variable_error = true;
                 vector<string> auxVec;
@@ -351,6 +352,25 @@ void menu_trucks() {
 
                                     }
                                     Date tmp=(*best_workshop_branded.getLastDate())+days;
+
+                                    do {
+                                        clearScreen();
+                                        cout << "Is the service you're adding brand-specific? (Y/N): " << endl;
+                                        cin >> confirmstr;
+                                        clearBuffer();
+                                    } while (confirmstr != "Y" && confirmstr != "N" && confirmstr != "y" && confirmstr != "n" && confirmstr != "!q");	// Confirmation
+
+                                    if (confirmstr == "Y" || confirmstr == "y") {
+                                        best_workshop_branded->addService((*it), &tmp);
+                                        cout << "Service added to the most appropriate workshop, which is: " << best_workshop_branded->getName() << endl;
+                                        enter_to_exit();
+                                    }
+                                    else {
+                                        best_workshop_non_branded->addService((*it), temp_date);
+                                        cout << "Service added to the most appropriate workshop, which is: " << best_workshop_non_branded->getName() << endl;
+                                        enter_to_exit();
+                                    }
+
                                     best_workshop_branded.addService((*it), temp_date);
                                     Company::getCompany()->getWorkshopLine()->push(best_workshop_branded);
 
