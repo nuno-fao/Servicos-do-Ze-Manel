@@ -182,8 +182,8 @@ void menu_drivers(){
             case 0:
                 return;
             case 1:{
-                    clearBuffer();
-                    Driver::addDriver();
+                clearBuffer();
+                Driver::addDriver();
 
                 break;
             }
@@ -330,9 +330,10 @@ void menu_trucks() {
                                     (*it)->info();
 
                                     // Copying
-
-                                    Workshop best_workshop_branded= Company::getCompany()->getWorkshopLine()->top();
-                                    Company::getCompany()->getWorkshopLine()->pop();
+                                    if(Company::getCompany()->getWorkshopLine()->empty()){
+                                        cout<<"Can't assign to a Wokshop, couldn't find any workshop!"<<endl;
+                                        return;
+                                    }
                                     string days_s;
                                     int days;
                                     while (variable_error) {
@@ -346,12 +347,12 @@ void menu_trucks() {
                                         }
                                         try {
                                             days=stoi(days_s);
+                                            variable_error=false;
                                         } catch (...) {
                                             cout << "Number not valid. please try again" << endl;
                                         }
 
                                     }
-                                    Date tmp=(*best_workshop_branded.getLastDate())+days;
 
                                     do {
                                         clearScreen();
@@ -360,22 +361,51 @@ void menu_trucks() {
                                         clearBuffer();
                                     } while (confirmstr != "Y" && confirmstr != "N" && confirmstr != "y" && confirmstr != "n" && confirmstr != "!q");	// Confirmation
 
-                                    if (confirmstr == "Y" || confirmstr == "y") {
-                                        best_workshop_branded->addService((*it), &tmp);
-                                        cout << "Service added to the most appropriate workshop, which is: " << best_workshop_branded->getName() << endl;
+                                    clearScreen();
+                                    if ((confirmstr == "Y") || (confirmstr == "y")) {
+                                        vector<Workshop> tmp_vect;
+                                        priority_queue<Workshop> tmp_queue=*Company::getCompany()->getWorkshopLine();
+                                        Workshop best_workshop_branded= Company::getCompany()->getWorkshopLine()->top();
+                                        bool yy=false;
+                                        while (!tmp_queue.empty()) {
+                                            if(tmp_queue.top().getBrand()==(*it)->getbrand()){
+                                                best_workshop_branded=tmp_queue.top();
+                                                yy=true;
+                                                tmp_queue.pop();
+                                                for(auto i:tmp_vect){
+                                                    tmp_queue.push(i);
+                                                }
+                                                break;
+                                            }
+                                            tmp_vect.push_back(tmp_queue.top());
+                                            tmp_queue.pop();
+                                        }
+                                        auto i=Company::getCompany()->getWorkshopLine();
+                                        *i=tmp_queue;
+                                        if(!yy){
+                                            cout<<"Can't assign to a Wokshop, couldn't find any suitable workshop!"<<endl;
+                                            return;
+                                        }
+                                        Date x=*best_workshop_branded.getLastDate();
+                                        Date tmp_b=x+days;
+                                        best_workshop_branded.addService((*it), tmp_b);
+                                        clearScreen();
+                                        cout<<"Date:" <<tmp_b.getDateWHour()<<endl;
+                                        Company::getCompany()->getWorkshopLine()->push(best_workshop_branded);
+                                        cout << "Service added to the most appropriate workshop, which is: " << best_workshop_branded.getName() << endl;
                                         enter_to_exit();
                                     }
                                     else {
-                                        best_workshop_non_branded->addService((*it), temp_date);
-                                        cout << "Service added to the most appropriate workshop, which is: " << best_workshop_non_branded->getName() << endl;
+                                        Workshop best_workshop_non_branded= Company::getCompany()->getWorkshopLine()->top();
+                                        Company::getCompany()->getWorkshopLine()->pop();
+                                        Date x=*best_workshop_non_branded.getLastDate();
+                                        Date tmp_nb=x+days;
+                                        best_workshop_non_branded.addService((*it), tmp_nb);
+                                        cout << "Service added to the most appropriate workshop, which is: " << best_workshop_non_branded.getName() << endl;
+                                        Company::getCompany()->getWorkshopLine()->push(best_workshop_non_branded);
                                         enter_to_exit();
                                     }
-
-                                    best_workshop_branded.addService((*it), temp_date);
-                                    Company::getCompany()->getWorkshopLine()->push(best_workshop_branded);
-
-                                    cout << "Service added to the most appropriate workshop, which is: " << best_workshop_branded.getName() << endl;
-                                    enter_to_exit();
+                                    clearScreen();
 
                                     invalidInput = false;
                                     clearScreen();
@@ -776,9 +806,9 @@ void clientsInformation(){
                 }
                 break;
             }
-			case 8:
+            case 8:
                 menu_inactive_clients();
-				break;
+                break;
 
             default:
                 opt=1;
@@ -2223,8 +2253,8 @@ void moneyInformation(){
 }
 
 void menu_inactive_clients() {
-	unsigned opt = 1;
-	clearScreen();
+    unsigned opt = 1;
+    clearScreen();
     while (opt != 0) {
         cout << "[1] Show All Inactive Clients" << endl;
         cout << "[2] Show a Specific Inactive Client" << endl;
@@ -2248,26 +2278,26 @@ void menu_inactive_clients() {
                 enter_to_exit();
                 break;
             case 2: {
-				bool variable_error = true;
-				string tempNif;
+                bool variable_error = true;
+                string tempNif;
                 clearBuffer();
-				while (variable_error) {
-					cout << "Enter the Nif" << endl;
+                while (variable_error) {
+                    cout << "Enter the Nif" << endl;
 
-					getline(cin, tempNif);
+                    getline(cin, tempNif);
                     if (tempNif=="!q") {
                         clearScreen();
                         return;
                     }
-					checkIfOut(tempNif);
-					clearScreen();
-					if (strIsNumber(tempNif) && tempNif.size() == 9)
-						variable_error = false;
-					else {
-						variable_error = true;
-						cout << "Nif Input not acceptable, please try again" << endl;
-					}
-				}
+                    checkIfOut(tempNif);
+                    clearScreen();
+                    if (strIsNumber(tempNif) && tempNif.size() == 9)
+                        variable_error = false;
+                    else {
+                        variable_error = true;
+                        cout << "Nif Input not acceptable, please try again" << endl;
+                    }
+                }
                 int auxnif = stoi(tempNif);
                 if (Company::getCompany()->clientHash.size()) {
                     for (auto i : Company::getCompany()->clientHash) {
@@ -2292,19 +2322,19 @@ void menu_inactive_clients() {
 }
 
 void workshopsInformation() {
-	unsigned opt = 1;
-	clearScreen();
-	while (opt != 0) {
-		cout << "[1] Show all Workshops (ordered by unavailability)" << endl;
-		cout << "[0] Return" << endl;
-		if (cin >> opt && opt <= 2)
-		{
-			clearScreen();
-			switch (opt) {
-			case 0: {
-				return;
-			}
-			case 1:
+    unsigned opt = 1;
+    clearScreen();
+    while (opt != 0) {
+        cout << "[1] Show all Workshops (ordered by unavailability)" << endl;
+        cout << "[0] Return" << endl;
+        if (cin >> opt && opt <= 2)
+        {
+            clearScreen();
+            switch (opt) {
+            case 0: {
+                return;
+            }
+            case 1:
                 // Copying to avoid destroying the queue
                 priority_queue<Workshop> temp_priority_queue = *Company::getCompany()->getWorkshopLine();
 
@@ -2315,10 +2345,10 @@ void workshopsInformation() {
                 }
 
 
-				clearBuffer();
-				enter_to_exit();
-				break;
-			}
-		}
-	}
+                clearBuffer();
+                enter_to_exit();
+                break;
+            }
+        }
+    }
 }

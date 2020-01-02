@@ -229,4 +229,4 @@ float operator - (Date &date1, Date &data2);
 */
 unsigned total_days(unsigned year, unsigned short month);
 
-Date operator + (Date &date1, int hours);
+Date operator + (Date date1, int hours);

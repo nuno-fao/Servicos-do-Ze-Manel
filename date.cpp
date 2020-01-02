@@ -9,7 +9,7 @@ Date::Date() {
     month = date_u_short(now->tm_mon + 1);
     year = date_u_short(now->tm_year + 1900);
 	hour = date_u_short(now->tm_hour);
-	minute = date_u_short(now->tm_min);
+    minute = date_u_short(now->tm_min);
 }
 
 Date::Date(string date) {
@@ -198,11 +198,7 @@ float operator - (Date  &dt1, Date  &dt2){
         n2 += monthDays[i];
     n2 += countLeapYears(&dt2);
 
-	float t = ((n1 - n2) * 24 * 60 + (dt1.getHour() - dt2.getHour()) * 60 + (dt1.getMinute() - dt2.getMinute()));
-    cout<<t<<endl;
-    cout<<n1<<endl;
-    cout<<n2<<endl;
-    cout<<n1-n2<<endl;
+    float t = ((n1 - n2) * 24 * 60 + (dt1.getHour() - dt2.getHour()) * 60 + (dt1.getMinute() - dt2.getMinute()));
     return  t;
 }
 
@@ -210,9 +206,28 @@ void Date::setHour(int hour){
     this->hour=hour;
 }
 
-Date operator + (Date &date1, int days){
-    date1.setDay(date1.getDay()+days);
-    if(date1.getDay()/monthDays[date1.getMonth()]){
-        date1
+Date operator + (Date date1, int days){
+    int dias=(date1.getDay()+days);
+    int mes = 0;
+    if(dias/monthDays[date1.getMonth()-1]){
+        mes=(date1.getMonth()+dias/monthDays[date1.getMonth()-1]);
+        date1.setDay(dias%monthDays[date1.getMonth()-1]);
     }
+    else{
+        date1.setDay(dias);
+    }
+    if(mes/12){
+        date1.setYear(date1.getYear()+mes/12);
+        date1.setMonth(mes%12+1);
+    }
+    else{
+        date1.setMonth(mes);
+    }
+    if(date1.getDay()==0)
+        date1.setDay(1);
+    if(date1.getMonth()==0)
+        date1.setMonth(1);
+    cout<<"mes :"<<date1.getMonth()<<endl;
+    cout<<"dia :"<<date1.getDay()<<endl;
+    return  date1;
 }

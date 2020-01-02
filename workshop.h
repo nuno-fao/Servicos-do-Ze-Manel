@@ -39,7 +39,7 @@ public:
  * @param unavailability - Number of days until available
  * @param wl - Queue of Services, indicated by pairs of pointers to the truck and date the service finishes 
  */
-	Workshop(string n, car_brand b, int unavailability, queue<pair<Truck*, Date*>> wl);
+    Workshop(string n, car_brand b, int unavailability, queue<pair<Truck*, Date*>> wl,Date date);
 /**
 * @brief Gets name
 *
@@ -171,7 +171,7 @@ public:
 * @param date - pointer to the Date it finishes the service
 * @return Returns nothing
 */
-	void addService(Truck* truck, Date* date);
+    void addService(Truck* truck, Date date);
 /**
 *
 * Prints the information of the Workshop
