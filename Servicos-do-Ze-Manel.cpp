@@ -35,6 +35,7 @@ void moneyInformation();
 void menu_inactive_clients();
 void workshopsInformation();
 void menu_workshops();
+void menu_drivers();
 
 Company *Company::company = nullptr;
 int main()
@@ -58,6 +59,11 @@ int main()
         r.open("./files/clients.txt");
         r.close();
         Client::loadClients(*Ze_Manel->getVectorClients());
+    }
+    try {
+        Driver::loadFromFile();
+    } catch (...) {
+
     }
     Ze_Manel->loadStats();
 
@@ -115,8 +121,9 @@ void mainMenu(){
         cout<<"[3] Services"<<endl;
         cout<<"[4] Information"<<endl;
         cout << "[5] Workshops" << endl;
+        cout<<"[6] Drivers"<<endl;
 
-        if(cin>>opt && opt<=5)
+        if(cin>>opt && opt<=6)
         {
             clearScreen();
             switch (opt) {
@@ -141,6 +148,46 @@ void mainMenu(){
             }
             case 5: {
                 menu_workshops();
+                break;
+            }
+            case 6: {
+                menu_drivers();
+                break;
+            }
+
+            default:
+                opt=1;
+            }
+        }
+        else{
+            opt=1;
+            clearBuffer();
+            clearScreen();
+            cout<<"Not a valid option, please try again"<<endl;
+        }
+    }
+}
+
+void menu_drivers(){
+    unsigned opt=1;
+    while (opt!=0) {
+        clearScreen();
+        cout<<"[1] Add Driver"<<endl;
+        cout<<"[2] Manage Driver"<<endl;
+        cout<<"[0] Return to Main Menu"<<endl;
+        if(cin>>opt && opt<=2)
+        {
+            clearScreen();
+            switch (opt) {
+            case 0:
+                return;
+            case 1:{
+                    clearBuffer();
+                    Driver::addDriver();
+
+                break;
+            }
+            case 2:{
                 break;
             }
 
@@ -821,17 +868,17 @@ void menu_workshops() {
                 clearBuffer();
 
                 // Works but deletes previously stored stuff ???
-                //Workshop::addWorkshop(Company::getCompany()->getWorkshopLine());
+                Workshop::addWorkshop(Company::getCompany()->getWorkshopLine());
                 break;
             }
             case 2:{
                 break;
             }
             case 3: {
-                /* Also not working, not sure why
+                // Also not working, not sure why
                 clearBuffer();
                 Workshop::editWorkshop(Company::getCompany()->getWorkshopLine());
-                */
+
                 break;
             }
             case 4: {

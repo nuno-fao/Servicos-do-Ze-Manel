@@ -8,7 +8,7 @@ set<unsigned> Service::idList={};
 Service::Service(string material, Address origin, Address destination, Date *arrivalDate, unsigned distance, enum type type, enum state state, Date *date, Client *client, float quantity)
     : material(material), distance(distance), quantity(quantity), ser_type(type), ser_state(state)
 {
-    
+
     for(unsigned x=0;;x++){
         if(!idList.count(x)){
             this->id=x;
@@ -21,7 +21,7 @@ Service::Service(string material, Address origin, Address destination, Date *arr
     setOrigin(Address(origin));
     setDestination(Address(destination));
     setClient(client);
-    
+
 }
 
 Service::Service(string material, string origin, string destination, Date *arrivalDate, unsigned distance, enum type type, enum state state, Date *date, Client *client, float quantity, float total_price, unsigned id)
@@ -322,7 +322,9 @@ void Service::loadFromFile(list<Service*> *services_finished,vector<Service*> *s
         Date *tempI=new Date(tempIDate);
         Date *tempA=new Date(tempADate);
         getline(servicesFile,tempGeneral);
-        vector<string> tmp_drivers=vectorString(tempGeneral,",");
+        vector<string> tmp_drivers_nif=vectorString(tempGeneral,",");
+        getline(servicesFile,tempGeneral);
+        vector<string> tmp_drivers_hours=vectorString(tempGeneral,",");
         try {
             if(tempNif.size()!=9)
                 throw NotAClient(unsigned(stoi(tempNif)),"Not a valid NIF");
@@ -334,7 +336,21 @@ void Service::loadFromFile(list<Service*> *services_finished,vector<Service*> *s
                 temp= new HazardousService(tempMaterial, tempOrigin,tempDestination,tempA,unsigned(tempDistance),tempType,tempState,tempI,temp_client,tempQuantity,tempSpecHazar,tempPrice,tempId);
             else
                 temp= new Service(tempMaterial,tempOrigin,tempDestination,tempA,unsigned(tempDistance),tempType,tempState,tempI,temp_client,tempQuantity,tempPrice,tempId);
+            if(tmp_drivers_nif.size() && tmp_drivers_hours.size()){
+                auto it_nif=tmp_drivers_nif.begin();
+                auto it_hours=tmp_drivers_hours.begin();
+                while(it_nif!=tmp_drivers_nif.end()){
+                    try {
+                        int l_nif=stoi(*it_nif);
+                        int l_hours=stof(*it_hours);
+                        temp->drivers.push_back(pair<int,float>(l_nif,l_hours));
+                    } catch (...) {
 
+                    }
+                    it_nif++;
+                    it_hours++;
+                }
+            }
             for(auto i:tempVectorTruckS){
                 try{
                     vector<string> tempTruckMap=vectorString(i,":");
@@ -376,7 +392,21 @@ void Service::loadFromFile(list<Service*> *services_finished,vector<Service*> *s
             else
                 temp= new Service(tempMaterial,tempOrigin,tempDestination,tempA,unsigned(tempDistance),tempType,tempState,tempI,tempC,tempQuantity,tempPrice,tempId);
 
-            temp->drivers=tmp_drivers;
+            if(tmp_drivers_nif.size() && tmp_drivers_hours.size()){
+                auto it_nif=tmp_drivers_nif.begin();
+                auto it_hours=tmp_drivers_hours.begin();
+                while(it_nif!=tmp_drivers_nif.end()){
+                    try {
+                        int l_nif=stoi(*it_nif);
+                        int l_hours=stof(*it_hours);
+                        temp->drivers.push_back(pair<int,float>(l_nif,l_hours));
+                    } catch (...) {
+
+                    }
+                    it_nif++;
+                    it_hours++;
+                }
+            }
             for(auto i:tempVectorTruckS){
                 try{
                     vector<string> tempTruckMap=vectorString(i,":");
@@ -454,7 +484,9 @@ void Service::loadFromFile(list<Service*> *services_finished,vector<Service*> *s
         Date *tempD=new Date(tempIDate);
         Date *tempA=new Date(tempADate);
         getline(servicesFile,tempGeneral);
-        vector<string> tmp_drivers=vectorString(tempGeneral,",");
+        vector<string> tmp_drivers_nif=vectorString(tempGeneral,",");
+        getline(servicesFile,tempGeneral);
+        vector<string> tmp_drivers_hours=vectorString(tempGeneral,",");
         try {
             if(tempNif.size()!=9)
                 throw NotAClient(unsigned(stoi(tempNif)),"Not a valid NIF");
@@ -468,6 +500,21 @@ void Service::loadFromFile(list<Service*> *services_finished,vector<Service*> *s
             else
                 temp= new Service(tempMaterial,tempOrigin,tempDestination,tempA,unsigned(tempDistance),tempType,tempState,tempD,temp_client,tempQuantity,tempPrice,tempId);
 
+            if(tmp_drivers_nif.size() && tmp_drivers_hours.size()){
+                auto it_nif=tmp_drivers_nif.begin();
+                auto it_hours=tmp_drivers_hours.begin();
+                while(it_nif!=tmp_drivers_nif.end()){
+                    try {
+                        int l_nif=stoi(*it_nif);
+                        int l_hours=stof(*it_hours);
+                        temp->drivers.push_back(pair<int,float>(l_nif,l_hours));
+                    } catch (...) {
+
+                    }
+                    it_nif++;
+                    it_hours++;
+                }
+            }
             for(auto i:tempVectorTruckS){
                 try{
                     vector<string> tempTruckMap=vectorString(i,":");
@@ -510,6 +557,22 @@ void Service::loadFromFile(list<Service*> *services_finished,vector<Service*> *s
             else
                 temp= new Service(tempMaterial,tempOrigin,tempDestination,tempA,unsigned(tempDistance),tempType,tempState,tempD,tempC,tempQuantity,tempPrice,tempId);
 
+            if(tmp_drivers_nif.size() && tmp_drivers_hours.size()){
+                auto it_nif=tmp_drivers_nif.begin();
+                auto it_hours=tmp_drivers_hours.begin();
+                while(it_nif!=tmp_drivers_nif.end()){
+                    try {
+                        int l_nif=stoi(*it_nif);
+                        int l_hours=stof(*it_hours);
+                        temp->drivers.push_back(pair<int,float>(l_nif,l_hours));
+                    } catch (...) {
+
+                    }
+                    it_nif++;
+                    it_hours++;
+                }
+            }
+
             for(auto i:tempVectorTruckS){
                 try{
                     vector<string> tempTruckMap=vectorString(i,":");
@@ -545,6 +608,8 @@ void Service::loadFromFile(list<Service*> *services_finished,vector<Service*> *s
     }
 
     servicesFile.close();
+
+
     servicesFile.open("./files/finished_services.txt");
     while(getline(servicesFile,tempMaterial)){
 
@@ -584,8 +649,11 @@ void Service::loadFromFile(list<Service*> *services_finished,vector<Service*> *s
         tempPrice=(stof(tempGeneral));
         Date *tempD=new Date(tempIDate);
         Date *tempA=new Date(tempADate);
+
         getline(servicesFile,tempGeneral);
-        vector<string> tmp_drivers=vectorString(tempGeneral,",");
+        vector<string> tmp_drivers_nif=vectorString(tempGeneral,",");
+        getline(servicesFile,tempGeneral);
+        vector<string> tmp_drivers_hours=vectorString(tempGeneral,",");
         try {
             if(tempNif.size()!=9)
                 throw NotAClient(unsigned(stoi(tempNif)),"Not a valid NIF");
@@ -598,7 +666,21 @@ void Service::loadFromFile(list<Service*> *services_finished,vector<Service*> *s
                 temp= new Service(tempMaterial,tempOrigin,tempDestination,tempA,unsigned(tempDistance),tempType,tempState,tempD,temp_client,tempQuantity,tempPrice,tempId);
 
             try{
-                tempVectorTruckS=vectorString(temptrucks,";");
+                if(tmp_drivers_nif.size() && tmp_drivers_hours.size()){
+                    auto it_nif=tmp_drivers_nif.begin();
+                    auto it_hours=tmp_drivers_hours.begin();
+                    while(it_nif!=tmp_drivers_nif.end()){
+                        try {
+                            int l_nif=stoi(*it_nif);
+                            int l_hours=stof(*it_hours);
+                            temp->drivers.push_back(pair<int,float>(l_nif,l_hours));
+                        } catch (...) {
+
+                        }
+                        it_nif++;
+                        it_hours++;
+                    }
+                }
                 for(auto i:tempVectorTruckS){
                     try{
                         vector<string> tempTruckMap=vectorString(i,":");
@@ -641,6 +723,21 @@ void Service::loadFromFile(list<Service*> *services_finished,vector<Service*> *s
             else
                 temp= new Service(tempMaterial,tempOrigin,tempDestination,tempA,unsigned(tempDistance),tempType,tempState,tempD,tempC,tempQuantity,tempPrice,tempId);
 
+            if(tmp_drivers_nif.size() && tmp_drivers_hours.size()){
+                auto it_nif=tmp_drivers_nif.begin();
+                auto it_hours=tmp_drivers_hours.begin();
+                while(it_nif!=tmp_drivers_nif.end()){
+                    try {
+                        int l_nif=stoi(*it_nif);
+                        int l_hours=stof(*it_hours);
+                        temp->drivers.push_back(pair<int,float>(l_nif,l_hours));
+                    } catch (...) {
+
+                    }
+                    it_nif++;
+                    it_hours++;
+                }
+            }
 
             for(auto i:tempVectorTruckS){
                 try{
@@ -726,7 +823,11 @@ void Service::saveToFile(list<Service*> *services_finished,vector<Service*>*serv
         servicesFile << x->getQuantity() <<endl;
         servicesFile << x->getTotalPrice() <<endl;
         for(auto i:x->drivers){
-            servicesFile<<i<<",";
+            servicesFile<<i.first<<",";
+        }
+        servicesFile<<endl;
+        for(auto i:x->drivers){
+            servicesFile<<i.second<<",";
         }
         servicesFile<<endl;
         servicesFile << ":::::::::::"<<endl;
@@ -774,7 +875,11 @@ void Service::saveToFile(list<Service*> *services_finished,vector<Service*>*serv
         servicesFile << x->getQuantity() <<endl;
         servicesFile << x->getTotalPrice() <<endl;
         for(auto i:x->drivers){
-            servicesFile<<i<<",";
+            servicesFile<<i.first<<",";
+        }
+        servicesFile<<endl;
+        for(auto i:x->drivers){
+            servicesFile<<i.second<<",";
         }
         servicesFile<<endl;
         servicesFile << ":::::::::::"<<endl;
@@ -823,7 +928,11 @@ void Service::saveToFile(list<Service*> *services_finished,vector<Service*>*serv
         servicesFile << x->getQuantity() <<endl;
         servicesFile << x->getTotalPrice() <<endl;
         for(auto i:x->drivers){
-            servicesFile<<i<<",";
+            servicesFile<<i.first<<",";
+        }
+        servicesFile<<endl;
+        for(auto i:x->drivers){
+            servicesFile<<i.second<<",";
         }
         servicesFile<<endl;
         servicesFile << ":::::::::::"<<endl;
@@ -1811,13 +1920,18 @@ ostream& operator <<(ostream& os,Service *a){
         os<<i.first->getlicense()<<": "<<i.second<<"kg"<<endl;
     }
     os<<endl;
+    os<<endl;
     os<<"Drivers:"<<endl;
     for(auto i:a->drivers){
+        BSTItrIn<Driver> it(*Company::getCompany()->getDrivers());
         try {
-            int nif=stoi(i);
-            os<<Company::getCompany()->getDrivers()->find(Driver(nif,"",0)).getName()<<""<<endl;
+            while (!it.isAtEnd()) {
+                if(it.retrieve().getNif()==i.first){
+                    os<<"   "<<it.retrieve().getName()<<endl;
+                }
+                it.advance();
+            }
         } catch (...) {
-
         }
     }
     os<<endl;

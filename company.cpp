@@ -15,6 +15,7 @@ Company::~Company(){
     Service::saveToFile(&services_finished,&services_on_transit,&services_on_queue);
     Client::saveToFile(clients);
     Truck::saveToFile(&trucks);
+    Driver::saveToFile();
 	saveStats();
     Workshop::saveToFile(&workshop_line);
     for(auto i:clients){
@@ -210,13 +211,37 @@ void Company::updateServicesSituation(){
         for(auto it=services_on_transit.begin(); it!= services_on_transit.end();it++){
             if(*(*it)->getADate()<f){
                 (*it)->setState(finished);
-                int hours=(*it)->getADate()-(*it)->getIDate();
+                Date a=*(*it)->getADate();
+                int min=*(*it)->getADate()-*(*it)->getIDate();
+                int hours=min/60;
+                cout<<"min: "<<min<<endl;
+                cout<<"hour: "<<hours<<endl;
                 Company::getCompany()->services_on_queue_changed=true;
                 for(auto i:(*it)->drivers){
-                    Company::getCompany()->driver_queue.push(stoi(i));
-                    Driver tmp=drivers.find(Driver(stoi(i),"",0));
+                    Company::getCompany()->driver_queue.push(pair<int,float>(i.first,i.second));
+                    Driver tmp=drivers.find(Driver(i.first,"",i.second));
+                    if(tmp.getNif()==0){
+                        BSTItrIn<Driver> it(*Company::getCompany()->getDrivers());
+                        try {
+                            while (!it.isAtEnd()) {
+                                if(it.retrieve().getNif()==i.first){
+                                    tmp=it.retrieve();
+                                    break;
+                                }
+                                it.advance();
+                            }
+                        } catch (...) {
+                        }
+                    }
                     drivers.remove(tmp);
-                    tmp.setServiceHours(tmp.getServiceHours()+hours/60);
+                    if(min%60!=0){
+                        hours++;
+                    }
+                    cout<<"hour after: "<<hours<<endl;
+                    cout<<"plus: "<<tmp.getServiceHours()+float(hours)<<endl;
+
+                    tmp.setServiceHours(tmp.getServiceHours()+float(hours));
+                    cin>>hours;
                     drivers.insert(tmp);
                 }
             }
@@ -231,7 +256,7 @@ void Company::updateServicesSituation(){
             if(*(*it)->getIDate()<f){
                 (*it)->setState(on_transit);
                 for(size_t i=0;i<(*it)->getTrucks()->size();i++){
-                    (*it)->drivers.push_back(to_string(Company::getCompany()->driver_queue.front()));
+                    (*it)->drivers.push_back((Company::getCompany()->driver_queue.front()));
                     Company::getCompany()->driver_queue.pop();
                 }
                 Company::getCompany()->services_on_queue_changed=true;
