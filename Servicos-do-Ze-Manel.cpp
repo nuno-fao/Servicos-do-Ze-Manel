@@ -383,7 +383,7 @@ void menu_trucks() {
                                         auto i=Company::getCompany()->getWorkshopLine();
                                         *i=tmp_queue;
                                         if(!yy){
-                                            cout<<"Can't assign to a Wokshop, couldn't find any suitable workshop!"<<endl;
+                                            cout<<"Can't assign to a Workshop, couldn't find any suitable workshop!"<<endl;
                                             return;
                                         }
                                         Date x=*best_workshop_branded.getLastDate();
