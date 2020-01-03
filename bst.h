@@ -57,6 +57,9 @@ public:
 
     iteratorBST<Comparable> begin() const;
     iteratorBST<Comparable> end() const;
+    void resetRoot(){
+        root=NULL;   
+    }
 
 private:
     BinaryNode<Comparable> *root;

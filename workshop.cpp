@@ -359,7 +359,15 @@ void Workshop::deleteWorkshop(priority_queue<Workshop>* workshop_line)
 
     clearScreen();
 
+
     Workshop to_delete = getWorkshop(name);
+
+    if (!to_delete.getWaitingLine()->empty()) {
+        cout << "The workshop has active services and cannot be deleted" << endl;
+        enter_to_exit();
+        clearScreen();
+        return;
+    }
 
     if (to_delete.getName() == "nanana") {
         cout << "Workshop not found" << endl;
