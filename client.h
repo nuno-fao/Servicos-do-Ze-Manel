@@ -42,9 +42,7 @@ public:
     /**
  * Default Destructor
  */
-    virtual ~Client(){
-        delete lastReservation;
-    }
+    virtual ~Client();
     /**
  * @brief Loads the clients
  *
