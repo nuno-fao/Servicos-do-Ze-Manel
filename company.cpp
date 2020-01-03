@@ -16,7 +16,7 @@ Company::~Company(){
     Client::saveToFile(clients);
     Truck::saveToFile(&trucks);
     Driver::saveToFile();
-	saveStats();
+    saveStats();
     Workshop::saveToFile(&workshop_line);
     for(auto i:clients){
         i->~Client();
@@ -99,87 +99,87 @@ void Company::updateTruckSituation(){
     Date f(unsigned(now->tm_year-100),1+date_u_short(now->tm_mon),date_u_short(now->tm_mday),date_u_short(now->tm_hour),date_u_short(now->tm_min));
 
     if(services_on_transit.size()){
-		auto it = services_on_transit.begin();
+        auto it = services_on_transit.begin();
         while(it!= services_on_transit.end()){
             if(*(*it)->getADate()<f){
 
                 for(auto x =(*it)->getTrucks()->begin();x!=(*it)->getTrucks()->end();x++)
                 {
                     x->first->setavailable(true);
-					auto o = x->first->getServices()->begin();
+                    auto o = x->first->getServices()->begin();
                     while(o!=x->first->getServices()->end()){
                         if((*o)->getId()==(*it)->getId()){
                             o=x->first->getServices()->erase(o);
                             break;
                         }
-						else {
-							o++;
-							continue;
-						}
+                        else {
+                            o++;
+                            continue;
+                        }
                     }
                     if(!x->first->getServices()->size()){
                         x->first->setregistered(false);
                     }
                 }
                 //adicionar à lista
-				switch ((*it)->getType()) {
-				case type::ordinary:
+                switch ((*it)->getType()) {
+                case type::ordinary:
                     if (((*it)->getADate()->getMonth() + (*it)->getADate()->getYear() * 12-1) == unsigned(statNorm.begin()->first)) {
                         statNorm.begin()->second += double((*it)->getTotalPrice());
-					}
-					else {
+                    }
+                    else {
                         statNorm.insert(statNorm.begin(),make_pair((*it)->getADate()->getMonth() + (*it)->getADate()->getYear() * 12-1, (*it)->getTotalPrice()));
                         statHaz.insert(statHaz.begin(),make_pair((*it)->getADate()->getMonth() + (*it)->getADate()->getYear() * 12-1, 0));
                         statAnim.insert(statAnim.begin(), make_pair((*it)->getADate()->getMonth() + (*it)->getADate()->getYear() * 12-1, 0));
                         statCong.insert(statCong.begin(), make_pair((*it)->getADate()->getMonth() + (*it)->getADate()->getYear() * 12-1, 0));
                     }
-					break;
-				case type::hazardous:
+                    break;
+                case type::hazardous:
                     if (((*it)->getADate()->getMonth() + (*it)->getADate()->getYear()*12-1) == unsigned(statHaz.begin()->first)) {
                         statHaz.begin()->second += double((*it)->getTotalPrice());
-					}
-					else {
+                    }
+                    else {
                         statNorm.insert(statNorm.begin(),make_pair((*it)->getADate()->getMonth() + (*it)->getADate()->getYear() * 12-1, 0));
                         statHaz.insert(statHaz.begin(),make_pair((*it)->getADate()->getMonth() + (*it)->getADate()->getYear() * 12-1, (*it)->getTotalPrice()));
                         statAnim.insert(statAnim.begin(),make_pair((*it)->getADate()->getMonth() + (*it)->getADate()->getYear() * 12-1, 0));
                         statCong.insert(statCong.begin(),make_pair((*it)->getADate()->getMonth() + (*it)->getADate()->getYear() * 12-1, 0));
-					}
-					break;
-				case type::animal:
+                    }
+                    break;
+                case type::animal:
                     if (((*it)->getADate()->getMonth() + (*it)->getADate()->getYear() * 12-1) == unsigned(statAnim.begin()->first)) {
                         statAnim.begin()->second += double((*it)->getTotalPrice());
                     }
-					else {
+                    else {
                         statNorm.insert(statNorm.begin(),make_pair((*it)->getADate()->getMonth() + (*it)->getADate()->getYear() * 12-1, 0));
                         statHaz.insert(statHaz.begin(),make_pair((*it)->getADate()->getMonth() + (*it)->getADate()->getYear() * 12-1, 0));
                         statAnim.insert(statAnim.begin(),make_pair((*it)->getADate()->getMonth() + (*it)->getADate()->getYear() * 12-1, (*it)->getTotalPrice()));
                         statCong.insert(statCong.begin(),make_pair((*it)->getADate()->getMonth() + (*it)->getADate()->getYear() * 12-1, 0));
-					}
-					break;
-				case type::lowTemperature:
+                    }
+                    break;
+                case type::lowTemperature:
                     if (((*it)->getADate()->getMonth() + (*it)->getADate()->getYear() * 12-1) == unsigned(statHaz.begin()->first)) {
                         statCong.begin()->second += double((*it)->getTotalPrice());
-					}
-					else {
+                    }
+                    else {
                         statNorm.insert(statNorm.begin(),make_pair((*it)->getADate()->getMonth() + (*it)->getADate()->getYear() * 12-1, 0));
                         statHaz.insert(statHaz.begin(),make_pair((*it)->getADate()->getMonth() + (*it)->getADate()->getYear() * 12-1, 0));
                         statAnim.insert(statAnim.begin(),make_pair((*it)->getADate()->getMonth() + (*it)->getADate()->getYear() * 12-1, 0));
                         statCong.insert(statCong.begin(),make_pair((*it)->getADate()->getMonth() + (*it)->getADate()->getYear() * 12-1, (*it)->getTotalPrice()));
-					}
-					break;
-				}
+                    }
+                    break;
+                }
                 services_finished.push_back(*it);
                 it=services_on_transit.erase(it);
                 Company::getCompany()->services_on_queue_changed=true;
             }
             else{
-				it++;
+                it++;
                 continue;
             }
         }
     }
     if(services_on_queue.size()){
-		auto it = services_on_queue.begin();
+        auto it = services_on_queue.begin();
         while(it!= services_on_queue.end()){
             if(*(*it)->getIDate()<f){
 
@@ -193,7 +193,7 @@ void Company::updateTruckSituation(){
                 Company::getCompany()->services_on_queue_changed=true;
             }
             else{
-				it++;
+                it++;
                 continue;
             }
         }
@@ -214,8 +214,6 @@ void Company::updateServicesSituation(){
                 Date a=*(*it)->getADate();
                 int min=*(*it)->getADate()-*(*it)->getIDate();
                 int hours=min/60;
-                cout<<"min: "<<min<<endl;
-                cout<<"hour: "<<hours<<endl;
                 Company::getCompany()->services_on_queue_changed=true;
                 for(auto i:(*it)->drivers){
                     Company::getCompany()->driver_queue.push(pair<int,float>(i.first,i.second));
@@ -237,11 +235,7 @@ void Company::updateServicesSituation(){
                     if(min%60!=0){
                         hours++;
                     }
-                    cout<<"hour after: "<<hours<<endl;
-                    cout<<"plus: "<<tmp.getServiceHours()+float(hours)<<endl;
-
                     tmp.setServiceHours(tmp.getServiceHours()+float(hours));
-                    cin>>hours;
                     drivers.insert(tmp);
                 }
             }
@@ -249,6 +243,24 @@ void Company::updateServicesSituation(){
                 continue;
             }
         }
+    }
+
+    auto i=Company::getCompany()->getWorkshopLine();
+    vector<Workshop> tmp;
+    while (!i->empty()) {
+        Workshop u=i->top();
+        i->pop();
+        if(!u.getWaitingLine()->empty()){
+            if(*u.getWaitingLine()->front().second<Date()){
+                u.getWaitingLine()->pop();
+                auto data=u.getLastDate();
+                data=u.getWaitingLine()->front().second;
+            }
+        }
+        tmp.push_back(u);
+    }
+    for(auto iterador:tmp){
+        i->push(iterador);
     }
 
     if(services_on_queue.size()){
@@ -260,6 +272,7 @@ void Company::updateServicesSituation(){
                     Driver tmp=drivers.find(Driver(Company::getCompany()->driver_queue.front().first,"",Company::getCompany()->driver_queue.front().second));
                     drivers.remove(Driver(Company::getCompany()->driver_queue.front().first,"",Company::getCompany()->driver_queue.front().second));
                     tmp.toogleDriverActiv();
+                    drivers.insert(tmp);
                     Company::getCompany()->driver_queue.pop();
                 }
                 Company::getCompany()->services_on_queue_changed=true;
@@ -274,21 +287,21 @@ void Company::updateServicesSituation(){
 }
 
 void Company::loadStats() {
-	ifstream statfile;
-	string aux, separator = "; ";
-	int ano_mes;
-	vector<string> auxVec;
-	statfile.open("files//stats.txt");
-	while (getline(statfile, aux)) {
-		getline(statfile, aux);
+    ifstream statfile;
+    string aux, separator = "; ";
+    int ano_mes;
+    vector<string> auxVec;
+    statfile.open("files//stats.txt");
+    while (getline(statfile, aux)) {
+        getline(statfile, aux);
         ano_mes = stoi(aux);
-		getline(statfile, aux);
-		auxVec = vectorString(aux,separator);
-		statHaz.push_back(make_pair(ano_mes,stod(auxVec[0])));
-		statCong.push_back(make_pair(ano_mes, stod(auxVec[1])));
-		statAnim.push_back(make_pair(ano_mes, stod(auxVec[2])));
-		statNorm.push_back(make_pair(ano_mes, stod(auxVec[3])));
-	}
+        getline(statfile, aux);
+        auxVec = vectorString(aux,separator);
+        statHaz.push_back(make_pair(ano_mes,stod(auxVec[0])));
+        statCong.push_back(make_pair(ano_mes, stod(auxVec[1])));
+        statAnim.push_back(make_pair(ano_mes, stod(auxVec[2])));
+        statNorm.push_back(make_pair(ano_mes, stod(auxVec[3])));
+    }
 }
 
 BST<Driver> *Company::getDrivers(){
@@ -301,26 +314,26 @@ priority_queue<Workshop> *Company::getWorkshopLine()
 }
 
 void Company::saveStats() {
-	ofstream statfile;
+    ofstream statfile;
     string aux, separator = "; ";
-	vector<string> auxVec;
-	statfile.open("files//stats.txt");
-	for (unsigned i = 0; i < statCong.size(); i++) {
-		statfile << ":::::::::::::::::::" << endl;
-		statfile << statHaz[i].first << endl;
-		statfile << statHaz[i].second << "; " << statCong[i].second << "; " << statAnim[i].second << "; " << statNorm[i].second << endl;
-	}
-	statfile.close();
+    vector<string> auxVec;
+    statfile.open("files//stats.txt");
+    for (unsigned i = 0; i < statCong.size(); i++) {
+        statfile << ":::::::::::::::::::" << endl;
+        statfile << statHaz[i].first << endl;
+        statfile << statHaz[i].second << "; " << statCong[i].second << "; " << statAnim[i].second << "; " << statNorm[i].second << endl;
+    }
+    statfile.close();
 }
 
 int clientActiviyHash::operator() (const Client* cr) const
 {
-	return cr->getNif() % 1000 + cr->getName().size();
+    return cr->getNif() % 1000 + cr->getName().size();
 }
 
 bool clientActiviyHash::operator() (const Client* cr1, const Client* cr2) const
 {
-	return cr1->getNif() == cr2->getNif();
+    return cr1->getNif() == cr2->getNif();
 }
 
 void Company::removeClientFromHash(unsigned nif) {
@@ -334,11 +347,11 @@ void Company::removeClientFromHash(unsigned nif) {
 }
 
 void Company::eraseClientFromHash(unsigned nif) {
-	auto it = clientHash.begin();
-	for (it; it != clientHash.end(); it++) {
-		if ((*it)->getNif() == nif) {
-			clientHash.erase(it);
-			return;
-		}
-	}
+    auto it = clientHash.begin();
+    for (it; it != clientHash.end(); it++) {
+        if ((*it)->getNif() == nif) {
+            clientHash.erase(it);
+            return;
+        }
+    }
 }

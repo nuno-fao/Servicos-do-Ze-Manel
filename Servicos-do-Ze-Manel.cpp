@@ -197,6 +197,7 @@ void menu_drivers(){
                 while (!out) {
                     cout<<"Enter the Nif of the driver you wish to delete"<<endl;
                     getline(cin,nif);
+                    checkIfOut(nif);
                     if(strIsNumber(nif) && checkNif(stoi(nif))){
                         nif_i=stoi(nif);
                         out=true;
