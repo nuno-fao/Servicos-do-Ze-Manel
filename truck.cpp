@@ -310,6 +310,7 @@ void Truck::createTruck(vector<Truck*>* trucks) {
     do {
         invalidInput = false;
         cout << "What's the license of the new truck (XX-YY-ZZ)? " << license << endl;
+        cout << "Mercedes, Man, Ford, Volvo, Iveco, Scania, Volkswagen, Mitsubishi"<<endl;
         cout << "What's the brand of the new truck? "; getline(cin, brand_string);
         if (brand_string == "!q") 
             return;

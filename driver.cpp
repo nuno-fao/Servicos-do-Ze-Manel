@@ -33,11 +33,13 @@ void Driver::loadFromFile(){
     string name;
     string serviceHours;
     int nif_tmp;
+    string general;
     float service_h;
     BST<Driver> *tmp_vect=Company::getCompany()->getDrivers();
     while(getline(driverFile,nif)){
         getline(driverFile,name);
         getline(driverFile,serviceHours);
+        getline(driverFile,general);
         try {
             nif_tmp=stoi(nif);
             service_h=stof(serviceHours);
@@ -138,4 +140,11 @@ void Driver::toogleDriverActiv(){
         active=false;
     }
     else active=true;
+}
+
+ostream& operator <<(ostream& os, const Driver &a){
+    os<<a.getName()<<endl;
+    os<<a.getNif()<<endl;
+    os<<a.getServiceHours()<<endl;
+    return os;
 }

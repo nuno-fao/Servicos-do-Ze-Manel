@@ -35,4 +35,5 @@ private:
 };
 
 bool operator <(const Driver &a,const Driver &b);
+ostream& operator <<(ostream& os, const Driver &a);
 

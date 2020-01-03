@@ -89,7 +89,7 @@ void Workshop::loadFromFile(priority_queue<Workshop>* workshopLine)
             unavailability = stoi(temp_unavailability);
             vectored_pairs = vectorString(temp_string_pair, ";");
             try{
-                for (int i = 0; i < vectored_pairs.size() - 1; i += 2)
+                for (size_t i = 0; i < vectored_pairs.size() - 1; i += 2)
                 {
                     Truck* new_truck = Company::getCompany()->getTruck(vectored_pairs.at(i));
                     Date* new_date = new Date(vectored_pairs.at(i + 1));
@@ -178,6 +178,7 @@ void Workshop::addWorkshop(priority_queue<Workshop>* workshop_line)
         if (!checkWorkshopName(name)) {
             invalidInput = true;
             clearScreen();
+            cout<<"Name already on the database, please try again"<<endl;
         }
     } while (invalidInput);
 
@@ -185,7 +186,8 @@ void Workshop::addWorkshop(priority_queue<Workshop>* workshop_line)
 
     do {
         invalidInput = false;
-        cout << "Please input the new Workshop's name: " << name << endl;
+        cout << "Please input the new Workshop's name: " << name << endl<<endl;
+        cout << "Mercedes, Man, Ford, Volvo, Iveco, Scania, Volkswagen, Mitsubishi"<<endl;
         cout << "Please input the new Workshop's brand: " << endl;
         getline(cin, temp_brand);
         if (temp_brand == "!q") {
@@ -232,7 +234,7 @@ void Workshop::editWorkshop(priority_queue<Workshop>* workshop_line)
     clearScreen();
     string name, temp_brand, name_to_change, brand_to_change_string;
     string confirmstr;
-    car_brand brand, brand_to_change;
+    car_brand brand_to_change;
     bool invalidInput;
 
     do {

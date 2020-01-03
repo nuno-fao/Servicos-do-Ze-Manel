@@ -195,8 +195,8 @@ public:
 * @param w1 - Workshop Object containing the unavailability to be compared
 * @return Returns true if the Workshop has a smaller unavailability
 */
-	/**
-/**
+
+    /**
 * @brief Verifies if truck isn't in workshop
 *
 * Checks if the truck passsed as argument isn't in any Workshop getting a service

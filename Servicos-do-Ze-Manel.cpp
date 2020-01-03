@@ -36,6 +36,7 @@ void menu_inactive_clients();
 void workshopsInformation();
 void menu_workshops();
 void menu_drivers();
+void driversInformation();
 
 Company *Company::company = nullptr;
 int main()
@@ -173,9 +174,9 @@ void menu_drivers(){
     while (opt!=0) {
         clearScreen();
         cout<<"[1] Add Driver"<<endl;
-        cout<<"[2] Manage Driver"<<endl;
+        //cout<<"[2] Manage Driver"<<endl;
         cout<<"[0] Return to Main Menu"<<endl;
-        if(cin>>opt && opt<=2)
+        if(cin>>opt && opt<=1)
         {
             clearScreen();
             switch (opt) {
@@ -188,6 +189,7 @@ void menu_drivers(){
                 break;
             }
             case 2:{
+
                 break;
             }
 
@@ -314,6 +316,10 @@ void menu_trucks() {
                     do {
                         clearScreen();
                         invalidInput = false;
+                        for(auto x:*Company::getCompany()->getVectorTrucks()){
+                            x->info();
+                            cout<<":::::::::::::::::::::"<<endl<<endl;
+                        }
                         cout << "What's the license of the truck you wish to add (XX-YY-ZZ)? "; getline(cin, license);
                         if (license == "!q") break;
 
@@ -581,8 +587,9 @@ void information(){
         cout<<"[3] Trucks"<<endl;
         cout<<"[4] Revenue"<<endl;
         cout << "[5] Workshops" << endl;
+        cout << "[6] Drivers" << endl;
         cout<<"[0] Return"<<endl;
-        if(cin>>opt && opt<=5)
+        if(cin>>opt && opt<=6)
         {
             clearScreen();
             switch (opt) {
@@ -606,6 +613,10 @@ void information(){
             }
             case 5: {
                 workshopsInformation();
+                break;
+            }
+            case 6:{
+                driversInformation();
                 break;
             }
             default:
@@ -812,6 +823,89 @@ void clientsInformation(){
 
             default:
                 opt=1;
+            }
+        }
+        else{
+            opt=1;
+            clearBuffer();
+            clearScreen();
+            cout<<"Not a valid option, please try again"<<endl;
+        }
+    }
+}
+
+bool cmp(const Driver &a,const Driver &b){
+    return a.getNif()<b.getNif();
+}
+void driversInformation(){
+    unsigned opt=1;
+    clearScreen();
+    while (opt!=0) {
+        cout<<"[1] Order by Nif"<<endl;
+        cout<<"[2] Order by Service hours"<<endl;
+        cout<<"[3] Show Drivers with specific Service hours"<<endl;
+        cout<<"[0] Return"<<endl;
+        if(cin>>opt && opt<=3){
+            switch (opt) {
+            case 0:{
+                return;
+            }
+            case 1:{
+                clearScreen();
+                vector<Driver> tmp;
+                auto i=BSTItrIn<Driver>(*Company::getCompany()->getDrivers());
+                while(!i.isAtEnd()){
+                    tmp.push_back(i.retrieve());
+                    i.advance();
+                }
+                sort(tmp.begin(),tmp.end(),cmp);
+                for(auto i:tmp){
+                    cout<<i<<":::::::::::::::::"<<endl;
+                }
+                clearBuffer();
+                enter_to_exit();
+                break;
+            }
+            case 2:{
+                clearScreen();
+                auto i=BSTItrIn<Driver>(*Company::getCompany()->getDrivers());
+                while(!i.isAtEnd()){
+                    cout<<i.retrieve()<<":::::::::::::::::"<<endl;
+                    i.advance();
+                }
+                clearBuffer();
+                enter_to_exit();
+                break;
+            }
+            case 3:{
+                clearScreen();
+                int x;
+                cout<<"Input the Specific service hours you want to search"<<endl;
+                while (!(cin>>x)) {
+                    clearScreen();
+                    clearBuffer();
+                    cout<<"Wrong input,please try again"<<endl<<"Input the Specific service hours you want to search"<<endl;
+                }
+                clearScreen();
+                clearBuffer();
+                auto i=BSTItrIn<Driver>(*Company::getCompany()->getDrivers());
+                bool enter=false;
+                while(!i.isAtEnd()){
+                    if(i.retrieve().getServiceHours()==x){
+                        cout<<i.retrieve()<<":::::::::::::::::"<<endl;
+                        enter=true;
+                    }
+                    else if (enter) {
+                        break;
+                    }
+                    i.advance();
+                }
+                if(!enter){
+                    cout<<"Couldn't find any Drivers with that Service hours"<<endl;
+                }
+                enter_to_exit();
+                break;
+            }
             }
         }
         else{
