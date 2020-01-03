@@ -17,6 +17,7 @@ public:
     int getNif() const;
     string getName() const;
     float getServiceHours() const;
+    bool getDriverActiv() const;
 
     void setNif(int nif);
     void setName(string name);

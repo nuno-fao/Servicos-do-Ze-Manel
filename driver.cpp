@@ -148,3 +148,8 @@ ostream& operator <<(ostream& os, const Driver &a){
     os<<a.getServiceHours()<<endl;
     return os;
 }
+
+
+bool Driver::getDriverActiv() const{
+    return  active;
+}

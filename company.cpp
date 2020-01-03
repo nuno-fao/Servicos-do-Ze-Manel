@@ -257,6 +257,9 @@ void Company::updateServicesSituation(){
                 (*it)->setState(on_transit);
                 for(size_t i=0;i<(*it)->getTrucks()->size();i++){
                     (*it)->drivers.push_back((Company::getCompany()->driver_queue.front()));
+                    Driver tmp=drivers.find(Driver(Company::getCompany()->driver_queue.front().first,"",Company::getCompany()->driver_queue.front().second));
+                    drivers.remove(Driver(Company::getCompany()->driver_queue.front().first,"",Company::getCompany()->driver_queue.front().second));
+                    tmp.toogleDriverActiv();
                     Company::getCompany()->driver_queue.pop();
                 }
                 Company::getCompany()->services_on_queue_changed=true;

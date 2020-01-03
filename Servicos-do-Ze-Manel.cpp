@@ -175,9 +175,9 @@ void menu_drivers(){
     while (opt!=0) {
         clearScreen();
         cout<<"[1] Add Driver"<<endl;
-        //cout<<"[2] Manage Driver"<<endl;
+        cout<<"[2] Delete Driver"<<endl;
         cout<<"[0] Return to Main Menu"<<endl;
-        if(cin>>opt && opt<=1)
+        if(cin>>opt && opt<=2)
         {
             clearScreen();
             switch (opt) {
@@ -190,7 +190,43 @@ void menu_drivers(){
                 break;
             }
             case 2:{
-
+                clearBuffer();
+                bool out=false;
+                string nif;
+                int nif_i;
+                while (!out) {
+                    cout<<"Enter the Nif of the driver you wish to delete"<<endl;
+                    getline(cin,nif);
+                    if(strIsNumber(nif) && checkNif(stoi(nif))){
+                        nif_i=stoi(nif);
+                        out=true;
+                    }
+                    clearScreen();
+                    cout<<"Nif input not valid"<<endl;
+                }
+                clearScreen();
+                auto x=BSTItrIn<Driver>(*Company::getCompany()->getDrivers());
+                bool del=false;
+                while(!x.isAtEnd()){
+                    if(x.retrieve().getNif()==nif_i){
+                        if(!x.retrieve().getDriverActiv()){
+                            Company::getCompany()->getDrivers()->remove(Driver(x.retrieve().getNif(),"",x.retrieve().getServiceHours()));
+                            del=true;
+                            cout<<"Driver ssuccessfully deleted"<<endl;
+                            break;
+                        }
+                        else{
+                            cout<<"Driver is currently on a service"<<endl;
+                            del=true;
+                            break;
+                        }
+                    }
+                    x.advance();
+                }
+                if(!del){
+                    cout<<"Couldn't find the specified Driver"<<endl;
+                }
+                enter_to_exit();
                 break;
             }
 
