@@ -1,6 +1,6 @@
 <map id="HazardousService" name="HazardousService">
-<area shape="rect" id="node2" href="$class_service.html" title="Service" alt="" coords="106,109,173,136"/>
-<area shape="rect" id="node3" href="$class_address.html" title="Address" alt="" coords="5,5,76,32"/>
-<area shape="rect" id="node4" href="$class_client.html" title="Client" alt="" coords="111,5,167,32"/>
-<area shape="rect" id="node5" href="$class_date.html" title="Date" alt="" coords="191,5,242,32"/>
+<area shape="rect" id="node2" href="$class_service.html" title="Service" alt="" coords="95,201,162,228"/>
+<area shape="rect" id="node3" href="$class_address.html" title="Address" alt="" coords="5,96,76,123"/>
+<area shape="rect" id="node4" href="$class_client.html" title="Client" alt="" coords="221,96,277,123"/>
+<area shape="rect" id="node5" href="$class_date.html" title="Date" alt="" coords="125,5,175,32"/>
 </map>

@@ -90,8 +90,11 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a49673a3830aada7b4b55616b5848c843"><td class="memItemLeft" align="right" valign="top">unsigned short&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_date.html#a49673a3830aada7b4b55616b5848c843">getHour</a> () const</td></tr>
 <tr class="memdesc:a49673a3830aada7b4b55616b5848c843"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets hour.  <a href="#a49673a3830aada7b4b55616b5848c843">More...</a><br /></td></tr>
 <tr class="separator:a49673a3830aada7b4b55616b5848c843"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa4d5c4e15ec04ff5fa18755d76acefe0"><td class="memItemLeft" align="right" valign="top">unsigned short&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_date.html#aa4d5c4e15ec04ff5fa18755d76acefe0">getMinute</a> () const</td></tr>
-<tr class="memdesc:aa4d5c4e15ec04ff5fa18755d76acefe0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets minutes.  <a href="#aa4d5c4e15ec04ff5fa18755d76acefe0">More...</a><br /></td></tr>
+<tr class="memitem:a39aed5716d41cecafc37be6a11556112"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_date.html#a39aed5716d41cecafc37be6a11556112">setHour</a> (int hour)</td></tr>
+<tr class="memdesc:a39aed5716d41cecafc37be6a11556112"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets minutes.  <a href="#a39aed5716d41cecafc37be6a11556112">More...</a><br /></td></tr>
+<tr class="separator:a39aed5716d41cecafc37be6a11556112"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa4d5c4e15ec04ff5fa18755d76acefe0"><td class="memItemLeft" align="right" valign="top"><a id="aa4d5c4e15ec04ff5fa18755d76acefe0"></a>
+unsigned short&#160;</td><td class="memItemRight" valign="bottom"><b>getMinute</b> () const</td></tr>
 <tr class="separator:aa4d5c4e15ec04ff5fa18755d76acefe0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac33192f734973548e97e9b5d8da44a5b"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_date.html#ac33192f734973548e97e9b5d8da44a5b">getDate</a> () const</td></tr>
 <tr class="memdesc:ac33192f734973548e97e9b5d8da44a5b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets date as a string.  <a href="#ac33192f734973548e97e9b5d8da44a5b">More...</a><br /></td></tr>
@@ -234,7 +237,7 @@ Public Member Functions</h2></td></tr>
 <p>Constructs the object by parsing the received string</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">date</td><td>- string containing all the informatio in the format "yyyy/mm/dd" </td></tr>
+    <tr><td class="paramname">date</td><td>- string containing all the informatio in the format "yyyy/mm/dd/hh/mm" </td></tr>
   </table>
   </dd>
 </dl>
@@ -323,27 +326,6 @@ Public Member Functions</h2></td></tr>
 <p>Gets hour. </p>
 <p>Returns the hour of the <a class="el" href="class_date.html">Date</a></p>
 <dl class="section return"><dt>Returns</dt><dd>Returns the hour of the <a class="el" href="class_date.html">Date</a> </dd></dl>
-
-</div>
-</div>
-<a id="aa4d5c4e15ec04ff5fa18755d76acefe0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa4d5c4e15ec04ff5fa18755d76acefe0">&#9670;&nbsp;</a></span>getMinute()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">unsigned short Date::getMinute </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Gets minutes. </p>
-<p>Returns the minutes of the <a class="el" href="class_date.html">Date</a></p>
-<dl class="section return"><dt>Returns</dt><dd>Returns the minutes of the <a class="el" href="class_date.html">Date</a> </dd></dl>
 
 </div>
 </div>
@@ -481,6 +463,28 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Returns nothing </dd></dl>
+
+</div>
+</div>
+<a id="a39aed5716d41cecafc37be6a11556112"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a39aed5716d41cecafc37be6a11556112">&#9670;&nbsp;</a></span>setHour()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Date::setHour </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>hour</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Gets minutes. </p>
+<p>Returns the minutes of the <a class="el" href="class_date.html">Date</a></p>
+<dl class="section return"><dt>Returns</dt><dd>Returns the minutes of the <a class="el" href="class_date.html">Date</a> </dd></dl>
 
 </div>
 </div>

@@ -1,4 +1,6 @@
 var searchData=
 [
-  ['failedtoopentrucks',['FailedToOpenTrucks',['../class_failed_to_open_trucks.html',1,'']]]
+  ['date',['Date',['../class_date.html',1,'']]],
+  ['dateinvalid',['DateInvalid',['../class_date_invalid.html',1,'']]],
+  ['driver',['Driver',['../class_driver.html',1,'']]]
 ];

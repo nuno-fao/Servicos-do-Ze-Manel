@@ -12,8 +12,8 @@ Inheritance diagram for Truck\+:\nopagebreak
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\hyperlink{class_truck_a310563b5c12feb94c1e1f8f855c1ee05}{Truck} (string license, bool \hyperlink{class_truck_a4189fe5ed32f6084459a9c5ae1eb7c2a}{available}, bool \hyperlink{class_truck_a80b8405cf7a15b236fef70116f99c4fb}{registered}, unsigned short \hyperlink{class_truck_ab004524786ae7aebf7c7bdb5e1599696}{capacity}, unsigned short cargo)
-\begin{DoxyCompactList}\small\item\em if in transit this holds the weight it transports, if not it is 0 \end{DoxyCompactList}\item 
+\hyperlink{class_truck_a9b3cc0181f1368df53aec583fb63f096}{Truck} (string license, bool \hyperlink{class_truck_a4189fe5ed32f6084459a9c5ae1eb7c2a}{available}, bool \hyperlink{class_truck_a80b8405cf7a15b236fef70116f99c4fb}{registered}, unsigned short \hyperlink{class_truck_ab004524786ae7aebf7c7bdb5e1599696}{capacity}, unsigned short cargo, car\+\_\+brand \hyperlink{class_truck_a4e30b27a9898eba7ac8404d25cbdd265}{brand})
+\begin{DoxyCompactList}\small\item\em Constructor with data. \end{DoxyCompactList}\item 
 virtual \hyperlink{class_truck_afe887186d0490451a8ce4a3ef433dee3}{$\sim$\+Truck} ()
 \item 
 unsigned \hyperlink{class_truck_ab8c3a335924da7d2c36c4c5ba4510db0}{getcapacity} () const
@@ -22,6 +22,8 @@ bool \hyperlink{class_truck_a0eaa329bc72bf0171f7ec2a0a6240156}{getavailable} () 
 \begin{DoxyCompactList}\small\item\em Gets availability. \end{DoxyCompactList}\item 
 string \hyperlink{class_truck_ae76a7ae2343557680ae915c6c6d42ff8}{getlicense} () const
 \begin{DoxyCompactList}\small\item\em Gets the license. \end{DoxyCompactList}\item 
+car\+\_\+brand \hyperlink{class_truck_aef2b55646cc09f3f2ab21dd4e51ef214}{getbrand} () const
+\begin{DoxyCompactList}\small\item\em Gets the brand. \end{DoxyCompactList}\item 
 bool \hyperlink{class_truck_a830838ed22465cf27f56b911c3fadf13}{getregistered} () const
 \begin{DoxyCompactList}\small\item\em Gets registered. \end{DoxyCompactList}\item 
 float \hyperlink{class_truck_a3936315853876f84c85c4ffff194e1a5}{getcargo} () const
@@ -78,21 +80,22 @@ unsigned \hyperlink{class_truck_ab004524786ae7aebf7c7bdb5e1599696}{capacity}
 \begin{DoxyCompactList}\small\item\em services the truck is registered to \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{class_truck_a1729700d52b22ff59b11b3238e6b0db8}\label{class_truck_a1729700d52b22ff59b11b3238e6b0db8}} 
 float {\bfseries cargo}
-\end{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_truck_a4e30b27a9898eba7ac8404d25cbdd265}\label{class_truck_a4e30b27a9898eba7ac8404d25cbdd265}} 
+car\+\_\+brand \hyperlink{class_truck_a4e30b27a9898eba7ac8404d25cbdd265}{brand}
+\begin{DoxyCompactList}\small\item\em if in transit this holds the weight it transports, if not it is 0 \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \subsection{Constructor \& Destructor Documentation}
-\mbox{\Hypertarget{class_truck_a310563b5c12feb94c1e1f8f855c1ee05}\label{class_truck_a310563b5c12feb94c1e1f8f855c1ee05}} 
+\mbox{\Hypertarget{class_truck_a9b3cc0181f1368df53aec583fb63f096}\label{class_truck_a9b3cc0181f1368df53aec583fb63f096}} 
 \index{Truck@{Truck}!Truck@{Truck}}
 \index{Truck@{Truck}!Truck@{Truck}}
 \subsubsection{\texorpdfstring{Truck()}{Truck()}}
-{\footnotesize\ttfamily Truck\+::\+Truck (\begin{DoxyParamCaption}\item[{string}]{license,  }\item[{bool}]{available,  }\item[{bool}]{registered,  }\item[{unsigned short}]{capacity,  }\item[{unsigned short}]{cargo }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily Truck\+::\+Truck (\begin{DoxyParamCaption}\item[{string}]{license,  }\item[{bool}]{available,  }\item[{bool}]{registered,  }\item[{unsigned short}]{capacity,  }\item[{unsigned short}]{cargo,  }\item[{car\+\_\+brand}]{brand }\end{DoxyParamCaption})}
 
 
 
-if in transit this holds the weight it transports, if not it is 0 
-
-Constructor with data
+Constructor with data. 
 
 Constructs the object by receiving all the necessary information
 
@@ -107,6 +110,8 @@ Constructs the object by receiving all the necessary information
 {\em capacity} & -\/ truck\textquotesingle{}s maximum capacity \\
 \hline
 {\em cargo} & -\/ if it is on transit, how much it is transporting \\
+\hline
+{\em brand} & -\/ truck\textquotesingle{}s brand of car brand type \\
 \hline
 \end{DoxyParams}
 \mbox{\Hypertarget{class_truck_afe887186d0490451a8ce4a3ef433dee3}\label{class_truck_afe887186d0490451a8ce4a3ef433dee3}} 
@@ -168,6 +173,21 @@ Returns if the truck is available
 
 \begin{DoxyReturn}{Returns}
 Returns whether the truck is available or not 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_truck_aef2b55646cc09f3f2ab21dd4e51ef214}\label{class_truck_aef2b55646cc09f3f2ab21dd4e51ef214}} 
+\index{Truck@{Truck}!getbrand@{getbrand}}
+\index{getbrand@{getbrand}!Truck@{Truck}}
+\subsubsection{\texorpdfstring{getbrand()}{getbrand()}}
+{\footnotesize\ttfamily car\+\_\+brand Truck\+::getbrand (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Gets the brand. 
+
+Returns the truck\textquotesingle{}s brands
+
+\begin{DoxyReturn}{Returns}
+Returns a car brand type with the truck\textquotesingle{}s brand 
 \end{DoxyReturn}
 \mbox{\Hypertarget{class_truck_ab8c3a335924da7d2c36c4c5ba4510db0}\label{class_truck_ab8c3a335924da7d2c36c4c5ba4510db0}} 
 \index{Truck@{Truck}!getcapacity@{getcapacity}}

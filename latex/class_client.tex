@@ -9,6 +9,16 @@ Inheritance diagram for Client\+:\nopagebreak
 \includegraphics[width=350pt]{class_client__inherit__graph}
 \end{center}
 \end{figure}
+
+
+Collaboration diagram for Client\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=173pt]{class_client__coll__graph}
+\end{center}
+\end{figure}
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -16,7 +26,7 @@ Inheritance diagram for Client\+:\nopagebreak
 \item 
 \hyperlink{class_client_ae51af7aa6b8f591496a8f6a4a87a14bf}{Client} ()
 \item 
-\hyperlink{class_client_acb0d694a9c7e32a47bd57ead6013b8a9}{Client} (string name, unsigned int \hyperlink{class_client_a1c94dc96a56cb5032573fb1d528517c2}{nif}, float \hyperlink{class_client_a9d5dc70a6eee2fded8217a7983fe5fd0}{money\+\_\+spent}, vector$<$ \hyperlink{class_service}{Service} $\ast$$>$ $\ast$\hyperlink{class_client_a02b601f12b9905edae7e64ded9bde912}{services}=nullptr)
+\hyperlink{class_client_a3181be5da28eead3b40eb73f05490666}{Client} (string name, unsigned int \hyperlink{class_client_a1c94dc96a56cb5032573fb1d528517c2}{nif}, float \hyperlink{class_client_a9d5dc70a6eee2fded8217a7983fe5fd0}{money\+\_\+spent}, \hyperlink{class_date}{Date} $\ast$date, vector$<$ \hyperlink{class_service}{Service} $\ast$$>$ $\ast$\hyperlink{class_client_a02b601f12b9905edae7e64ded9bde912}{services}=nullptr)
 \begin{DoxyCompactList}\small\item\em Constructor with all data necessary. \end{DoxyCompactList}\item 
 virtual \hyperlink{class_client_a840e519ca781888cbd54181572ebe3a7}{$\sim$\+Client} ()
 \item 
@@ -24,6 +34,8 @@ void \hyperlink{class_client_afe8b004559fd1480fb8747c352f167db}{edit\+Client} ()
 \begin{DoxyCompactList}\small\item\em Edits the information of a client. \end{DoxyCompactList}\item 
 void \hyperlink{class_client_a7f845c33f4aa7b7081ae72d9a16c2d3f}{remove\+Client} (vector$<$ \hyperlink{class_client}{Client} $\ast$$>$ \&clients\+Vector)
 \begin{DoxyCompactList}\small\item\em Removes a client. \end{DoxyCompactList}\item 
+\hyperlink{class_date}{Date} $\ast$ \hyperlink{class_client_a271a8c69a39636c6a4f40fd6653b5465}{get\+Last\+Reservation} () const
+\begin{DoxyCompactList}\small\item\em Gets the \hyperlink{class_client}{Client}\textquotesingle{}s last reservation date. \end{DoxyCompactList}\item 
 string \hyperlink{class_client_a5c473ba52d7678744edec9e51052c947}{get\+Name} () const
 \begin{DoxyCompactList}\small\item\em Gets the \hyperlink{class_client}{Client}\textquotesingle{}s name. \end{DoxyCompactList}\item 
 float \hyperlink{class_client_a226ff919591e7fdfa6c386e9aa5300a5}{get\+Money\+Spent} () const
@@ -32,6 +44,8 @@ unsigned \hyperlink{class_client_a35c9fed8cdb36d28fd5e51bd2aee852e}{get\+Nif} ()
 \begin{DoxyCompactList}\small\item\em Gets the \hyperlink{class_client}{Client}\textquotesingle{}s identification number. \end{DoxyCompactList}\item 
 vector$<$ \hyperlink{class_service}{Service} $\ast$ $>$ $\ast$ \hyperlink{class_client_a13ab3e2d37fde2de5b6a40d4523bb999}{get\+Services\+Vector} ()
 \begin{DoxyCompactList}\small\item\em Gets the \hyperlink{class_client}{Client}\textquotesingle{}s bought services. \end{DoxyCompactList}\item 
+void \hyperlink{class_client_a74aaf687afd20e14f0ce93bac63a6fe3}{set\+Last\+Reservation} (\hyperlink{class_date}{Date} $\ast$real\+\_\+time)
+\begin{DoxyCompactList}\small\item\em Sets a \hyperlink{class_client}{Client}\textquotesingle{}s last reservation date. \end{DoxyCompactList}\item 
 void \hyperlink{class_client_a1c7f938360e23b3e0e52d17965f88725}{set\+Name} (string name)
 \begin{DoxyCompactList}\small\item\em Sets a \hyperlink{class_client}{Client}\textquotesingle{}s name. \end{DoxyCompactList}\item 
 void \hyperlink{class_client_a8d0ab1a3c654d361dacde7e1d2b92c94}{set\+Nif} (unsigned \hyperlink{class_client_a1c94dc96a56cb5032573fb1d528517c2}{nif})
@@ -66,6 +80,8 @@ string {\bfseries name}
 unsigned int \hyperlink{class_client_a1c94dc96a56cb5032573fb1d528517c2}{nif}
 \item 
 vector$<$ \hyperlink{class_service}{Service} $\ast$ $>$ \hyperlink{class_client_a02b601f12b9905edae7e64ded9bde912}{services}
+\item 
+\hyperlink{class_date}{Date} $\ast$ \hyperlink{class_client_a8203fe64182b1c55ef7543bfae6779af}{last\+Reservation}
 \end{DoxyCompactItemize}
 \subsection*{Friends}
 \begin{DoxyCompactItemize}
@@ -92,11 +108,11 @@ Constructor with a \hyperlink{class_client}{Client} Object as parameter
 \subsubsection{\texorpdfstring{Client()}{Client()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
 {\footnotesize\ttfamily Client\+::\+Client (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
-Default Constructor \mbox{\Hypertarget{class_client_acb0d694a9c7e32a47bd57ead6013b8a9}\label{class_client_acb0d694a9c7e32a47bd57ead6013b8a9}} 
+Default Constructor \mbox{\Hypertarget{class_client_a3181be5da28eead3b40eb73f05490666}\label{class_client_a3181be5da28eead3b40eb73f05490666}} 
 \index{Client@{Client}!Client@{Client}}
 \index{Client@{Client}!Client@{Client}}
 \subsubsection{\texorpdfstring{Client()}{Client()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
-{\footnotesize\ttfamily Client\+::\+Client (\begin{DoxyParamCaption}\item[{string}]{name,  }\item[{unsigned int}]{nif,  }\item[{float}]{money\+\_\+spent,  }\item[{vector$<$ \hyperlink{class_service}{Service} $\ast$$>$ $\ast$}]{services = {\ttfamily nullptr} }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily Client\+::\+Client (\begin{DoxyParamCaption}\item[{string}]{name,  }\item[{unsigned int}]{nif,  }\item[{float}]{money\+\_\+spent,  }\item[{\hyperlink{class_date}{Date} $\ast$}]{date,  }\item[{vector$<$ \hyperlink{class_service}{Service} $\ast$$>$ $\ast$}]{services = {\ttfamily nullptr} }\end{DoxyParamCaption})}
 
 
 
@@ -193,6 +209,19 @@ Edits the information of a client by asking
 
 \begin{DoxyReturn}{Returns}
 Returns nothing 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_client_a271a8c69a39636c6a4f40fd6653b5465}\label{class_client_a271a8c69a39636c6a4f40fd6653b5465}} 
+\index{Client@{Client}!get\+Last\+Reservation@{get\+Last\+Reservation}}
+\index{get\+Last\+Reservation@{get\+Last\+Reservation}!Client@{Client}}
+\subsubsection{\texorpdfstring{get\+Last\+Reservation()}{getLastReservation()}}
+{\footnotesize\ttfamily \hyperlink{class_date}{Date} $\ast$ Client\+::get\+Last\+Reservation (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Gets the \hyperlink{class_client}{Client}\textquotesingle{}s last reservation date. 
+
+\begin{DoxyReturn}{Returns}
+Returns the date when the client made his last reservation 
 \end{DoxyReturn}
 \mbox{\Hypertarget{class_client_a226ff919591e7fdfa6c386e9aa5300a5}\label{class_client_a226ff919591e7fdfa6c386e9aa5300a5}} 
 \index{Client@{Client}!get\+Money\+Spent@{get\+Money\+Spent}}
@@ -366,6 +395,26 @@ Saves the clients the user has added by writing to the clients.\+txt file in the
 \begin{DoxyReturn}{Returns}
 Returns nothing 
 \end{DoxyReturn}
+\mbox{\Hypertarget{class_client_a74aaf687afd20e14f0ce93bac63a6fe3}\label{class_client_a74aaf687afd20e14f0ce93bac63a6fe3}} 
+\index{Client@{Client}!set\+Last\+Reservation@{set\+Last\+Reservation}}
+\index{set\+Last\+Reservation@{set\+Last\+Reservation}!Client@{Client}}
+\subsubsection{\texorpdfstring{set\+Last\+Reservation()}{setLastReservation()}}
+{\footnotesize\ttfamily void Client\+::set\+Last\+Reservation (\begin{DoxyParamCaption}\item[{\hyperlink{class_date}{Date} $\ast$}]{real\+\_\+time }\end{DoxyParamCaption})}
+
+
+
+Sets a \hyperlink{class_client}{Client}\textquotesingle{}s last reservation date. 
+
+Updates the \hyperlink{class_client}{Client}\textquotesingle{}s last reservation
+
+
+\begin{DoxyParams}{Parameters}
+{\em real\+\_\+time} & -\/ real time date \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns nothing 
+\end{DoxyReturn}
 \mbox{\Hypertarget{class_client_a1c7f938360e23b3e0e52d17965f88725}\label{class_client_a1c7f938360e23b3e0e52d17965f88725}} 
 \index{Client@{Client}!set\+Name@{set\+Name}}
 \index{set\+Name@{set\+Name}!Client@{Client}}
@@ -434,7 +483,13 @@ Returns the ostream containing the information to be printed
 
 
 \subsection{Member Data Documentation}
-\mbox{\Hypertarget{class_client_a9d5dc70a6eee2fded8217a7983fe5fd0}\label{class_client_a9d5dc70a6eee2fded8217a7983fe5fd0}} 
+\mbox{\Hypertarget{class_client_a8203fe64182b1c55ef7543bfae6779af}\label{class_client_a8203fe64182b1c55ef7543bfae6779af}} 
+\index{Client@{Client}!last\+Reservation@{last\+Reservation}}
+\index{last\+Reservation@{last\+Reservation}!Client@{Client}}
+\subsubsection{\texorpdfstring{last\+Reservation}{lastReservation}}
+{\footnotesize\ttfamily \hyperlink{class_date}{Date}$\ast$ Client\+::last\+Reservation\hspace{0.3cm}{\ttfamily [protected]}}
+
+\hyperlink{class_date}{Date} of the last reservation made \mbox{\Hypertarget{class_client_a9d5dc70a6eee2fded8217a7983fe5fd0}\label{class_client_a9d5dc70a6eee2fded8217a7983fe5fd0}} 
 \index{Client@{Client}!money\+\_\+spent@{money\+\_\+spent}}
 \index{money\+\_\+spent@{money\+\_\+spent}!Client@{Client}}
 \subsubsection{\texorpdfstring{money\+\_\+spent}{money\_spent}}

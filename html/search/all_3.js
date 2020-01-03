@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['editclient',['editClient',['../class_client.html#afe8b004559fd1480fb8747c352f167db',1,'Client']]],
-  ['editservice',['editService',['../class_service.html#a351a27eebc07d1ff3f433d6ad356925a',1,'Service']]],
-  ['erro',['erro',['../class_not_a_client.html#a5a7444300559fedd328e401de04fff79',1,'NotAClient::erro()'],['../class_client_in_vector.html#a65d04995fa02a6f36d00540120be34b5',1,'ClientInVector::erro()'],['../class_client_not_in_vector.html#acc00da5b881fb70eeb5ed7f29232025b',1,'ClientNotInVector::erro()'],['../class_cant_open_client_file.html#aa4aa82cf39a9e960a76d32da6d379b05',1,'CantOpenClientFile::erro()']]],
-  ['error',['error',['../class_date_invalid.html#a7482d7083006e3a1d362e5f0ec8fb70d',1,'DateInvalid']]]
+  ['date',['Date',['../class_date.html',1,'Date'],['../class_date.html#a4e59ed4ba66eec61c27460c5d09fa1bd',1,'Date::Date()'],['../class_date.html#a5277264fbbce7f4ebfcbcc362d6d62e7',1,'Date::Date(unsigned year, unsigned short month, unsigned short day, unsigned short hour, unsigned short minute)'],['../class_date.html#a5532efafed41fd5f8e013a61313200dc',1,'Date::Date(string date)']]],
+  ['dateinvalid',['DateInvalid',['../class_date_invalid.html',1,'DateInvalid'],['../class_date_invalid.html#a093a6b35b071ccd1cb368e8a161cda86',1,'DateInvalid::DateInvalid()']]],
+  ['deleteworkshop',['deleteWorkshop',['../class_workshop.html#a4074ad493ecc7c4d7d3f0cf53651989c',1,'Workshop']]],
+  ['driver',['Driver',['../class_driver.html',1,'']]]
 ];

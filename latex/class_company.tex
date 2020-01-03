@@ -27,6 +27,10 @@ void \hyperlink{class_company_ae5ce2e4c8d26951b71ca73c7589f6875}{update\+Service
 \begin{DoxyCompactList}\small\item\em Updates the services\textquotesingle{} state. \end{DoxyCompactList}\item 
 void \hyperlink{class_company_a1e471fb69b7924e03cfdc01c3692f26c}{load\+Stats} ()
 \begin{DoxyCompactList}\small\item\em Loads the statistics. \end{DoxyCompactList}\item 
+void \hyperlink{class_company_a3bf95c042bb55a3096871ac861f58f8f}{remove\+Client\+From\+Hash} (unsigned nif)
+\begin{DoxyCompactList}\small\item\em Removes a specific client from the inactive client hash table. \end{DoxyCompactList}\item 
+void \hyperlink{class_company_aab30d8d03d868006bb277fc8ead1c510}{erase\+Client\+From\+Hash} (unsigned nif)
+\begin{DoxyCompactList}\small\item\em Removes a specific client from the inactive client hash table. \end{DoxyCompactList}\item 
 void \hyperlink{class_company_aa5b12f509c71984f7346b14cff38ea50}{save\+Stats} ()
 \begin{DoxyCompactList}\small\item\em Saves the statistics. \end{DoxyCompactList}\item 
 vector$<$ pair$<$ int, double $>$ $>$ \hyperlink{class_company_a46ae11a39256db9dbf2941c58df579c5}{get\+Stat\+Cong} ()
@@ -36,7 +40,12 @@ vector$<$ pair$<$ int, double $>$ $>$ \hyperlink{class_company_aa37fd8b5214cc269
 vector$<$ pair$<$ int, double $>$ $>$ \hyperlink{class_company_af7e04162aac8a1057d2563e211e67460}{get\+Stat\+Anim} ()
 \begin{DoxyCompactList}\small\item\em Gets the statistics from animal-\/carrying trucks. \end{DoxyCompactList}\item 
 vector$<$ pair$<$ int, double $>$ $>$ \hyperlink{class_company_aec149faa3a58555957f83df920897253}{get\+Stat\+Norm} ()
-\begin{DoxyCompactList}\small\item\em Gets the statistics from normal trucks. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Gets the statistics from normal trucks. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_company_ac53325e1c17389979293dbc78398dc31}\label{class_company_ac53325e1c17389979293dbc78398dc31}} 
+\hyperlink{class_b_s_t}{B\+ST}$<$ \hyperlink{class_driver}{Driver} $>$ $\ast$ {\bfseries get\+Drivers} ()
+\item 
+priority\+\_\+queue$<$ \hyperlink{class_workshop}{Workshop} $>$ $\ast$ \hyperlink{class_company_a339f3025b003f464ffd058d5dbdf43e2}{get\+Workshop\+Line} ()
+\begin{DoxyCompactList}\small\item\em Gets the priority queue containing the workshops. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Static Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -59,6 +68,12 @@ bool {\bfseries clients\+\_\+changed} =false
 \item 
 \mbox{\Hypertarget{class_company_ae9ee930a4a92e6f048960e486d2783dd}\label{class_company_ae9ee930a4a92e6f048960e486d2783dd}} 
 bool {\bfseries trucks\+\_\+changed} =false
+\item 
+\mbox{\Hypertarget{class_company_a524c1592edf0f6e6b249ff5887d6324e}\label{class_company_a524c1592edf0f6e6b249ff5887d6324e}} 
+Hash\+Tab\+Client\+Activity {\bfseries client\+Hash}
+\item 
+\mbox{\Hypertarget{class_company_a88f095e316f530c1f1650159cab94f79}\label{class_company_a88f095e316f530c1f1650159cab94f79}} 
+queue$<$ pair$<$ int, float $>$ $>$ {\bfseries driver\+\_\+queue}
 \end{DoxyCompactItemize}
 
 
@@ -72,6 +87,21 @@ bool {\bfseries trucks\+\_\+changed} =false
 Default Destructor 
 
 \subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_company_aab30d8d03d868006bb277fc8ead1c510}\label{class_company_aab30d8d03d868006bb277fc8ead1c510}} 
+\index{Company@{Company}!erase\+Client\+From\+Hash@{erase\+Client\+From\+Hash}}
+\index{erase\+Client\+From\+Hash@{erase\+Client\+From\+Hash}!Company@{Company}}
+\subsubsection{\texorpdfstring{erase\+Client\+From\+Hash()}{eraseClientFromHash()}}
+{\footnotesize\ttfamily void Company\+::erase\+Client\+From\+Hash (\begin{DoxyParamCaption}\item[{unsigned}]{nif }\end{DoxyParamCaption})}
+
+
+
+Removes a specific client from the inactive client hash table. 
+
+If a client exists in the hash it will be removed from it. Searches by client N\+IF
+
+\begin{DoxyReturn}{Returns}
+Returns nothing 
+\end{DoxyReturn}
 \mbox{\Hypertarget{class_company_ae8efdaf521467fd204c8d272f4469679}\label{class_company_ae8efdaf521467fd204c8d272f4469679}} 
 \index{Company@{Company}!get\+Client@{get\+Client}}
 \index{get\+Client@{get\+Client}!Company@{Company}}
@@ -267,6 +297,21 @@ Returns a vector of pointers to trucks
 \begin{DoxyReturn}{Returns}
 Returns a pointer to the vector containing pointers to trucks 
 \end{DoxyReturn}
+\mbox{\Hypertarget{class_company_a339f3025b003f464ffd058d5dbdf43e2}\label{class_company_a339f3025b003f464ffd058d5dbdf43e2}} 
+\index{Company@{Company}!get\+Workshop\+Line@{get\+Workshop\+Line}}
+\index{get\+Workshop\+Line@{get\+Workshop\+Line}!Company@{Company}}
+\subsubsection{\texorpdfstring{get\+Workshop\+Line()}{getWorkshopLine()}}
+{\footnotesize\ttfamily priority\+\_\+queue$<$ \hyperlink{class_workshop}{Workshop} $>$ $\ast$ Company\+::get\+Workshop\+Line (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Gets the priority queue containing the workshops. 
+
+Retrieves the priority queue containing the workshops
+
+\begin{DoxyReturn}{Returns}
+Returns the priority queue containing the workshops 
+\end{DoxyReturn}
 \mbox{\Hypertarget{class_company_a1e471fb69b7924e03cfdc01c3692f26c}\label{class_company_a1e471fb69b7924e03cfdc01c3692f26c}} 
 \index{Company@{Company}!load\+Stats@{load\+Stats}}
 \index{load\+Stats@{load\+Stats}!Company@{Company}}
@@ -278,6 +323,21 @@ Returns a pointer to the vector containing pointers to trucks
 Loads the statistics. 
 
 Reads the statistics from the associated text file
+
+\begin{DoxyReturn}{Returns}
+Returns nothing 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_company_a3bf95c042bb55a3096871ac861f58f8f}\label{class_company_a3bf95c042bb55a3096871ac861f58f8f}} 
+\index{Company@{Company}!remove\+Client\+From\+Hash@{remove\+Client\+From\+Hash}}
+\index{remove\+Client\+From\+Hash@{remove\+Client\+From\+Hash}!Company@{Company}}
+\subsubsection{\texorpdfstring{remove\+Client\+From\+Hash()}{removeClientFromHash()}}
+{\footnotesize\ttfamily void Company\+::remove\+Client\+From\+Hash (\begin{DoxyParamCaption}\item[{unsigned}]{nif }\end{DoxyParamCaption})}
+
+
+
+Removes a specific client from the inactive client hash table. 
+
+If a client exists in the hash and has no scheduled services it will be removed from it. Searches by client N\+IF
 
 \begin{DoxyReturn}{Returns}
 Returns nothing 

@@ -19,8 +19,11 @@ unsigned short \hyperlink{class_date_af02c2f0b61b6e14efbc3ccb0f7f0d567}{get\+Day
 \begin{DoxyCompactList}\small\item\em Gets day. \end{DoxyCompactList}\item 
 unsigned short \hyperlink{class_date_a49673a3830aada7b4b55616b5848c843}{get\+Hour} () const
 \begin{DoxyCompactList}\small\item\em Gets hour. \end{DoxyCompactList}\item 
-unsigned short \hyperlink{class_date_aa4d5c4e15ec04ff5fa18755d76acefe0}{get\+Minute} () const
+void \hyperlink{class_date_a39aed5716d41cecafc37be6a11556112}{set\+Hour} (int hour)
 \begin{DoxyCompactList}\small\item\em Gets minutes. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_date_aa4d5c4e15ec04ff5fa18755d76acefe0}\label{class_date_aa4d5c4e15ec04ff5fa18755d76acefe0}} 
+unsigned short {\bfseries get\+Minute} () const
+\item 
 string \hyperlink{class_date_ac33192f734973548e97e9b5d8da44a5b}{get\+Date} () const
 \begin{DoxyCompactList}\small\item\em Gets date as a string. \end{DoxyCompactList}\item 
 string \hyperlink{class_date_a1c481aea42a3a310364f9a97661bee14}{get\+Date\+W\+Hour} () const
@@ -91,7 +94,7 @@ Constructs the object by parsing the received string
 
 
 \begin{DoxyParams}{Parameters}
-{\em date} & -\/ string containing all the informatio in the format \char`\"{}yyyy/mm/dd\char`\"{} \\
+{\em date} & -\/ string containing all the informatio in the format \char`\"{}yyyy/mm/dd/hh/mm\char`\"{} \\
 \hline
 \end{DoxyParams}
 
@@ -156,21 +159,6 @@ Returns the hour of the \hyperlink{class_date}{Date}
 
 \begin{DoxyReturn}{Returns}
 Returns the hour of the \hyperlink{class_date}{Date} 
-\end{DoxyReturn}
-\mbox{\Hypertarget{class_date_aa4d5c4e15ec04ff5fa18755d76acefe0}\label{class_date_aa4d5c4e15ec04ff5fa18755d76acefe0}} 
-\index{Date@{Date}!get\+Minute@{get\+Minute}}
-\index{get\+Minute@{get\+Minute}!Date@{Date}}
-\subsubsection{\texorpdfstring{get\+Minute()}{getMinute()}}
-{\footnotesize\ttfamily unsigned short Date\+::get\+Minute (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
-
-
-
-Gets minutes. 
-
-Returns the minutes of the \hyperlink{class_date}{Date}
-
-\begin{DoxyReturn}{Returns}
-Returns the minutes of the \hyperlink{class_date}{Date} 
 \end{DoxyReturn}
 \mbox{\Hypertarget{class_date_ad077bd6ae19462875a8bd10aed9a6233}\label{class_date_ad077bd6ae19462875a8bd10aed9a6233}} 
 \index{Date@{Date}!get\+Month@{get\+Month}}
@@ -260,6 +248,21 @@ Sets the \hyperlink{class_date}{Date}\textquotesingle{}s day
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
 Returns nothing 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_date_a39aed5716d41cecafc37be6a11556112}\label{class_date_a39aed5716d41cecafc37be6a11556112}} 
+\index{Date@{Date}!set\+Hour@{set\+Hour}}
+\index{set\+Hour@{set\+Hour}!Date@{Date}}
+\subsubsection{\texorpdfstring{set\+Hour()}{setHour()}}
+{\footnotesize\ttfamily void Date\+::set\+Hour (\begin{DoxyParamCaption}\item[{int}]{hour }\end{DoxyParamCaption})}
+
+
+
+Gets minutes. 
+
+Returns the minutes of the \hyperlink{class_date}{Date}
+
+\begin{DoxyReturn}{Returns}
+Returns the minutes of the \hyperlink{class_date}{Date} 
 \end{DoxyReturn}
 \mbox{\Hypertarget{class_date_a6f2ab890b1935488aaa604b77caac4ae}\label{class_date_a6f2ab890b1935488aaa604b77caac4ae}} 
 \index{Date@{Date}!set\+Month@{set\+Month}}

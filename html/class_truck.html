@@ -81,9 +81,9 @@ Inheritance diagram for Truck:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a310563b5c12feb94c1e1f8f855c1ee05"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_truck.html#a310563b5c12feb94c1e1f8f855c1ee05">Truck</a> (string license, bool <a class="el" href="class_truck.html#a4189fe5ed32f6084459a9c5ae1eb7c2a">available</a>, bool <a class="el" href="class_truck.html#a80b8405cf7a15b236fef70116f99c4fb">registered</a>, unsigned short <a class="el" href="class_truck.html#ab004524786ae7aebf7c7bdb5e1599696">capacity</a>, unsigned short cargo)</td></tr>
-<tr class="memdesc:a310563b5c12feb94c1e1f8f855c1ee05"><td class="mdescLeft">&#160;</td><td class="mdescRight">if in transit this holds the weight it transports, if not it is 0  <a href="#a310563b5c12feb94c1e1f8f855c1ee05">More...</a><br /></td></tr>
-<tr class="separator:a310563b5c12feb94c1e1f8f855c1ee05"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9b3cc0181f1368df53aec583fb63f096"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_truck.html#a9b3cc0181f1368df53aec583fb63f096">Truck</a> (string license, bool <a class="el" href="class_truck.html#a4189fe5ed32f6084459a9c5ae1eb7c2a">available</a>, bool <a class="el" href="class_truck.html#a80b8405cf7a15b236fef70116f99c4fb">registered</a>, unsigned short <a class="el" href="class_truck.html#ab004524786ae7aebf7c7bdb5e1599696">capacity</a>, unsigned short cargo, car_brand <a class="el" href="class_truck.html#a4e30b27a9898eba7ac8404d25cbdd265">brand</a>)</td></tr>
+<tr class="memdesc:a9b3cc0181f1368df53aec583fb63f096"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor with data.  <a href="#a9b3cc0181f1368df53aec583fb63f096">More...</a><br /></td></tr>
+<tr class="separator:a9b3cc0181f1368df53aec583fb63f096"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afe887186d0490451a8ce4a3ef433dee3"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_truck.html#afe887186d0490451a8ce4a3ef433dee3">~Truck</a> ()</td></tr>
 <tr class="separator:afe887186d0490451a8ce4a3ef433dee3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab8c3a335924da7d2c36c4c5ba4510db0"><td class="memItemLeft" align="right" valign="top">unsigned&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_truck.html#ab8c3a335924da7d2c36c4c5ba4510db0">getcapacity</a> () const</td></tr>
@@ -95,6 +95,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ae76a7ae2343557680ae915c6c6d42ff8"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_truck.html#ae76a7ae2343557680ae915c6c6d42ff8">getlicense</a> () const</td></tr>
 <tr class="memdesc:ae76a7ae2343557680ae915c6c6d42ff8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the license.  <a href="#ae76a7ae2343557680ae915c6c6d42ff8">More...</a><br /></td></tr>
 <tr class="separator:ae76a7ae2343557680ae915c6c6d42ff8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aef2b55646cc09f3f2ab21dd4e51ef214"><td class="memItemLeft" align="right" valign="top">car_brand&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_truck.html#aef2b55646cc09f3f2ab21dd4e51ef214">getbrand</a> () const</td></tr>
+<tr class="memdesc:aef2b55646cc09f3f2ab21dd4e51ef214"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the brand.  <a href="#aef2b55646cc09f3f2ab21dd4e51ef214">More...</a><br /></td></tr>
+<tr class="separator:aef2b55646cc09f3f2ab21dd4e51ef214"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a830838ed22465cf27f56b911c3fadf13"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_truck.html#a830838ed22465cf27f56b911c3fadf13">getregistered</a> () const</td></tr>
 <tr class="memdesc:a830838ed22465cf27f56b911c3fadf13"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets registered.  <a href="#a830838ed22465cf27f56b911c3fadf13">More...</a><br /></td></tr>
 <tr class="separator:a830838ed22465cf27f56b911c3fadf13"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -171,10 +174,14 @@ unsigned&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="
 <tr class="memitem:a1729700d52b22ff59b11b3238e6b0db8"><td class="memItemLeft" align="right" valign="top"><a id="a1729700d52b22ff59b11b3238e6b0db8"></a>
 float&#160;</td><td class="memItemRight" valign="bottom"><b>cargo</b></td></tr>
 <tr class="separator:a1729700d52b22ff59b11b3238e6b0db8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4e30b27a9898eba7ac8404d25cbdd265"><td class="memItemLeft" align="right" valign="top"><a id="a4e30b27a9898eba7ac8404d25cbdd265"></a>
+car_brand&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_truck.html#a4e30b27a9898eba7ac8404d25cbdd265">brand</a></td></tr>
+<tr class="memdesc:a4e30b27a9898eba7ac8404d25cbdd265"><td class="mdescLeft">&#160;</td><td class="mdescRight">if in transit this holds the weight it transports, if not it is 0 <br /></td></tr>
+<tr class="separator:a4e30b27a9898eba7ac8404d25cbdd265"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a310563b5c12feb94c1e1f8f855c1ee05"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a310563b5c12feb94c1e1f8f855c1ee05">&#9670;&nbsp;</a></span>Truck()</h2>
+<a id="a9b3cc0181f1368df53aec583fb63f096"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9b3cc0181f1368df53aec583fb63f096">&#9670;&nbsp;</a></span>Truck()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -207,7 +214,13 @@ float&#160;</td><td class="memItemRight" valign="bottom"><b>cargo</b></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">unsigned short&#160;</td>
-          <td class="paramname"><em>cargo</em>&#160;</td>
+          <td class="paramname"><em>cargo</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">car_brand&#160;</td>
+          <td class="paramname"><em>brand</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -217,8 +230,7 @@ float&#160;</td><td class="memItemRight" valign="bottom"><b>cargo</b></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>if in transit this holds the weight it transports, if not it is 0 </p>
-<p>Constructor with data</p>
+<p>Constructor with data. </p>
 <p>Constructs the object by receiving all the necessary information</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -227,6 +239,7 @@ float&#160;</td><td class="memItemRight" valign="bottom"><b>cargo</b></td></tr>
     <tr><td class="paramname">registered</td><td>- whether it is registereds to a service or not </td></tr>
     <tr><td class="paramname">capacity</td><td>- truck's maximum capacity </td></tr>
     <tr><td class="paramname">cargo</td><td>- if it is on transit, how much it is transporting </td></tr>
+    <tr><td class="paramname">brand</td><td>- truck's brand of car brand type </td></tr>
   </table>
   </dd>
 </dl>
@@ -340,6 +353,27 @@ float&#160;</td><td class="memItemRight" valign="bottom"><b>cargo</b></td></tr>
 <p>Gets availability. </p>
 <p>Returns if the truck is available</p>
 <dl class="section return"><dt>Returns</dt><dd>Returns whether the truck is available or not </dd></dl>
+
+</div>
+</div>
+<a id="aef2b55646cc09f3f2ab21dd4e51ef214"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aef2b55646cc09f3f2ab21dd4e51ef214">&#9670;&nbsp;</a></span>getbrand()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">car_brand Truck::getbrand </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Gets the brand. </p>
+<p>Returns the truck's brands</p>
+<dl class="section return"><dt>Returns</dt><dd>Returns a car brand type with the truck's brand </dd></dl>
 
 </div>
 </div>
