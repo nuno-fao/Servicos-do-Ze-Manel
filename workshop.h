@@ -28,9 +28,7 @@ private:
 	queue<pair<Truck*, Date*>> waiting_line; /// Queue of Services, indicated by pairs of pointers to the truck and date the service finishes 
     Date* last_date;
 public:
-    ~Workshop(){
-        delete last_date;
-    }
+    ~Workshop();
     Date *getLastDate();
 /**
  * @brief Constructor with all data necessary
