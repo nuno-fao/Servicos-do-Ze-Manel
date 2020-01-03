@@ -9,6 +9,9 @@ Workshop::Workshop(string n, car_brand b, int ua, queue<pair<Truck*, Date*>> wl,
     last_date=new Date(date);
 }
 
+Workshop::~Workshop() {
+    last_date->~Date();
+}
 
 Date *Workshop::getLastDate(){
     return last_date;
