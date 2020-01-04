@@ -121,7 +121,7 @@ private:
     bool active=0; /// true if active
 };
 
-     /**
+/**
 * @brief overloads de < operator too define drivers priority in the binary tree
 *
 * overloads de < operator too define drivers priority in the binary tree
@@ -131,5 +131,15 @@ private:
 * @return returns if a driver a is smaller than a driver b
 */
 bool operator <(const Driver &a,const Driver &b);
+
+/**
+* @brief Operator << overloading
+*
+* Overload of << operator to allow a Driver's information to be printed
+*
+* @param os - ostream to allow the chain of ostreams
+* @param a - Driver Object containing the data to be printed
+* @return Returns the ostream containing the information to be printed
+*/
 ostream& operator <<(ostream& os, const Driver &a);
 

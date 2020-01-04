@@ -183,7 +183,7 @@ public:
 */
     void removeService(Service *service);
 
-    /**
+/**
  * @brief Operator << overloading
  *
  * Overload of << operator to allow a Client's information to be printed
