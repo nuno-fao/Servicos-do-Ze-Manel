@@ -283,9 +283,12 @@ void Company::updateServicesSituation(){
                     (*it)->getClient()->removeService((*it));
                     delete *it;
                     services_on_queue.erase(it);
-                    enter_to_exit();
+                    string x;
+                    cout<<"Press enter to continue"<<endl;
+                    clearBuffer();
+                    getline(cin,x);
                     clearScreen_2_0();
-                    if(!services_on_queue.size()){
+                    if(!services_on_queue.size())
                         break;
                     
                 }
@@ -293,7 +296,19 @@ void Company::updateServicesSituation(){
                     for(size_t i=0;i<(*it)->getTrucks()->size();i++){
                         (*it)->drivers.push_back((Company::getCompany()->driver_queue.front()));
                         Driver tmp=drivers.find(Driver(Company::getCompany()->driver_queue.front().first,"",Company::getCompany()->driver_queue.front().second));
-                        drivers.remove(Driver(Company::getCompany()->driver_queue.front().first,"",Company::getCompany()->driver_queue.front().second));
+                        if(tmp.getNif()==0){
+                            BSTItrIn<Driver> it(*Company::getCompany()->getDrivers());
+                            try {
+                                while (!it.isAtEnd()) {
+                                    if(it.retrieve().getNif()==(Company::getCompany()->driver_queue.front()).first){
+                                        tmp=it.retrieve();
+                                    }
+                                    it.advance();
+                                }
+                            } catch (...) {
+                            }
+                        }
+                        drivers.remove(tmp);
                         if(!tmp.getDriverActiv())
                             tmp.toogleDriverActiv();
                         drivers.insert(tmp);
@@ -309,8 +324,6 @@ void Company::updateServicesSituation(){
     }
 }
 
-
-}
 
 void Company::loadStats() {
     ifstream statfile;

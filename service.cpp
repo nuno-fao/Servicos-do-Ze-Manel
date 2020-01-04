@@ -1985,7 +1985,6 @@ int Service::autoAddTrucks(){
             for(auto c:*(*i)->getServices()){
                 if(((*c->initialDate<*arrivalDate && *arrivalDate<*c->arrivalDate) || (*initialDate<*c->arrivalDate && *c->initialDate<*initialDate))){
                     available_on_time=false;
-                    i=tempVectorIterate.erase(i);
                     break;
                 }
             }
@@ -2001,6 +2000,7 @@ int Service::autoAddTrucks(){
         else{
             i=tempVectorIterate.erase(i);
         }
+        available_on_time=true;3
     }
 
     if(tempVectorIterate.size()<1)
