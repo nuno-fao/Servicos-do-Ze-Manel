@@ -106,6 +106,7 @@ void Company::updateTruckSituation(){
                 for(auto x =(*it)->getTrucks()->begin();x!=(*it)->getTrucks()->end();x++)
                 {
                     x->first->setavailable(true);
+                    x->first->setCargo(0);
                     auto o = x->first->getServices()->begin();
                     while(o!=x->first->getServices()->end()){
                         if((*o)->getId()==(*it)->getId()){
