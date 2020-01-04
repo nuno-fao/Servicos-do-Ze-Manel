@@ -273,11 +273,17 @@ void Company::updateServicesSituation(){
                     clearScreen();
                     cout<<(*it)<<endl;
                     cout<<"Couldn't find drivers to the service, it will be removed, please try to reschedule"<<endl;
-                    (*it)->~Service();
-                    it=services_on_queue.erase(it);
-                    if(it>services_on_queue.begin()){
-                        it--;
+
+                    for(auto xi:*(*it)->getTrucks()){
+                        xi.first->remove_service((*it)->getId());
+                        if(!xi.first->getServices()->size()){
+                            xi.first->setregistered(false);
+                        }
                     }
+                    (*it)->getClient()->removeService((*it));
+                    delete *it;
+                    services_on_queue.erase(it);
+
                     if(!services_on_queue.size()){
                         break;
                     enter_to_exit();
