@@ -24,7 +24,7 @@ vector$<$ \hyperlink{class_truck}{Truck} $\ast$ $>$ $\ast$ \hyperlink{class_comp
 void \hyperlink{class_company_af058ee612ca75f1bbd6507e078e5de0a}{update\+Truck\+Situation} ()
 \begin{DoxyCompactList}\small\item\em Updates the truck\textquotesingle{}s state. \end{DoxyCompactList}\item 
 void \hyperlink{class_company_ae5ce2e4c8d26951b71ca73c7589f6875}{update\+Services\+Situation} ()
-\begin{DoxyCompactList}\small\item\em Updates the services\textquotesingle{} state. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Updates the services\textquotesingle{} state and workshops\textquotesingle{} wainting line. \end{DoxyCompactList}\item 
 void \hyperlink{class_company_a1e471fb69b7924e03cfdc01c3692f26c}{load\+Stats} ()
 \begin{DoxyCompactList}\small\item\em Loads the statistics. \end{DoxyCompactList}\item 
 void \hyperlink{class_company_a3bf95c042bb55a3096871ac861f58f8f}{remove\+Client\+From\+Hash} (unsigned nif)
@@ -41,9 +41,8 @@ vector$<$ pair$<$ int, double $>$ $>$ \hyperlink{class_company_af7e04162aac8a105
 \begin{DoxyCompactList}\small\item\em Gets the statistics from animal-\/carrying trucks. \end{DoxyCompactList}\item 
 vector$<$ pair$<$ int, double $>$ $>$ \hyperlink{class_company_aec149faa3a58555957f83df920897253}{get\+Stat\+Norm} ()
 \begin{DoxyCompactList}\small\item\em Gets the statistics from normal trucks. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{class_company_ac53325e1c17389979293dbc78398dc31}\label{class_company_ac53325e1c17389979293dbc78398dc31}} 
-\hyperlink{class_b_s_t}{B\+ST}$<$ \hyperlink{class_driver}{Driver} $>$ $\ast$ {\bfseries get\+Drivers} ()
-\item 
+\hyperlink{class_b_s_t}{B\+ST}$<$ \hyperlink{class_driver}{Driver} $>$ $\ast$ \hyperlink{class_company_ac53325e1c17389979293dbc78398dc31}{get\+Drivers} ()
+\begin{DoxyCompactList}\small\item\em Gets the Drivers. \end{DoxyCompactList}\item 
 priority\+\_\+queue$<$ \hyperlink{class_workshop}{Workshop} $>$ $\ast$ \hyperlink{class_company_a339f3025b003f464ffd058d5dbdf43e2}{get\+Workshop\+Line} ()
 \begin{DoxyCompactList}\small\item\em Gets the priority queue containing the workshops. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Static Public Member Functions}
@@ -131,6 +130,21 @@ Retrieves the \hyperlink{class_company}{Company} instance
 
 \begin{DoxyReturn}{Returns}
 Returns a pointer to the company 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_company_ac53325e1c17389979293dbc78398dc31}\label{class_company_ac53325e1c17389979293dbc78398dc31}} 
+\index{Company@{Company}!get\+Drivers@{get\+Drivers}}
+\index{get\+Drivers@{get\+Drivers}!Company@{Company}}
+\subsubsection{\texorpdfstring{get\+Drivers()}{getDrivers()}}
+{\footnotesize\ttfamily \hyperlink{class_b_s_t}{B\+ST}$<$ \hyperlink{class_driver}{Driver} $>$ $\ast$ Company\+::get\+Drivers (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Gets the Drivers. 
+
+Retrieves the drivers
+
+\begin{DoxyReturn}{Returns}
+Returns the binary search tree containing the company\textquotesingle{}s drivers 
 \end{DoxyReturn}
 \mbox{\Hypertarget{class_company_acf80072e8abec3e359387243d8cdc49f}\label{class_company_acf80072e8abec3e359387243d8cdc49f}} 
 \index{Company@{Company}!get\+Service@{get\+Service}}
@@ -365,9 +379,9 @@ Returns nothing
 
 
 
-Updates the services\textquotesingle{} state. 
+Updates the services\textquotesingle{} state and workshops\textquotesingle{} wainting line. 
 
-Updates the services\textquotesingle{} state depending on the current, real time
+Updates the services\textquotesingle{} state and workshops\textquotesingle{} wainting line depending on the current, real time
 
 \begin{DoxyReturn}{Returns}
 Returns nothing 

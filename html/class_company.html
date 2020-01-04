@@ -100,7 +100,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:af058ee612ca75f1bbd6507e078e5de0a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the truck's state.  <a href="#af058ee612ca75f1bbd6507e078e5de0a">More...</a><br /></td></tr>
 <tr class="separator:af058ee612ca75f1bbd6507e078e5de0a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae5ce2e4c8d26951b71ca73c7589f6875"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_company.html#ae5ce2e4c8d26951b71ca73c7589f6875">updateServicesSituation</a> ()</td></tr>
-<tr class="memdesc:ae5ce2e4c8d26951b71ca73c7589f6875"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the services' state.  <a href="#ae5ce2e4c8d26951b71ca73c7589f6875">More...</a><br /></td></tr>
+<tr class="memdesc:ae5ce2e4c8d26951b71ca73c7589f6875"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the services' state and workshops' wainting line.  <a href="#ae5ce2e4c8d26951b71ca73c7589f6875">More...</a><br /></td></tr>
 <tr class="separator:ae5ce2e4c8d26951b71ca73c7589f6875"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1e471fb69b7924e03cfdc01c3692f26c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_company.html#a1e471fb69b7924e03cfdc01c3692f26c">loadStats</a> ()</td></tr>
 <tr class="memdesc:a1e471fb69b7924e03cfdc01c3692f26c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads the statistics.  <a href="#a1e471fb69b7924e03cfdc01c3692f26c">More...</a><br /></td></tr>
@@ -126,8 +126,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aec149faa3a58555957f83df920897253"><td class="memItemLeft" align="right" valign="top">vector&lt; pair&lt; int, double &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_company.html#aec149faa3a58555957f83df920897253">getStatNorm</a> ()</td></tr>
 <tr class="memdesc:aec149faa3a58555957f83df920897253"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the statistics from normal trucks.  <a href="#aec149faa3a58555957f83df920897253">More...</a><br /></td></tr>
 <tr class="separator:aec149faa3a58555957f83df920897253"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac53325e1c17389979293dbc78398dc31"><td class="memItemLeft" align="right" valign="top"><a id="ac53325e1c17389979293dbc78398dc31"></a>
-<a class="el" href="class_b_s_t.html">BST</a>&lt; <a class="el" href="class_driver.html">Driver</a> &gt; *&#160;</td><td class="memItemRight" valign="bottom"><b>getDrivers</b> ()</td></tr>
+<tr class="memitem:ac53325e1c17389979293dbc78398dc31"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_b_s_t.html">BST</a>&lt; <a class="el" href="class_driver.html">Driver</a> &gt; *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_company.html#ac53325e1c17389979293dbc78398dc31">getDrivers</a> ()</td></tr>
+<tr class="memdesc:ac53325e1c17389979293dbc78398dc31"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the Drivers.  <a href="#ac53325e1c17389979293dbc78398dc31">More...</a><br /></td></tr>
 <tr class="separator:ac53325e1c17389979293dbc78398dc31"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a339f3025b003f464ffd058d5dbdf43e2"><td class="memItemLeft" align="right" valign="top">priority_queue&lt; <a class="el" href="class_workshop.html">Workshop</a> &gt; *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_company.html#a339f3025b003f464ffd058d5dbdf43e2">getWorkshopLine</a> ()</td></tr>
 <tr class="memdesc:a339f3025b003f464ffd058d5dbdf43e2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the priority queue containing the workshops.  <a href="#a339f3025b003f464ffd058d5dbdf43e2">More...</a><br /></td></tr>
@@ -253,6 +253,27 @@ queue&lt; pair&lt; int, float &gt; &gt;&#160;</td><td class="memItemRight" valig
 <p>Gets <a class="el" href="class_company.html">Company</a>. </p>
 <p>Retrieves the <a class="el" href="class_company.html">Company</a> instance</p>
 <dl class="section return"><dt>Returns</dt><dd>Returns a pointer to the company </dd></dl>
+
+</div>
+</div>
+<a id="ac53325e1c17389979293dbc78398dc31"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac53325e1c17389979293dbc78398dc31">&#9670;&nbsp;</a></span>getDrivers()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_b_s_t.html">BST</a>&lt; <a class="el" href="class_driver.html">Driver</a> &gt; * Company::getDrivers </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Gets the Drivers. </p>
+<p>Retrieves the drivers</p>
+<dl class="section return"><dt>Returns</dt><dd>Returns the binary search tree containing the company's drivers </dd></dl>
 
 </div>
 </div>
@@ -621,8 +642,8 @@ queue&lt; pair&lt; int, float &gt; &gt;&#160;</td><td class="memItemRight" valig
       </table>
 </div><div class="memdoc">
 
-<p>Updates the services' state. </p>
-<p>Updates the services' state depending on the current, real time</p>
+<p>Updates the services' state and workshops' wainting line. </p>
+<p>Updates the services' state and workshops' wainting line depending on the current, real time</p>
 <dl class="section return"><dt>Returns</dt><dd>Returns nothing </dd></dl>
 
 </div>

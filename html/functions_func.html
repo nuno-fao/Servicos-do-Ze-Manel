@@ -67,8 +67,11 @@ $(function() {
 <li>addClient()
 : <a class="el" href="class_client.html#acd07078857cade36eee66b733de7bc38">Client</a>
 </li>
+<li>addDriver()
+: <a class="el" href="class_driver.html#a0a246527d54f67daa2b321f186bf0496">Driver</a>
+</li>
 <li>Address()
-: <a class="el" href="class_address.html#ab7d05c7092c734bfadb4b8be01faa0f3">Address</a>
+: <a class="el" href="class_address.html#a63f910c09d93bdd16d3744e47d13dc0e">Address</a>
 </li>
 <li>addService()
 : <a class="el" href="class_client.html#abf36aa7168464608e917fa40f1ba52db">Client</a>
@@ -127,6 +130,9 @@ $(function() {
 </li>
 <li>deleteWorkshop()
 : <a class="el" href="class_workshop.html#a4074ad493ecc7c4d7d3f0cf53651989c">Workshop</a>
+</li>
+<li>Driver()
+: <a class="el" href="class_driver.html#a9daf39b3a01b68f11364f509bc14bc4c">Driver</a>
 </li>
 </ul>
 
@@ -198,6 +204,12 @@ $(function() {
 <li>getDoorNumber()
 : <a class="el" href="class_address.html#ad6c48032524632f60ccf1057f2fdf208">Address</a>
 </li>
+<li>getDriverActiv()
+: <a class="el" href="class_driver.html#a0d83dbd4c7ca2cb759ef4e79505c3197">Driver</a>
+</li>
+<li>getDrivers()
+: <a class="el" href="class_company.html#ac53325e1c17389979293dbc78398dc31">Company</a>
+</li>
 <li>getFullAdress()
 : <a class="el" href="class_address.html#a923a5973648c27eebac1dbb899d18934">Address</a>
 </li>
@@ -230,12 +242,14 @@ $(function() {
 </li>
 <li>getName()
 : <a class="el" href="class_client.html#a5c473ba52d7678744edec9e51052c947">Client</a>
+, <a class="el" href="class_driver.html#a59bcb147dfde20e0e5a9808c6753ebc3">Driver</a>
 , <a class="el" href="class_workshop.html#acbecea8607c340103ab0171b9d3a88ea">Workshop</a>
 </li>
 <li>getNif()
 : <a class="el" href="class_client.html#a35c9fed8cdb36d28fd5e51bd2aee852e">Client</a>
 , <a class="el" href="class_client_in_vector.html#adab501aba615f5d9b69bbe7a28053801">ClientInVector</a>
 , <a class="el" href="class_client_not_in_vector.html#a0aac0e3aacb58c1535f5785ad5576025">ClientNotInVector</a>
+, <a class="el" href="class_driver.html#a151600b81ed97973a430875e475363b4">Driver</a>
 , <a class="el" href="class_not_a_client.html#a70136e2a67ce191dd0091bb8ace19dd9">NotAClient</a>
 </li>
 <li>getOrigin()
@@ -252,6 +266,9 @@ $(function() {
 </li>
 <li>getService()
 : <a class="el" href="class_company.html#acf80072e8abec3e359387243d8cdc49f">Company</a>
+</li>
+<li>getServiceHours()
+: <a class="el" href="class_driver.html#aec8e6736d78c6bd5d7319457714bc1ef">Driver</a>
 </li>
 <li>getServices()
 : <a class="el" href="class_truck.html#a207506f38e78d7a5f065893295a2c00d">Truck</a>
@@ -359,7 +376,8 @@ $(function() {
 : <a class="el" href="class_client.html#ac18a40ed6975665b7f7661c8dcf7bf1b">Client</a>
 </li>
 <li>loadFromFile()
-: <a class="el" href="class_service.html#add72b2a9e781bdb20a26bdff39952088">Service</a>
+: <a class="el" href="class_driver.html#afe600b8da3667ca334fb94e609abfb50">Driver</a>
+, <a class="el" href="class_service.html#add72b2a9e781bdb20a26bdff39952088">Service</a>
 , <a class="el" href="class_truck.html#ae2d129e4cdd6760feee9a81421d40e17">Truck</a>
 , <a class="el" href="class_workshop.html#a2c184019f526c1f4453c191575c53fd3">Workshop</a>
 </li>
@@ -421,6 +439,7 @@ $(function() {
 </li>
 <li>saveToFile()
 : <a class="el" href="class_client.html#aceebaabb74ad1e3e5b30c168e5ef681b">Client</a>
+, <a class="el" href="class_driver.html#a7606338f98760d3ea1c69d37ce226c8c">Driver</a>
 , <a class="el" href="class_service.html#aa3672a3a070ca951f5b66075a5d4c339">Service</a>
 , <a class="el" href="class_truck.html#ad03e7d588f7f6dc24e1423e2e481ad3a">Truck</a>
 , <a class="el" href="class_workshop.html#a8c1ac9ef329e48b29dbd527de906b27b">Workshop</a>
@@ -490,10 +509,12 @@ $(function() {
 </li>
 <li>setName()
 : <a class="el" href="class_client.html#a1c7f938360e23b3e0e52d17965f88725">Client</a>
+, <a class="el" href="class_driver.html#a560cc4158cb3177cce1419ea98774ddf">Driver</a>
 , <a class="el" href="class_workshop.html#aeb181f680eae9ec645740102fd6810c6">Workshop</a>
 </li>
 <li>setNif()
 : <a class="el" href="class_client.html#a8d0ab1a3c654d361dacde7e1d2b92c94">Client</a>
+, <a class="el" href="class_driver.html#a6495534504d9c510a1f66e09d3c5c6a4">Driver</a>
 </li>
 <li>setOrigin()
 : <a class="el" href="class_service.html#af3f248b1ecea5fd3fb0da198bfdbc7d5">Service</a>
@@ -506,6 +527,9 @@ $(function() {
 </li>
 <li>setregistered()
 : <a class="el" href="class_truck.html#a9268e17e1a967d1702b28c6940403aa4">Truck</a>
+</li>
+<li>setServiceHours()
+: <a class="el" href="class_driver.html#a19867e0eefeb39fe0fd70f22f2700298">Driver</a>
 </li>
 <li>setState()
 : <a class="el" href="class_service.html#a7aa57d557be113ce2025843cb1046137">Service</a>
@@ -538,6 +562,9 @@ $(function() {
 
 
 <h3><a id="index_t"></a>- t -</h3><ul>
+<li>toogleDriverActiv()
+: <a class="el" href="class_driver.html#ae7831eb68d73fc54d564ce71c16d2e3b">Driver</a>
+</li>
 <li>Truck()
 : <a class="el" href="class_truck.html#a9b3cc0181f1368df53aec583fb63f096">Truck</a>
 </li>
