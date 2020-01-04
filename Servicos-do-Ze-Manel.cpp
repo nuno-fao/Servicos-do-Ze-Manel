@@ -45,21 +45,19 @@ int main()
     Company *Ze_Manel = nullptr;
     Ze_Manel=Company::getCompany();
 
+
     try{
         Truck::loadFromFile(Ze_Manel->getVectorTrucks());
     }
     catch(const FailedToOpenTrucks &){
-        cout<<"Can't open trucks.txt, program is ending with error"<<endl;
+        cout<<"Can't open trucks.txt, Prices are set to 0, please change them"<<endl;
     }
 
     try{
         Client::loadClients(*Ze_Manel->getVectorClients());
     }
     catch(const CantOpenClientFile &){
-        ofstream r;
-        r.open("./files/clients.txt");
-        r.close();
-        Client::loadClients(*Ze_Manel->getVectorClients());
+
     }
     try {
         Company::getCompany()->getDrivers()->resetRoot();
@@ -74,31 +72,14 @@ int main()
     sort(((*Ze_Manel).getVectorServicesOnQueue())->begin(),((*Ze_Manel).getVectorServicesOnQueue())->end(),cmpOnQueue);
     sort(((*Ze_Manel).getVectorServicesOnTransit())->begin(),((*Ze_Manel).getVectorServicesOnTransit())->end(),cmpOnTransit);
 
-
     try{
         Service::loadFromFile(Ze_Manel->getVectorServicesFinished(),Ze_Manel->getVectorServicesOnTransit(),Ze_Manel->getVectorServicesOnQueue());
     }
-    catch(const ServiceOnQueueFileError){
-        ofstream r;
-        r.open("./files/on_queue_services.txt");
-        r.close();
-        Service::loadFromFile(Ze_Manel->getVectorServicesFinished(),Ze_Manel->getVectorServicesOnTransit(),Ze_Manel->getVectorServicesOnQueue());
+    catch(...){
+
 
     }
-    catch(const ServiceOnTransitFileError){
-        ofstream r;
-        r.open("./files/on_transit_services.txt");
-        r.close();
-        Service::loadFromFile(Ze_Manel->getVectorServicesFinished(),Ze_Manel->getVectorServicesOnTransit(),Ze_Manel->getVectorServicesOnQueue());
 
-    }
-    catch(const ServiceFinishedFileError){
-        ofstream r;
-        r.open("./files/finished_services.txt");
-        r.close();
-        Service::loadFromFile(Ze_Manel->getVectorServicesFinished(),Ze_Manel->getVectorServicesOnTransit(),Ze_Manel->getVectorServicesOnQueue());
-
-    }
 
     Workshop::loadFromFile(Ze_Manel->getWorkshopLine());
 
