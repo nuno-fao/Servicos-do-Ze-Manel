@@ -68,9 +68,37 @@ public:
 */
     void setServiceHours(float ServiceHours);
 
+    /**
+* @brief loads drivers info and loads the binary tree
+*
+* Loads drivers info and loads the binary tree
+*
+* @return Returns nothing
+*/
     static void loadFromFile();
+        /**
+* @brief saves drivers info into the file
+*
+* Saves drivers info into the file
+*
+* @return Returns nothing
+*/
     static void saveToFile();
+            /**
+* @brief adds a driver to the binary tree
+*
+* Adds a driver to the binary tree
+*
+* @return Returns nothing
+*/
     static void addDriver();
+     /**
+* @brief toogles driver active status
+*
+* if the driver is active, it turn non active, if it is inactive it turn active
+*
+* @return Returns nothing
+*/
     void toogleDriverActiv();
 
 private:
@@ -80,6 +108,15 @@ private:
     bool active; /// true if active
 };
 
+     /**
+* @brief overloads de < operator too define drivers priority in the binary tree
+*
+* overloads de < operator too define drivers priority in the binary tree
+*
+* @param a - driver a
+* @param b - driver b
+* @return returns if a driver a is smaller than a driver b
+*/
 bool operator <(const Driver &a,const Driver &b);
 ostream& operator <<(ostream& os, const Driver &a);
 
