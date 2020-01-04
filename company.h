@@ -119,9 +119,9 @@ public:
 */
     void updateTruckSituation();
 /**
-* @brief Updates the services' state
+* @brief Updates the services' state and workshops' wainting line
 *
-* Updates the services' state depending on the current, real time
+* Updates the services' state and workshops' wainting line  depending on the current, real time
 *
 * @return Returns nothing
 */
