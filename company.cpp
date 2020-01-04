@@ -270,7 +270,7 @@ void Company::updateServicesSituation(){
             if(*(*it)->getIDate()<f){
                 (*it)->setState(on_transit);
                 if(driver_queue.size()<(*it)->getTrucks()->size()){
-                    clearScreen();
+                    clearScreen_2_0();
                     cout<<(*it)<<endl;
                     cout<<"Couldn't find drivers to the service, it will be removed, please try to reschedule"<<endl;
 
@@ -283,11 +283,11 @@ void Company::updateServicesSituation(){
                     (*it)->getClient()->removeService((*it));
                     delete *it;
                     services_on_queue.erase(it);
-
+                    enter_to_exit();
+                    clearScreen_2_0();
                     if(!services_on_queue.size()){
                         break;
-                    enter_to_exit();
-                    clearScreen();
+                    
                 }
                 else{
                     for(size_t i=0;i<(*it)->getTrucks()->size();i++){

@@ -18,6 +18,18 @@ void clearScreen() {
 }
 #endif
 
+#ifdef _WIN32
+void clearScreen_2_0() {
+	system("cls"); system("cls");
+}
+#endif
+
+#ifdef linux
+void clearScreen_2_0() {
+	system("clear"); system("clear");
+}
+#endif
+
 vector<string> vectorString(string stringToVectorize, string separador) {
 	vector<string> ret;
 	size_t startPos = 0, endPos = 0;

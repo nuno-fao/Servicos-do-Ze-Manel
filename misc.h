@@ -33,6 +33,12 @@ class Date;
 void clearScreen();
 /**
 *
+* Deletes all outputs
+*
+*/
+void clearScreen_2_0();
+/**
+*
 * Split the string into a vector on every substring thats equal to the separator param
 *
 * @param separator - where to split the string
