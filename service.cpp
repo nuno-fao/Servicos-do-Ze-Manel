@@ -465,11 +465,13 @@ void Service::loadFromFile(list<Service*> *services_finished,vector<Service*> *s
         }
         tempType=intToType(stoi(tt.at(0)));
 
+        getline(servicesFile,temptrucks);
+        tempVectorTruckS=vectorString(temptrucks,";");
+
         getline(servicesFile,tempGeneral);
         tempState=intToState(stoi(tempGeneral));
 
-        getline(servicesFile,temptrucks);
-        tempVectorTruckS=vectorString(temptrucks,";");
+
 
         getline(servicesFile,tempIDate);
 
