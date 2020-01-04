@@ -232,13 +232,12 @@ void Company::updateServicesSituation(){
                         }
                     }
                     drivers.remove(tmp);
-                    if(min%60!=0){
-                        hours++;
-                    }
+                    hours+=(hours%60)/60;
                     if(tmp.getDriverActiv())
                         tmp.toogleDriverActiv();
                     tmp.setServiceHours(tmp.getServiceHours()+float(hours));
-                    drivers.insert(tmp);
+                    if(tmp.getNif()!=0)
+                        drivers.insert(tmp);
                 }
             }
             else{
@@ -311,7 +310,9 @@ void Company::updateServicesSituation(){
                         drivers.remove(tmp);
                         if(!tmp.getDriverActiv())
                             tmp.toogleDriverActiv();
-                        drivers.insert(tmp);
+
+                        if(tmp.getNif()!=0)
+                            drivers.insert(tmp);
                         Company::getCompany()->driver_queue.pop();
                     }
                 }
