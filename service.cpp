@@ -2000,7 +2000,7 @@ int Service::autoAddTrucks(){
         else{
             i=tempVectorIterate.erase(i);
         }
-        available_on_time=true;3
+        available_on_time=true;
     }
 
     if(tempVectorIterate.size()<1)
