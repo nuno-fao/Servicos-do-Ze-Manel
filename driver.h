@@ -10,7 +10,20 @@ class Company;
 class Driver
 {
 public:
-    Driver(int nif,string name,float serviceHours);
+/**
+ * @brief Constructor with all data necessary
+ *
+ * Receives all the data it needs to construct a driver properly
+ * It is the most used constructor of the three
+ *
+ * @param nif - Identification number of the driver
+ * @param name - Name of the driver
+ * @param serviceHours - driver's number of hours of service
+ */
+    Driver(int nif,string name, float serviceHours);
+/**
+* Default Constructor
+*/
     Driver(){
         Driver(1,"0",0);
     }
