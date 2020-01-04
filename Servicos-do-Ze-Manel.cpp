@@ -198,9 +198,14 @@ void menu_drivers(){
                     cout<<"Enter the Nif of the driver you wish to delete"<<endl;
                     getline(cin,nif);
                     checkIfOut(nif);
-                    if(strIsNumber(nif) && checkNif(stoi(nif))){
-                        nif_i=stoi(nif);
-                        out=true;
+                    try{
+                        if(strIsNumber(nif) && checkNif(stoi(nif))){
+                            nif_i=stoi(nif);
+                            out=true;
+                        }
+                    }
+                    catch(...){
+
                     }
                     clearScreen();
                     cout<<"Nif input not valid"<<endl;

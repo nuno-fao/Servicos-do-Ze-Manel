@@ -235,6 +235,8 @@ void Company::updateServicesSituation(){
                     if(min%60!=0){
                         hours++;
                     }
+                    if(tmp.getDriverActiv())
+                        tmp.toogleDriverActiv();
                     tmp.setServiceHours(tmp.getServiceHours()+float(hours));
                     drivers.insert(tmp);
                 }
@@ -267,13 +269,30 @@ void Company::updateServicesSituation(){
         for(auto it=services_on_queue.begin(); it!= services_on_queue.end();it++){
             if(*(*it)->getIDate()<f){
                 (*it)->setState(on_transit);
-                for(size_t i=0;i<(*it)->getTrucks()->size();i++){
-                    (*it)->drivers.push_back((Company::getCompany()->driver_queue.front()));
-                    Driver tmp=drivers.find(Driver(Company::getCompany()->driver_queue.front().first,"",Company::getCompany()->driver_queue.front().second));
-                    drivers.remove(Driver(Company::getCompany()->driver_queue.front().first,"",Company::getCompany()->driver_queue.front().second));
-                    tmp.toogleDriverActiv();
-                    drivers.insert(tmp);
-                    Company::getCompany()->driver_queue.pop();
+                if(driver_queue.size()<(*it)->getTrucks()->size()){
+                    clearScreen();
+                    cout<<(*it)<<endl;
+                    cout<<"Couldn't find drivers to the service, it will be removed, please try to reschedule"<<endl;
+                    (*it)->~Service();
+                    it=services_on_queue.erase(it);
+                    if(it>services_on_queue.begin()){
+                        it--;
+                    }
+                    if(!services_on_queue.size()){
+                        break;
+                    enter_to_exit();
+                    clearScreen();
+                }
+                else{
+                    for(size_t i=0;i<(*it)->getTrucks()->size();i++){
+                        (*it)->drivers.push_back((Company::getCompany()->driver_queue.front()));
+                        Driver tmp=drivers.find(Driver(Company::getCompany()->driver_queue.front().first,"",Company::getCompany()->driver_queue.front().second));
+                        drivers.remove(Driver(Company::getCompany()->driver_queue.front().first,"",Company::getCompany()->driver_queue.front().second));
+                        if(!tmp.getDriverActiv())
+                            tmp.toogleDriverActiv();
+                        drivers.insert(tmp);
+                        Company::getCompany()->driver_queue.pop();
+                    }
                 }
                 Company::getCompany()->services_on_queue_changed=true;
             }
@@ -282,6 +301,7 @@ void Company::updateServicesSituation(){
             }
         }
     }
+}
 
 
 }

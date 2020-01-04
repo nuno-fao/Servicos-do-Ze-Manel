@@ -105,7 +105,7 @@ private:
     int nif; /// Driver's NIF
     string name; /// Driver's name
     float service_hours; /// Driver's number of hours of service
-    bool active; /// true if active
+    bool active=0; /// true if active
 };
 
      /**
