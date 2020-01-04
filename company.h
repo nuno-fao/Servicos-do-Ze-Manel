@@ -190,9 +190,14 @@ public:
 * @return Returns a vector containing pairs that represents the number of trucks of that type that have a determined capacity
 */
 	vector<pair<int, double>> getStatNorm() { return statNorm; }
+/**
+* @brief Gets the Drivers
+*
+* Retrieves the drivers
+*
+* @return Returns the binary search tree containing the company's drivers
+*/
     BST<Driver> *getDrivers();
-
-
 /**
 * @brief Gets the priority queue containing the workshops
 *

@@ -10,7 +10,20 @@ class Company;
 class Driver
 {
 public:
-    Driver(int nif,string name,float serviceHours);
+/**
+ * @brief Constructor with all data necessary
+ *
+ * Receives all the data it needs to construct a driver properly
+ * It is the most used constructor of the three
+ *
+ * @param nif - Identification number of the driver
+ * @param name - Name of the driver
+ * @param serviceHours - driver's number of hours of service
+ */
+    Driver(int nif,string name, float serviceHours);
+/**
+* Default Constructor
+*/
     Driver(){
         Driver(1,"0",0);
     }
@@ -108,7 +121,7 @@ private:
     bool active=0; /// true if active
 };
 
-     /**
+/**
 * @brief overloads de < operator too define drivers priority in the binary tree
 *
 * overloads de < operator too define drivers priority in the binary tree
@@ -118,5 +131,15 @@ private:
 * @return returns if a driver a is smaller than a driver b
 */
 bool operator <(const Driver &a,const Driver &b);
+
+/**
+* @brief Operator << overloading
+*
+* Overload of << operator to allow a Driver's information to be printed
+*
+* @param os - ostream to allow the chain of ostreams
+* @param a - Driver Object containing the data to be printed
+* @return Returns the ostream containing the information to be printed
+*/
 ostream& operator <<(ostream& os, const Driver &a);
 
