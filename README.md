@@ -14,3 +14,11 @@ Conta com as seguintes features:
 
 Projeto final para a cadeira de AEDA.
 Nota final de 17.7
+
+<table style="width:50%;">
+  <tr>
+    <th><a href="https://github.com/rocas777"><b>Miguel Pinto</b></a></th>
+    <th><a href="https://github.com/NunationFL"><b>Nuno Oliveira</b></a></th>
+    <th><a href="https://github.com/nunores"><b>Nuno Resende</b></a></th>
+  </tr>
+</table>
