@@ -1,6 +1,0 @@
-<map id="Client" name="Client">
-<area shape="rect" id="node2" href="$class_cant_open_client_file.html" title="CantOpenClientFile" alt="" coords="5,80,141,107"/>
-<area shape="rect" id="node3" href="$class_client_in_vector.html" title="ClientInVector" alt="" coords="166,80,271,107"/>
-<area shape="rect" id="node4" href="$class_client_not_in_vector.html" title="ClientNotInVector" alt="" coords="295,80,422,107"/>
-<area shape="rect" id="node5" href="$class_not_a_client.html" title="NotAClient" alt="" coords="446,80,533,107"/>
-</map>
